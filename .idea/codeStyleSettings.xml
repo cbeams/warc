@@ -7,9 +7,31 @@
         <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="2" />
         <option name="IMPORT_LAYOUT_TABLE">
           <value>
+            <package name="org.iokit.warc" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="org.iokit.imf.read" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="org.iokit.imf" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="org.iokit.core.read" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="org.iokit.core.parse" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="org.iokit.core.input" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="io.beams.valjo" withSubpackages="true" static="false" />
+            <emptyLine />
             <package name="org.junit" withSubpackages="true" static="false" />
             <emptyLine />
+            <package name="org.assertj.core.api" withSubpackages="true" static="false" />
+            <emptyLine />
             <package name="java.net" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="java.util.zip" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="it.unimi.dsi.fastutil" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="java.nio" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="java.io" withSubpackages="true" static="false" />
             <emptyLine />

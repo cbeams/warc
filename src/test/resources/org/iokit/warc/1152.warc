@@ -1,0 +1,11 @@
+WARC/1.0
+WARC-Type: metadata
+WARC-Target-URI: CC-MAIN-20170322212946-00003-ip-10-233-31-227.ec2.internal.warc.gz
+WARC-Date: 2017-03-31T03:52:53Z
+WARC-Record-ID: <urn:uuid:a8b7b8ba-0c0f-4056-9cf2-cd9f051375f5>
+WARC-Refers-To: <urn:uuid:d860755e-b47d-4181-97a4-c62ca81f12b8>
+Content-Type: application/json
+Content-Length: 1152
+
+{"Envelope":{"Format":"WARC","WARC-Header-Length":"274","Block-Digest":"sha1:VHEQLKB5KT23M2WL44WYDQ7HAH2G6BYE","Actual-Content-Length":"342","WARC-Header-Metadata":{"WARC-Type":"warcinfo","WARC-Filename":"CC-MAIN-20170322212946-00003-ip-10-233-31-227.ec2.internal.warc.gz","WARC-Date":"2017-03-31T03:52:53Z","Content-Length":"342","WARC-Record-ID":"<urn:uuid:d860755e-b47d-4181-97a4-c62ca81f12b8>","Content-Type":"application/warc-fields"},"Payload-Metadata":{"Trailing-Slop-Length":"0","Actual-Content-Type":"application/warc-fields","Actual-Content-Length":"342","Headers-Corrupt":true,"WARC-Info-Metadata":{"robots":"classic","software":"Nutch 1.6 (CC)/CC WarcExport 1.0","description":"Wide crawl of the web for March 2017","hostname":"ip-10-233-31-227.ec2.internal","format":"WARC File Format 1.0","isPartOf":"CC-MAIN-2017-13","operator":"CommonCrawl Admin","publisher":"CommonCrawl"}}},"Container":{"Compressed":true,"Gzip-Metadata":{"Footer-Length":"8","Deflate-Length":"430","Header-Length":"10","Inflated-CRC":"-1022049134","Inflated-Length":"620"},"Offset":"0","Filename":"CC-MAIN-20170322212946-00003-ip-10-233-31-227.ec2.internal.warc.gz"}}
+
