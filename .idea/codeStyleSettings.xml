@@ -15,9 +15,13 @@
             <emptyLine />
             <package name="org.iokit.core.read" withSubpackages="true" static="false" />
             <emptyLine />
+            <package name="org.iokit.core.validate" withSubpackages="true" static="false" />
+            <emptyLine />
             <package name="org.iokit.core.parse" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.core.input" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="org.iokit.core.token" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="io.beams.valjo" withSubpackages="true" static="false" />
             <emptyLine />

@@ -7,8 +7,7 @@ import org.iokit.warc.WarcRecordHeader;
 import org.iokit.imf.read.MessageReader;
 
 import org.iokit.core.read.LineReader;
-
-import org.iokit.core.parse.ParsingException;
+import org.iokit.core.read.ReaderException;
 
 import java.io.ByteArrayInputStream;
 import java.io.EOFException;
@@ -47,7 +46,7 @@ public class WarcRecordReader implements AutoCloseable, MessageReader<WarcRecord
     }
 
     @Override
-    public WarcRecord read() throws EOFException, ParsingException {
+    public WarcRecord read() throws ReaderException, EOFException {
         WarcRecordHeader header = headerReader.read();
         WarcRecordBody body = bodyReader.read(header.getContentLength());
         return new WarcRecord(header, body);

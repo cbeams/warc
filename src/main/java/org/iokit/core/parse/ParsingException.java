@@ -1,8 +1,14 @@
 package org.iokit.core.parse;
 
-public class ParsingException extends Exception {
+import org.iokit.core.IOKitException;
+
+public class ParsingException extends IOKitException {
 
     public ParsingException(String message, Object... args) {
         super(String.format(message, args));
+    }
+
+    public ParsingException(Throwable cause) {
+        super(cause);
     }
 }

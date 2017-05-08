@@ -1,7 +1,5 @@
 package org.iokit.core.read;
 
-import org.iokit.core.parse.ParsingException;
-
 import java.io.EOFException;
 
 public class CountOffReader implements Reader<Void> {
@@ -15,7 +13,7 @@ public class CountOffReader implements Reader<Void> {
     }
 
     @Override
-    public Void read() throws EOFException, ParsingException {
+    public Void read() throws ReaderException, EOFException {
         for (int i=0; i < count; i++)
             reader.read();
 

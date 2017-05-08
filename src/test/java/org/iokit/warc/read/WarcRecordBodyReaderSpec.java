@@ -2,7 +2,7 @@ package org.iokit.warc.read;
 
 import org.iokit.warc.WarcRecordBody;
 
-import org.iokit.core.parse.ParsingException;
+import org.iokit.core.read.ReaderException;
 
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WarcRecordBodyReaderSpec {
 
     @Test
-    public void readWellFormedBody() throws IOException, ParsingException {
+    public void readWellFormedBody() throws IOException, ReaderException {
         String content = "0123ü56789";
         String input = content + "\r\n\r\n";
 

@@ -5,7 +5,7 @@ import org.iokit.warc.WarcRecord;
 import org.iokit.warc.WarcRecordHeader;
 import org.iokit.warc.WarcRecordVersion;
 
-import org.iokit.core.parse.ParsingException;
+import org.iokit.core.read.ReaderException;
 
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class WarcRecordReaderSpec {
      * C.1: Example of 'warcinfo' record
      */
     @Test
-    public void readExampleWarcinfoRecord() throws EOFException, ParsingException {
+    public void readExampleWarcinfoRecord() throws ReaderException, EOFException {
         String input = "" +
             "WARC/1.0\r\n" +
             "WARC-Type: warcinfo\r\n" +

@@ -1,7 +1,5 @@
 package org.iokit.core.read;
 
-import org.iokit.core.parse.ParsingException;
-
 import org.iokit.core.input.CompletionAwareInput;
 
 import java.io.EOFException;
@@ -22,7 +20,7 @@ public class SequentialReader<T> extends AutoCloseableReader<T, CompletionAwareI
         this.separatorReader = separatorReader;
     }
 
-    public T read() throws EOFException, ParsingException {
+    public T read() throws ReaderException, EOFException {
         if (input.isComplete())
             return null;
 
@@ -32,12 +30,12 @@ public class SequentialReader<T> extends AutoCloseableReader<T, CompletionAwareI
         return value;
     }
 
-    public Stream<T> stream() throws EOFException, ParsingException {
+    public Stream<T> stream() {
         return StreamSupport.stream(new SequentialSpliterator(), false);
     }
 
 
-    class SequentialSpliterator implements Spliterator<T> {
+    private class SequentialSpliterator implements Spliterator<T> {
 
         @Override
         public boolean tryAdvance(Consumer<? super T> action) {

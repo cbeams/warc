@@ -1,7 +1,5 @@
 package org.iokit.core.read;
 
-import org.iokit.core.parse.ParsingException;
-
 import org.iokit.core.input.CompletionAwareInput;
 
 import java.io.EOFException;
@@ -15,7 +13,7 @@ public class CountingReader<T> extends SequentialReader<T> {
     }
 
     @Override
-    public T read() throws EOFException, ParsingException {
+    public T read() throws ReaderException, EOFException {
         T value = super.read();
 
         if (value != null)

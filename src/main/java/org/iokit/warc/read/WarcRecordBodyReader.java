@@ -4,8 +4,7 @@ import org.iokit.warc.WarcRecordBody;
 
 import org.iokit.core.read.ByteArrayReader;
 import org.iokit.core.read.FixedLengthReader;
-
-import org.iokit.core.parse.ParsingException;
+import org.iokit.core.read.ReaderException;
 
 import java.io.ByteArrayInputStream;
 import java.io.EOFException;
@@ -24,7 +23,7 @@ public class WarcRecordBodyReader implements FixedLengthReader<WarcRecordBody> {
     }
 
     @Override
-    public WarcRecordBody read(int length) throws EOFException, ParsingException {
+    public WarcRecordBody read(int length) throws ReaderException, EOFException {
         return new WarcRecordBody(byteArrayReader.read(length));
     }
 }

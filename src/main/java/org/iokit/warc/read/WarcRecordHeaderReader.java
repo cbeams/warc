@@ -6,8 +6,7 @@ import org.iokit.imf.read.FieldSetReader;
 
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
-
-import org.iokit.core.parse.ParsingException;
+import org.iokit.core.read.ReaderException;
 
 import java.io.EOFException;
 
@@ -25,7 +24,7 @@ public class WarcRecordHeaderReader implements Reader<WarcRecordHeader> {
         this.fieldSetReader = fieldSetReader;
     }
 
-    public WarcRecordHeader read() throws EOFException, ParsingException {
+    public WarcRecordHeader read() throws ReaderException, EOFException {
         return new WarcRecordHeader(
             versionReader.read(),
             fieldSetReader.read());

@@ -16,7 +16,7 @@ public class ByteArrayReader implements FixedLengthReader<byte[]> {
     }
 
     @Override
-    public byte[] read(int length) throws EOFException, ParsingException {
+    public byte[] read(int length) throws ReaderException, EOFException {
         byte[] array = new byte[length];
 
         int actual;
@@ -27,7 +27,7 @@ public class ByteArrayReader implements FixedLengthReader<byte[]> {
         }
 
         if (actual != length)
-            throw new ParsingException("expected to read %d bytes, but read only %d", length, actual);
+            throw new ReaderException("expected to read %d bytes, but read only %d", length, actual);
 
         return array;
     }

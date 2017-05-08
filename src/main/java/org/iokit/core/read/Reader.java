@@ -1,7 +1,5 @@
 package org.iokit.core.read;
 
-import org.iokit.core.parse.ParsingException;
-
 import java.io.EOFException;
 
 /**
@@ -9,5 +7,5 @@ import java.io.EOFException;
  */
 public interface Reader<T> {
 
-    T read() throws EOFException, ParsingException;
+    T read() throws ReaderException, EOFException;
 }

@@ -1,7 +1,5 @@
 package org.iokit.core.read;
 
-import org.iokit.core.parse.ParsingException;
-
 import java.io.EOFException;
 
 public class NewlineReader implements Reader<Void> {
@@ -12,11 +10,11 @@ public class NewlineReader implements Reader<Void> {
         this.lineReader = lineReader;
     }
 
-    public Void read() throws ParsingException, EOFException {
+    public Void read() throws ReaderException, EOFException {
         String value = lineReader.read();
 
         if (!value.isEmpty())
-            throw new ParsingException("expected to read a newline but got [%s]", value);
+            throw new ReaderException("expected to read a newline but got [%s]", value);
 
         return null;
     }

@@ -1,5 +1,7 @@
 package org.iokit.core.input;
 
+import org.iokit.core.token.LineTerminator;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;

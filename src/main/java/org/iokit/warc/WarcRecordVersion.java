@@ -1,8 +1,5 @@
 package org.iokit.warc;
 
-import org.iokit.core.parse.NullInputException;
-import org.iokit.core.parse.ParsingException;
-
 import java.util.Objects;
 
 public class WarcRecordVersion {
@@ -18,16 +15,6 @@ public class WarcRecordVersion {
 
     public String getValue() {
         return value;
-    }
-
-    public static WarcRecordVersion parse(String input) throws ParsingException {
-        if (input == null)
-            throw new NullInputException();
-
-        if (!WARC_1_0.equals(input) && !WARC_1_1.equals(input))
-            throw new ParsingException("[%s] is an unsupported or otherwise malformed WARC record version", input);
-
-        return new WarcRecordVersion(input);
     }
 
     @Override

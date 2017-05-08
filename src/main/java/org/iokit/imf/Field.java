@@ -1,12 +1,8 @@
 package org.iokit.imf;
 
-import org.iokit.core.parse.InvalidCharacterException;
-import org.iokit.core.parse.NullInputException;
-import org.iokit.core.parse.ParsingException;
+import org.iokit.core.token.SimpleToken;
 
 import java.util.Objects;
-
-import static org.iokit.core.parse.Ascii.isAsciiControlChar;
 
 public class Field {
 
@@ -15,7 +11,7 @@ public class Field {
     private final Name name;
     private final Value value;
 
-    public Field(Name name, Value value) { // TODO: return to package-private
+    public Field(Name name, Value value) {
         this.name = name;
         this.value = value;
     }
@@ -26,19 +22,6 @@ public class Field {
 
     public Value getValue() {
         return value;
-    }
-
-    public static Field parse(String input) throws ParsingException {
-        if (input == null)
-            throw new NullInputException();
-
-        int separatorIndex = input.indexOf(SEPARATOR);
-        if (separatorIndex == -1)
-            throw new MissingSeparatorException(input);
-
-        return new Field(
-            Name.parse(input.substring(0, separatorIndex)),
-            Value.parse(input.substring(separatorIndex + 1, input.length())));
     }
 
     @Override
@@ -61,33 +44,13 @@ public class Field {
     }
 
 
-    public static class MissingSeparatorException extends ParsingException {
-
-        public MissingSeparatorException(String input) {
-            super("%s input must contain '%c' separator. Input was [%s]",
-                Field.class.getSimpleName(), SEPARATOR, input);
-        }
-    }
-
-
     /**
      * Field names are case-insensitive.
      */
-    public static class Name extends Token {
+    public static class Name extends SimpleToken {
 
-        Name(Token token) {
-            this(token.getValue());
-        }
-
-        public Name(String value) { // TODO: return to package-private
+        public Name(String value) {
             super(value);
-        }
-
-        public static Name parse(String input) throws ParsingException {
-            if (input == null)
-                throw new NullInputException();
-
-            return new Name(Token.parse(input));
         }
 
         @Override
@@ -109,35 +72,8 @@ public class Field {
 
         private final String value;
 
-        Value(String value) {
+        public Value(String value) {
             this.value = value;
-        }
-
-        public static Value parse(String input) throws ParsingException {
-            if (input == null)
-                throw new NullInputException();
-
-            char[] chars = input.toCharArray();
-            for (int index = 0, increment = 1; index < chars.length; index += increment, increment = 1) {
-                char c = chars[index];
-
-                if (c == '\t')
-                    continue;
-
-                if (c == '\r'
-                    && chars.length > index + 2
-                    && chars[index + 1] == '\n'
-                    && (chars[index + 2] == ' ' || chars[index + 2] == '\t')) {
-
-                    increment = 3;
-                    continue;
-                }
-
-                if (isAsciiControlChar(c))
-                    throw new InvalidCharacterException(input, c, index);
-            }
-
-            return new Value(input.replaceAll("\\r\\n[ \\t]+", " ").trim());
         }
 
         @Override

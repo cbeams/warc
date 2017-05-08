@@ -5,8 +5,7 @@ import org.iokit.warc.WarcRecord;
 import org.iokit.core.read.BoundedReader;
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
-
-import org.iokit.core.parse.ParsingException;
+import org.iokit.core.read.ReaderException;
 
 import java.util.zip.GZIPInputStream;
 
@@ -65,20 +64,14 @@ public class WarcReader extends BoundedReader<WarcRecord> {
             return super.read();
         } catch (EOFException ex) {
             throw new MalformedWarcFileException("Premature end of file", ex);
-        } catch (ParsingException ex) {
+        } catch (ReaderException ex) {
             throw new MalformedWarcRecordException(ex);
         }
     }
 
     @Override
     public Stream<WarcRecord> stream() {
-        try {
-            return super.stream();
-        } catch (EOFException ex) {
-            throw new MalformedWarcFileException("Premature end of file", ex);
-        } catch (ParsingException ex) {
-            throw new MalformedWarcRecordException(ex);
-        }
+        return super.stream();
     }
 
     private static InputStream plainOrGzipInputStream(File file) {

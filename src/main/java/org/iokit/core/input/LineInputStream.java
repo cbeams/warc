@@ -1,5 +1,7 @@
 package org.iokit.core.input;
 
+import org.iokit.core.token.LineTerminator;
+
 import it.unimi.dsi.fastutil.io.FastBufferedInputStream;
 
 import java.io.IOException;
@@ -17,7 +19,7 @@ public class LineInputStream extends InputStream implements LineInput {
     private final EnumSet<FastBufferedInputStream.LineTerminator> terminators;
 
     public LineInputStream(InputStream in) {
-        this(in, StandardLineTerminator.values());
+        this(in, LineTerminator.values());
     }
 
     public LineInputStream(InputStream in, LineTerminator... terminators) {
@@ -43,6 +45,24 @@ public class LineInputStream extends InputStream implements LineInput {
     public int readLine(byte[] chunk, int start, int length) {
         try {
             return in.readLine(chunk, start, length, terminators);
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
+    }
+
+    @Override
+    public long setPosition() throws UncheckedIOException {
+        try {
+            return in.position();
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
+    }
+
+    @Override
+    public void setPosition(long newPosition) throws UncheckedIOException {
+        try {
+            in.position(newPosition);
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }

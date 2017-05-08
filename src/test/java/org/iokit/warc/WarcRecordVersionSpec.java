@@ -1,5 +1,7 @@
 package org.iokit.warc;
 
+import org.iokit.warc.parse.WarcRecordVersionParser;
+
 import org.iokit.core.parse.ParsingException;
 
 import io.beams.valjo.ValjoSpec;
@@ -15,6 +17,6 @@ public class WarcRecordVersionSpec extends ValjoSpec {
 
     @Override
     protected Object parse(String input) throws ParsingException {
-        return WarcRecordVersion.parse(input);
+        return new WarcRecordVersionParser().parse(input);
     }
 }

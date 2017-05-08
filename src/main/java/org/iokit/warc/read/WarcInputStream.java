@@ -1,11 +1,12 @@
 package org.iokit.warc.read;
 
 import org.iokit.core.input.CompletionAwareLineInputStream;
-import org.iokit.core.input.LineTerminator;
+
+import org.iokit.core.token.LineTerminator;
 
 import java.io.InputStream;
 
-import static org.iokit.core.input.StandardLineTerminator.CR_LF;
+import static org.iokit.core.token.LineTerminator.CR_LF;
 
 public class WarcInputStream extends CompletionAwareLineInputStream {
 
