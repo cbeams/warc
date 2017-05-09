@@ -37,32 +37,30 @@ public class LineInputStream extends InputStream implements LineInput {
     }
 
     @Override
-    public int read() throws IOException {
-        return in.read();
+    public byte peek() {
+        try {
+            long lastPosition = in.position();
+            int next = in.read();
+            in.position(lastPosition);
+            return (byte) next;
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
+    }
+
+    @Override
+    public int read() throws UncheckedIOException {
+        try {
+            return in.read();
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
     }
 
     @Override
     public int readLine(byte[] chunk, int start, int length) {
         try {
             return in.readLine(chunk, start, length, terminators);
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
-    }
-
-    @Override
-    public long getPosition() throws UncheckedIOException {
-        try {
-            return in.position();
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
-    }
-
-    @Override
-    public void setPosition(long newPosition) throws UncheckedIOException {
-        try {
-            in.position(newPosition);
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }

@@ -16,23 +16,15 @@ public class FoldedLineReader implements Reader<String> {
         if (firstLine == null || firstLine.isEmpty())
             return null;
 
-        StringBuilder input = new StringBuilder();
-        input.append(firstLine);
+        StringBuilder input = new StringBuilder(firstLine);
 
         while (true) {
-            long lastPosition = lineReader.getPosition();
+            byte next = lineReader.peek();
 
-            int nextByte = lineReader.readByte();
-
-            boolean folded = nextByte != -1 && (nextByte == ' ' || nextByte == '\t');
-
-            lineReader.setPosition(lastPosition);
-
-            if (!folded)
+            if (next != ' ' && next != '\t')
                 break;
 
-            String nextLine = lineReader.read();
-            input.append("\r\n").append(nextLine);
+            input.append("\r\n").append(lineReader.read());
         }
 
         return input.toString();
