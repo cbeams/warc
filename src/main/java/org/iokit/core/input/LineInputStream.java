@@ -65,4 +65,9 @@ public class LineInputStream extends InputStream implements LineInput {
             throw new UncheckedIOException(ex);
         }
     }
+
+    @Override
+    public boolean isComplete() {
+        return peek() == -1;
+    }
 }

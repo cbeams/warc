@@ -1,6 +1,6 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.CompletionAwareInput;
+import org.iokit.core.input.LineInput;
 
 import java.io.EOFException;
 
@@ -10,7 +10,7 @@ public class BoundedReader<T> extends CountingReader<T> {
 
     private int minimumCount;
 
-    public BoundedReader(CompletionAwareInput input, Reader<T> reader, Reader<Void> separatorReader, int minimumCount) {
+    public BoundedReader(LineInput input, Reader<T> reader, Reader<Void> separatorReader, int minimumCount) {
         super(input, reader, separatorReader);
         this.minimumCount = minimumCount;
     }
