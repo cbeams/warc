@@ -26,7 +26,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readSingleRecordWarcFile() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/1152.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/single.warc"));
 
         WarcRecord record = reader.read();
         assertThat(record.getHeader().getVersion()).hasToString(WarcRecordVersion.WARC_1_0);
@@ -40,7 +40,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readMultiRecordWarcFile() throws IOException {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/1434-644-2.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc"));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
@@ -51,14 +51,14 @@ public class WarcReaderSpec {
 
     @Test
     public void streamMultiRecordWarcFile() throws IOException {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/1434-644-2.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc"));
         assertThat(reader.stream().count()).isEqualTo(3);
         assertThat(reader.getCurrentCount()).isEqualTo(3);
     }
 
     @Test
     public void readMultiRecordWarcFileWithMalformedRecord() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/malformed-record.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-with-malformed-record.warc"));
 
         // the first record is well-formed
         reader.read();
@@ -75,7 +75,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readMultiRecordWarcFileWithMalformedEndOfFile() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/malformed-eof.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-with-malformed-eof.warc"));
 
         // the first record is well-formed
         reader.read();
@@ -98,7 +98,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readGzippedWarcFile() throws IOException {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/1434-644-2.warc.gz"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc.gz"));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
@@ -110,7 +110,7 @@ public class WarcReaderSpec {
     @Test
     public void readGzippedWarcFileWithUserProvidedGZipInputStream() throws IOException {
         WarcReader reader = new WarcReader(
-            new GZIPInputStream(getClass().getResourceAsStream("/org/iokit/warc/1434-644-2.warc.gz")));
+            new GZIPInputStream(getClass().getResourceAsStream("/org/iokit/warc/multi.warc.gz")));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
@@ -122,7 +122,7 @@ public class WarcReaderSpec {
     @Test
     public void readGzippedWarcFileAsFile() throws IOException {
         WarcReader reader = new WarcReader(
-            new File(getClass().getResource("/org/iokit/warc/1434-644-2.warc.gz").getFile()));
+            new File(getClass().getResource("/org/iokit/warc/multi.warc.gz").getFile()));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
