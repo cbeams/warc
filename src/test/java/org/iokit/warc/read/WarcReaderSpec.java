@@ -3,6 +3,8 @@ package org.iokit.warc.read;
 import org.iokit.warc.WarcRecord;
 import org.iokit.warc.WarcRecordVersion;
 
+import org.iokit.core.validate.ValidatorException;
+
 import org.junit.Test;
 
 import java.util.zip.GZIPInputStream;
@@ -11,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.iokit.warc.WarcRecord.Type.*;
+import static org.iokit.warc.WarcRecord.Type.metadata;
 
 public class WarcReaderSpec {
 
@@ -19,6 +21,7 @@ public class WarcReaderSpec {
     public void readEmptyWarcFile() {
         WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
         assertThatThrownBy(reader::read).isInstanceOf(RuntimeException.class);
+        assertThat(reader.getCurrentCount()).isZero();
     }
 
     @Test
@@ -32,95 +35,100 @@ public class WarcReaderSpec {
         assertThat(record.getBody().getData()[record.getBody().getData().length - 1]).isEqualTo((byte) '}');
 
         assertThat(reader.read()).isEqualTo(null);
+        assertThat(reader.getCurrentCount()).isEqualTo(1);
     }
 
     @Test
-    public void readSingleRecordWarcFileFromURL() { // URL
-        WarcReader reader = new WarcReader(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00658-ip-10-233-31-227.ec2.internal.warc.wat.gz"));
-
-        WarcRecord record = reader.read();
-        assertThat(record.getHeader().getVersion()).hasToString(WarcRecordVersion.WARC_1_0);
-        assertThat(record.getHeader().getRecordType()).isEqualTo(warcinfo);
-        assertThat(record.getHeader().getContentLength()).isEqualTo(108);
-
-        reader.read();
-
-        //assertThat(reader.read()).isEqualTo(null);
-    }
-
-    @Test
-    public void streamSingleRecordWarcFile() {
-        new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/1152.warc"))
-            .stream()
-            .forEach(record -> {
-                assertThat(record.getHeader().getVersion()).hasToString(WarcRecordVersion.WARC_1_0);
-                assertThat(record.getHeader().getRecordType()).isEqualTo(metadata);
-                assertThat(record.getHeader().getContentLength()).isEqualTo(1152);
-                assertThat(record.getBody().getData()[record.getBody().getData().length - 1]).isEqualTo((byte) '}');
-            });
-    }
-
-
-    @Test
-    public void readMalformedWarcFile() {
-        new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/1152.warc"))
-            .stream()
-            .forEach(record -> {
-                assertThat(record.getHeader().getVersion()).hasToString(WarcRecordVersion.WARC_1_0);
-                assertThat(record.getHeader().getRecordType()).isEqualTo(metadata);
-                assertThat(record.getHeader().getContentLength()).isEqualTo(1152);
-                assertThat(record.getBody().getData()[record.getBody().getData().length - 1]).isEqualTo((byte) '}');
-            });
-    }
-
-    @Test
-    public void readTwoRecordWarcFile() {
-        new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/1152.warc"))
-            .stream()
-            .forEach(record -> {
-                assertThat(record.getHeader().getVersion()).hasToString(WarcRecordVersion.WARC_1_0);
-                assertThat(record.getHeader().getRecordType()).isEqualTo(metadata);
-                assertThat(record.getHeader().getContentLength()).isEqualTo(1152);
-                assertThat(record.getBody().getData()[record.getBody().getData().length - 1]).isEqualTo((byte) '}');
-            });
-    }
-
-    @Test
-    public void wellFormedWatFile() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/well-formed.warc.wat"));
-
-        assertThat(reader.read().getHeader().getRecordType()).isEqualTo(warcinfo);
-        assertThat(reader.read().getHeader().getRecordType()).isEqualTo(metadata);
-        assertThat(reader.read().getHeader().getRecordType()).isEqualTo(metadata);
-
-        assertThat(reader.read()).isNull(); // EOF as expected
-    }
-
-    @Test
-    public void testFoo() throws IOException {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/1434-644.warc"));
-        WarcRecord record = reader.read();
-        assertThat(record.getHeader().getContentLength()).isEqualTo(1434);
-        assertThat(reader.read()).isNull();
-    }
-
-    @Test
-    public void testFoo2() throws IOException {
+    public void readMultiRecordWarcFile() throws IOException {
         WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/1434-644-2.warc"));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
         assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
         assertThat(reader.read()).isNull();
+        assertThat(reader.getCurrentCount()).isEqualTo(3);
     }
 
     @Test
-    public void testFoo3() throws IOException {
-        WarcReader reader = new WarcReader(new GZIPInputStream(getClass().getResourceAsStream("/org/iokit/warc/1434-644-2.warc.gz")));
+    public void streamMultiRecordWarcFile() throws IOException {
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/1434-644-2.warc"));
+        assertThat(reader.stream().count()).isEqualTo(3);
+        assertThat(reader.getCurrentCount()).isEqualTo(3);
+    }
+
+    @Test
+    public void readMultiRecordWarcFileWithMalformedRecord() {
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/malformed-record.warc"));
+
+        // the first record is well-formed
+        reader.read();
+
+        // the second record is garbage
+        assertThatThrownBy(reader::read)
+            .hasRootCauseInstanceOf(ValidatorException.class);
+
+        // we never get to the third record
+
+        // count should be 1, as we only successfully read 1 record
+        assertThat(reader.getCurrentCount()).isEqualTo(1);
+    }
+
+    @Test
+    public void readMultiRecordWarcFileWithMalformedEndOfFile() {
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/malformed-eof.warc"));
+
+        // the first record is well-formed
+        reader.read();
+
+        // the second record is well-formed
+        reader.read();
+        assertThat(reader.getCurrentCount()).isEqualTo(2);
+
+        // the third record itself is well-formed but the absence of
+        // trailing newlines causes the read to fail
+        assertThatThrownBy(reader::read)
+            .isInstanceOf(MalformedWarcFileException.class);
+
+        // arguably the count should now be 3, as we did actually read the record
+        // but it remains at 2 to avoid making the implementation more complex and
+        // because it would be impossible to actually do anything with the record
+        // in practice
+        assertThat(reader.getCurrentCount()).isEqualTo(2);
+    }
+
+    @Test
+    public void readGzippedWarcFile() throws IOException {
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/1434-644-2.warc.gz"));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
         assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
         assertThat(reader.read()).isNull();
+        assertThat(reader.getCurrentCount()).isEqualTo(3);
     }
+
+    @Test
+    public void readGzippedWarcFileWithUserProvidedGZipInputStream() throws IOException {
+        WarcReader reader = new WarcReader(
+            new GZIPInputStream(getClass().getResourceAsStream("/org/iokit/warc/1434-644-2.warc.gz")));
+        WarcRecord record1 = reader.read();
+        WarcRecord record2 = reader.read();
+        WarcRecord record3 = reader.read();
+        assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
+        assertThat(reader.read()).isNull();
+        assertThat(reader.getCurrentCount()).isEqualTo(3);
+    }
+
+    @Test
+    public void readGzippedWarcFileAsFile() throws IOException {
+        WarcReader reader = new WarcReader(
+            new File(getClass().getResource("/org/iokit/warc/1434-644-2.warc.gz").getFile()));
+        WarcRecord record1 = reader.read();
+        WarcRecord record2 = reader.read();
+        WarcRecord record3 = reader.read();
+        assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
+        assertThat(reader.read()).isNull();
+        assertThat(reader.getCurrentCount()).isEqualTo(3);
+    }
+
 }

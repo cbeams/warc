@@ -9,9 +9,6 @@ import org.iokit.core.read.ReaderException;
 
 import java.util.zip.GZIPInputStream;
 
-import java.nio.file.Path;
-
-import java.io.ByteArrayInputStream;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,24 +23,12 @@ public class WarcReader extends BoundedReader<WarcRecord> {
 
     public static final int MIN_RECORD_COUNT = 1;
 
-    public WarcReader(Path warcPath) {
-        this(warcPath.toFile());
-    }
-
     public WarcReader(File warcFile) {
         this(plainOrGzipInputStream(warcFile));
     }
 
-    public WarcReader(String warcRecords) {
-        this(warcRecords.getBytes());
-    }
-
-    public WarcReader(byte[] warcBytes) {
-        this(new ByteArrayInputStream(warcBytes));
-    }
-
     public WarcReader(InputStream in) {
-        this(new WarcInputStream(in));
+        this(new WarcInputStream(plainOrGzipInputStream(in)));
     }
 
     public WarcReader(WarcInputStream in) {
@@ -76,10 +61,24 @@ public class WarcReader extends BoundedReader<WarcRecord> {
 
     private static InputStream plainOrGzipInputStream(File file) {
         try {
-            InputStream input = new FileInputStream(file);
+            return plainOrGzipInputStream(new FileInputStream(file));
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
+    }
+
+    private static InputStream plainOrGzipInputStream(InputStream input) {
+        if (input instanceof GZIPInputStream)
+            return input;
+
+        try {
             PushbackInputStream pb = new PushbackInputStream(input, 2);
             byte[] magic = new byte[2];
             int len = pb.read(magic);
+
+            if (len < magic.length)
+                return pb;
+
             pb.unread(magic, 0, len);
 
             if (magic[0] == (byte) 0x1f && magic[1] == (byte) 0x8b) // GZip magic number
