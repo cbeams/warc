@@ -1,6 +1,7 @@
 package org.iokit.core.read;
 
 import org.iokit.core.input.LineInput;
+import org.iokit.core.input.LineInputStream;
 import org.iokit.core.input.Repositionable;
 
 import it.unimi.dsi.fastutil.bytes.ByteArrays;
@@ -26,6 +27,14 @@ public class LineReader implements Repositionable, Reader<String> {
     public LineReader(LineInput input, Charset charset) {
         this.input = input;
         this.charset = charset;
+    }
+
+    public int readByte() {
+        try {
+            return ((LineInputStream)input).read();
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
     }
 
     public String read() throws ReaderException, EOFException {

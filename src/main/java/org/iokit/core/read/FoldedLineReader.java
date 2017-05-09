@@ -21,16 +21,18 @@ public class FoldedLineReader implements Reader<String> {
 
         while (true) {
             long lastPosition = lineReader.getPosition();
-            try {
-                String next = lineReader.read();
-                if (next != null && !next.isEmpty() && (next.charAt(0) == ' ' || next.charAt(0) == '\t')) {
-                    input.append("\r\n").append(next);
-                    continue;
-                }
-            } catch (EOFException ignore) {
-            }
+
+            int nextByte = lineReader.readByte();
+
+            boolean folded = nextByte != -1 && (nextByte == ' ' || nextByte == '\t');
+
             lineReader.setPosition(lastPosition);
-            break;
+
+            if (!folded)
+                break;
+
+            String nextLine = lineReader.read();
+            input.append("\r\n").append(nextLine);
         }
 
         return input.toString();

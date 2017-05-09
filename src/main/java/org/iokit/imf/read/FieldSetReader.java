@@ -17,7 +17,7 @@ public class FieldSetReader implements Reader<Set<Field>> {
     private final FieldReader fieldReader;
 
     public FieldSetReader(LineReader lineReader) {
-        this(new FieldReader(lineReader)); //new FoldedLineReader(lineReader)));
+        this(new FieldReader(new FoldedLineReader(lineReader)));
     }
 
     public FieldSetReader(FieldReader fieldReader) {

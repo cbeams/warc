@@ -2,7 +2,6 @@ package integration;
 
 import org.iokit.warc.read.WarcReader;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.nio.file.Files;
@@ -15,7 +14,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class IntegrationTest {
 
     @Test
-    @Ignore
     public void test() throws IOException {
         long begin = System.currentTimeMillis();
         AtomicInteger n = new AtomicInteger(0);
