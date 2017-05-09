@@ -51,7 +51,7 @@ public class LineInputStream extends InputStream implements LineInput {
     }
 
     @Override
-    public long setPosition() throws UncheckedIOException {
+    public long getPosition() throws UncheckedIOException {
         try {
             return in.position();
         } catch (IOException ex) {

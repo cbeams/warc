@@ -65,8 +65,8 @@ public class LineReader implements Repositionable, Reader<String> {
     }
 
     @Override
-    public long setPosition() {
-        return input.setPosition();
+    public long getPosition() {
+        return input.getPosition();
     }
 
     @Override

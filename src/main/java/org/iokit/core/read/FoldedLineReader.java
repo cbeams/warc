@@ -20,7 +20,7 @@ public class FoldedLineReader implements Reader<String> {
         input.append(firstLine);
 
         while (true) {
-            long lastPosition = lineReader.setPosition();
+            long lastPosition = lineReader.getPosition();
             try {
                 String next = lineReader.read();
                 if (next != null && !next.isEmpty() && (next.charAt(0) == ' ' || next.charAt(0) == '\t')) {

@@ -2,7 +2,7 @@ package org.iokit.core.input;
 
 public interface Repositionable {
 
-    long setPosition();
+    long getPosition();
 
     void setPosition(long newPosition);
 }

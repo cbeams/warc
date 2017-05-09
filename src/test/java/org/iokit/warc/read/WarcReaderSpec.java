@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.zip.GZIPInputStream;
 
+import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.*;
@@ -31,6 +32,20 @@ public class WarcReaderSpec {
         assertThat(record.getBody().getData()[record.getBody().getData().length - 1]).isEqualTo((byte) '}');
 
         assertThat(reader.read()).isEqualTo(null);
+    }
+
+    @Test
+    public void readSingleRecordWarcFileFromURL() { // URL
+        WarcReader reader = new WarcReader(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00658-ip-10-233-31-227.ec2.internal.warc.wat.gz"));
+
+        WarcRecord record = reader.read();
+        assertThat(record.getHeader().getVersion()).hasToString(WarcRecordVersion.WARC_1_0);
+        assertThat(record.getHeader().getRecordType()).isEqualTo(warcinfo);
+        assertThat(record.getHeader().getContentLength()).isEqualTo(108);
+
+        reader.read();
+
+        //assertThat(reader.read()).isEqualTo(null);
     }
 
     @Test
