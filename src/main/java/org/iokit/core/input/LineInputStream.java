@@ -13,9 +13,9 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
 
-public class LineInputStream extends InputStream implements LineInput {
+public class LineInputStream extends InputStream {
 
-    protected final FastBufferedInputStream in;
+    private final FastBufferedInputStream in;
     private final EnumSet<FastBufferedInputStream.LineTerminator> terminators;
 
     public LineInputStream(InputStream in) {
@@ -36,7 +36,6 @@ public class LineInputStream extends InputStream implements LineInput {
                 .collect(toSet()));
     }
 
-    @Override
     public byte peek() {
         try {
             long lastPosition = in.position();
@@ -57,7 +56,6 @@ public class LineInputStream extends InputStream implements LineInput {
         }
     }
 
-    @Override
     public int readLine(byte[] chunk, int start, int length) {
         try {
             return in.readLine(chunk, start, length, terminators);
@@ -66,7 +64,6 @@ public class LineInputStream extends InputStream implements LineInput {
         }
     }
 
-    @Override
     public boolean isComplete() {
         return peek() == -1;
     }

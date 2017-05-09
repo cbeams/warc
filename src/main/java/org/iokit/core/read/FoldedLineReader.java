@@ -13,20 +13,19 @@ public class FoldedLineReader implements Reader<String> {
     @Override
     public String read() throws ReaderException, EOFException {
         String firstLine = lineReader.read();
+
         if (firstLine == null || firstLine.isEmpty())
             return null;
 
-        StringBuilder input = new StringBuilder(firstLine);
+        StringBuilder lines = new StringBuilder(firstLine);
 
-        while (true) {
-            byte next = lineReader.peek();
+        while (isTabOrSpace(lineReader.peek()))
+            lines.append("\r\n").append(lineReader.read());
 
-            if (next != ' ' && next != '\t')
-                break;
+        return lines.toString();
+    }
 
-            input.append("\r\n").append(lineReader.read());
-        }
-
-        return input.toString();
+    private boolean isTabOrSpace(byte b) {
+        return b == ' ' || b == '\t';
     }
 }

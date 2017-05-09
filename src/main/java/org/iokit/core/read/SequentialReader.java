@@ -1,6 +1,6 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.LineInput;
+import org.iokit.core.input.LineInputStream;
 
 import java.io.EOFException;
 
@@ -9,13 +9,14 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class SequentialReader<T> extends AutoCloseableReader<T, LineInput> {
+public class SequentialReader<T> implements Reader<T> {
 
+    private final LineInputStream input;
     private final Reader<T> reader;
     private final Reader<Void> separatorReader;
 
-    public SequentialReader(LineInput input, Reader<T> reader, Reader<Void> separatorReader) {
-        super(input);
+    public SequentialReader(LineInputStream input, Reader<T> reader, Reader<Void> separatorReader) {
+        this.input = input;
         this.reader = reader;
         this.separatorReader = separatorReader;
     }

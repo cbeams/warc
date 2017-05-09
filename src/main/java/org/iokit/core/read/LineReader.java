@@ -1,6 +1,6 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.LineInput;
+import org.iokit.core.input.LineInputStream;
 
 import it.unimi.dsi.fastutil.bytes.ByteArrays;
 import it.unimi.dsi.fastutil.io.FastByteArrayInputStream;
@@ -15,14 +15,14 @@ import java.io.UncheckedIOException;
 
 public class LineReader implements Reader<String> {
 
-    private final LineInput input;
+    private final LineInputStream input;
     private final Charset charset;
 
-    public LineReader(LineInput input) {
+    public LineReader(LineInputStream input) {
         this(input, StandardCharsets.UTF_8);
     }
 
-    public LineReader(LineInput input, Charset charset) {
+    public LineReader(LineInputStream input, Charset charset) {
         this.input = input;
         this.charset = charset;
     }

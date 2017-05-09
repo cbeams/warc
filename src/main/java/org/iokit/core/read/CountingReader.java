@@ -1,6 +1,6 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.LineInput;
+import org.iokit.core.input.LineInputStream;
 
 import java.io.EOFException;
 
@@ -8,7 +8,7 @@ public class CountingReader<T> extends SequentialReader<T> {
 
     private long currentCount = 0;
 
-    public CountingReader(LineInput input, Reader<T> reader, Reader<Void> separatorReader) {
+    public CountingReader(LineInputStream input, Reader<T> reader, Reader<Void> separatorReader) {
         super(input, reader, separatorReader);
     }
 
