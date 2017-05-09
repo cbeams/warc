@@ -36,7 +36,7 @@ public class LineInputStream extends InputStream {
                 .collect(toSet()));
     }
 
-    public byte peek() {
+    public byte peek() throws UncheckedIOException {
         try {
             long lastPosition = in.position();
             int next = in.read();
@@ -56,7 +56,7 @@ public class LineInputStream extends InputStream {
         }
     }
 
-    public int readLine(byte[] chunk, int start, int length) {
+    public int readLine(byte[] chunk, int start, int length) throws UncheckedIOException {
         try {
             return in.readLine(chunk, start, length, terminators);
         } catch (IOException ex) {
@@ -64,7 +64,7 @@ public class LineInputStream extends InputStream {
         }
     }
 
-    public boolean isComplete() {
+    public boolean isComplete() throws UncheckedIOException {
         return peek() == -1;
     }
 }

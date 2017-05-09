@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class SequentialReader<T> implements Reader<T> {
+public class SequentialReader<T> implements AutoCloseable, Reader<T> {
 
     private final LineInputStream input;
     private final Reader<T> reader;
@@ -33,6 +33,11 @@ public class SequentialReader<T> implements Reader<T> {
 
     public Stream<T> stream() {
         return StreamSupport.stream(new SequentialSpliterator(), false);
+    }
+
+    @Override
+    public void close() throws Exception {
+        input.close();
     }
 
 

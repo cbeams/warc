@@ -1,18 +1,16 @@
 package org.iokit.core.read;
 
-import org.iokit.core.parse.ParsingException;
-
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 
-public class ByteArrayReader implements FixedLengthReader<byte[]> {
+public class ByteArrayReader implements AutoCloseable, FixedLengthReader<byte[]> {
 
-    private final InputStream in;
+    private final InputStream input;
 
-    public ByteArrayReader(InputStream in) {
-        this.in = in;
+    public ByteArrayReader(InputStream input) {
+        this.input = input;
     }
 
     @Override
@@ -21,7 +19,7 @@ public class ByteArrayReader implements FixedLengthReader<byte[]> {
 
         int actual;
         try {
-            actual = in.read(array, 0, length);
+            actual = input.read(array, 0, length);
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }
@@ -30,5 +28,10 @@ public class ByteArrayReader implements FixedLengthReader<byte[]> {
             throw new ReaderException("expected to read %d bytes, but read only %d", length, actual);
 
         return array;
+    }
+
+    @Override
+    public void close() throws Exception {
+        input.close();
     }
 }
