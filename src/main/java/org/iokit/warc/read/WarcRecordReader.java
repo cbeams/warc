@@ -10,10 +10,12 @@ import org.iokit.core.read.LineReader;
 import org.iokit.core.read.ReaderException;
 
 import java.io.ByteArrayInputStream;
+import java.io.Closeable;
 import java.io.EOFException;
+import java.io.IOException;
 import java.io.InputStream;
 
-public class WarcRecordReader implements AutoCloseable, MessageReader<WarcRecord> {
+public class WarcRecordReader implements Closeable, MessageReader<WarcRecord> {
 
     private final WarcInputStream in;
     private final WarcRecordHeaderReader headerReader;
@@ -53,7 +55,7 @@ public class WarcRecordReader implements AutoCloseable, MessageReader<WarcRecord
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() throws IOException {
         in.close();
     }
 }

@@ -2,14 +2,16 @@ package org.iokit.core.read;
 
 import org.iokit.core.input.LineInputStream;
 
+import java.io.Closeable;
 import java.io.EOFException;
+import java.io.IOException;
 
 import java.util.Spliterator;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class SequentialReader<T> implements AutoCloseable, Reader<T> {
+public class SequentialReader<T> implements Closeable, Reader<T> {
 
     private final LineInputStream input;
     private final Reader<T> reader;
@@ -36,7 +38,7 @@ public class SequentialReader<T> implements AutoCloseable, Reader<T> {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() throws IOException {
         input.close();
     }
 

@@ -67,4 +67,9 @@ public class LineInputStream extends InputStream {
     public boolean isComplete() throws UncheckedIOException {
         return peek() == -1;
     }
+
+    @Override
+    public void close() throws IOException {
+        in.close();
+    }
 }

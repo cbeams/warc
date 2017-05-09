@@ -10,7 +10,9 @@ import org.junit.Test;
 import java.util.zip.GZIPInputStream;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.iokit.warc.WarcRecord.Type.metadata;
@@ -121,8 +123,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readGzippedWarcFileAsFile() throws IOException {
-        WarcReader reader = new WarcReader(
-            new File(getClass().getResource("/org/iokit/warc/multi.warc.gz").getFile()));
+        WarcReader reader = new WarcReader(new File(getClass().getResource("/org/iokit/warc/multi.warc.gz").getFile()));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
@@ -131,4 +132,19 @@ public class WarcReaderSpec {
         assertThat(reader.getCurrentCount()).isEqualTo(3);
     }
 
+    @Test
+    public void closeIsWellBehaved() throws IOException {
+        InputStream input =
+            new FileInputStream(
+                new File(getClass().getResource("/org/iokit/warc/multi.warc.gz").getFile()));
+
+        try (WarcReader reader = new WarcReader(input)) {
+            reader.read();
+        }
+
+        // any further attempt to read from the stream should now fail
+        assertThatThrownBy(input::read)
+            .isInstanceOf(IOException.class)
+            .hasMessage("Stream Closed");
+    }
 }

@@ -42,7 +42,6 @@ public class WarcRecordReaderSpec {
             " http://www.archive.org/documents/WarcFileFormat-1.0.html";
 
         WarcRecordReader reader = new WarcRecordReader(input);
-
         WarcRecord record = reader.read();
         WarcRecordHeader header = record.getHeader();
         byte[] body = record.getBody().getData();

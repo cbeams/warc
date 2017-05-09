@@ -1,11 +1,12 @@
 package org.iokit.core.read;
 
+import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 
-public class ByteArrayReader implements AutoCloseable, FixedLengthReader<byte[]> {
+public class ByteArrayReader implements Closeable, FixedLengthReader<byte[]> {
 
     private final InputStream input;
 
@@ -31,7 +32,7 @@ public class ByteArrayReader implements AutoCloseable, FixedLengthReader<byte[]>
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() throws IOException {
         input.close();
     }
 }
