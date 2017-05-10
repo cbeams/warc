@@ -52,6 +52,26 @@ public class WarcWriterSpec {
     }
 
     @Test
+    public void writeMultiRecordWarcFileWithFoldingLine() throws IOException {
+        File originalFile = new File(getClass().getResource("/org/iokit/warc/multi-with-folding.warc").getFile());
+        File newFile = new File("/tmp/multi-with-folding.warc");
+
+        try (WarcReader reader = new WarcReader(originalFile);
+             WarcWriter writer = new WarcWriter(new FileOutputStream(newFile))) {
+
+            reader.stream().forEach(record -> {
+                try {
+                    writer.write(record);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+        }
+
+        assertThat(newFile).hasSameContentAs(originalFile);
+    }
+
+    @Test
     @Ignore
     public void copyEntireWarcFile() throws IOException {
         File originalFile = new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz");

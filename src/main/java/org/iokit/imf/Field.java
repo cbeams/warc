@@ -76,9 +76,17 @@ public class Field {
             this.value = value;
         }
 
+        public String getFoldedValue() {
+            return value;
+        }
+
+        public String getUnfoldedValue() {
+            return value.replaceAll("\\r\\n[ \\t]+", " ");
+        }
+
         @Override
         public String toString() {
-            return value;
+            return getUnfoldedValue();
         }
 
         @Override

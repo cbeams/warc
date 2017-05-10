@@ -44,6 +44,8 @@ public class FieldReaderSpec {
         Field field = fieldReader.read();
 
         assertThat(field.getName()).hasToString("Field-Name");
+        assertThat(field.getValue().getUnfoldedValue()).isEqualTo("field value");
+        assertThat(field.getValue().getFoldedValue()).isEqualTo("field\r\n     value");
         assertThat(field.getValue()).hasToString("field value");
     }
 

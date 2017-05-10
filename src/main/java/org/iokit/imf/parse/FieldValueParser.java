@@ -48,6 +48,6 @@ public class FieldValueParser extends ValidatingParser<Field.Value> {
     }
 
     public Field.Value parseValidated(String input) throws ParsingException {
-        return new Field.Value(input.replaceAll("\\r\\n[ \\t]+", " ").trim());
+        return new Field.Value(input.trim());
     }
 }

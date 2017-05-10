@@ -16,7 +16,7 @@ public class FieldWriter {
     public void write(Field field) throws IOException {
         output.write(field.getName().getValue().getBytes());
         output.write(": ".getBytes());
-        output.write(field.getValue().toString().getBytes());
+        output.write(field.getValue().getFoldedValue().getBytes());
         output.write("\r\n".getBytes());
     }
 }
