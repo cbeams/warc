@@ -21,6 +21,9 @@ public class FieldValueParser extends ValidatingParser<Field.Value> {
         this(new Validator() {
             @Override
             public void validate(String input) throws ValidatorException {
+                if (!this.isEnabled())
+                    return;
+
                 char[] chars = input.toCharArray();
                 for (int index = 0, increment = 1; index < chars.length; index += increment, increment = 1) {
                     char c = chars[index];

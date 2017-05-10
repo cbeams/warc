@@ -48,12 +48,8 @@ public class LineInputStream extends InputStream {
     }
 
     @Override
-    public int read() throws UncheckedIOException {
-        try {
-            return in.read();
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+    public int read() throws IOException {
+        return in.read();
     }
 
     public int readLine(byte[] chunk, int start, int length) throws UncheckedIOException {
@@ -62,6 +58,10 @@ public class LineInputStream extends InputStream {
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }
+    }
+
+    public int readLineCheckeChecked(byte[] chunk, int start, int length) throws IOException {
+        return in.readLine(chunk, start, length, terminators);
     }
 
     public boolean isComplete() throws UncheckedIOException {

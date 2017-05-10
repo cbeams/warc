@@ -3,6 +3,7 @@ package org.iokit.warc.read;
 import org.iokit.warc.WarcRecord;
 import org.iokit.warc.WarcRecordVersion;
 
+import org.iokit.core.validate.Validator;
 import org.iokit.core.validate.ValidatorException;
 
 import org.junit.Test;
@@ -16,6 +17,11 @@ import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.iokit.warc.WarcRecord.Type.metadata;
+
+
+
+
+import org.iokit.core.config.Reflector;
 
 public class WarcReaderSpec {
 
@@ -146,5 +152,14 @@ public class WarcReaderSpec {
         assertThatThrownBy(input::read)
             .isInstanceOf(IOException.class)
             .hasMessage("Stream Closed");
+    }
+
+    @Test
+    public void disableValidators() throws Exception {
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc"));
+
+        new Reflector().configure(reader, Validator.class, v -> v.setEnabled(false));
+
+        assertThat(reader.stream().count()).isEqualTo(3);
     }
 }

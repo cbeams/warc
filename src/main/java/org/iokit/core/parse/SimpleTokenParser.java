@@ -23,6 +23,9 @@ public class SimpleTokenParser extends ValidatingParser<Token> {
         this(new Validator() {
             @Override
             public void validate(String input) throws ValidatorException {
+                if (!this.isEnabled())
+                    return;
+
                 if (input.length() < MIN_TOKEN_LENGTH)
                     throw new InvalidLengthException(input, MIN_TOKEN_LENGTH);
 

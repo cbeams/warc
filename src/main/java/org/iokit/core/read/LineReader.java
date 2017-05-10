@@ -52,8 +52,33 @@ public class LineReader implements Reader<String> {
         return line;
     }
 
+    byte[] chunk = new byte[32*1024];
+
+    public byte[] fastRead() throws ReaderException, EOFException {
+
+        int start = 0, length;
+        while ((length = input.readLine(chunk, start, chunk.length - start)) == chunk.length - start) {
+            start += length;
+            chunk = ByteArrays.grow(chunk, chunk.length + 1);
+        }
+
+        return length == -1 ? null : chunk;
+    }
+
+    public String fastStringRead() throws ReaderException, EOFException {
+
+        int start = 0, length;
+        while ((length = input.readLine(chunk, start, chunk.length - start)) == chunk.length - start) {
+            start += length;
+            chunk = ByteArrays.grow(chunk, chunk.length + 1);
+        }
+
+        return length == -1 ? null : length > 1024 ? "ignore body" : new String(chunk, 0, length, charset);
+    }
+
     private static String bytesAsString(byte[] bytes, int length, Charset charset) {
         StringBuilder s = new StringBuilder();
+
 
         try (java.io.Reader reader = new InputStreamReader(new FastByteArrayInputStream(bytes), charset)) {
             for (int i = 0; i < length; i++) {
