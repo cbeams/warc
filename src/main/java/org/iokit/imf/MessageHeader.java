@@ -1,22 +1,23 @@
 package org.iokit.imf;
 
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class MessageHeader {
 
-    protected final Map<Field.Name, Field.Value> fields;
+    private final Set<Field> fields;
 
     public MessageHeader(Set<Field> fields) {
-        this.fields = fields.stream().collect(Collectors.toMap(Field::getName, Field::getValue));
+        this.fields = fields;
     }
 
     public Field getField(String name) {
-        return fields.entrySet().stream()
-            .filter(e -> e.getKey().getValue().equals(name))
-            .map(e -> new Field(e.getKey(), e.getValue()))
+        return fields.stream()
+            .filter(f -> f.getName().getValue().equals(name))
             .findAny()
             .orElseThrow(IllegalArgumentException::new);
+    }
+
+    public Set<Field> getFields() {
+        return fields;
     }
 }

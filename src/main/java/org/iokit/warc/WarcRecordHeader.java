@@ -44,4 +44,5 @@ public class WarcRecordHeader extends StartLineMessageHeader<WarcRecordVersion> 
     public String getRecordId() {
         return getField(WARC_Record_ID).getValue().toString();
     }
+
 }
