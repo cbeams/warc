@@ -17,4 +17,5 @@ dependencies {
     }
 
     testCompile("org.jwat:jwat-warc:1.0.5")
+    testCompile("org.anarres:parallelgzip:1.0.1")
 }

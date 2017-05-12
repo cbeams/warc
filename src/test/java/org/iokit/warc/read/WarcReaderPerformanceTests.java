@@ -8,6 +8,7 @@ import org.iokit.core.input.LineInputStream;
 
 import org.iokit.core.token.LineTerminator;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Stopwatch;
@@ -41,7 +42,7 @@ import org.archive.io.warc.WARCReader;
 import org.archive.io.warc.WARCReaderFactory;
 import org.iokit.core.config.Reflector;
 
-//@Ignore
+@Ignore
 public class WarcReaderPerformanceTests {
 
     @Rule
@@ -251,6 +252,44 @@ public class WarcReaderPerformanceTests {
 
     @Test
     public void c_for_normal_warc_gz() throws Exception {
+        // baseline
+        // $ time gunzip -c /Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz > /dev/null
+        // 10 10 10
+
+        // 512B gzip / 32K read
+        // 16 16 16
+
+        // actuals from below with 8K GZIP chunk size and 32K read size     *
+        // 12 12 12
+
+        // actuals from below with 8K GZIP chunk size and 8K read size
+        // 13 13 13
+
+        // actuals from below with 32K GZIP chunk size and 32K read size    **
+        // 12.3 11.9 12.0
+
+        // actuals from below with 1024K GZIP chunk size and 32K read size  ***
+        // 11.5 11.7 11.8
+
+        // actuals from below with 1024K GZIP chunk size and 64K read size  ****
+        // 11.6 11.3 11.7
+        // 11.2 11.4 11.3
+
+        // actuals from below with 1024K GZIP chunk size and 128K read size
+        // 11.5 11.7 11.4
+
+        InputStream input = new GZIPInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz"), 1024*1024);
+        int count = 0;
+        int size = 64*1024;
+        byte[] chunk = new byte[size];
+        while (input.read(chunk) != -1)
+            count++;
+
+        System.out.printf("read %d %d byte chunks in %d ms\n", count, size, stopwatch.runtime(TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void c_for_normal_warc_gz_with_parallel_gzip() throws Exception {
         // baseline
         // $ time gunzip -c /Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz > /dev/null
         // 10 10 10
@@ -855,6 +894,13 @@ public class WarcReaderPerformanceTests {
         //                     in 29574 ms
         //                     in 32636 ms
         //                     in 23430 ms (!!!)
+        //
+        // before killing validators
+        // read 3 times in 66482 ms for an average of 22160 ms per read
+        //
+        // after
+        // read 3 times in 72903 ms for an average of 24301 ms per read (hmm...)
+        //
         //
         System.out.printf("read %d records in %d ms\n", count, stopwatch.runtime(TimeUnit.MILLISECONDS));
         assertThat(count).isEqualTo(138_865);
