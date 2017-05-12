@@ -41,6 +41,7 @@ import org.archive.io.warc.WARCReader;
 import org.archive.io.warc.WARCReaderFactory;
 import org.iokit.core.config.Reflector;
 
+//@Ignore
 public class WarcReaderPerformanceTests {
 
     @Rule
@@ -839,10 +840,41 @@ public class WarcReaderPerformanceTests {
         // read 138865 records in 33125 ms ----> 18+ seconds faster than webarchive-commons in l_for_normal_gz_warc below!!
         //                     in 34281 ms
         //
+        // and after merging master, which had removal of regexes...
+        //                     in 34432 ms
         //
+        // and after removing bytesAsString call...
+        //                     in 34942 ms
+        //                     in 33663 ms
+        //
+        // and after further cleaning up LineReader#read
+        //                     in 31400 ms
+        //                     in 34381 ms
+        //
+        // and after moving new byte[] out of read method
+        //                     in 29574 ms
+        //                     in 32636 ms
+        //                     in 23430 ms (!!!)
         //
         System.out.printf("read %d records in %d ms\n", count, stopwatch.runtime(TimeUnit.MILLISECONDS));
         assertThat(count).isEqualTo(138_865);
+    }
+
+    @Test
+    public void k_for_normal_gz_warc_3_times() throws Exception {
+
+        // 24078 ms per read (!)
+
+        k_for_normal_gz_warc(); // throw away warmup
+        System.out.println("throwaway complete");
+        long start = currentTimeMillis();
+        int n=3;
+        for (int i=0; i<n; i++) {
+            k_for_normal_gz_warc();
+            System.out.println(i);
+        }
+        long elapsed = currentTimeMillis() - start;
+        System.out.printf("read %d times in %d ms for an average of %d ms per read\n", n, elapsed, elapsed/3);
     }
 
     @Test
