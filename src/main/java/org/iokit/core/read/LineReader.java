@@ -40,7 +40,9 @@ public class LineReader implements Reader<String> {
         if (length == -1)
             throw new EOFException();
 
-        return new String(chunk, 0, length, charset);
+        int total = length + start;
+
+        return new String(chunk, 0, total, charset);
     }
 
     byte[] testchunk = new byte[32*1024];
