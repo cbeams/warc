@@ -15,8 +15,8 @@ public final class InputStreams {
         if (input instanceof GZIPInputStream)
             return input;
 
-        PushbackInputStream pb = new PushbackInputStream(input, 2);
-        byte[] magic = new byte[2];
+        PushbackInputStream pb = new PushbackInputStream(input, 8);
+        byte[] magic = new byte[8];
         int len = pb.read(magic);
 
         if (len < magic.length)
