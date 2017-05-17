@@ -28,7 +28,6 @@ public class MagicInputStream extends FilterInputStream {
     }
 
     public static InputStream map(InputStream in, int size) throws IOException {
-
         byte[] magic = new byte[size];
         PushbackInputStream input = new PushbackInputStream(in, size);
 
