@@ -9,6 +9,7 @@ import org.iokit.core.read.ReaderException;
 
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.EOFException;
 
 import static org.assertj.core.api.Assertions.*;
@@ -41,7 +42,11 @@ public class WarcRecordReaderSpec {
             "conformsTo:\r\n" +
             " http://www.archive.org/documents/WarcFileFormat-1.0.html";
 
-        WarcRecordReader reader = new WarcRecordReader(input);
+        WarcRecordReader reader =
+            new WarcRecordReader(
+                new WarcInputStream(
+                    new ByteArrayInputStream(input.getBytes())));
+
         WarcRecord record = reader.read();
         WarcRecordHeader header = record.getHeader();
         byte[] body = record.getBody().getData();
