@@ -9,6 +9,8 @@ import org.iokit.imf.read.MessageReader;
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.ReaderException;
 
+import org.iokit.core.input.LineInputStream;
+
 import java.io.EOFException;
 
 public class WarcRecordReader implements MessageReader<WarcRecord> {
@@ -16,11 +18,11 @@ public class WarcRecordReader implements MessageReader<WarcRecord> {
     private final WarcRecordHeaderReader headerReader;
     private final WarcRecordBodyReader bodyReader;
 
-    public WarcRecordReader(WarcInputStream in) {
+    public WarcRecordReader(LineInputStream in) {
         this(in, new LineReader(in));
     }
 
-    public WarcRecordReader(WarcInputStream in, LineReader lineReader) {
+    public WarcRecordReader(LineInputStream in, LineReader lineReader) {
         this(new WarcRecordHeaderReader(lineReader), new WarcRecordBodyReader(in));
     }
 

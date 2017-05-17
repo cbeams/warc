@@ -7,6 +7,8 @@ import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
 
+import org.iokit.core.input.LineInputStream;
+
 import java.util.zip.GZIPInputStream;
 
 import java.io.EOFException;
@@ -31,15 +33,15 @@ public class WarcReader extends BoundedReader<WarcRecord> {
         this(new WarcInputStream(plainOrGzipInputStream(in)));
     }
 
-    public WarcReader(WarcInputStream in) {
+    public WarcReader(LineInputStream in) {
         this(in, new LineReader(in));
     }
 
-    public WarcReader(WarcInputStream in, LineReader lineReader) {
+    public WarcReader(LineInputStream in, LineReader lineReader) {
         this(in, new WarcRecordReader(in), new WarcRecordSeparatorReader(lineReader));
     }
 
-    public WarcReader(WarcInputStream in, WarcRecordReader recordReader, Reader<Void> separatorReader) {
+    public WarcReader(LineInputStream in, WarcRecordReader recordReader, Reader<Void> separatorReader) {
         super(in, recordReader, separatorReader, MIN_RECORD_COUNT);
     }
 
