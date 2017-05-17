@@ -1,5 +1,8 @@
 package org.iokit.warc.read;
 
+import org.iokit.warc.WarcRecord;
+import org.iokit.warc.write.WarcRecordWriter;
+
 import org.junit.Test;
 
 import java.util.zip.GZIPInputStream;
@@ -12,6 +15,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class RandomAccessExperiments {
 
@@ -102,5 +106,33 @@ public class RandomAccessExperiments {
             int length = in.readLine(line);
             System.out.println(new String(line, 0, length, UTF_8));
         }
+    }
+
+    @Test
+    public void test5() throws IOException {
+        WarcReader reader = new WarcReader(new WarcInputStream(new FileInputStream(new File("/tmp/entire.warc"))));
+
+        reader.seek(1_549_727_457);
+
+        WarcRecord record = reader.read();
+
+        new WarcRecordWriter(System.out).write(record);
+
+        assertThat(record.getHeader().getRecordId()).isEqualTo("<urn:uuid:71124c20-52f4-4451-9de2-d41609631374>");
+        assertThat(record.getHeader().getContentLength()).isEqualTo(1068);
+    }
+
+    @Test
+    public void test6() throws IOException {
+        WarcReader reader = new WarcReader(new WarcInputStream(new GZIPInputStream(new FileInputStream(new File("/tmp/entire.warc.gz")))));
+
+        reader.seek(1_549_727_457);
+
+        WarcRecord record = reader.read();
+
+        new WarcRecordWriter(System.out).write(record);
+
+        assertThat(record.getHeader().getRecordId()).isEqualTo("<urn:uuid:71124c20-52f4-4451-9de2-d41609631374>");
+        assertThat(record.getHeader().getContentLength()).isEqualTo(1068);
     }
 }

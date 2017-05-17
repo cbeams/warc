@@ -23,6 +23,10 @@ public class SequentialReader<T> implements Closeable, Reader<T> {
         this.separatorReader = separatorReader;
     }
 
+    public void seek(long offset) throws IOException {
+        input.seek(offset);
+    }
+
     public T read() throws ReaderException, EOFException {
         if (input.isComplete())
             return null;

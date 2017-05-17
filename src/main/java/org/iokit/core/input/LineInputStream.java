@@ -47,6 +47,10 @@ public class LineInputStream extends InputStream {
         }
     }
 
+    public void seek(long offset) throws IOException {
+        in.skip(offset - in.position());
+    }
+
     @Override
     public int read() throws IOException {
         return in.read();
@@ -58,10 +62,6 @@ public class LineInputStream extends InputStream {
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }
-    }
-
-    public int readLineCheckeChecked(byte[] chunk, int start, int length) throws IOException {
-        return in.readLine(chunk, start, length, terminators);
     }
 
     public boolean isComplete() throws UncheckedIOException {

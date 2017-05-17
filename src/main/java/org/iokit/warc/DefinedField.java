@@ -4,7 +4,7 @@ import org.iokit.imf.Field;
 
 public enum DefinedField {
     WARC_Type("WARC-Type"),
-    WARC_Record_ID("WARC-WarcRecord-ID"),
+    WARC_Record_ID("WARC-Record-ID"),
     WARC_Date("WARC-Date"),
     Content_Type("Content-Type"),
     Content_Length("Content-Length");
