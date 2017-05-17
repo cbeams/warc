@@ -10,17 +10,22 @@ import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.iokit.core.input.InputStreams.*;
+import static org.iokit.core.input.InputStreams.decodeStreamIfNecessary;
 
 public class WarcReader extends BoundedReader<WarcRecord> {
 
     public static final int DEFAULT_MINIMUM_RECORD_COUNT = 1;
 
+    public WarcReader(String warcFilePath) throws IOException {
+        this(new File(warcFilePath));
+    }
+
     public WarcReader(File warcFile) throws IOException {
-        this(decodedInputStreamFor(warcFile));
+        this(new FileInputStream(warcFile));
     }
 
     public WarcReader(InputStream in) throws IOException {

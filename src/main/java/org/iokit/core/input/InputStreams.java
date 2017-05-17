@@ -2,16 +2,13 @@ package org.iokit.core.input;
 
 import java.util.zip.GZIPInputStream;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
 
-public class InputStreams {
+public final class InputStreams {
 
-    public static InputStream decodedInputStreamFor(File file) throws IOException {
-        return decodeStreamIfNecessary(new FileInputStream(file));
+    private InputStreams() {
     }
 
     public static InputStream decodeStreamIfNecessary(InputStream input) throws IOException {
