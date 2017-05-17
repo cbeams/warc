@@ -25,7 +25,7 @@ public class WarcRecordReaderSpec {
             "WARC/1.0\r\n" +
             "WARC-Type: warcinfo\r\n" +
             "WARC-Date: 2006-09-19T17:20:14Z\r\n" +
-            "WARC-WarcRecord-ID: <urn:uuid:d7ae5c10-e6b3-4d27-967d-34780c58ba39>\r\n" +
+            "WARC-Record-ID: <urn:uuid:d7ae5c10-e6b3-4d27-967d-34780c58ba39>\r\n" +
             "Content-Type: application/warc-fields\r\n" +
             "Content-Length: 398\r\n" +
             "\r\n" +

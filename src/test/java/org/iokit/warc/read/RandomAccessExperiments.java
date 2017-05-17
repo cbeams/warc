@@ -3,6 +3,7 @@ package org.iokit.warc.read;
 import org.iokit.warc.WarcRecord;
 import org.iokit.warc.write.WarcRecordWriter;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.zip.GZIPInputStream;
@@ -55,6 +56,7 @@ public class RandomAccessExperiments {
     }
 
     @Test
+    @Ignore
     public void test3() throws IOException {
         FastBufferedInputStream in = new FastBufferedInputStream(new GZIPInputStream(new FileInputStream(new File("/tmp/entire.warc.gz"))));
 
@@ -82,6 +84,7 @@ public class RandomAccessExperiments {
     }
 
     @Test
+    @Ignore
     public void test4() throws IOException {
         FastBufferedInputStream in = new FastBufferedInputStream(new GZIPInputStream(new FileInputStream(new File("/tmp/entire.warc.gz"))));
         //FastBufferedInputStream in = new FastBufferedInputStream(new FileInputStream(new File("/tmp/entire.warc")));
@@ -123,6 +126,7 @@ public class RandomAccessExperiments {
     }
 
     @Test
+    @Ignore
     public void test6() throws IOException {
         WarcReader reader = new WarcReader(new WarcInputStream(new GZIPInputStream(new FileInputStream(new File("/tmp/entire.warc.gz")))));
 
