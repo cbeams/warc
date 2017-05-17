@@ -24,7 +24,7 @@ public class WarcRecordBodyReaderSpec {
 
         int contentLength = content.getBytes().length;
 
-        WarcRecordBodyReader reader = new WarcRecordBodyReader(input);
+        WarcRecordBodyReader reader = new WarcRecordBodyReader(new ByteArrayInputStream(input.getBytes()));
         WarcRecordBody body = reader.read(contentLength);
 
         byte[] data = body.getData();
