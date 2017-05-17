@@ -1,6 +1,6 @@
 package org.iokit.warc.read;
 
-import org.iokit.warc.WarcRecordVersion;
+import org.iokit.warc.WarcVersion;
 import org.iokit.warc.parse.WarcRecordVersionParser;
 
 import org.iokit.core.read.LineReader;
@@ -12,21 +12,21 @@ import org.iokit.core.parse.ParsingException;
 
 import java.io.EOFException;
 
-public class WarcRecordVersionReader implements Reader<WarcRecordVersion> {
+public class WarcVersionReader implements Reader<WarcVersion> {
 
     private final LineReader lineReader;
-    private final Parser<WarcRecordVersion> parser;
+    private final Parser<WarcVersion> parser;
 
-    public WarcRecordVersionReader(LineReader lineReader) {
+    public WarcVersionReader(LineReader lineReader) {
         this(lineReader, new WarcRecordVersionParser());
     }
 
-    public WarcRecordVersionReader(LineReader lineReader, Parser<WarcRecordVersion> parser) {
+    public WarcVersionReader(LineReader lineReader, Parser<WarcVersion> parser) {
         this.lineReader = lineReader;
         this.parser = parser;
     }
 
-    public WarcRecordVersion read() throws ReaderException, EOFException {
+    public WarcVersion read() throws ReaderException, EOFException {
         try {
             return parser.parse(lineReader.read());
         } catch (ParsingException ex) {

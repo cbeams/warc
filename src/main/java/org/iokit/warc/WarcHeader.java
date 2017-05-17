@@ -1,24 +1,20 @@
 package org.iokit.warc;
 
 import org.iokit.imf.Field;
-import org.iokit.imf.StartLineMessageHeader;
+import org.iokit.imf.StartLineHeader;
 
 import java.util.Set;
 
-import static org.iokit.warc.DefinedField.*;
+import static org.iokit.warc.WarcField.Type.*;
 
-public class WarcRecordHeader extends StartLineMessageHeader<WarcRecordVersion> {
+public class WarcHeader extends StartLineHeader<WarcVersion> {
 
-    public WarcRecordHeader(WarcRecordVersion version, Set<Field> fields) {
+    public WarcHeader(WarcVersion version, Set<Field> fields) {
         super(version, fields);
     }
 
-    public WarcRecordVersion getVersion() {
+    public WarcVersion getVersion() {
         return startLineValue;
-    }
-
-    private Field getField(DefinedField field) {
-        return getField(field.getName().toString());
     }
 
     public WarcRecord.Type getRecordType() {
@@ -38,11 +34,10 @@ public class WarcRecordHeader extends StartLineMessageHeader<WarcRecordVersion> 
     }
 
     public int getContentLength() {
-        return Integer.valueOf(getField(Content_Length).getValue().toString()); // TODO: could be long?
+        return Integer.valueOf(getField(Content_Length).getValue().toString()); // TODO: should be long
     }
 
     public String getRecordId() {
         return getField(WARC_Record_ID).getValue().toString();
     }
-
 }

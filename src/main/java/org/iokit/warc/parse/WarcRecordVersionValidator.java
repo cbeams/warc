@@ -3,7 +3,7 @@ package org.iokit.warc.parse;
 import org.iokit.core.validate.Validator;
 import org.iokit.core.validate.ValidatorException;
 
-import static org.iokit.warc.WarcRecordVersion.*;
+import static org.iokit.warc.WarcVersion.*;
 
 public class WarcRecordVersionValidator extends Validator {
 

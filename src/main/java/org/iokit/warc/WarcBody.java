@@ -1,12 +1,12 @@
 package org.iokit.warc;
 
-import org.iokit.imf.MessageBody;
+import org.iokit.imf.Body;
 
-public class WarcRecordBody implements MessageBody<byte[]> {
+public class WarcBody implements Body<byte[]> {
 
     private final byte[] value;
 
-    public WarcRecordBody(byte[] value) {
+    public WarcBody(byte[] value) {
         this.value = value;
     }
 

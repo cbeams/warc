@@ -44,6 +44,12 @@ public class Field {
     }
 
 
+    public interface Type {
+
+        Name getName();
+    }
+
+
     /**
      * Field names are case-insensitive.
      */

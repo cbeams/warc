@@ -1,6 +1,6 @@
 package org.iokit.imf;
 
-public interface MessageBody<Data> {
+public interface Body<Data> {
 
     Data getData();
 }

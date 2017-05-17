@@ -1,6 +1,6 @@
 package org.iokit.warc.write;
 
-import org.iokit.warc.WarcRecordHeader;
+import org.iokit.warc.WarcHeader;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,7 +21,7 @@ public class WarcRecordHeaderWriter {
         this.fieldSetWriter = fieldSetWriter;
     }
 
-    public void write(WarcRecordHeader header) throws IOException {
+    public void write(WarcHeader header) throws IOException {
         versionWriter.write(header.getVersion());
         output.write("\r\n".getBytes());
         fieldSetWriter.write(header.getFields());

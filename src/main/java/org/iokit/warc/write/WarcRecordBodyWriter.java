@@ -1,6 +1,6 @@
 package org.iokit.warc.write;
 
-import org.iokit.warc.WarcRecordBody;
+import org.iokit.warc.WarcBody;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,7 +13,7 @@ public class WarcRecordBodyWriter {
         this.output = output;
     }
 
-    public void write(WarcRecordBody body) throws IOException {
+    public void write(WarcBody body) throws IOException {
         output.write(body.getData());
     }
 }

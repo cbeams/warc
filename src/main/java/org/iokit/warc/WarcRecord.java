@@ -6,9 +6,9 @@ import org.iokit.imf.Message;
  * Per http://bibnum.bnf.fr/WARC/ and
  * http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf.
  */
-public class WarcRecord extends Message<WarcRecordHeader, WarcRecordBody> {
+public class WarcRecord extends Message<WarcHeader, WarcBody> {
 
-    public WarcRecord(WarcRecordHeader header, WarcRecordBody body) {
+    public WarcRecord(WarcHeader header, WarcBody body) {
         super(header, body);
     }
 

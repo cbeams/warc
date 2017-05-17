@@ -2,9 +2,12 @@ package org.iokit.warc.read;
 
 import org.iokit.warc.WarcField;
 import org.iokit.warc.WarcRecord;
-import org.iokit.warc.WarcRecordHeader;
-import org.iokit.warc.WarcRecordVersion;
+import org.iokit.warc.WarcHeader;
+import org.iokit.warc.WarcVersion;
 
+import org.iokit.imf.Field;
+
+import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.input.CrlfLineInputStream;
@@ -13,6 +16,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.EOFException;
+
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.iokit.warc.WarcRecord.Type.warcinfo;
@@ -50,10 +55,10 @@ public class WarcRecordReaderSpec {
                     new ByteArrayInputStream(input.getBytes())));
 
         WarcRecord record = reader.read();
-        WarcRecordHeader header = record.getHeader();
+        WarcHeader header = record.getHeader();
         byte[] body = record.getBody().getData();
 
-        assertThat(header.getVersion()).hasToString(WarcRecordVersion.WARC_1_0);
+        assertThat(header.getVersion()).hasToString(WarcVersion.WARC_1_0);
         assertThat(header.getRecordType()).isEqualTo(warcinfo);
         assertThat(header.getDate()).isEqualTo("2006-09-19T17:20:14Z");
         assertThat(header.getRecordId()).isEqualTo("<urn:uuid:d7ae5c10-e6b3-4d27-967d-34780c58ba39>");
@@ -65,5 +70,28 @@ public class WarcRecordReaderSpec {
         assertThat(body.length).isEqualTo(header.getContentLength());
 
         assertThatThrownBy(reader::read).isInstanceOf(EOFException.class);
+    }
+
+    static class MyWarcHeader extends WarcHeader {
+
+        public MyWarcHeader(WarcVersion version, Set<Field> fields) {
+            super(version, fields);
+        }
+    }
+
+    static class MyWarcRecordHeaderReader implements Reader<WarcHeader> {
+
+        public MyWarcRecordHeaderReader(Object o) {
+        }
+
+        @Override
+        public MyWarcHeader read() throws ReaderException, EOFException {
+            return null;
+        }
+    }
+
+    @Test
+    public void test() {
+        new WarcRecordReader(new MyWarcRecordHeaderReader(null), new WarcBodyReader(null));
     }
 }

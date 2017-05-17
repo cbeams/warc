@@ -2,14 +2,14 @@ package org.iokit.warc;
 
 import java.util.Objects;
 
-public class WarcRecordVersion {
+public class WarcVersion {
 
     public static final String WARC_1_0 = "WARC/1.0";
     public static final String WARC_1_1 = "WARC/1.1";
 
     private final String value;
 
-    public WarcRecordVersion(String value) {
+    public WarcVersion(String value) {
         this.value = value;
     }
 
@@ -26,7 +26,7 @@ public class WarcRecordVersion {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        WarcRecordVersion version = (WarcRecordVersion) o;
+        WarcVersion version = (WarcVersion) o;
         return Objects.equals(value, version.value);
     }
 

@@ -1,6 +1,6 @@
 package org.iokit.warc.write;
 
-import org.iokit.warc.WarcRecordVersion;
+import org.iokit.warc.WarcVersion;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,7 +13,7 @@ public class WarcRecordVersionWriter {
         this.output = output;
     }
 
-    public void write(WarcRecordVersion version) throws IOException {
+    public void write(WarcVersion version) throws IOException {
         output.write(version.getValue().getBytes());
     }
 }

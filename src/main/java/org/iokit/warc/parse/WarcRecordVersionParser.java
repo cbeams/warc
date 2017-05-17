@@ -1,13 +1,13 @@
 package org.iokit.warc.parse;
 
-import org.iokit.warc.WarcRecordVersion;
+import org.iokit.warc.WarcVersion;
 
 import org.iokit.core.validate.Validator;
 
 import org.iokit.core.parse.ParsingException;
 import org.iokit.core.parse.ValidatingParser;
 
-public class WarcRecordVersionParser extends ValidatingParser<WarcRecordVersion> {
+public class WarcRecordVersionParser extends ValidatingParser<WarcVersion> {
 
     public WarcRecordVersionParser() {
         this(new WarcRecordVersionValidator());
@@ -18,7 +18,7 @@ public class WarcRecordVersionParser extends ValidatingParser<WarcRecordVersion>
     }
 
     @Override
-    public WarcRecordVersion parseValidated(String input) throws ParsingException {
-        return new WarcRecordVersion(input);
+    public WarcVersion parseValidated(String input) throws ParsingException {
+        return new WarcVersion(input);
     }
 }

@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 
 public class WarcReader extends BoundedReader<WarcRecord> {
 
-    public static final int MIN_RECORD_COUNT = 1;
+    public static final int DEFAULT_MINIMUM_RECORD_COUNT = 1;
 
     public WarcReader(File warcFile) {
         this(plainOrGzipInputStream(warcFile));
@@ -39,11 +39,11 @@ public class WarcReader extends BoundedReader<WarcRecord> {
     }
 
     public WarcReader(LineInputStream in, LineReader lineReader) {
-        this(in, new WarcRecordReader(in), new WarcRecordSeparatorReader(lineReader));
+        this(in, new WarcRecordReader(in), new WarcSeparatorReader(lineReader));
     }
 
-    public WarcReader(LineInputStream in, WarcRecordReader recordReader, Reader<Void> separatorReader) {
-        super(in, recordReader, separatorReader, MIN_RECORD_COUNT);
+    public WarcReader(LineInputStream in, WarcRecordReader recordReader, Reader<?> concatenatorReader) {
+        super(in, recordReader, concatenatorReader, DEFAULT_MINIMUM_RECORD_COUNT);
     }
 
     @Override

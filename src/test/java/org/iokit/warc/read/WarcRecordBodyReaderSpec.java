@@ -1,6 +1,7 @@
 package org.iokit.warc.read;
 
-import org.iokit.warc.WarcRecordBody;
+import org.iokit.warc.WarcBody;
+import org.iokit.warc.WarcHeader;
 
 import org.iokit.core.read.ReaderException;
 
@@ -24,8 +25,15 @@ public class WarcRecordBodyReaderSpec {
 
         int contentLength = content.getBytes().length;
 
-        WarcRecordBodyReader reader = new WarcRecordBodyReader(new ByteArrayInputStream(input.getBytes()));
-        WarcRecordBody body = reader.read(contentLength);
+        WarcHeader header = new WarcHeader(null, null) {
+            @Override
+            public int getContentLength() {
+                return contentLength;
+            }
+        };
+
+        WarcBodyReader reader = new WarcBodyReader(new ByteArrayInputStream(input.getBytes()));
+        WarcBody body = reader.read(header);
 
         byte[] data = body.getData();
 

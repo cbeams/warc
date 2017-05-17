@@ -2,12 +2,12 @@ package org.iokit.core.read;
 
 import java.io.EOFException;
 
-public class CountOffReader implements Reader<Void> {
+public class SkipReader implements Reader<Void> {
 
     private final int count;
     private final Reader<?> reader;
 
-    public CountOffReader(int count, Reader<?> reader) {
+    public SkipReader(int count, Reader<?> reader) {
         this.count = count;
         this.reader = reader;
     }

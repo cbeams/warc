@@ -1,40 +1,35 @@
 package org.iokit.warc.read;
 
 import org.iokit.warc.WarcRecord;
-import org.iokit.warc.WarcRecordBody;
-import org.iokit.warc.WarcRecordHeader;
+import org.iokit.warc.WarcBody;
+import org.iokit.warc.WarcHeader;
 
 import org.iokit.imf.read.MessageReader;
 
 import org.iokit.core.read.LineReader;
-import org.iokit.core.read.ReaderException;
+import org.iokit.core.read.ParameterizedReader;
+import org.iokit.core.read.Reader;
 
 import org.iokit.core.input.LineInputStream;
 
-import java.io.EOFException;
+import java.util.function.BiFunction;
 
-public class WarcRecordReader implements MessageReader<WarcRecord> {
-
-    private final WarcRecordHeaderReader headerReader;
-    private final WarcRecordBodyReader bodyReader;
+public class WarcRecordReader extends MessageReader<WarcHeader, WarcBody, WarcRecord> {
 
     public WarcRecordReader(LineInputStream in) {
         this(in, new LineReader(in));
     }
 
     public WarcRecordReader(LineInputStream in, LineReader lineReader) {
-        this(new WarcRecordHeaderReader(lineReader), new WarcRecordBodyReader(in));
+        this(new WarcHeaderReader(lineReader), new WarcBodyReader(in));
     }
 
-    public WarcRecordReader(WarcRecordHeaderReader headerReader, WarcRecordBodyReader bodyReader) {
-        this.headerReader = headerReader;
-        this.bodyReader = bodyReader;
+    public WarcRecordReader(Reader<WarcHeader> headerReader, ParameterizedReader<WarcHeader, WarcBody> bodyReader) {
+        this(headerReader, bodyReader, WarcRecord::new);
     }
 
-    @Override
-    public WarcRecord read() throws ReaderException, EOFException {
-        WarcRecordHeader header = headerReader.read();
-        WarcRecordBody body = bodyReader.read(header.getContentLength());
-        return new WarcRecord(header, body);
+    public WarcRecordReader(Reader<WarcHeader> headerReader, ParameterizedReader<WarcHeader, WarcBody> bodyReader,
+                            BiFunction<WarcHeader, WarcBody, WarcRecord> recordFactory) {
+        super(headerReader, bodyReader, recordFactory);
     }
 }

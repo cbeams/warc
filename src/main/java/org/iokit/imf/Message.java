@@ -1,6 +1,6 @@
 package org.iokit.imf;
 
-public class Message<H extends MessageHeader, B extends MessageBody> {
+public class Message<H extends Header, B extends Body> {
 
     private final H header;
     private final B body;

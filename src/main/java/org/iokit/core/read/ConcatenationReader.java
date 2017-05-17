@@ -11,16 +11,16 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class SequentialReader<T> implements Closeable, Reader<T> {
+public class ConcatenationReader<T> implements Closeable, Reader<T> {
 
     private final LineInputStream input;
-    private final Reader<T> reader;
-    private final Reader<Void> separatorReader;
+    private final Reader<T> valueReader;
+    private final Reader<?> concatenatorReader;
 
-    public SequentialReader(LineInputStream input, Reader<T> reader, Reader<Void> separatorReader) {
+    public ConcatenationReader(LineInputStream input, Reader<T> valueReader, Reader<?> concatenatorReader) {
         this.input = input;
-        this.reader = reader;
-        this.separatorReader = separatorReader;
+        this.valueReader = valueReader;
+        this.concatenatorReader = concatenatorReader;
     }
 
     public void seek(long offset) throws IOException {
@@ -31,8 +31,8 @@ public class SequentialReader<T> implements Closeable, Reader<T> {
         if (input.isComplete())
             return null;
 
-        T value = reader.read();
-        separatorReader.read();
+        T value = valueReader.read();
+        concatenatorReader.read();
 
         return value;
     }
@@ -55,7 +55,7 @@ public class SequentialReader<T> implements Closeable, Reader<T> {
                 return false;
 
             try {
-                action.accept(SequentialReader.this.read());
+                action.accept(ConcatenationReader.this.read());
                 return true;
             } catch (Throwable t) {
                 throw new RuntimeException(t);

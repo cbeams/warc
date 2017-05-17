@@ -4,12 +4,12 @@ import org.iokit.core.input.LineInputStream;
 
 import java.io.EOFException;
 
-public class CountingReader<T> extends SequentialReader<T> {
+public class CountingReader<T> extends ConcatenationReader<T> {
 
     private long currentCount = 0;
 
-    public CountingReader(LineInputStream input, Reader<T> reader, Reader<Void> separatorReader) {
-        super(input, reader, separatorReader);
+    public CountingReader(LineInputStream input, Reader<T> valueReader, Reader<?> concatenatorReader) {
+        super(input, valueReader, concatenatorReader);
     }
 
     @Override

@@ -2,12 +2,16 @@ package org.iokit.imf;
 
 import java.util.Set;
 
-public class MessageHeader {
+public class Header {
 
     private final Set<Field> fields;
 
-    public MessageHeader(Set<Field> fields) {
+    public Header(Set<Field> fields) {
         this.fields = fields;
+    }
+
+    public Field getField(Field.Type field) {
+        return getField(field.getName().toString());
     }
 
     public Field getField(String name) {
