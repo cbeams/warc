@@ -7,6 +7,7 @@ import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
 
+import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
 
 import java.util.zip.GZIPInputStream;
@@ -30,7 +31,7 @@ public class WarcReader extends BoundedReader<WarcRecord> {
     }
 
     public WarcReader(InputStream in) {
-        this(new WarcInputStream(plainOrGzipInputStream(in)));
+        this(new CrlfLineInputStream(plainOrGzipInputStream(in)));
     }
 
     public WarcReader(LineInputStream in) {

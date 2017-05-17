@@ -7,6 +7,8 @@ import org.iokit.warc.WarcRecordVersion;
 
 import org.iokit.core.read.ReaderException;
 
+import org.iokit.core.input.CrlfLineInputStream;
+
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -44,7 +46,7 @@ public class WarcRecordReaderSpec {
 
         WarcRecordReader reader =
             new WarcRecordReader(
-                new WarcInputStream(
+                new CrlfLineInputStream(
                     new ByteArrayInputStream(input.getBytes())));
 
         WarcRecord record = reader.read();

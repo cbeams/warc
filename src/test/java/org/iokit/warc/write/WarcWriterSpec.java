@@ -1,7 +1,7 @@
 package org.iokit.warc.write;
 
 import org.iokit.warc.WarcRecord;
-import org.iokit.warc.read.WarcInputStream;
+import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.warc.read.WarcReader;
 
 import org.junit.Ignore;
@@ -87,7 +87,7 @@ public class WarcWriterSpec {
         // 42864 (before parallel)
         // 18797 (after parallel)
 
-        try (WarcReader reader = new WarcReader(new WarcInputStream(new GZIPInputStream(new FileInputStream(originalFile), 1024*1024)));
+        try (WarcReader reader = new WarcReader(new CrlfLineInputStream(new GZIPInputStream(new FileInputStream(originalFile), 1024*1024)));
              WarcWriter writer = new WarcWriter(new ParallelGZIPOutputStream(new FileOutputStream(newFile)))) {
 
             reader.stream().forEach(record -> {

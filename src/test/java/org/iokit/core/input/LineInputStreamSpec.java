@@ -1,15 +1,15 @@
-package org.iokit.warc.read;
+package org.iokit.core.input;
 
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class WarcInputStreamSpec {
+public class LineInputStreamSpec {
 
     @Test
     public void nullInput() {
         //noinspection ConstantConditions
-        assertThatThrownBy(() -> new WarcInputStream(null))
+        assertThatThrownBy(() -> new LineInputStream(null))
             .isInstanceOf(IllegalArgumentException.class);
     }
 }

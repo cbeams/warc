@@ -4,6 +4,7 @@ import org.iokit.core.read.LineReader;
 
 import org.iokit.core.validate.Validator;
 
+import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
 
 import org.iokit.core.token.LineTerminator;
@@ -117,7 +118,7 @@ public class WarcReaderPerformanceTests {
                 System.out.println("reading: " + warcFile);
                 try {
                     byte[] chunk = new byte[1024];
-                    WarcInputStream input = new WarcInputStream(new FileInputStream(warcFile));
+                    CrlfLineInputStream input = new CrlfLineInputStream(new FileInputStream(warcFile));
                     //FastBufferedInputStream input = new FastBufferedInputStream(new FileInputStream(warcFile));
 
                     int start = 0, length;
@@ -146,7 +147,7 @@ public class WarcReaderPerformanceTests {
             .forEach(warcFile -> {
                 System.out.println("reading: " + warcFile);
                 try {
-                    LineReader reader = new LineReader(new WarcInputStream(new FileInputStream(warcFile)));
+                    LineReader reader = new LineReader(new CrlfLineInputStream(new FileInputStream(warcFile)));
                     while (true) {
                         reader.read();
                         total.incrementAndGet();
@@ -870,7 +871,7 @@ public class WarcReaderPerformanceTests {
                     gzSize),
                 fbSize);
 
-        org.iokit.warc.read.WarcReader reader = new org.iokit.warc.read.WarcReader(new WarcInputStream(input));
+        org.iokit.warc.read.WarcReader reader = new org.iokit.warc.read.WarcReader(new CrlfLineInputStream(input));
 
         int count = 0;
         while (reader.read() != null)
