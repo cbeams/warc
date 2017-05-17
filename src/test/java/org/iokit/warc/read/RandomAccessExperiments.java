@@ -3,6 +3,8 @@ package org.iokit.warc.read;
 import org.iokit.warc.WarcRecord;
 import org.iokit.warc.write.WarcRecordWriter;
 
+import org.iokit.core.read.ReaderException;
+
 import org.iokit.core.input.CrlfLineInputStream;
 
 import org.junit.Ignore;
@@ -114,7 +116,7 @@ public class RandomAccessExperiments {
     }
 
     @Test
-    public void test5() throws IOException {
+    public void test5() throws IOException, ReaderException {
         WarcReader reader = new WarcReader(new CrlfLineInputStream(new FileInputStream(new File("/tmp/entire.warc"))));
 
         reader.seek(1_549_727_457);
@@ -129,7 +131,7 @@ public class RandomAccessExperiments {
 
     @Test
     @Ignore
-    public void test6() throws IOException {
+    public void test6() throws IOException, ReaderException {
         WarcReader reader = new WarcReader(new CrlfLineInputStream(new GZIPInputStream(new FileInputStream(new File("/tmp/entire.warc.gz")))));
 
         reader.seek(1_549_727_457);

@@ -65,7 +65,12 @@ public class WarcReaderPerformanceTests {
             .limit(3)
             .forEach(warcFile -> {
                 System.out.println("reading: " + warcFile);
-                WarcReader reader = new WarcReader(warcFile);
+                WarcReader reader = null;
+                try {
+                    reader = new WarcReader(warcFile);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 try {
                     new Reflector().configure(reader, Validator.class, v -> v.setEnabled(false));
                 } catch (Exception e) {

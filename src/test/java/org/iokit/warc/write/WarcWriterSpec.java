@@ -1,8 +1,11 @@
 package org.iokit.warc.write;
 
 import org.iokit.warc.WarcRecord;
-import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.warc.read.WarcReader;
+
+import org.iokit.core.read.ReaderException;
+
+import org.iokit.core.input.CrlfLineInputStream;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -24,7 +27,7 @@ import org.anarres.parallelgzip.ParallelGZIPOutputStream;
 public class WarcWriterSpec {
 
     @Test
-    public void writeSingleRecordWarcFile() throws IOException {
+    public void writeSingleRecordWarcFile() throws IOException, ReaderException {
         File originalFile = new File(getClass().getResource("/org/iokit/warc/single.warc").getFile());
         WarcReader reader = new WarcReader(originalFile);
 

@@ -2,12 +2,15 @@ package integration;
 
 import org.iokit.warc.read.WarcReader;
 
+import org.iokit.core.read.ReaderException;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import java.io.EOFException;
 import java.io.IOException;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -28,10 +31,20 @@ public class IntegrationTest {
                 System.out.println("reading " + path);
                 long start = System.currentTimeMillis();
                 WarcReader reader;
-                reader = new WarcReader(path.toFile());
+                try {
+                    reader = new WarcReader(path.toFile());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 int count = 0;
-                while (reader.read() != null) {
-                    count++;
+                try {
+                    while (reader.read() != null) {
+                        count++;
+                    }
+                } catch (ReaderException e) {
+                    throw new RuntimeException(e);
+                } catch (EOFException e) {
+                    throw new RuntimeException(e);
                 }
                 long finish = System.currentTimeMillis();
                 System.out.println("read " + count + " records in " + (finish - start) + " ms");
