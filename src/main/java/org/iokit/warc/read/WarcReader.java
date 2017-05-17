@@ -8,13 +8,12 @@ import org.iokit.core.read.Reader;
 
 import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
+import org.iokit.core.input.MagicInputStream;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import static org.iokit.core.input.InputStreams.decodeStreamIfNecessary;
 
 public class WarcReader extends BoundedReader<WarcRecord> {
 
@@ -29,7 +28,7 @@ public class WarcReader extends BoundedReader<WarcRecord> {
     }
 
     public WarcReader(InputStream in) throws IOException {
-        this(new CrlfLineInputStream(decodeStreamIfNecessary(in)));
+        this(new CrlfLineInputStream(new MagicInputStream(in)));
     }
 
     public WarcReader(LineInputStream in) {
