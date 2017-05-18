@@ -1,22 +1,16 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.LineInputStream;
-
-import java.io.IOException;
+import org.iokit.core.input.Input;
 
 public class ConcatenationReader<T> extends BoundedReader<T> {
 
-    private final LineInputStream input;
+    private final Input input;
     private final Reader<?> concatenatorReader;
 
-    public ConcatenationReader(LineInputStream input, Reader<T> reader, Reader<?> concatenatorReader, int minCount) {
+    public ConcatenationReader(Input input, Reader<T> reader, Reader<?> concatenatorReader, int minCount) {
         super(input, reader, minCount);
         this.input = input;
         this.concatenatorReader = concatenatorReader;
-    }
-
-    public void seek(long offset) throws IOException {
-        input.seek(offset);
     }
 
     public T read() throws ReaderException {

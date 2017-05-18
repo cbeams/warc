@@ -1,10 +1,8 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.LineInputStream;
+import org.iokit.core.input.Input;
 
 import java.io.Closeable;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 
 import java.util.Iterator;
 import java.util.Spliterators;
@@ -15,9 +13,9 @@ import static java.util.Spliterator.*;
 
 public abstract class AbstractReader<T> implements Closeable, Reader<T> {
 
-    protected final LineInputStream input;
+    protected final Input input;
 
-    public AbstractReader(LineInputStream input) {
+    public AbstractReader(Input input) {
         this.input = input;
     }
 
@@ -38,12 +36,12 @@ public abstract class AbstractReader<T> implements Closeable, Reader<T> {
             false);
     }
 
+    public void seek(long offset) {
+        input.seek(offset);
+    }
+
     @Override
     public void close() {
-        try {
-            input.close();
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+        input.close();
     }
 }

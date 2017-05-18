@@ -1,12 +1,12 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.LineInputStream;
+import org.iokit.core.input.Input;
 
 public class CountingReader<T> extends FilterReader<T> {
 
     private long currentCount = 0;
 
-    public CountingReader(LineInputStream input, Reader<T> reader) {
+    public CountingReader(Input input, Reader<T> reader) {
         super(input, reader);
     }
 

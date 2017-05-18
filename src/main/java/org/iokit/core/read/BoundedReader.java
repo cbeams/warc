@@ -1,12 +1,12 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.LineInputStream;
+import org.iokit.core.input.Input;
 
 public class BoundedReader<T> extends CountingReader<T> {
 
     private int minimumCount;
 
-    public BoundedReader(LineInputStream input, Reader<T> reader, int minimumCount) {
+    public BoundedReader(Input input, Reader<T> reader, int minimumCount) {
         super(input, reader);
         this.minimumCount = minimumCount;
     }

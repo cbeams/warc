@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
 
-public class LineInputStream extends InputStream {
+public class LineInputStream extends InputStream implements Input {
 
     private final FastBufferedInputStream in;
     private final EnumSet<FastBufferedInputStream.LineTerminator> terminators;
@@ -36,7 +36,7 @@ public class LineInputStream extends InputStream {
                 .collect(toSet()));
     }
 
-    public byte peek() throws UncheckedIOException {
+    public byte peek() {
         try {
             long lastPosition = in.position();
             int next = in.read();
@@ -47,16 +47,24 @@ public class LineInputStream extends InputStream {
         }
     }
 
-    public void seek(long offset) throws IOException {
-        in.skip(offset - in.position());
+    public void seek(long offset) {
+        try {
+            in.skip(offset - in.position());
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
     }
 
     @Override
-    public int read() throws IOException {
-        return in.read();
+    public int read() {
+        try {
+            return in.read();
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
     }
 
-    public int readLine(byte[] chunk, int start, int length) throws UncheckedIOException {
+    public int readLine(byte[] chunk, int start, int length) {
         try {
             return in.readLine(chunk, start, length, terminators);
         } catch (IOException ex) {
@@ -64,12 +72,16 @@ public class LineInputStream extends InputStream {
         }
     }
 
-    public boolean isComplete() throws UncheckedIOException {
+    public boolean isComplete() {
         return peek() == -1;
     }
 
     @Override
-    public void close() throws IOException {
-        in.close();
+    public void close() {
+        try {
+            in.close();
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
     }
 }
