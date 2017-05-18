@@ -2,8 +2,6 @@ package org.iokit.core.read;
 
 import org.iokit.core.input.Input;
 
-import java.io.Closeable;
-
 import java.util.Iterator;
 import java.util.Spliterators;
 import java.util.stream.Stream;
@@ -11,11 +9,12 @@ import java.util.stream.StreamSupport;
 
 import static java.util.Spliterator.*;
 
-public class SequenceReader<T> implements Closeable, Reader<T> {
+public class SequenceReader<T> extends InputReader<Input, T> {
 
     private final Reader<T> reader;
 
     public SequenceReader(Reader<T> reader) {
+        super(reader.getInput());
         this.reader = reader;
     }
 
@@ -28,23 +27,13 @@ public class SequenceReader<T> implements Closeable, Reader<T> {
         getInput().seek(offset);
     }
 
-    @Override
-    public void close() {
-        getInput().close();
-    }
-
-    @Override
-    public Input getInput() {
-        return reader.getInput();
-    }
-
     public Stream<T> stream() {
         return StreamSupport.stream(
             Spliterators.spliteratorUnknownSize(
                 new Iterator<T>() {
                     @Override
                     public boolean hasNext() {
-                        return !getInput().isComplete();
+                        return !input.isComplete();
                     }
 
                     @Override

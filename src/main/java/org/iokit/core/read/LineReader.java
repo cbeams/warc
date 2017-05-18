@@ -7,9 +7,8 @@ import it.unimi.dsi.fastutil.bytes.ByteArrays;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public class LineReader implements Reader<String> {
+public class LineReader extends InputReader<LineInputStream, String> implements Reader<String> {
 
-    private final LineInputStream input;
     private final Charset charset;
 
     public LineReader(LineInputStream input) {
@@ -17,7 +16,7 @@ public class LineReader implements Reader<String> {
     }
 
     public LineReader(LineInputStream input, Charset charset) {
-        this.input = input;
+        super(input);
         this.charset = charset;
     }
 
@@ -41,11 +40,6 @@ public class LineReader implements Reader<String> {
         int total = length + start;
 
         return new String(chunk, 0, total, charset);
-    }
-
-    @Override
-    public LineInputStream getInput() {
-        return input;
     }
 
     byte[] testchunk = new byte[32*1024];
