@@ -20,11 +20,10 @@ public class ConcatenationReader<T> extends BoundedReader<T> {
     }
 
     public T read() throws ReaderException {
-        if (input.isComplete())
-            return null;
-
         T value = super.read();
-        concatenatorReader.read();
+
+        if (value != null)
+            concatenatorReader.read();
 
         return value;
     }

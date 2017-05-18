@@ -4,6 +4,7 @@ import org.iokit.warc.WarcRecord;
 import org.iokit.warc.WarcVersion;
 
 import org.iokit.core.read.EndOfInputException;
+import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.validate.Validator;
 import org.iokit.core.validate.ValidatorException;
@@ -31,9 +32,8 @@ public class WarcReaderSpec {
     @Test
     public void readEmptyWarcFile() {
         WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
-        reader.read();
-        //assertThatThrownBy(reader::read).isInstanceOf(ReaderException.class);
-        //assertThat(reader.getCurrentCount()).isZero();
+        assertThatThrownBy(reader::read).isInstanceOf(ReaderException.class);
+        assertThat(reader.getCurrentCount()).isZero();
     }
 
     @Test

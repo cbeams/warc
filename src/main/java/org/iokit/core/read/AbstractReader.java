@@ -15,7 +15,7 @@ import static java.util.Spliterator.*;
 
 public abstract class AbstractReader<T> implements Closeable, Reader<T> {
 
-    private final LineInputStream input;
+    protected final LineInputStream input;
 
     public AbstractReader(LineInputStream input) {
         this.input = input;
