@@ -6,8 +6,8 @@ public class BoundedReader<T> extends CountingReader<T> {
 
     private int minimumCount;
 
-    public BoundedReader(LineInputStream input, Reader<T> valueReader, Reader<?> concatenatorReader, int minimumCount) {
-        super(input, valueReader, concatenatorReader);
+    public BoundedReader(LineInputStream input, Reader<T> reader, int minimumCount) {
+        super(input, reader);
         this.minimumCount = minimumCount;
     }
 

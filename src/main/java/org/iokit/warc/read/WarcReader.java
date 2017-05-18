@@ -2,7 +2,7 @@ package org.iokit.warc.read;
 
 import org.iokit.warc.WarcRecord;
 
-import org.iokit.core.read.BoundedReader;
+import org.iokit.core.read.ConcatenationReader;
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
 
@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 
-public class WarcReader extends BoundedReader<WarcRecord> {
+public class WarcReader extends ConcatenationReader<WarcRecord> {
 
     public static final int DEFAULT_MINIMUM_RECORD_COUNT = 1;
 
