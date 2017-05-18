@@ -99,8 +99,26 @@ public class WarcReaderSpec {
         // the third record itself is well-formed but the absence of
         // trailing newlines causes the read to fail
         assertThatThrownBy(reader::read)
-            .isInstanceOf(EndOfInputException.class);
+            .hasCauseInstanceOf(EndOfInputException.class);
 
+        assertThat(reader.getCurrentCount()).isEqualTo(3);
+    }
+
+    @Test
+    public void readMultiRecordWarcFileWithMalformedEndOfFileAndSetExpectTrailingConcatenatorSetToFalse() {
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-with-malformed-eof.warc"));
+        reader.setExpectTrailingConcatenator(false);
+
+        // the first record is well-formed
+        reader.read();
+
+        // the second record is well-formed
+        reader.read();
+        assertThat(reader.getCurrentCount()).isEqualTo(2);
+
+        // the third record is well-formed and the absence of
+        // trailing newlines does not cause the read to fail
+        reader.read();
         assertThat(reader.getCurrentCount()).isEqualTo(3);
     }
 

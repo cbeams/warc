@@ -4,15 +4,15 @@ import org.iokit.core.input.Input;
 
 import java.io.Closeable;
 
-public abstract class InputReader<I extends Input, T> implements Closeable, Reader<T> {
+public abstract class InputReader<T> implements Closeable, Reader<T> {
 
-    protected final I input;
+    protected final Input input;
 
-    public InputReader(I input) {
+    public InputReader(Input input) {
         this.input = input;
     }
 
-    public I getInput() {
+    public Input getInput() {
         return input;
     }
 

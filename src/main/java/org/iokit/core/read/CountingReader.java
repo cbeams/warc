@@ -4,7 +4,7 @@ public class CountingReader<T> extends SequenceReader<T> {
 
     private long currentCount = 0;
 
-    public CountingReader(InputReader<?, T> reader) {
+    public CountingReader(InputReader<T> reader) {
         super(reader);
     }
 

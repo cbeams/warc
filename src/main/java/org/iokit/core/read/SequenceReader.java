@@ -1,7 +1,5 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.Input;
-
 import java.util.Iterator;
 import java.util.Spliterators;
 import java.util.stream.Stream;
@@ -9,11 +7,11 @@ import java.util.stream.StreamSupport;
 
 import static java.util.Spliterator.*;
 
-public class SequenceReader<T> extends InputReader<Input, T> {
+public class SequenceReader<T> extends InputReader<T> {
 
-    private final InputReader<?, T> reader;
+    private final InputReader<T> reader;
 
-    public SequenceReader(InputReader<?, T> reader) {
+    public SequenceReader(InputReader<T> reader) {
         super(reader.getInput());
         this.reader = reader;
     }

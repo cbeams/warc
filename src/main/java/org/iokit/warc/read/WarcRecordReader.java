@@ -10,7 +10,6 @@ import org.iokit.core.read.InputReader;
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.ParameterizedReader;
 
-import org.iokit.core.input.Input;
 import org.iokit.core.input.LineInputStream;
 
 import java.util.function.BiFunction;
@@ -25,13 +24,11 @@ public class WarcRecordReader extends MessageReader<WarcHeader, WarcBody, WarcRe
         this(new WarcHeaderReader(lineReader), new WarcBodyReader(lineReader.getInput()));
     }
 
-    public WarcRecordReader(InputReader<Input, WarcHeader> headerReader,
-                            ParameterizedReader<WarcHeader, WarcBody> bodyReader) {
+    public WarcRecordReader(InputReader<WarcHeader> headerReader, ParameterizedReader<WarcHeader, WarcBody> bodyReader) {
         this(headerReader, bodyReader, WarcRecord::new);
     }
 
-    public WarcRecordReader(InputReader<Input, WarcHeader> headerReader,
-                            ParameterizedReader<WarcHeader, WarcBody> bodyReader,
+    public WarcRecordReader(InputReader<WarcHeader> headerReader, ParameterizedReader<WarcHeader, WarcBody> bodyReader,
                             BiFunction<WarcHeader, WarcBody, WarcRecord> recordFactory) {
         super(headerReader, bodyReader, recordFactory);
     }

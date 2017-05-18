@@ -2,9 +2,15 @@ package org.iokit.core.read;
 
 public class BoundedReader<T> extends CountingReader<T> {
 
+    public static final int DEFAULT_MINIMUM_READ_COUNT = 0;
+
     private int minimumCount;
 
-    public BoundedReader(InputReader<?, T> reader, int minimumCount) {
+    public BoundedReader(InputReader<T> reader) {
+        this(reader, DEFAULT_MINIMUM_READ_COUNT);
+    }
+
+    public BoundedReader(InputReader<T> reader, int minimumCount) {
         super(reader);
         this.minimumCount = minimumCount;
     }

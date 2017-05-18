@@ -7,9 +7,10 @@ import it.unimi.dsi.fastutil.bytes.ByteArrays;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public class LineReader extends InputReader<LineInputStream, String> implements Reader<String> {
+public class LineReader extends InputReader<String> {
 
     private final Charset charset;
+    private final LineInputStream input;
 
     public LineReader(LineInputStream input) {
         this(input, StandardCharsets.UTF_8);
@@ -17,11 +18,17 @@ public class LineReader extends InputReader<LineInputStream, String> implements 
 
     public LineReader(LineInputStream input, Charset charset) {
         super(input);
+        this.input = input;
         this.charset = charset;
     }
 
     public byte peek() {
         return input.peek();
+    }
+
+    @Override
+    public LineInputStream getInput() {
+        return input;
     }
 
     byte[] chunk = new byte[1024];
