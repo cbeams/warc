@@ -8,8 +8,6 @@ import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
 
-import java.io.EOFException;
-
 public class WarcHeaderReader implements Reader<WarcHeader> {
 
     private final WarcVersionReader versionReader;
@@ -24,7 +22,7 @@ public class WarcHeaderReader implements Reader<WarcHeader> {
         this.fieldSetReader = fieldSetReader;
     }
 
-    public WarcHeader read() throws ReaderException, EOFException {
+    public WarcHeader read() throws ReaderException {
         return new WarcHeader(
             versionReader.read(),
             fieldSetReader.read());

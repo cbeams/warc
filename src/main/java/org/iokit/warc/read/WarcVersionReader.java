@@ -10,8 +10,6 @@ import org.iokit.core.read.ReaderException;
 import org.iokit.core.parse.Parser;
 import org.iokit.core.parse.ParsingException;
 
-import java.io.EOFException;
-
 public class WarcVersionReader implements Reader<WarcVersion> {
 
     private final LineReader lineReader;
@@ -26,7 +24,7 @@ public class WarcVersionReader implements Reader<WarcVersion> {
         this.parser = parser;
     }
 
-    public WarcVersion read() throws ReaderException, EOFException {
+    public WarcVersion read() throws ReaderException {
         try {
             return parser.parse(lineReader.read());
         } catch (ParsingException ex) {

@@ -1,7 +1,5 @@
 package org.iokit.core.read;
 
-import java.io.EOFException;
-
 public class NewlineReader implements Reader<Void> {
 
     private final LineReader lineReader;
@@ -10,7 +8,7 @@ public class NewlineReader implements Reader<Void> {
         this.lineReader = lineReader;
     }
 
-    public Void read() throws ReaderException, EOFException {
+    public Void read() throws ReaderException {
         String value = lineReader.read();
 
         if (!value.isEmpty())

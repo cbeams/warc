@@ -27,7 +27,7 @@ public class WarcReader extends BoundedReader<WarcRecord> {
         this(new FileInputStream(warcFile));
     }
 
-    public WarcReader(InputStream in) throws IOException {
+    public WarcReader(InputStream in) {
         this(new MagicInputStream(in));
     }
 

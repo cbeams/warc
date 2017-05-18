@@ -7,8 +7,6 @@ import it.unimi.dsi.fastutil.bytes.ByteArrays;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import java.io.EOFException;
-
 public class LineReader implements Reader<String> {
 
     private final LineInputStream input;
@@ -29,7 +27,7 @@ public class LineReader implements Reader<String> {
 
     byte[] chunk = new byte[1024];
 
-    public String read() throws ReaderException, EOFException {
+    public String read() throws ReaderException {
 
         int start = 0, length;
         while ((length = input.readLine(chunk, start, chunk.length - start)) == chunk.length - start) {
@@ -38,7 +36,7 @@ public class LineReader implements Reader<String> {
         }
 
         if (length == -1)
-            throw new EOFException();
+            throw new EndOfInputException();
 
         int total = length + start;
 
@@ -47,7 +45,7 @@ public class LineReader implements Reader<String> {
 
     byte[] testchunk = new byte[32*1024];
 
-    public byte[] fastRead() throws ReaderException, EOFException {
+    public byte[] fastRead() throws ReaderException {
 
         int start = 0, length;
         while ((length = input.readLine(testchunk, start, testchunk.length - start)) == testchunk.length - start) {
@@ -58,7 +56,7 @@ public class LineReader implements Reader<String> {
         return length == -1 ? null : testchunk;
     }
 
-    public String fastStringRead() throws ReaderException, EOFException {
+    public String fastStringRead() throws ReaderException {
 
         int start = 0, length;
         while ((length = input.readLine(testchunk, start, testchunk.length - start)) == testchunk.length - start) {

@@ -1,7 +1,6 @@
 package org.iokit.core.read;
 
 import java.io.Closeable;
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
@@ -15,7 +14,7 @@ public class ByteArrayReader implements Closeable, FixedLengthReader<byte[]> {
     }
 
     @Override
-    public byte[] read(int length) throws ReaderException, EOFException {
+    public byte[] read(int length) throws ReaderException {
         byte[] array = new byte[length];
 
         int actual;

@@ -7,7 +7,6 @@ import org.iokit.core.read.ByteArrayReader;
 import org.iokit.core.read.ParameterizedReader;
 import org.iokit.core.read.ReaderException;
 
-import java.io.EOFException;
 import java.io.InputStream;
 
 public class WarcBodyReader implements ParameterizedReader<WarcHeader, WarcBody> {
@@ -19,7 +18,7 @@ public class WarcBodyReader implements ParameterizedReader<WarcHeader, WarcBody>
     }
 
     @Override
-    public WarcBody read(WarcHeader header) throws ReaderException, EOFException {
+    public WarcBody read(WarcHeader header) throws ReaderException {
         return new WarcBody(byteArrayReader.read(header.getContentLength()));
     }
 }

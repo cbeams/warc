@@ -2,8 +2,6 @@ package org.iokit.core.read;
 
 import org.iokit.core.input.LineInputStream;
 
-import java.io.EOFException;
-
 public class CountingReader<T> extends ConcatenationReader<T> {
 
     private long currentCount = 0;
@@ -13,7 +11,7 @@ public class CountingReader<T> extends ConcatenationReader<T> {
     }
 
     @Override
-    public T read() throws ReaderException, EOFException {
+    public T read() throws ReaderException {
         T value = super.read();
 
         if (value != null)

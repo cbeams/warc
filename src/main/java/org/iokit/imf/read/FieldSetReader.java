@@ -7,8 +7,6 @@ import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
 
-import java.io.EOFException;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -24,7 +22,7 @@ public class FieldSetReader implements Reader<Set<Field>> {
         this.fieldReader = fieldReader;
     }
 
-    public Set<Field> read() throws ReaderException, EOFException {
+    public Set<Field> read() throws ReaderException {
         LinkedHashSet<Field> fields = new LinkedHashSet<>();
 
         Field field;

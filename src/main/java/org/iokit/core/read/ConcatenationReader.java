@@ -3,7 +3,6 @@ package org.iokit.core.read;
 import org.iokit.core.input.LineInputStream;
 
 import java.io.Closeable;
-import java.io.EOFException;
 import java.io.IOException;
 
 import java.util.Spliterator;
@@ -27,7 +26,7 @@ public class ConcatenationReader<T> implements Closeable, Reader<T> {
         input.seek(offset);
     }
 
-    public T read() throws ReaderException, EOFException {
+    public T read() throws ReaderException {
         if (input.isComplete())
             return null;
 

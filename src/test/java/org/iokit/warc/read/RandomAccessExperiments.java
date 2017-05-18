@@ -32,7 +32,7 @@ public class RandomAccessExperiments {
 
     @Test
     public void test2() throws IOException {
-        FastBufferedInputStream in = new FastBufferedInputStream(new FileInputStream(new File("/tmp/entire.warc")));
+        FastBufferedInputStream in = new FastBufferedInputStream(new FileInputStream(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat")));
 
         int available = in.available();
         System.out.println(available);
@@ -60,7 +60,7 @@ public class RandomAccessExperiments {
     @Test
     @Ignore
     public void test3() throws IOException {
-        FastBufferedInputStream in = new FastBufferedInputStream(new GZIPInputStream(new FileInputStream(new File("/tmp/entire.warc.gz"))));
+        FastBufferedInputStream in = new FastBufferedInputStream(new GZIPInputStream(new FileInputStream(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz"))));
 
         int available = in.available();
         System.out.println(available);
@@ -88,7 +88,7 @@ public class RandomAccessExperiments {
     @Test
     @Ignore
     public void test4() throws IOException {
-        FastBufferedInputStream in = new FastBufferedInputStream(new GZIPInputStream(new FileInputStream(new File("/tmp/entire.warc.gz"))));
+        FastBufferedInputStream in = new FastBufferedInputStream(new GZIPInputStream(new FileInputStream(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz"))));
         //FastBufferedInputStream in = new FastBufferedInputStream(new FileInputStream(new File("/tmp/entire.warc")));
 
         // position of last record is 1549727457
@@ -115,7 +115,7 @@ public class RandomAccessExperiments {
 
     @Test
     public void test5() throws IOException, ReaderException {
-        WarcReader reader = new WarcReader("/tmp/entire.warc");
+        WarcReader reader = new WarcReader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat");
 
         reader.seek(1_549_727_457);
 
@@ -129,7 +129,7 @@ public class RandomAccessExperiments {
 
     @Test
     public void test6() throws IOException, ReaderException {
-        WarcReader reader = new WarcReader("/tmp/entire.warc.gz");
+        WarcReader reader = new WarcReader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz");
 
         reader.seek(1_549_727_457);
 

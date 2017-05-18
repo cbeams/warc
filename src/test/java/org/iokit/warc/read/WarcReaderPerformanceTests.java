@@ -20,9 +20,9 @@ import it.unimi.dsi.fastutil.bytes.ByteArrays;
 import it.unimi.dsi.fastutil.io.FastBufferedInputStream;
 
 import java.io.BufferedReader;
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -151,16 +151,15 @@ public class WarcReaderPerformanceTests {
             .limit(3)
             .forEach(warcFile -> {
                 System.out.println("reading: " + warcFile);
+                LineReader reader = null;
                 try {
-                    LineReader reader = new LineReader(new CrlfLineInputStream(new FileInputStream(warcFile)));
-                    while (true) {
-                        reader.read();
-                        total.incrementAndGet();
-                    }
-                } catch (EOFException ignored) {
-                    System.out.println("EOF");
-                } catch (Exception e) {
+                    reader = new LineReader(new CrlfLineInputStream(new FileInputStream(warcFile)));
+                } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
+                }
+                while (true) {
+                    reader.read();
+                    total.incrementAndGet();
                 }
             });
         long time = stopwatch.runtime(TimeUnit.MILLISECONDS);
@@ -169,7 +168,7 @@ public class WarcReaderPerformanceTests {
 
     @Test
     public void x() throws Exception {
-        LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/tmp/entire.warc")));
+        LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat")));
         byte[] line;
         int lines = 0;
         while ((line = reader.fastRead()).length != 0)
@@ -194,7 +193,7 @@ public class WarcReaderPerformanceTests {
 
         // 4092*1024: 6.5 6.5 6.2 (compare with fastutil numbers in d() at same value!)
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("/tmp/entire.warc")), 4092*1024);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat")), 4092 * 1024);
         int lines = 0;
         while (reader.readLine() != null)
             lines++;
@@ -216,9 +215,9 @@ public class WarcReaderPerformanceTests {
         // 256*1024: 1.2 0.7 0.6
         // 512*1024: 0.8 0.5 0.6
 
-        InputStream input = new FileInputStream("/tmp/entire.warc");
+        InputStream input = new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat");
         int count = 0;
-        int size = 32*1024;
+        int size = 32 * 1024;
         byte[] chunk = new byte[size];
         while (input.read(chunk) != -1)
             count++;
@@ -248,7 +247,7 @@ public class WarcReaderPerformanceTests {
 
         InputStream input = new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc");
         int count = 0;
-        int size = 64*1024;
+        int size = 64 * 1024;
         byte[] chunk = new byte[size];
         while (input.read(chunk) != -1)
             count++;
@@ -284,9 +283,9 @@ public class WarcReaderPerformanceTests {
         // actuals from below with 1024K GZIP chunk size and 128K read size
         // 11.5 11.7 11.4
 
-        InputStream input = new GZIPInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz"), 1024*1024);
+        InputStream input = new GZIPInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz"), 1024 * 1024);
         int count = 0;
-        int size = 64*1024;
+        int size = 64 * 1024;
         byte[] chunk = new byte[size];
         while (input.read(chunk) != -1)
             count++;
@@ -322,9 +321,9 @@ public class WarcReaderPerformanceTests {
         // actuals from below with 1024K GZIP chunk size and 128K read size
         // 11.5 11.7 11.4
 
-        InputStream input = new GZIPInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz"), 1024*1024);
+        InputStream input = new GZIPInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz"), 1024 * 1024);
         int count = 0;
-        int size = 64*1024;
+        int size = 64 * 1024;
         byte[] chunk = new byte[size];
         while (input.read(chunk) != -1)
             count++;
@@ -345,17 +344,17 @@ public class WarcReaderPerformanceTests {
 
         int n = 3;
         long start = currentTimeMillis();
-        for (int i=0; i<n; i++)
+        for (int i = 0; i < n; i++)
             readOptimal();
         long elapsed = currentTimeMillis() - start;
 
-        System.out.printf("read %d times in %d ms for an average of %d ms\n", n, elapsed, elapsed/n);
+        System.out.printf("read %d times in %d ms for an average of %d ms\n", n, elapsed, elapsed / n);
     }
 
     private void readOptimal() throws IOException {
-        InputStream input = new GZIPInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz"), 1024*1024);
+        InputStream input = new GZIPInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz"), 1024 * 1024);
         int count = 0;
-        int size = 64*1024;
+        int size = 64 * 1024;
         byte[] chunk = new byte[size];
         while (input.read(chunk) != -1)
             count++;
@@ -373,9 +372,9 @@ public class WarcReaderPerformanceTests {
         // not bad, wow
 
 
-        FastBufferedInputStream input = new FastBufferedInputStream(new FileInputStream("/tmp/entire.warc"));
+        FastBufferedInputStream input = new FastBufferedInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"));
         int count = 0;
-        int size = 2048*1024;
+        int size = 2048 * 1024;
         byte[] chunk = new byte[size];
         while (input.readLine(chunk, EnumSet.of(FastBufferedInputStream.LineTerminator.CR_LF)) != -1)
             count++;
@@ -389,9 +388,9 @@ public class WarcReaderPerformanceTests {
 
         //32*1024: 1.7 1.7 1.7 (buffer grows to 2048, same as what we had to manually size in d() above)
 
-        FastBufferedInputStream input = new FastBufferedInputStream(new FileInputStream("/tmp/entire.warc"));
+        FastBufferedInputStream input = new FastBufferedInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"));
         int count = 0;
-        int size = 32*1024;
+        int size = 32 * 1024;
         byte[] chunk = new byte[size];
 
         while (true) {
@@ -408,7 +407,7 @@ public class WarcReaderPerformanceTests {
         }
 
         System.out.printf("read %d %d byte lines in %d ms\n", count, size, stopwatch.runtime(TimeUnit.MILLISECONDS));
-        System.out.printf("final chunk size: %d\n", chunk.length/1024);
+        System.out.printf("final chunk size: %d\n", chunk.length / 1024);
         assertThat(count).isEqualTo(1527528);
     }
 
@@ -426,7 +425,7 @@ public class WarcReaderPerformanceTests {
 
         FastBufferedInputStream input = new FastBufferedInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc"));
         int count = 0;
-        int size = 32*1024;
+        int size = 32 * 1024;
         byte[] chunk = new byte[size];
 
         while (true) {
@@ -443,7 +442,7 @@ public class WarcReaderPerformanceTests {
         }
 
         System.out.printf("read %d %d byte lines in %d ms\n", count, size, stopwatch.runtime(TimeUnit.MILLISECONDS));
-        System.out.printf("final chunk size: %d\n", chunk.length/1024);
+        System.out.printf("final chunk size: %d\n", chunk.length / 1024);
         assertThat(count).isEqualTo(67_474_403);
     }
 
@@ -454,10 +453,10 @@ public class WarcReaderPerformanceTests {
 
         // 1.7 1.7 1.9 (checked)
 
-        LineInputStream input = new LineInputStream(new FileInputStream("/tmp/entire.warc"), LineTerminator.CR_LF);
+        LineInputStream input = new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"), LineTerminator.CR_LF);
 
         int count = 0;
-        int size = 32*1024;
+        int size = 32 * 1024;
         byte[] chunk = new byte[size];
 
         while (true) {
@@ -474,18 +473,18 @@ public class WarcReaderPerformanceTests {
         }
 
         System.out.printf("read %d %d byte lines in %d ms\n", count, size, stopwatch.runtime(TimeUnit.MILLISECONDS));
-        System.out.printf("final chunk size: %d\n", chunk.length/1024);
+        System.out.printf("final chunk size: %d\n", chunk.length / 1024);
         assertThat(count).isEqualTo(1527528);
     }
 
     @Test
     public void linesToExclude() throws Exception {
 
-        LineInputStream input = new LineInputStream(new FileInputStream("/tmp/entire.warc"), LineTerminator.CR_LF);
+        LineInputStream input = new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"), LineTerminator.CR_LF);
 
         int bodyLines = 0;
         int count = 0;
-        int size = 32*1024;
+        int size = 32 * 1024;
         byte[] chunk = new byte[size];
 
         while (true) {
@@ -505,7 +504,7 @@ public class WarcReaderPerformanceTests {
         }
 
         System.out.printf("read %d %d byte lines in %d ms\n", count, size, stopwatch.runtime(TimeUnit.MILLISECONDS));
-        System.out.printf("final chunk size: %d\n", chunk.length/1024);
+        System.out.printf("final chunk size: %d\n", chunk.length / 1024);
         assertThat(count).isEqualTo(1527528);
         //assertThat(bodyLines).isEqualTo(138_866);
     }
@@ -519,7 +518,7 @@ public class WarcReaderPerformanceTests {
 
         // 1.8 1.7 1.9
 
-        LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/tmp/entire.warc"), LineTerminator.CR_LF));
+        LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"), LineTerminator.CR_LF));
 
         int count = 0;
         while (reader.fastRead() != null)
@@ -553,7 +552,7 @@ public class WarcReaderPerformanceTests {
 
         // 1.9 1.8 1.8
 
-        LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/tmp/entire.warc"), LineTerminator.CR_LF));
+        LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"), LineTerminator.CR_LF));
 
         int count = 0;
         while (reader.fastStringRead() != null)
@@ -598,10 +597,10 @@ public class WarcReaderPerformanceTests {
         // 16*1024: 4.9 4.6 4.7
         // 32*1024: 4.8 4.7 4.7
 
-        int gzSize = 8*1024;
-        FastBufferedInputStream input = new FastBufferedInputStream(new GZIPInputStream(new FileInputStream("/tmp/entire.warc.gz"), gzSize));
+        int gzSize = 8 * 1024;
+        FastBufferedInputStream input = new FastBufferedInputStream(new GZIPInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz"), gzSize));
         int count = 0;
-        int size = 32*1024;
+        int size = 32 * 1024;
         byte[] chunk = new byte[size];
 
         while (true) {
@@ -618,7 +617,7 @@ public class WarcReaderPerformanceTests {
         }
 
         System.out.printf("read %d %d byte chunks in %d ms\n", count, size, stopwatch.runtime(TimeUnit.MILLISECONDS));
-        System.out.printf("final chunk size: %d\n", chunk.length/1024);
+        System.out.printf("final chunk size: %d\n", chunk.length / 1024);
         assertThat(count).isEqualTo(1527528);
     }
 
@@ -656,7 +655,7 @@ public class WarcReaderPerformanceTests {
 
         FastBufferedInputStream input = new FastBufferedInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc"));
         int count = 0;
-        int size = 32*1024;
+        int size = 32 * 1024;
         byte[] chunk = new byte[size];
 
         while (true) {
@@ -673,7 +672,7 @@ public class WarcReaderPerformanceTests {
         }
 
         System.out.printf("read %d %d byte chunks in %d ms\n", count, size, stopwatch.runtime(TimeUnit.MILLISECONDS));
-        System.out.printf("final chunk size: %d\n", chunk.length/1024);
+        System.out.printf("final chunk size: %d\n", chunk.length / 1024);
         assertThat(count).isEqualTo(67474403);
     }
 
@@ -693,10 +692,10 @@ public class WarcReaderPerformanceTests {
         // 16*1024: 4.9 4.6 4.7
         // 32*1024: 4.8 4.7 4.7
 
-        int gzSize = 8*1024;
-        FastBufferedInputStream input = new FastBufferedInputStream(new GZIPInputStream(new FileInputStream("/tmp/entire.warc.gz"), gzSize));
+        int gzSize = 8 * 1024;
+        FastBufferedInputStream input = new FastBufferedInputStream(new GZIPInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz"), gzSize));
         int count = 0;
-        int size = 32*1024;
+        int size = 32 * 1024;
         byte[] chunk = new byte[size];
 
         while (true) {
@@ -713,7 +712,7 @@ public class WarcReaderPerformanceTests {
         }
 
         System.out.printf("read %d %d byte chunks in %d ms\n", count, size, stopwatch.runtime(TimeUnit.MILLISECONDS));
-        System.out.printf("final chunk size: %d\n", chunk.length/1024);
+        System.out.printf("final chunk size: %d\n", chunk.length / 1024);
         assertThat(count).isEqualTo(1527528);
     }
 
@@ -732,8 +731,8 @@ public class WarcReaderPerformanceTests {
         //
         // 15.6 15.6 15.8
 
-        int fbSize = 4*1024*1024;
-        int gzSize = 4*1024*1024;
+        int fbSize = 4 * 1024 * 1024;
+        int gzSize = 4 * 1024 * 1024;
 
         FastBufferedInputStream input =
             new FastBufferedInputStream(
@@ -743,7 +742,7 @@ public class WarcReaderPerformanceTests {
                 fbSize);
 
         int count = 0;
-        int ckSize = 2*1024*1024;
+        int ckSize = 2 * 1024 * 1024;
         byte[] chunk = new byte[ckSize];
         EnumSet<FastBufferedInputStream.LineTerminator> terminators = EnumSet.of(FastBufferedInputStream.LineTerminator.CR_LF);
 
@@ -765,8 +764,8 @@ public class WarcReaderPerformanceTests {
         //
         // 15.9 17.7 15.7
 
-        int fbSize = 4*1024*1024;
-        int gzSize = 4*1024*1024;
+        int fbSize = 4 * 1024 * 1024;
+        int gzSize = 4 * 1024 * 1024;
 
         FastBufferedInputStream input =
             new FastBufferedInputStream(
@@ -803,18 +802,18 @@ public class WarcReaderPerformanceTests {
         i_for_normal_warc_gz_with_resizing(); // throw away warmup
         System.out.println("0");
         long start = currentTimeMillis();
-        int n=3;
-        for (int i=0; i<n; i++) {
+        int n = 3;
+        for (int i = 0; i < n; i++) {
             i_for_normal_warc_gz_with_resizing();
             System.out.println(i);
         }
         long elapsed = currentTimeMillis() - start;
-        System.out.printf("read %d times in %d ms for an average of %d ms per read\n", n, elapsed, elapsed/3);
+        System.out.printf("read %d times in %d ms for an average of %d ms per read\n", n, elapsed, elapsed / 3);
     }
 
     @Test
     public void j() throws Exception {
-        org.jwat.warc.WarcReader reader = org.jwat.warc.WarcReaderFactory.getReaderUncompressed(new FileInputStream("/tmp/entire.warc"));
+        org.jwat.warc.WarcReader reader = org.jwat.warc.WarcReaderFactory.getReaderUncompressed(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"));
 
 
         int count = 0;
@@ -830,7 +829,7 @@ public class WarcReaderPerformanceTests {
 
     @Test
     public void k() throws Exception {
-        org.iokit.warc.read.WarcReader reader = new org.iokit.warc.read.WarcReader(new FileInputStream("/tmp/entire.warc"));
+        org.iokit.warc.read.WarcReader reader = new org.iokit.warc.read.WarcReader(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"));
 
 
         int count = 0;
@@ -866,8 +865,8 @@ public class WarcReaderPerformanceTests {
 
     @Test
     public void k_for_normal_gz_warc() throws Exception {
-        int fbSize = 4*1024*1024;
-        int gzSize = 4*1024*1024;
+        int fbSize = 4 * 1024 * 1024;
+        int gzSize = 4 * 1024 * 1024;
 
         FastBufferedInputStream input =
             new FastBufferedInputStream(
@@ -920,18 +919,18 @@ public class WarcReaderPerformanceTests {
         k_for_normal_gz_warc(); // throw away warmup
         System.out.println("throwaway complete");
         long start = currentTimeMillis();
-        int n=3;
-        for (int i=0; i<n; i++) {
+        int n = 3;
+        for (int i = 0; i < n; i++) {
             k_for_normal_gz_warc();
             System.out.println(i);
         }
         long elapsed = currentTimeMillis() - start;
-        System.out.printf("read %d times in %d ms for an average of %d ms per read\n", n, elapsed, elapsed/3);
+        System.out.printf("read %d times in %d ms for an average of %d ms per read\n", n, elapsed, elapsed / 3);
     }
 
     @Test
     public void l() throws Exception {
-        WARCReader reader = WARCReaderFactory.get(new File("/tmp/entire.warc"));
+        WARCReader reader = WARCReaderFactory.get(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"));
 
         int count = 0;
         for (ArchiveRecord record : reader)

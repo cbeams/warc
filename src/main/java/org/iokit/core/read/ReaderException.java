@@ -11,4 +11,8 @@ public class ReaderException extends IOKitException {
     public ReaderException(Throwable cause) {
         super(cause);
     }
+
+    public ReaderException() {
+        super();
+    }
 }

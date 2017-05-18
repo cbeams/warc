@@ -4,6 +4,7 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
+import java.io.UncheckedIOException;
 
 import java.util.LinkedHashSet;
 import java.util.ServiceLoader;
@@ -19,22 +20,26 @@ public class MagicInputStream extends FilterInputStream {
         ServiceLoader.load(MagicInputStreamMapper.class).forEach(MAPPERS::add);
     }
 
-    public MagicInputStream(InputStream in) throws IOException {
+    public MagicInputStream(InputStream in) {
         this(in, DEFAULT_MAGIC_SIZE);
     }
 
-    public MagicInputStream(InputStream in, int size) throws IOException {
+    public MagicInputStream(InputStream in, int size) {
         super(map(in, size));
     }
 
-    public static InputStream map(InputStream in, int size) throws IOException {
+    public static InputStream map(InputStream in, int size) {
         byte[] magic = new byte[size];
         PushbackInputStream input = new PushbackInputStream(in, size);
 
-        int len = input.read(magic);
-        if (len == -1)
-            return input;
-        input.unread(magic, 0, len);
+        try {
+            int len = input.read(magic);
+            if (len == -1)
+                return input;
+            input.unread(magic, 0, len);
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
 
         return MAPPERS.stream()
             .filter(mapper -> mapper.canMap(magic))

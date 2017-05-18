@@ -10,7 +10,6 @@ import org.junit.Test;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import java.io.EOFException;
 import java.io.IOException;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -42,8 +41,6 @@ public class IntegrationTest {
                         count++;
                     }
                 } catch (ReaderException e) {
-                    throw new RuntimeException(e);
-                } catch (EOFException e) {
                     throw new RuntimeException(e);
                 }
                 long finish = System.currentTimeMillis();

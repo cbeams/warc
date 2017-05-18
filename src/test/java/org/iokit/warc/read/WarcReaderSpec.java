@@ -3,6 +3,7 @@ package org.iokit.warc.read;
 import org.iokit.warc.WarcRecord;
 import org.iokit.warc.WarcVersion;
 
+import org.iokit.core.read.EndOfInputException;
 import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.validate.Validator;
@@ -12,7 +13,6 @@ import org.junit.Test;
 
 import java.util.zip.GZIPInputStream;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -29,14 +29,14 @@ import org.iokit.core.config.Reflector;
 public class WarcReaderSpec {
 
     @Test
-    public void readEmptyWarcFile() throws IOException {
+    public void readEmptyWarcFile() {
         WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
-        assertThatThrownBy(reader::read).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(reader::read).isInstanceOf(ReaderException.class);
         assertThat(reader.getCurrentCount()).isZero();
     }
 
     @Test
-    public void readSingleRecordWarcFile() throws IOException, ReaderException {
+    public void readSingleRecordWarcFile() {
         WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/single.warc"));
 
         WarcRecord record = reader.read();
@@ -51,6 +51,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readMultiRecordWarcFile() throws IOException, ReaderException {
+
         WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc"));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
@@ -98,7 +99,7 @@ public class WarcReaderSpec {
         // the third record itself is well-formed but the absence of
         // trailing newlines causes the read to fail
         assertThatThrownBy(reader::read)
-            .isInstanceOf(EOFException.class);
+            .isInstanceOf(EndOfInputException.class);
 
         // arguably the count should now be 3, as we did actually read the record
         // but it remains at 2 to avoid making the implementation more complex and

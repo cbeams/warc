@@ -1,7 +1,5 @@
 package org.iokit.core.read;
 
-import java.io.EOFException;
-
 public class FoldedLineReader implements Reader<String> {
 
     private final LineReader lineReader;
@@ -11,7 +9,7 @@ public class FoldedLineReader implements Reader<String> {
     }
 
     @Override
-    public String read() throws ReaderException, EOFException {
+    public String read() throws ReaderException {
         String firstLine = lineReader.read();
 
         if (firstLine == null || firstLine.isEmpty())

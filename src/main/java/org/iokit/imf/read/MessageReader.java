@@ -1,14 +1,12 @@
 package org.iokit.imf.read;
 
-import org.iokit.imf.Message;
 import org.iokit.imf.Body;
 import org.iokit.imf.Header;
+import org.iokit.imf.Message;
 
 import org.iokit.core.read.ParameterizedReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
-
-import java.io.EOFException;
 
 import java.util.function.BiFunction;
 
@@ -26,7 +24,7 @@ public class MessageReader<H extends Header, B extends Body, M extends Message> 
     }
 
     @Override
-    public M read() throws ReaderException, EOFException {
+    public M read() throws ReaderException {
         H header = headerReader.read();
         B body = bodyReader.read(header);
         return messageFactory.apply(header, body);

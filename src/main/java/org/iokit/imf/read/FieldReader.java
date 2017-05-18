@@ -10,8 +10,6 @@ import org.iokit.core.read.ReaderException;
 import org.iokit.core.parse.Parser;
 import org.iokit.core.parse.ParsingException;
 
-import java.io.EOFException;
-
 public class FieldReader implements Reader<Field> {
 
     private final FoldedLineReader lineReader;
@@ -26,7 +24,7 @@ public class FieldReader implements Reader<Field> {
         this.fieldParser = fieldParser;
     }
 
-    public Field read() throws ReaderException, EOFException {
+    public Field read() throws ReaderException {
         String input = lineReader.read();
 
         if (input == null || input.isEmpty())

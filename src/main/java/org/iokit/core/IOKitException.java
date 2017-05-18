@@ -1,6 +1,6 @@
 package org.iokit.core;
 
-public class IOKitException extends Exception {
+public class IOKitException extends RuntimeException {
 
     public IOKitException(String message, Object... args) {
         super(String.format(message, args));
@@ -8,5 +8,8 @@ public class IOKitException extends Exception {
 
     public IOKitException(Throwable cause) {
         super(cause);
+    }
+
+    public IOKitException() {
     }
 }

@@ -1,12 +1,13 @@
 package org.iokit.warc.read;
 
 import org.iokit.warc.WarcField;
-import org.iokit.warc.WarcRecord;
 import org.iokit.warc.WarcHeader;
+import org.iokit.warc.WarcRecord;
 import org.iokit.warc.WarcVersion;
 
 import org.iokit.imf.Field;
 
+import org.iokit.core.read.EndOfInputException;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
 
@@ -15,7 +16,6 @@ import org.iokit.core.input.CrlfLineInputStream;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.EOFException;
 
 import java.util.Set;
 
@@ -28,7 +28,7 @@ public class WarcRecordReaderSpec {
      * C.1: Example of 'warcinfo' record
      */
     @Test
-    public void readExampleWarcinfoRecord() throws ReaderException, EOFException {
+    public void readExampleWarcinfoRecord() {
         String input = "" +
             "WARC/1.0\r\n" +
             "WARC-Type: warcinfo\r\n" +
@@ -69,7 +69,7 @@ public class WarcRecordReaderSpec {
         assertThat(body[body.length - 1]).isEqualTo((byte) 'l'); // the 'l' in ".html" on the last line
         assertThat(body.length).isEqualTo(header.getContentLength());
 
-        assertThatThrownBy(reader::read).isInstanceOf(EOFException.class);
+        assertThatThrownBy(reader::read).isInstanceOf(EndOfInputException.class);
     }
 
     static class MyWarcHeader extends WarcHeader {
@@ -85,7 +85,7 @@ public class WarcRecordReaderSpec {
         }
 
         @Override
-        public MyWarcHeader read() throws ReaderException, EOFException {
+        public MyWarcHeader read() throws ReaderException {
             return null;
         }
     }
