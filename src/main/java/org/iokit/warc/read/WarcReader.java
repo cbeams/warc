@@ -37,15 +37,15 @@ public class WarcReader extends ConcatenationReader<WarcRecord> {
     }
 
     public WarcReader(LineInputStream in) {
-        this(in, new LineReader(in));
+        this(new LineReader(in));
     }
 
-    public WarcReader(LineInputStream in, LineReader lineReader) {
-        this(in, new WarcRecordReader(in), new WarcSeparatorReader(lineReader));
+    public WarcReader(LineReader lineReader) {
+        this(new WarcRecordReader(lineReader), new WarcConcatenatorReader(lineReader));
     }
 
-    public WarcReader(LineInputStream in, WarcRecordReader recordReader, Reader<?> concatenatorReader) {
-        super(in, recordReader, concatenatorReader, DEFAULT_MINIMUM_RECORD_COUNT);
+    public WarcReader(WarcRecordReader recordReader, Reader<?> concatenatorReader) {
+        super(recordReader, concatenatorReader, DEFAULT_MINIMUM_RECORD_COUNT);
     }
 
     private static FileInputStream newFileInputStream(File warcFile) {

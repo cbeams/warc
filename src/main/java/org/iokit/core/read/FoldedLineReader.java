@@ -1,24 +1,22 @@
 package org.iokit.core.read;
 
-public class FoldedLineReader implements Reader<String> {
+public class FoldedLineReader extends TransformReader<LineReader, String> {
 
-    private final LineReader lineReader;
-
-    public FoldedLineReader(LineReader lineReader) {
-        this.lineReader = lineReader;
+    public FoldedLineReader(LineReader reader) {
+        super(reader);
     }
 
     @Override
     public String read() throws ReaderException {
-        String firstLine = lineReader.read();
+        String firstLine = reader.read();
 
         if (firstLine == null || firstLine.isEmpty())
             return null;
 
         StringBuilder lines = new StringBuilder(firstLine);
 
-        while (isTabOrSpace(lineReader.peek()))
-            lines.append("\r\n").append(lineReader.read());
+        while (isTabOrSpace(reader.peek()))
+            lines.append("\r\n").append(reader.read());
 
         return lines.toString();
     }

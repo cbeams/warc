@@ -43,6 +43,11 @@ public class LineReader implements Reader<String> {
         return new String(chunk, 0, total, charset);
     }
 
+    @Override
+    public LineInputStream getInput() {
+        return input;
+    }
+
     byte[] testchunk = new byte[32*1024];
 
     public byte[] fastRead() throws ReaderException {

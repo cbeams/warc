@@ -1,13 +1,11 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.Input;
-
-public class CountingReader<T> extends FilterReader<T> {
+public class CountingReader<T> extends SequenceReader<T> {
 
     private long currentCount = 0;
 
-    public CountingReader(Input input, Reader<T> reader) {
-        super(input, reader);
+    public CountingReader(Reader<T> reader) {
+        super(reader);
     }
 
     @Override

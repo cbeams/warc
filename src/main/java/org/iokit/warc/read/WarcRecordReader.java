@@ -17,11 +17,11 @@ import java.util.function.BiFunction;
 public class WarcRecordReader extends MessageReader<WarcHeader, WarcBody, WarcRecord> {
 
     public WarcRecordReader(LineInputStream in) {
-        this(in, new LineReader(in));
+        this(new LineReader(in));
     }
 
-    public WarcRecordReader(LineInputStream in, LineReader lineReader) {
-        this(new WarcHeaderReader(lineReader), new WarcBodyReader(in));
+    public WarcRecordReader(LineReader lineReader) {
+        this(new WarcHeaderReader(lineReader), new WarcBodyReader(lineReader.getInput()));
     }
 
     public WarcRecordReader(Reader<WarcHeader> headerReader, ParameterizedReader<WarcHeader, WarcBody> bodyReader) {

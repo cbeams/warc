@@ -1,15 +1,13 @@
 package org.iokit.core.read;
 
-public class NewlineReader implements Reader<Void> {
+public class NewlineReader extends TransformReader<LineReader, Void> {
 
-    private final LineReader lineReader;
-
-    public NewlineReader(LineReader lineReader) {
-        this.lineReader = lineReader;
+    public NewlineReader(LineReader reader) {
+        super(reader);
     }
 
     public Void read() throws ReaderException {
-        String value = lineReader.read();
+        String value = reader.read();
 
         if (!value.isEmpty())
             throw new ReaderException("expected to read a newline but got [%s]", value);

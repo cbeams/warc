@@ -1,13 +1,12 @@
 package org.iokit.core.read;
 
-public class SkipReader implements Reader<Void> {
+public class SkipReader extends TransformReader<Reader<?>, Void> {
 
     private final int count;
-    private final Reader<?> reader;
 
     public SkipReader(int count, Reader<?> reader) {
+        super(reader);
         this.count = count;
-        this.reader = reader;
     }
 
     @Override

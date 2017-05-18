@@ -11,12 +11,31 @@ import java.util.stream.StreamSupport;
 
 import static java.util.Spliterator.*;
 
-public abstract class AbstractReader<T> implements Closeable, Reader<T> {
+public class SequenceReader<T> implements Closeable, Reader<T> {
 
-    protected final Input input;
+    private final Reader<T> reader;
 
-    public AbstractReader(Input input) {
-        this.input = input;
+    public SequenceReader(Reader<T> reader) {
+        this.reader = reader;
+    }
+
+    @Override
+    public T read() throws ReaderException {
+        return reader.getInput().isComplete() ? null : reader.read();
+    }
+
+    public void seek(long offset) {
+        getInput().seek(offset);
+    }
+
+    @Override
+    public void close() {
+        getInput().close();
+    }
+
+    @Override
+    public Input getInput() {
+        return reader.getInput();
     }
 
     public Stream<T> stream() {
@@ -25,23 +44,14 @@ public abstract class AbstractReader<T> implements Closeable, Reader<T> {
                 new Iterator<T>() {
                     @Override
                     public boolean hasNext() {
-                        return !input.isComplete();
+                        return !getInput().isComplete();
                     }
 
                     @Override
                     public T next() {
-                        return AbstractReader.this.read();
+                        return SequenceReader.this.read();
                     }
                 }, NONNULL | ORDERED | IMMUTABLE),
             false);
-    }
-
-    public void seek(long offset) {
-        input.seek(offset);
-    }
-
-    @Override
-    public void close() {
-        input.close();
     }
 }

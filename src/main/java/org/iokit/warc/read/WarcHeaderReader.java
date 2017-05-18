@@ -2,13 +2,14 @@ package org.iokit.warc.read;
 
 import org.iokit.warc.WarcHeader;
 
+import org.iokit.core.read.TransformReader;
 import org.iokit.imf.read.FieldSetReader;
 
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
 
-public class WarcHeaderReader implements Reader<WarcHeader> {
+public class WarcHeaderReader extends TransformReader<Reader<?>, WarcHeader> {
 
     private final WarcVersionReader versionReader;
     private final FieldSetReader fieldSetReader;
@@ -18,6 +19,7 @@ public class WarcHeaderReader implements Reader<WarcHeader> {
     }
 
     public WarcHeaderReader(WarcVersionReader versionReader, FieldSetReader fieldSetReader) {
+        super(versionReader);
         this.versionReader = versionReader;
         this.fieldSetReader = fieldSetReader;
     }
