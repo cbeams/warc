@@ -11,9 +11,9 @@ import static java.util.Spliterator.*;
 
 public class SequenceReader<T> extends InputReader<Input, T> {
 
-    private final Reader<T> reader;
+    private final InputReader<?, T> reader;
 
-    public SequenceReader(Reader<T> reader) {
+    public SequenceReader(InputReader<?, T> reader) {
         super(reader.getInput());
         this.reader = reader;
     }

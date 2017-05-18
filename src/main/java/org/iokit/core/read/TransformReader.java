@@ -2,7 +2,7 @@ package org.iokit.core.read;
 
 import org.iokit.core.input.Input;
 
-public abstract class TransformReader<R extends Reader, T> extends InputReader<Input, T> {
+public abstract class TransformReader<R extends InputReader, T> extends InputReader<Input, T> {
 
     protected final R reader;
 

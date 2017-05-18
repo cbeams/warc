@@ -4,7 +4,7 @@ public class ConcatenationReader<T> extends BoundedReader<T> {
 
     private final Reader<?> concatenatorReader;
 
-    public ConcatenationReader(Reader<T> reader, Reader<?> concatenatorReader, int minCount) {
+    public ConcatenationReader(InputReader<?, T> reader, Reader<?> concatenatorReader, int minCount) {
         super(reader, minCount);
         this.concatenatorReader = concatenatorReader;
     }

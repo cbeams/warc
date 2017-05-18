@@ -4,7 +4,7 @@ public class BoundedReader<T> extends CountingReader<T> {
 
     private int minimumCount;
 
-    public BoundedReader(Reader<T> reader, int minimumCount) {
+    public BoundedReader(InputReader<?, T> reader, int minimumCount) {
         super(reader);
         this.minimumCount = minimumCount;
     }

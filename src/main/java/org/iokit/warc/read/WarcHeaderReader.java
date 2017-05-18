@@ -2,14 +2,14 @@ package org.iokit.warc.read;
 
 import org.iokit.warc.WarcHeader;
 
-import org.iokit.core.read.TransformReader;
 import org.iokit.imf.read.FieldSetReader;
 
+import org.iokit.core.read.InputReader;
 import org.iokit.core.read.LineReader;
-import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
+import org.iokit.core.read.TransformReader;
 
-public class WarcHeaderReader extends TransformReader<Reader<?>, WarcHeader> {
+public class WarcHeaderReader extends TransformReader<InputReader, WarcHeader> {
 
     private final WarcVersionReader versionReader;
     private final FieldSetReader fieldSetReader;
