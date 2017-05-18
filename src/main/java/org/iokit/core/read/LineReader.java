@@ -7,7 +7,7 @@ import it.unimi.dsi.fastutil.bytes.ByteArrays;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public class LineReader extends InputReader<String> {
+public class LineReader extends CloseableReader<String> {
 
     private final Charset charset;
     private final LineInputStream input;

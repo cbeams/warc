@@ -2,22 +2,17 @@ package org.iokit.core.read;
 
 import org.iokit.core.input.Input;
 
-import java.io.Closeable;
-
-public abstract class InputReader<T> implements Closeable, Reader<T> {
+public abstract class InputReader<T> extends CloseableReader<T> {
 
     protected final Input input;
 
     public InputReader(Input input) {
+        super(input);
         this.input = input;
     }
 
+    @Override
     public Input getInput() {
         return input;
-    }
-
-    @Override
-    public void close() {
-        input.close();
     }
 }

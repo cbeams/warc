@@ -1,6 +1,6 @@
 package org.iokit.core.read;
 
-public abstract class TransformReader<R extends InputReader, T> extends InputReader<T> {
+public abstract class TransformReader<R extends Reader, T> extends InputReader<T> {
 
     protected final R reader;
 

@@ -4,7 +4,6 @@ import org.iokit.imf.Body;
 import org.iokit.imf.Header;
 import org.iokit.imf.Message;
 
-import org.iokit.core.read.InputReader;
 import org.iokit.core.read.ParameterizedReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
@@ -12,13 +11,13 @@ import org.iokit.core.read.TransformReader;
 
 import java.util.function.BiFunction;
 
-public class MessageReader<H extends Header, B extends Body, M extends Message> extends TransformReader<InputReader, M> {
+public class MessageReader<H extends Header, B extends Body, M extends Message> extends TransformReader<Reader, M> {
 
     protected final Reader<H> headerReader;
     protected final ParameterizedReader<H, B> bodyReader;
     protected final BiFunction<H, B, M> messageFactory;
 
-    public MessageReader(InputReader<H> headerReader, ParameterizedReader<H, B> bodyReader,
+    public MessageReader(Reader<H> headerReader, ParameterizedReader<H, B> bodyReader,
                          BiFunction<H, B, M> messageFactory) {
         super(headerReader);
         this.headerReader = headerReader;

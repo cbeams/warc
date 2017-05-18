@@ -8,15 +8,15 @@ public class ConcatenationReader<T> extends BoundedReader<T> {
 
     private boolean expectTrailingConcatenator;
 
-    public ConcatenationReader(InputReader<T> reader, Reader<?> concatenatorReader) {
+    public ConcatenationReader(Reader<T> reader, Reader<?> concatenatorReader) {
         this(reader, concatenatorReader, DEFAULT_MINIMUM_READ_COUNT);
     }
 
-    public ConcatenationReader(InputReader<T> reader, Reader<?> concatenatorReader, int minimumReadCount) {
+    public ConcatenationReader(Reader<T> reader, Reader<?> concatenatorReader, int minimumReadCount) {
         this(reader, concatenatorReader, minimumReadCount, DEFAULT_EXPECT_TRAILING_CONCATENATOR);
     }
 
-    public ConcatenationReader(InputReader<T> reader, Reader<?> concatenatorReader, int minimumReadCount,
+    public ConcatenationReader(Reader<T> reader, Reader<?> concatenatorReader, int minimumReadCount,
                                boolean expectTrailingConcatenator) {
         super(reader, minimumReadCount);
         this.concatenatorReader = concatenatorReader;

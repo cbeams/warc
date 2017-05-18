@@ -18,7 +18,7 @@ import java.io.UncheckedIOException;
 
 public class WarcReader extends ConcatenationReader<WarcRecord> {
 
-    public static final int DEFAULT_MINIMUM_RECORD_COUNT = 1;
+    public static final int DEFAULT_MINIMUM_READ_COUNT = 1;
 
     public WarcReader(String warcFilePath) {
         this(new File(warcFilePath));
@@ -45,7 +45,7 @@ public class WarcReader extends ConcatenationReader<WarcRecord> {
     }
 
     public WarcReader(WarcRecordReader recordReader, Reader<?> concatenatorReader) {
-        super(recordReader, concatenatorReader, DEFAULT_MINIMUM_RECORD_COUNT);
+        super(recordReader, concatenatorReader, DEFAULT_MINIMUM_READ_COUNT);
     }
 
     private static FileInputStream newFileInputStream(File warcFile) {

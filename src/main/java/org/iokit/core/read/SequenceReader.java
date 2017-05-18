@@ -9,20 +9,20 @@ import static java.util.Spliterator.*;
 
 public class SequenceReader<T> extends InputReader<T> {
 
-    private final InputReader<T> reader;
+    private final Reader<T> reader;
 
-    public SequenceReader(InputReader<T> reader) {
+    public SequenceReader(Reader<T> reader) {
         super(reader.getInput());
         this.reader = reader;
     }
 
     @Override
     public T read() throws ReaderException {
-        return reader.getInput().isComplete() ? null : reader.read();
+        return input.isComplete() ? null : reader.read();
     }
 
     public void seek(long offset) {
-        getInput().seek(offset);
+        input.seek(offset);
     }
 
     public Stream<T> stream() {
