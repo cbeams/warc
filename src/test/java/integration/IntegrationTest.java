@@ -2,8 +2,6 @@ package integration;
 
 import org.iokit.warc.read.WarcReader;
 
-import org.iokit.core.read.ReaderException;
-
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -29,20 +27,7 @@ public class IntegrationTest {
             .forEach(path -> {
                 System.out.println("reading " + path);
                 long start = System.currentTimeMillis();
-                WarcReader reader;
-                try {
-                    reader = new WarcReader(path.toFile());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                int count = 0;
-                try {
-                    while (reader.read() != null) {
-                        count++;
-                    }
-                } catch (ReaderException e) {
-                    throw new RuntimeException(e);
-                }
+                long count = new WarcReader(path.toFile()).stream().count();
                 long finish = System.currentTimeMillis();
                 System.out.println("read " + count + " records in " + (finish - start) + " ms");
                 long end = System.currentTimeMillis();

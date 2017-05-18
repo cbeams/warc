@@ -5,8 +5,8 @@ import org.iokit.imf.parse.FieldParser;
 import org.iokit.imf.parse.FieldValueParser;
 
 import org.iokit.core.validate.InvalidCharacterException;
+
 import org.iokit.core.parse.Parser;
-import org.iokit.core.parse.ParsingException;
 import org.iokit.core.parse.TokenSpec;
 
 import io.beams.valjo.ValjoSpec;
@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.*;
@@ -31,7 +32,7 @@ public class FieldSpecs {
 
     public static class FieldSpec extends ValjoSpec {
 
-        public FieldSpec() throws ParsingException {
+        public FieldSpec() {
             super(
                 "Valid-Name: valid value A",
                 "Valid-Name: valid value B"
@@ -39,12 +40,12 @@ public class FieldSpecs {
         }
 
         @Override
-        protected Object parse(String input) throws ParsingException {
+        protected Object parse(String input) {
             return new FieldParser().parse(input);
         }
 
         @Test
-        public void parseSplitsNameAndValueOnSeparator() throws ParsingException {
+        public void parseSplitsNameAndValueOnSeparator() {
             Field field = new FieldParser().parse("Valid-Name: valid value");
             assertThat(field.getName()).hasToString("Valid-Name");
             assertThat(field.getValue()).hasToString("valid value");
@@ -54,6 +55,22 @@ public class FieldSpecs {
         public void parseInputWithoutFieldSeparator() {
             assertThatThrownBy(() -> new FieldParser().parse("invalid input"))
                 .isInstanceOf(FieldParser.MissingSeparatorException.class);
+        }
+
+        @Override
+        @Test
+        public void parseEmptyInput() {
+            assertThatThrownBy(() -> parse(""))
+                .isInstanceOf(FieldParser.MissingSeparatorException.class);
+        }
+
+        @Override
+        @Test
+        public void parseBlankInput() {
+            Stream.of(" ", "\t")
+                .forEach(blank ->
+                    assertThatThrownBy(() -> parse(blank))
+                        .isInstanceOf(FieldParser.MissingSeparatorException.class));
         }
     }
 
@@ -70,13 +87,13 @@ public class FieldSpecs {
         }
 
         @Override
-        protected Object parse(String input) throws ParsingException {
+        protected Object parse(String input) {
             return parser.parse(input);
         }
 
         @Test
         @Override
-        public void testEquals() throws ParsingException {
+        public void testEquals() {
             super.testEquals();
             assertThat(parse("Valid-Name")).isEqualTo(parse("valid-name"));
         }
@@ -93,34 +110,34 @@ public class FieldSpecs {
         }
 
         @Override
-        protected Object parse(String input) throws ParsingException {
+        protected Object parse(String input) {
             return new FieldValueParser().parse(input);
         }
 
         @Test
         @Override
-        public void parseEmptyInput() throws ParsingException {
+        public void parseEmptyInput() {
             assertThat(new FieldValueParser().parse("")).hasToString("");
         }
 
         @Test
         @Override
-        public void parseBlankInput() throws ParsingException {
+        public void parseBlankInput() {
             assertThat(new FieldValueParser().parse("  ")).hasToString("");
         }
 
         @Test
-        public void parseInputWithLeadingWhitespace() throws ParsingException {
+        public void parseInputWithLeadingWhitespace() {
             assertThat(new FieldValueParser().parse(" valid input")).hasToString("valid input");
         }
 
         @Test
-        public void parseInputWithTrailingWhitespace() throws ParsingException {
+        public void parseInputWithTrailingWhitespace() {
             assertThat(new FieldValueParser().parse("valid input ")).hasToString("valid input");
         }
 
         @Test
-        public void parseInputWithInnerFoldingWhitespace() throws ParsingException {
+        public void parseInputWithInnerFoldingWhitespace() {
             assertThat(new FieldValueParser().parse("valid\r\n input")).hasToString("valid input");
             assertThat(new FieldValueParser().parse("valid\r\n  input")).hasToString("valid input");
             assertThat(new FieldValueParser().parse("valid\r\n\t\tinput")).hasToString("valid input");
@@ -129,23 +146,23 @@ public class FieldSpecs {
         }
 
         @Test
-        public void parseInputWithLeadingFoldingWhitespace() throws ParsingException {
+        public void parseInputWithLeadingFoldingWhitespace() {
             assertThat(new FieldValueParser().parse("\r\n valid input")).hasToString("valid input");
         }
 
         @Test
-        public void parseInputWithMultipleFoldingWhitespace() throws ParsingException {
+        public void parseInputWithMultipleFoldingWhitespace() {
             assertThat(new FieldValueParser().parse("two\r\n valid lines")).hasToString("two valid lines");
             assertThat(new FieldValueParser().parse("three\r\n valid\r\n lines")).hasToString("three valid lines");
         }
 
         @Test
-        public void parseInputWithTrailingFoldingWhitespace() throws ParsingException {
+        public void parseInputWithTrailingFoldingWhitespace() {
             assertThat(new FieldValueParser().parse("valid input\r\n ")).hasToString("valid input");
         }
 
         @Test
-        public void parseInputWithNonAsciiCharacters() throws ParsingException {
+        public void parseInputWithNonAsciiCharacters() {
             assertThat(new FieldValueParser().parse("Gültiger Eingabe")).hasToString("Gültiger Eingabe");
         }
 
@@ -180,8 +197,7 @@ public class FieldSpecs {
 
         private void assertInvalid(String input, char invalidChar, int atIndex) {
             assertThatThrownBy(() -> new FieldValueParser().parse(input))
-                .isInstanceOf(ParsingException.class)
-                .hasCauseInstanceOf(InvalidCharacterException.class);
+                .isInstanceOf(InvalidCharacterException.class);
         }
     }
 }

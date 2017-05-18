@@ -28,29 +28,26 @@ public class TokenSpec extends ValjoSpec {
     }
 
     @Override
-    protected Object parse(String input) throws ParsingException {
+    protected Object parse(String input) {
         return tokenParser.parse(input);
     }
 
     @Test
     public void parseInputWithControlCharacters() {
         assertThatThrownBy(() -> tokenParser.parse(format("invalid%cinput", (char) 127)))
-            .isInstanceOf(ParsingException.class)
-            .hasCauseInstanceOf(InvalidCharacterException.class);
+            .isInstanceOf(InvalidCharacterException.class);
     }
 
     @Test
     public void parseInputWithWhitespace() {
         assertThatThrownBy(() -> tokenParser.parse("invalid input"))
-            .isInstanceOf(ParsingException.class)
-            .hasCauseInstanceOf(InvalidCharacterException.class);
+            .isInstanceOf(InvalidCharacterException.class);
     }
 
     @Test
     public void parseInputWithSeparatorCharacter() {
         assertThatThrownBy(() -> tokenParser.parse("invalid;input"))
-            .isInstanceOf(ParsingException.class)
-            .hasCauseInstanceOf(InvalidCharacterException.class);
+            .isInstanceOf(InvalidCharacterException.class);
     }
 
     @Test
@@ -59,21 +56,18 @@ public class TokenSpec extends ValjoSpec {
         // All separator sequences contain a semicolon (';') character, meaning they will get
         // caught during normal separator character checks in any case.
         assertThatThrownBy(() -> tokenParser.parse("invalid&lt;input"))
-            .isInstanceOf(ParsingException.class)
-            .hasCauseInstanceOf(InvalidCharacterException.class);
+            .isInstanceOf(InvalidCharacterException.class);
     }
 
     @Test
     public void parseInputWithLinefeed() {
         assertThatThrownBy(() -> tokenParser.parse("invalid\ninput"))
-            .isInstanceOf(ParsingException.class)
-            .hasCauseInstanceOf(InvalidCharacterException.class);
+            .isInstanceOf(InvalidCharacterException.class);
     }
 
     @Test
     public void parseInputWithCRLF() {
         assertThatThrownBy(() -> tokenParser.parse("invalid\r\ninput"))
-            .isInstanceOf(ParsingException.class)
-            .hasCauseInstanceOf(InvalidCharacterException.class);
+            .isInstanceOf(InvalidCharacterException.class);
     }
 }

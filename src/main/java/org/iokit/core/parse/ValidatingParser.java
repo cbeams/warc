@@ -1,7 +1,6 @@
 package org.iokit.core.parse;
 
 import org.iokit.core.validate.Validator;
-import org.iokit.core.validate.ValidatorException;
 
 public abstract class ValidatingParser<T> extends NullSafeParser<T> {
 
@@ -13,13 +12,8 @@ public abstract class ValidatingParser<T> extends NullSafeParser<T> {
 
     @Override
     public T parseNullSafe(String input) throws ParsingException {
-        if (validator.isEnabled()) {
-            try {
-                validator.validate(input);
-            } catch (ValidatorException ex) {
-                throw new ParsingException(ex);
-            }
-        }
+        if (validator.isEnabled())
+            validator.validate(input);
 
         return parseValidated(input);
     }

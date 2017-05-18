@@ -8,7 +8,6 @@ import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.parse.Parser;
-import org.iokit.core.parse.ParsingException;
 
 public class WarcVersionReader implements Reader<WarcVersion> {
 
@@ -25,10 +24,6 @@ public class WarcVersionReader implements Reader<WarcVersion> {
     }
 
     public WarcVersion read() throws ReaderException {
-        try {
-            return parser.parse(lineReader.read());
-        } catch (ParsingException ex) {
-            throw new ReaderException(ex);
-        }
+        return parser.parse(lineReader.read());
     }
 }

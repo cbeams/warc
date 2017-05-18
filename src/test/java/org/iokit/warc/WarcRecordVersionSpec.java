@@ -2,9 +2,15 @@ package org.iokit.warc;
 
 import org.iokit.warc.parse.WarcRecordVersionParser;
 
-import org.iokit.core.parse.ParsingException;
+import org.iokit.core.validate.ValidatorException;
 
 import io.beams.valjo.ValjoSpec;
+
+import org.junit.Test;
+
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class WarcRecordVersionSpec extends ValjoSpec {
 
@@ -16,7 +22,23 @@ public class WarcRecordVersionSpec extends ValjoSpec {
     }
 
     @Override
-    protected Object parse(String input) throws ParsingException {
+    protected Object parse(String input) {
         return new WarcRecordVersionParser().parse(input);
+    }
+
+    @Override
+    @Test
+    public void parseEmptyInput() {
+        assertThatThrownBy(() -> parse(""))
+            .isInstanceOf(ValidatorException.class);
+    }
+
+    @Override
+    @Test
+    public void parseBlankInput() {
+        Stream.of(" ", "\t")
+            .forEach(blank ->
+                assertThatThrownBy(() -> parse(blank))
+                    .isInstanceOf(ValidatorException.class));
     }
 }

@@ -8,7 +8,6 @@ import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.parse.Parser;
-import org.iokit.core.parse.ParsingException;
 
 public class FieldReader implements Reader<Field> {
 
@@ -30,10 +29,6 @@ public class FieldReader implements Reader<Field> {
         if (input == null || input.isEmpty())
             return null;
 
-        try {
-            return fieldParser.parse(input);
-        } catch (ParsingException ex) {
-            throw new ReaderException(ex);
-        }
+        return fieldParser.parse(input);
     }
 }

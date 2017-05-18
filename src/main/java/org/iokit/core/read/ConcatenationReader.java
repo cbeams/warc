@@ -4,6 +4,7 @@ import org.iokit.core.input.LineInputStream;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 
 import java.util.Spliterator;
 import java.util.function.Consumer;
@@ -41,8 +42,12 @@ public class ConcatenationReader<T> implements Closeable, Reader<T> {
     }
 
     @Override
-    public void close() throws IOException {
-        input.close();
+    public void close() {
+        try {
+            input.close();
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
     }
 
 

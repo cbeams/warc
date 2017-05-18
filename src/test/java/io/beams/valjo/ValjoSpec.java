@@ -1,7 +1,9 @@
 package io.beams.valjo;
 
+import org.iokit.core.validate.InvalidCharacterException;
+import org.iokit.core.validate.InvalidLengthException;
+
 import org.iokit.core.parse.NullInputException;
-import org.iokit.core.parse.ParsingException;
 
 import org.junit.Test;
 
@@ -24,10 +26,10 @@ public abstract class ValjoSpec {
             Stream.of(moreInputs));
     }
 
-    protected abstract Object parse(String input) throws ParsingException;
+    protected abstract Object parse(String input);
 
     @Test
-    public void validateInputs() throws ParsingException {
+    public void validateInputs() {
         // different strings must be supplied
         assertThat(inputA).isNotSameAs(inputB);
 
@@ -40,45 +42,45 @@ public abstract class ValjoSpec {
     }
 
     @Test
-    public void parseValidInputs() throws ParsingException {
+    public void parseValidInputs() {
         validInputs.forEach(input ->
             assertThat(catchThrowable(() -> parse(input))).isNull());
     }
 
     @Test
-    public void parseNullInput() throws ParsingException {
+    public void parseNullInput() {
         assertThatThrownBy(() -> parse(null))
             .isInstanceOf(NullInputException.class);
     }
 
     @Test
-    public void parseEmptyInput() throws ParsingException {
+    public void parseEmptyInput() {
         assertThatThrownBy(() -> parse(""))
-            .isInstanceOf(ParsingException.class);
+            .isInstanceOf(InvalidLengthException.class);
     }
 
     @Test
-    public void parseBlankInput() throws ParsingException {
+    public void parseBlankInput() {
         Stream.of(" ", "\t")
             .forEach(blank ->
                 assertThatThrownBy(() -> parse(blank))
-                    .isInstanceOf(ParsingException.class));
+                    .isInstanceOf(InvalidCharacterException.class));
     }
 
     @Test
-    public void testEquals() throws ParsingException {
+    public void testEquals() {
         assertThat(parse(inputA)).isEqualTo(parse(inputA));
         assertThat(parse(inputA)).isNotEqualTo(parse(inputB));
     }
 
     @Test
-    public void testHashCode() throws ParsingException {
+    public void testHashCode() {
         assertThat(parse(inputA).hashCode()).isEqualTo(parse(inputA).hashCode());
         assertThat(parse(inputA).hashCode()).isNotEqualTo(parse(inputB).hashCode());
     }
 
     @Test
-    public void testToString() throws ParsingException {
+    public void testToString() {
         assertThat(parse(inputA)).hasToString(inputA);
         assertThat(parse(inputB)).hasToString(inputB);
     }

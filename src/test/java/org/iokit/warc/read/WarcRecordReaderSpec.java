@@ -5,19 +5,13 @@ import org.iokit.warc.WarcHeader;
 import org.iokit.warc.WarcRecord;
 import org.iokit.warc.WarcVersion;
 
-import org.iokit.imf.Field;
-
 import org.iokit.core.read.EndOfInputException;
-import org.iokit.core.read.Reader;
-import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.input.CrlfLineInputStream;
 
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.iokit.warc.WarcRecord.Type.warcinfo;
@@ -70,28 +64,5 @@ public class WarcRecordReaderSpec {
         assertThat(body.length).isEqualTo(header.getContentLength());
 
         assertThatThrownBy(reader::read).isInstanceOf(EndOfInputException.class);
-    }
-
-    static class MyWarcHeader extends WarcHeader {
-
-        public MyWarcHeader(WarcVersion version, Set<Field> fields) {
-            super(version, fields);
-        }
-    }
-
-    static class MyWarcRecordHeaderReader implements Reader<WarcHeader> {
-
-        public MyWarcRecordHeaderReader(Object o) {
-        }
-
-        @Override
-        public MyWarcHeader read() throws ReaderException {
-            return null;
-        }
-    }
-
-    @Test
-    public void test() {
-        new WarcRecordReader(new MyWarcRecordHeaderReader(null), new WarcBodyReader(null));
     }
 }

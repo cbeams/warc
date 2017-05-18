@@ -58,19 +58,14 @@ public class WarcReaderPerformanceTests {
     // sans (1): Read 416415 records in 42711 ms
     // sans (2): Read 416415 records in 43300 ms
     @Test
-    public void test() throws Exception {
+    public void test() {
         File dir = new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/");
         AtomicLong total = new AtomicLong(0);
         Stream.of(dir.listFiles(pathname -> pathname.getName().endsWith("warc.wat.gz")))
             .limit(3)
             .forEach(warcFile -> {
                 System.out.println("reading: " + warcFile);
-                WarcReader reader = null;
-                try {
-                    reader = new WarcReader(warcFile);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                WarcReader reader = new WarcReader(warcFile);
                 try {
                     new Reflector().configure(reader, Validator.class, v -> v.setEnabled(false));
                 } catch (Exception e) {
@@ -84,7 +79,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void test2() throws Exception {
+    public void test2() {
         File dir = new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/");
         AtomicLong total = new AtomicLong(0);
         Stream.of(dir.listFiles(pathname -> pathname.getName().endsWith("warc.wat.gz")))
@@ -114,7 +109,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void test3() throws Exception {
+    public void test3() {
         File dir = new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/");
         AtomicLong total = new AtomicLong(0);
         Stream.of(dir.listFiles(pathname -> pathname.getName().endsWith("warc.wat.gz")))
@@ -144,7 +139,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void test4() throws Exception {
+    public void test4() {
         File dir = new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/");
         AtomicLong total = new AtomicLong(0);
         Stream.of(dir.listFiles(pathname -> pathname.getName().endsWith("warc.wat.gz")))
@@ -167,7 +162,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void x() throws Exception {
+    public void x() throws FileNotFoundException {
         LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat")));
         byte[] line;
         int lines = 0;
@@ -178,7 +173,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void b() throws Exception {
+    public void b() throws IOException {
         // 1*1024: 6.5 6.5 6.6
         // 2*1024: 6.9 6.5 6.6
         // 3*1024: 7.1 6.8 6.7
@@ -203,7 +198,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void c() throws Exception {
+    public void c() throws IOException {
         //      512: 2.8 2.7 2.8
         //     1024: 1.8 1.8 1.9
         //   4*1024: 1.1 1.0 1.0
@@ -226,7 +221,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void c_for_normal_warc() throws Exception {
+    public void c_for_normal_warc() throws IOException {
         // baseline
         // $ time cat /Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc > /dev/null
         // 0.7 0.7 0.7
@@ -256,7 +251,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void c_for_normal_warc_gz() throws Exception {
+    public void c_for_normal_warc_gz() throws IOException {
         // baseline
         // $ time gunzip -c /Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz > /dev/null
         // 10 10 10
@@ -294,7 +289,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void c_for_normal_warc_gz_with_parallel_gzip() throws Exception {
+    public void c_for_normal_warc_gz_with_parallel_gzip() throws IOException {
         // baseline
         // $ time gunzip -c /Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz > /dev/null
         // 10 10 10
@@ -332,7 +327,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void c_for_normal_warc_gz_loop() throws Exception {
+    public void c_for_normal_warc_gz_loop() throws IOException {
         // baseline
         // $ time gunzip -c /Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz > /dev/null
         // 10 10 10
@@ -361,7 +356,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void d() throws Exception {
+    public void d() throws IOException {
         // baseline is wc -l
         // wc -l:    1.4 1.3 1.3
 
@@ -384,7 +379,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void e() throws Exception {
+    public void e() throws IOException {
 
         //32*1024: 1.7 1.7 1.7 (buffer grows to 2048, same as what we had to manually size in d() above)
 
@@ -412,7 +407,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void e_for_normal_warc() throws Exception {
+    public void e_for_normal_warc() throws IOException {
 
         // baseline
         // $ time wc -l CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc
@@ -447,7 +442,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void e2() throws Exception {
+    public void e2() throws FileNotFoundException {
 
         // 1.8 1.9 1.7 (unchecked)
 
@@ -478,7 +473,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void linesToExclude() throws Exception {
+    public void linesToExclude() throws FileNotFoundException {
 
         LineInputStream input = new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"), LineTerminator.CR_LF);
 
@@ -510,7 +505,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void e3() throws Exception {
+    public void e3() throws FileNotFoundException {
 
         // 2.6 2.8 2.7
 
@@ -529,7 +524,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void e3_for_normal_warc() throws Exception {
+    public void e3_for_normal_warc() throws FileNotFoundException {
 
         // 7.5 6.5 7.2
 
@@ -544,7 +539,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void e4() throws Exception {
+    public void e4() throws FileNotFoundException {
 
         // 4.0 4.4 4.1
 
@@ -563,7 +558,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void e4_for_normal_warc() throws Exception {
+    public void e4_for_normal_warc() throws FileNotFoundException {
 
         // 9.2 9.4 9.7
 
@@ -582,7 +577,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void f() throws Exception {
+    public void f() throws IOException {
 
         // baseline
         // $ time gunzip -c /tmp/entire.warc.gz | wc -l
@@ -622,7 +617,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void g() throws Exception {
+    public void g() {
 
         // the following produces
         //     it.unimi.di.law.warc.io.WarcFormatException: Unrecognized record type (metadata)
@@ -648,7 +643,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void h() throws Exception {
+    public void h() throws IOException {
 
         // baseline: wc -l
         // 5.1 4.1 3.6 3.6 3.7 3.7
@@ -677,7 +672,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void i() throws Exception {
+    public void i() throws IOException {
 
         // baseline
         // $ time gunzip -c /tmp/entire.warc.gz | wc -l
@@ -717,7 +712,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void i_for_normal_warc_gz_without_resizing() throws Exception {
+    public void i_for_normal_warc_gz_without_resizing() throws IOException {
 
         // baseline
         // $ time gunzip -c $PATH_TO_GZ | wc -l
@@ -754,7 +749,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void i_for_normal_warc_gz_with_resizing() throws Exception {
+    public void i_for_normal_warc_gz_with_resizing() throws IOException {
 
         // baseline
         // $ time gunzip -c $PATH_TO_GZ | wc -l
@@ -795,7 +790,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void i_for_normal_warc_gz_with_resizing_3_times() throws Exception {
+    public void i_for_normal_warc_gz_with_resizing_3_times() throws IOException {
 
         // 15.8 ms per read
 
@@ -812,7 +807,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void j() throws Exception {
+    public void j() throws IOException {
         org.jwat.warc.WarcReader reader = org.jwat.warc.WarcReaderFactory.getReaderUncompressed(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"));
 
 
@@ -828,7 +823,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void k() throws Exception {
+    public void k() throws FileNotFoundException {
         org.iokit.warc.read.WarcReader reader = new org.iokit.warc.read.WarcReader(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"));
 
 
@@ -846,7 +841,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void k_for_normal_warc() throws Exception {
+    public void k_for_normal_warc() throws FileNotFoundException {
         org.iokit.warc.read.WarcReader reader = new org.iokit.warc.read.WarcReader(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc"));
 
 
@@ -864,7 +859,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void k_for_normal_gz_warc() throws Exception {
+    public void k_for_normal_gz_warc() throws IOException {
         int fbSize = 4 * 1024 * 1024;
         int gzSize = 4 * 1024 * 1024;
 
@@ -912,7 +907,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void k_for_normal_gz_warc_3_times() throws Exception {
+    public void k_for_normal_gz_warc_3_times() throws IOException {
 
         // 24078 ms per read (!)
 
@@ -929,7 +924,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void l() throws Exception {
+    public void l() throws IOException {
         WARCReader reader = WARCReaderFactory.get(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"));
 
         int count = 0;
@@ -945,7 +940,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void l_for_normal_gz_warc() throws Exception {
+    public void l_for_normal_gz_warc() throws IOException {
         org.archive.io.warc.WARCReader reader = WARCReaderFactory.get(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz"));
 
         int count = 0;
@@ -961,7 +956,7 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void l_for_normal_warc() throws Exception {
+    public void l_for_normal_warc() throws IOException {
         WARCReader reader = WARCReaderFactory.get(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc"));
 
         int count = 0;
