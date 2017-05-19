@@ -2,7 +2,7 @@ package org.iokit.core.read;
 
 public class CountingReader<T> extends SequenceReader<T> {
 
-    private long currentCount = 0;
+    protected long readCount = 0;
 
     public CountingReader(Reader<T> reader) {
         super(reader);
@@ -13,12 +13,12 @@ public class CountingReader<T> extends SequenceReader<T> {
         T value = super.read();
 
         if (value != null)
-            currentCount++;
+            readCount++;
 
         return value;
     }
 
-    public long getCurrentCount() {
-        return currentCount;
+    public long getReadCount() {
+        return readCount;
     }
 }

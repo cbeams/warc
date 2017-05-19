@@ -1,8 +1,8 @@
 package org.iokit.core.validate;
 
-import org.iokit.core.IOKitException;
+import org.iokit.lang.UncheckedException;
 
-public class ValidatorException extends IOKitException {
+public class ValidatorException extends UncheckedException {
 
     public ValidatorException(String message, Object... args) {
         super(String.format(message, args));

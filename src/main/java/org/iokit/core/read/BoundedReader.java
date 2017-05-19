@@ -2,17 +2,11 @@ package org.iokit.core.read;
 
 public class BoundedReader<T> extends CountingReader<T> {
 
-    public static final int DEFAULT_MINIMUM_READ_COUNT = 0;
+    private int minimumReadCount;
 
-    private int minimumCount;
-
-    public BoundedReader(Reader<T> reader) {
-        this(reader, DEFAULT_MINIMUM_READ_COUNT);
-    }
-
-    public BoundedReader(Reader<T> reader, int minimumCount) {
+    public BoundedReader(Reader<T> reader, int minimumReadCount) {
         super(reader);
-        this.minimumCount = minimumCount;
+        this.minimumReadCount = minimumReadCount;
     }
 
     @Override
@@ -20,14 +14,14 @@ public class BoundedReader<T> extends CountingReader<T> {
         T value = super.read();
 
         if (value == null)
-            if (getCurrentCount() < minimumCount)
+            if (readCount < minimumReadCount)
                 throw new ReaderException(
-                    "expected to read at least %d value(s), but %d were found", minimumCount, getCurrentCount());
+                    "Expected to read at least %d value(s), but %d were found", minimumReadCount, readCount);
 
         return value;
     }
 
-    private void setMinimumCount(int minimumCount) {
-        this.minimumCount = minimumCount;
+    public void setMinimumReadCount(int minimumReadCount) {
+        this.minimumReadCount = minimumReadCount;
     }
 }

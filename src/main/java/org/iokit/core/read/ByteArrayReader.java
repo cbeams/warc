@@ -1,11 +1,10 @@
 package org.iokit.core.read;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
+import org.iokit.lang.Try;
 
-public class ByteArrayReader implements Closeable, FixedLengthReader<byte[]> {
+import java.io.InputStream;
+
+public class ByteArrayReader implements FixedLengthReader<byte[]> {
 
     private final InputStream input;
 
@@ -17,21 +16,11 @@ public class ByteArrayReader implements Closeable, FixedLengthReader<byte[]> {
     public byte[] read(int length) throws ReaderException {
         byte[] array = new byte[length];
 
-        int actual;
-        try {
-            actual = input.read(array, 0, length);
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+        int actual = Try.toCall(() -> input.read(array, 0, length));
 
         if (actual != length)
             throw new ReaderException("expected to read %d bytes, but read only %d", length, actual);
 
         return array;
-    }
-
-    @Override
-    public void close() throws IOException {
-        input.close();
     }
 }

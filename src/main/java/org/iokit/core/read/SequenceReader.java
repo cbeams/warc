@@ -21,10 +21,6 @@ public class SequenceReader<T> extends InputReader<T> {
         return input.isComplete() ? null : reader.read();
     }
 
-    public void seek(long offset) {
-        input.seek(offset);
-    }
-
     public Stream<T> stream() {
         return StreamSupport.stream(
             Spliterators.spliteratorUnknownSize(

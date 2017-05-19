@@ -2,11 +2,12 @@ package org.iokit.core.input;
 
 import org.iokit.core.token.LineTerminator;
 
+import org.iokit.lang.Try;
+
 import it.unimi.dsi.fastutil.io.FastBufferedInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UncheckedIOException;
 
 import java.util.EnumSet;
 import java.util.stream.Stream;
@@ -37,39 +38,25 @@ public class LineInputStream extends InputStream implements Input {
     }
 
     public byte peek() {
-        try {
+        return Try.toCall(() -> {
             long lastPosition = in.position();
             int next = in.read();
             in.position(lastPosition);
             return (byte) next;
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+        });
     }
 
     public void seek(long offset) {
-        try {
-            in.skip(offset - in.position());
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+        Try.toCall(() -> in.skip(offset - in.position()));
     }
 
     @Override
-    public int read() {
-        try {
-            return in.read();
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+    public int read() throws IOException {
+        return in.read();
     }
 
     public int readLine(byte[] chunk, int start, int length) {
-        try {
-            return in.readLine(chunk, start, length, terminators);
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+        return Try.toCall(() -> in.readLine(chunk, start, length, terminators));
     }
 
     public boolean isComplete() {
@@ -77,11 +64,7 @@ public class LineInputStream extends InputStream implements Input {
     }
 
     @Override
-    public void close() {
-        try {
-            in.close();
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+    public void close() throws IOException {
+        in.close();
     }
 }

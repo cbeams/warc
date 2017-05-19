@@ -1,8 +1,8 @@
 package org.iokit.core.read;
 
+import org.iokit.lang.Try;
+
 import java.io.Closeable;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 
 public abstract class CloseableReader<T> implements Reader<T> {
 
@@ -14,10 +14,6 @@ public abstract class CloseableReader<T> implements Reader<T> {
 
     @Override
     public void close() {
-        try {
-            closeable.close();
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+        Try.toRun(closeable::close);
     }
 }

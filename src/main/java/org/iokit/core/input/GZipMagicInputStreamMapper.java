@@ -1,10 +1,10 @@
 package org.iokit.core.input;
 
+import org.iokit.lang.Try;
+
 import java.util.zip.GZIPInputStream;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.UncheckedIOException;
 
 public class GZipMagicInputStreamMapper implements MagicInputStreamMapper {
 
@@ -15,13 +15,6 @@ public class GZipMagicInputStreamMapper implements MagicInputStreamMapper {
 
     @Override
     public InputStream map(InputStream in) {
-        if (in instanceof GZIPInputStream)
-            return in;
-
-        try {
-            return new GZIPInputStream(in);
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
+        return in instanceof GZIPInputStream ? in : Try.toCall(() -> new GZIPInputStream(in));
     }
 }

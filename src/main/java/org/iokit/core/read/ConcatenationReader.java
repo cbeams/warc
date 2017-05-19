@@ -2,10 +2,10 @@ package org.iokit.core.read;
 
 public class ConcatenationReader<T> extends BoundedReader<T> {
 
+    public static final int DEFAULT_MINIMUM_READ_COUNT = 0;
     public static final boolean DEFAULT_EXPECT_TRAILING_CONCATENATOR = true;
 
     private final Reader<?> concatenatorReader;
-
     private boolean expectTrailingConcatenator;
 
     public ConcatenationReader(Reader<T> reader, Reader<?> concatenatorReader) {
@@ -39,7 +39,7 @@ public class ConcatenationReader<T> extends BoundedReader<T> {
             if (expectTrailingConcatenator) {
                 throw new ReaderException(ex, "" +
                     "Encountered end of input where a trailing concatenator was expected. " +
-                    "Call setExpectTrailingConcatenator(false) to avoid this error.");
+                    "Try setExpectTrailingConcatenator(false) to avoid this error.");
             }
         }
     }

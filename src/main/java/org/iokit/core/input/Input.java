@@ -7,6 +7,4 @@ public interface Input extends Closeable {
     boolean isComplete();
 
     void seek(long offset);
-
-    void close();
 }

@@ -33,7 +33,15 @@ public class WarcReaderSpec {
     public void readEmptyWarcFile() {
         WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
         assertThatThrownBy(reader::read).isInstanceOf(ReaderException.class);
-        assertThat(reader.getCurrentCount()).isZero();
+        assertThat(reader.getReadCount()).isZero();
+    }
+
+    @Test
+    public void readEmptyWarcFileWithMinimumReadCountSetToZero() {
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
+        reader.setMinimumReadCount(0);
+        assertThat(reader.read()).isEqualTo(null);
+        assertThat(reader.getReadCount()).isZero();
     }
 
     @Test
@@ -47,7 +55,7 @@ public class WarcReaderSpec {
         assertThat(record.getBody().getData()[record.getBody().getData().length - 1]).isEqualTo((byte) '}');
 
         assertThat(reader.read()).isEqualTo(null);
-        assertThat(reader.getCurrentCount()).isEqualTo(1);
+        assertThat(reader.getReadCount()).isEqualTo(1);
     }
 
     @Test
@@ -58,14 +66,14 @@ public class WarcReaderSpec {
         WarcRecord record3 = reader.read();
         assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
         assertThat(reader.read()).isNull();
-        assertThat(reader.getCurrentCount()).isEqualTo(3);
+        assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
     @Test
     public void streamMultiRecordWarcFile() {
         WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc"));
         assertThat(reader.stream().count()).isEqualTo(3);
-        assertThat(reader.getCurrentCount()).isEqualTo(3);
+        assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
     @Test
@@ -82,7 +90,7 @@ public class WarcReaderSpec {
         // we never get to the third record
 
         // count should be 1, as we only successfully read 1 record
-        assertThat(reader.getCurrentCount()).isEqualTo(1);
+        assertThat(reader.getReadCount()).isEqualTo(1);
     }
 
     @Test
@@ -94,14 +102,14 @@ public class WarcReaderSpec {
 
         // the second record is well-formed
         reader.read();
-        assertThat(reader.getCurrentCount()).isEqualTo(2);
+        assertThat(reader.getReadCount()).isEqualTo(2);
 
         // the third record itself is well-formed but the absence of
         // trailing newlines causes the read to fail
         assertThatThrownBy(reader::read)
             .hasCauseInstanceOf(EndOfInputException.class);
 
-        assertThat(reader.getCurrentCount()).isEqualTo(3);
+        assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
     @Test
@@ -114,12 +122,12 @@ public class WarcReaderSpec {
 
         // the second record is well-formed
         reader.read();
-        assertThat(reader.getCurrentCount()).isEqualTo(2);
+        assertThat(reader.getReadCount()).isEqualTo(2);
 
         // the third record is well-formed and the absence of
         // trailing newlines does not cause the read to fail
         reader.read();
-        assertThat(reader.getCurrentCount()).isEqualTo(3);
+        assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
     @Test
@@ -130,7 +138,7 @@ public class WarcReaderSpec {
         WarcRecord record3 = reader.read();
         assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
         assertThat(reader.read()).isNull();
-        assertThat(reader.getCurrentCount()).isEqualTo(3);
+        assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
     @Test
@@ -142,7 +150,7 @@ public class WarcReaderSpec {
         WarcRecord record3 = reader.read();
         assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
         assertThat(reader.read()).isNull();
-        assertThat(reader.getCurrentCount()).isEqualTo(3);
+        assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
     @Test
@@ -153,7 +161,7 @@ public class WarcReaderSpec {
         WarcRecord record3 = reader.read();
         assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
         assertThat(reader.read()).isNull();
-        assertThat(reader.getCurrentCount()).isEqualTo(3);
+        assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
     @Test

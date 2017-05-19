@@ -9,12 +9,11 @@ import org.iokit.core.read.Reader;
 import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
 import org.iokit.core.input.MagicInputStream;
+import org.iokit.lang.Try;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.UncheckedIOException;
 
 public class WarcReader extends ConcatenationReader<WarcRecord> {
 
@@ -25,7 +24,7 @@ public class WarcReader extends ConcatenationReader<WarcRecord> {
     }
 
     public WarcReader(File warcFile) {
-        this(newFileInputStream(warcFile));
+        this(Try.toCall(() -> new FileInputStream(warcFile)));
     }
 
     public WarcReader(InputStream in) {
@@ -46,13 +45,5 @@ public class WarcReader extends ConcatenationReader<WarcRecord> {
 
     public WarcReader(WarcRecordReader recordReader, Reader<?> concatenatorReader) {
         super(recordReader, concatenatorReader, DEFAULT_MINIMUM_READ_COUNT);
-    }
-
-    private static FileInputStream newFileInputStream(File warcFile) {
-        try {
-            return new FileInputStream(warcFile);
-        } catch (FileNotFoundException ex) {
-            throw new UncheckedIOException(ex);
-        }
     }
 }
