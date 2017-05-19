@@ -2,10 +2,13 @@ package org.iokit.core.read;
 
 import java.util.Optional;
 
-public class FoldedLineReader extends TransformReader<LineReader, String> {
+public class FoldedLineReader extends Reader<String> {
+
+    private final LineReader reader;
 
     public FoldedLineReader(LineReader reader) {
-        super(reader);
+        super(reader.getInput());
+        this.reader = reader;
     }
 
     @Override
