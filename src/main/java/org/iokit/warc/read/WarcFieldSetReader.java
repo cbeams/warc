@@ -1,6 +1,6 @@
 package org.iokit.warc.read;
 
-import org.iokit.warc.validate.WarcFieldSetValidator;
+import org.iokit.warc.WarcField;
 
 import org.iokit.imf.read.FieldReader;
 import org.iokit.imf.read.FieldSetReader;
@@ -21,7 +21,7 @@ public class WarcFieldSetReader extends FieldSetReader {
     }
 
     public WarcFieldSetReader(FoldedLineReader lineReader) {
-        this(new FieldReader(lineReader), new WarcFieldSetValidator());
+        this(new FieldReader(lineReader), new WarcField.SetValidator());
     }
 
     public WarcFieldSetReader(FieldReader fieldReader, Validator<Set<Field>> fieldSetValidator) {

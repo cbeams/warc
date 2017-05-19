@@ -2,6 +2,11 @@ package org.iokit.warc;
 
 import org.iokit.imf.Field;
 
+import org.iokit.core.validate.Validator;
+import org.iokit.core.validate.ValidatorException;
+
+import java.util.Set;
+
 public class WarcField extends Field {
 
     public static final String MIME_TYPE = "application/warc-fields";
@@ -26,6 +31,15 @@ public class WarcField extends Field {
         @Override
         public Name getName() {
             return name;
+        }
+    }
+
+
+    public static class SetValidator extends Validator<Set<Field>> {
+
+        @Override
+        public void validate(Set<Field> fields) throws ValidatorException {
+            // TODO
         }
     }
 }
