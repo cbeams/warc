@@ -3,10 +3,9 @@ package org.iokit.warc.read;
 import org.iokit.warc.WarcVersion;
 import org.iokit.warc.parse.WarcRecordVersionParser;
 
-import org.iokit.core.read.TransformReader;
-
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.ReaderException;
+import org.iokit.core.read.TransformReader;
 
 import org.iokit.core.parse.Parser;
 

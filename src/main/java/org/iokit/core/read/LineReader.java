@@ -7,7 +7,9 @@ import it.unimi.dsi.fastutil.bytes.ByteArrays;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public class LineReader extends CloseableReader<String> {
+import java.util.Optional;
+
+public class LineReader extends CloseableReader<String> implements OptionalReader<String> {
 
     private final Charset charset;
     private final LineInputStream input;
@@ -29,16 +31,26 @@ public class LineReader extends CloseableReader<String> {
 
     @Override
     public String read() throws ReaderException {
+        Optional<String> line = readOptional();
+
+        if (!line.isPresent())
+            throw new EndOfInputException();
+
+        return line.get();
+    }
+
+    @Override
+    public Optional<String> readOptional() throws ReaderException {
         int start = 0, length;
+
         while ((length = input.readLine(chunk, start, chunk.length - start)) == chunk.length - start) {
             start += length;
             chunk = ByteArrays.grow(chunk, chunk.length + 1);
         }
 
-        if (length == -1)
-            throw new EndOfInputException();
-
-        return new String(chunk, 0, length + start, charset);
+        return length == -1 ?
+            Optional.empty() :
+            Optional.of(new String(chunk, 0, length + start, charset));
     }
 
     @Override

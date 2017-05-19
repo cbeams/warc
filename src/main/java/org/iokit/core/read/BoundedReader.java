@@ -1,5 +1,7 @@
 package org.iokit.core.read;
 
+import java.util.Optional;
+
 public class BoundedReader<T> extends CountingReader<T> {
 
     private int minimumReadCount;
@@ -10,10 +12,10 @@ public class BoundedReader<T> extends CountingReader<T> {
     }
 
     @Override
-    public T read() throws ReaderException {
-        T value = super.read();
+    public Optional<T> readOptional() throws ReaderException {
+        Optional<T> value = super.readOptional();
 
-        if (value == null)
+        if (!value.isPresent())
             if (readCount < minimumReadCount)
                 throw new ReaderException(
                     "Expected to read at least %d value(s), but %d were found", minimumReadCount, readCount);

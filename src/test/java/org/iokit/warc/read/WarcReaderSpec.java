@@ -107,7 +107,7 @@ public class WarcReaderSpec {
         // the third record itself is well-formed but the absence of
         // trailing newlines causes the read to fail
         assertThatThrownBy(reader::read)
-            .hasCauseInstanceOf(EndOfInputException.class);
+            .isInstanceOf(EndOfInputException.class);
 
         assertThat(reader.getReadCount()).isEqualTo(3);
     }

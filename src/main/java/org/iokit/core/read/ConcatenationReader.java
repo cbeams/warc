@@ -1,50 +1,32 @@
 package org.iokit.core.read;
 
+import java.util.Optional;
+
 public class ConcatenationReader<T> extends BoundedReader<T> {
 
     public static final int DEFAULT_MINIMUM_READ_COUNT = 0;
-    public static final boolean DEFAULT_EXPECT_TRAILING_CONCATENATOR = true;
 
-    private final Reader<?> concatenatorReader;
-    private boolean expectTrailingConcatenator;
+    private final ConcatenatorReader concatenatorReader;
 
-    public ConcatenationReader(Reader<T> reader, Reader<?> concatenatorReader) {
+    public ConcatenationReader(Reader<T> reader, ConcatenatorReader concatenatorReader) {
         this(reader, concatenatorReader, DEFAULT_MINIMUM_READ_COUNT);
     }
 
-    public ConcatenationReader(Reader<T> reader, Reader<?> concatenatorReader, int minimumReadCount) {
-        this(reader, concatenatorReader, minimumReadCount, DEFAULT_EXPECT_TRAILING_CONCATENATOR);
-    }
-
-    public ConcatenationReader(Reader<T> reader, Reader<?> concatenatorReader, int minimumReadCount,
-                               boolean expectTrailingConcatenator) {
+    public ConcatenationReader(Reader<T> reader, ConcatenatorReader concatenatorReader, int minimumReadCount) {
         super(reader, minimumReadCount);
         this.concatenatorReader = concatenatorReader;
-        this.expectTrailingConcatenator = expectTrailingConcatenator;
     }
 
     public T read() throws ReaderException {
-        T value = super.read();
+        Optional<T> value = super.readOptional();
 
-        if (value != null)
-            readConcatenator();
+        value.ifPresent(v ->
+            concatenatorReader.read());
 
-        return value;
-    }
-
-    protected void readConcatenator() {
-        try {
-            concatenatorReader.read();
-        } catch (EndOfInputException ex) {
-            if (expectTrailingConcatenator) {
-                throw new ReaderException(ex, "" +
-                    "Encountered end of input where a trailing concatenator was expected. " +
-                    "Try setExpectTrailingConcatenator(false) to avoid this error.");
-            }
-        }
+        return value.orElse(null);
     }
 
     public void setExpectTrailingConcatenator(boolean expectTrailingConcatenator) {
-        this.expectTrailingConcatenator = expectTrailingConcatenator;
+        concatenatorReader.setExpectTrailingConcatenator(expectTrailingConcatenator);
     }
 }

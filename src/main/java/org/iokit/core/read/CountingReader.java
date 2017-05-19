@@ -1,5 +1,7 @@
 package org.iokit.core.read;
 
+import java.util.Optional;
+
 public class CountingReader<T> extends SequenceReader<T> {
 
     protected long readCount = 0;
@@ -9,12 +11,9 @@ public class CountingReader<T> extends SequenceReader<T> {
     }
 
     @Override
-    public T read() throws ReaderException {
-        T value = super.read();
-
-        if (value != null)
-            readCount++;
-
+    public Optional<T> readOptional() throws ReaderException {
+        Optional<T> value = super.readOptional();
+        value.ifPresent(v -> readCount++);
         return value;
     }
 
