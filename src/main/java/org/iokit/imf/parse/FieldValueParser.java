@@ -18,7 +18,7 @@ public class FieldValueParser extends ValidatingParser<Field.Value> {
     }
 
     public FieldValueParser() {
-        this(new Validator() {
+        this(new Validator<String>() {
             @Override
             public void validate(String input) throws ValidatorException {
                 if (!this.isEnabled())

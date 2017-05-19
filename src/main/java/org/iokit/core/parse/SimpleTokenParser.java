@@ -20,7 +20,7 @@ public class SimpleTokenParser extends ValidatingParser<Token> {
     }
 
     public SimpleTokenParser() {
-        this(new Validator() {
+        this(new Validator<String>() {
             @Override
             public void validate(String input) throws ValidatorException {
                 if (!this.isEnabled())

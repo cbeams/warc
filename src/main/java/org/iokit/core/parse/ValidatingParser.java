@@ -4,9 +4,9 @@ import org.iokit.core.validate.Validator;
 
 public abstract class ValidatingParser<T> extends NullSafeParser<T> {
 
-    private final Validator validator;
+    private final Validator<String> validator;
 
-    public ValidatingParser(Validator validator) {
+    public ValidatingParser(Validator<String> validator) {
         this.validator = validator;
     }
 

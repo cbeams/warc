@@ -1,6 +1,7 @@
 package org.iokit.warc.parse;
 
 import org.iokit.warc.WarcVersion;
+import org.iokit.warc.validate.WarcRecordVersionValidator;
 
 import org.iokit.core.validate.Validator;
 
@@ -13,7 +14,7 @@ public class WarcRecordVersionParser extends ValidatingParser<WarcVersion> {
         this(new WarcRecordVersionValidator());
     }
 
-    public WarcRecordVersionParser(Validator validator) {
+    public WarcRecordVersionParser(Validator<String> validator) {
         super(validator);
     }
 

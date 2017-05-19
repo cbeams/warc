@@ -1,10 +1,10 @@
 package org.iokit.core.validate;
 
-public abstract class Validator {
+public abstract class Validator<T> {
 
     private boolean enabled = true;
 
-    public abstract void validate(String input) throws ValidatorException;
+    public abstract void validate(T input) throws ValidatorException;
 
     public boolean isEnabled() {
         return enabled;

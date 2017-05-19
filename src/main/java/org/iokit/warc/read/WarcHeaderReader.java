@@ -4,7 +4,6 @@ import org.iokit.warc.WarcHeader;
 
 import org.iokit.imf.read.FieldSetReader;
 
-import org.iokit.core.read.FoldedLineReader;
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
@@ -15,7 +14,7 @@ public class WarcHeaderReader extends Reader<WarcHeader> {
     private final FieldSetReader fieldSetReader;
 
     public WarcHeaderReader(LineReader lineReader) {
-        this(new WarcVersionReader(lineReader), new FieldSetReader(new FoldedLineReader(lineReader)));
+        this(new WarcVersionReader(lineReader), new WarcFieldSetReader(lineReader));
     }
 
     public WarcHeaderReader(WarcVersionReader versionReader, FieldSetReader fieldSetReader) {

@@ -1,11 +1,11 @@
-package org.iokit.warc.parse;
+package org.iokit.warc.validate;
 
 import org.iokit.core.validate.Validator;
 import org.iokit.core.validate.ValidatorException;
 
 import static org.iokit.warc.WarcVersion.*;
 
-public class WarcRecordVersionValidator extends Validator {
+public class WarcRecordVersionValidator extends Validator<String> {
 
     @Override
     public void validate(String input) throws ValidatorException {
