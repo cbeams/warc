@@ -162,17 +162,6 @@ public class WarcReaderPerformanceTests {
     }
 
     @Test
-    public void x() throws FileNotFoundException {
-        LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat")));
-        byte[] line;
-        int lines = 0;
-        while ((line = reader.fastRead()).length != 0)
-            lines++;
-
-        System.out.println(lines);
-    }
-
-    @Test
     public void b() throws IOException {
         // 1*1024: 6.5 6.5 6.6
         // 2*1024: 6.9 6.5 6.6
@@ -502,78 +491,6 @@ public class WarcReaderPerformanceTests {
         System.out.printf("final chunk size: %d\n", chunk.length / 1024);
         assertThat(count).isEqualTo(1527528);
         //assertThat(bodyLines).isEqualTo(138_866);
-    }
-
-    @Test
-    public void e3() throws FileNotFoundException {
-
-        // 2.6 2.8 2.7
-
-        // now, after sharing the internal byte[] used in LineReader.fastRead:
-
-        // 1.8 1.7 1.9
-
-        LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"), LineTerminator.CR_LF));
-
-        int count = 0;
-        while (reader.fastRead() != null)
-            count++;
-
-        System.out.printf("read %d byte[] lines in %d ms\n", count, stopwatch.runtime(TimeUnit.MILLISECONDS));
-        assertThat(count).isEqualTo(1527528);
-    }
-
-    @Test
-    public void e3_for_normal_warc() throws FileNotFoundException {
-
-        // 7.5 6.5 7.2
-
-        LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc"), LineTerminator.CR_LF));
-
-        int count = 0;
-        while (reader.fastRead() != null)
-            count++;
-
-        System.out.printf("read %d byte[] lines in %d ms\n", count, stopwatch.runtime(TimeUnit.MILLISECONDS));
-        assertThat(count).isEqualTo(20_377_635);
-    }
-
-    @Test
-    public void e4() throws FileNotFoundException {
-
-        // 4.0 4.4 4.1
-
-        // now, after ignoring body lines (those > 1024 bytes in length, based on analysis of Content-Length headers)
-
-        // 1.9 1.8 1.8
-
-        LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"), LineTerminator.CR_LF));
-
-        int count = 0;
-        while (reader.fastStringRead() != null)
-            count++;
-
-        System.out.printf("read %d String lines in %d ms\n", count, stopwatch.runtime(TimeUnit.MILLISECONDS));
-        assertThat(count).isEqualTo(1527528);
-    }
-
-    @Test
-    public void e4_for_normal_warc() throws FileNotFoundException {
-
-        // 9.2 9.4 9.7
-
-        // again, a few mins later...
-
-        // 8.8 9.9 9.0
-
-        LineReader reader = new LineReader(new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc"), LineTerminator.CR_LF));
-
-        int count = 0;
-        while (reader.fastStringRead() != null)
-            count++;
-
-        System.out.printf("read %d String lines in %d ms\n", count, stopwatch.runtime(TimeUnit.MILLISECONDS));
-        //assertThat(count).isEqualTo(1527528);
     }
 
     @Test
