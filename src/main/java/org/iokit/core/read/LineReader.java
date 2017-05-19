@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 
 import java.util.Optional;
 
-public class LineReader extends Reader<String> {
+public class LineReader extends OptionalReader<String> {
 
     private final Charset charset;
     private final LineInputStream input;

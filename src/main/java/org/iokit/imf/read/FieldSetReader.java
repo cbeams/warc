@@ -35,9 +35,4 @@ public class FieldSetReader extends Reader<Set<Field>> {
 
         return fields;
     }
-
-    @Override
-    public Optional<Set<Field>> readOptional() throws ReaderException {
-        return Optional.of(read());
-    }
 }

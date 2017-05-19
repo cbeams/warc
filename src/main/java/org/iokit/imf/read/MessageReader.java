@@ -8,7 +8,6 @@ import org.iokit.core.read.ParameterizedReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
 
-import java.util.Optional;
 import java.util.function.BiFunction;
 
 public class MessageReader<H extends Header, B extends Body, M extends Message> extends Reader<M> {
@@ -30,10 +29,5 @@ public class MessageReader<H extends Header, B extends Body, M extends Message> 
         H header = headerReader.read();
         B body = bodyReader.read(header);
         return messageFactory.apply(header, body);
-    }
-
-    @Override
-    public Optional<M> readOptional() throws ReaderException {
-        return Optional.of(read());
     }
 }

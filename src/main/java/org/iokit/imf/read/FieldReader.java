@@ -4,14 +4,14 @@ import org.iokit.imf.Field;
 import org.iokit.imf.parse.FieldParser;
 
 import org.iokit.core.read.FoldedLineReader;
-import org.iokit.core.read.Reader;
+import org.iokit.core.read.OptionalReader;
 import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.parse.Parser;
 
 import java.util.Optional;
 
-public class FieldReader extends Reader<Field> {
+public class FieldReader extends OptionalReader<Field> {
 
     private final FoldedLineReader lineReader;
     private final Parser<Field> fieldParser;
@@ -26,6 +26,7 @@ public class FieldReader extends Reader<Field> {
         this.fieldParser = fieldParser;
     }
 
+    @Override
     public Optional<Field> readOptional() throws ReaderException {
         Optional<String> input = lineReader.readOptional().filter(s -> !s.isEmpty());
 

@@ -1,13 +1,11 @@
 package org.iokit.core.read;
 
-import java.util.Optional;
-
 public class SkipReader extends Reader<Boolean> {
 
     private final int times;
-    private final Reader reader;
+    private final OptionalReader reader;
 
-    public SkipReader(int times, Reader reader) {
+    public SkipReader(int times, OptionalReader reader) {
         super(reader.getInput());
         this.times = times;
         this.reader = reader;
@@ -20,10 +18,5 @@ public class SkipReader extends Reader<Boolean> {
                 return false;
 
         return true;
-    }
-
-    @Override
-    public Optional<Boolean> readOptional() throws ReaderException {
-        return Optional.of(read());
     }
 }

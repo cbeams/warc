@@ -8,8 +8,6 @@ import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
 
-import java.util.Optional;
-
 public class WarcHeaderReader extends Reader<WarcHeader> {
 
     private final WarcVersionReader versionReader;
@@ -30,10 +28,5 @@ public class WarcHeaderReader extends Reader<WarcHeader> {
         return new WarcHeader(
             versionReader.read(),
             fieldSetReader.read());
-    }
-
-    @Override
-    public Optional<WarcHeader> readOptional() throws ReaderException {
-        return Optional.of(read());
     }
 }

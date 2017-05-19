@@ -2,7 +2,7 @@ package org.iokit.core.read;
 
 import java.util.Optional;
 
-public class FilterReader<T> extends Reader<T> {
+public class FilterReader<T> extends OptionalReader<T> {
 
     protected final Reader<T> reader;
 

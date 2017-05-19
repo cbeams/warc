@@ -9,8 +9,6 @@ import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.parse.Parser;
 
-import java.util.Optional;
-
 public class WarcVersionReader extends Reader<WarcVersion> {
 
     private final LineReader lineReader;
@@ -28,10 +26,5 @@ public class WarcVersionReader extends Reader<WarcVersion> {
 
     public WarcVersion read() throws ReaderException {
         return parser.parse(lineReader.read());
-    }
-
-    @Override
-    public Optional<WarcVersion> readOptional() throws ReaderException {
-        return Optional.of(read());
     }
 }
