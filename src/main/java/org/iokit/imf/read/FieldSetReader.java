@@ -4,32 +4,40 @@ import org.iokit.imf.Field;
 
 import org.iokit.core.read.FoldedLineReader;
 import org.iokit.core.read.LineReader;
+import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
-import org.iokit.core.read.TransformReader;
 
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
-public class FieldSetReader extends TransformReader<FieldReader, Set<Field>> {
+public class FieldSetReader extends Reader<Set<Field>> {
 
-    public FieldSetReader(LineReader reader) {
-        this(new FieldReader(new FoldedLineReader(reader)));
+    private final FieldReader fieldReader;
+
+    public FieldSetReader(LineReader lineReader) {
+        this(new FieldReader(new FoldedLineReader(lineReader)));
     }
 
-    public FieldSetReader(FieldReader reader) {
-        super(reader);
+    public FieldSetReader(FieldReader fieldReader) {
+        super(fieldReader.getInput());
+        this.fieldReader = fieldReader;
     }
 
     public Set<Field> read() throws ReaderException {
         LinkedHashSet<Field> fields = new LinkedHashSet<>();
 
         Optional<Field> field;
-        while ((field = reader.readOptional()).isPresent())
+        while ((field = fieldReader.readOptional()).isPresent())
             fields.add(field.get());
 
         // TODO: validate that fields have required fields e.g. WARC-Type
 
         return fields;
+    }
+
+    @Override
+    public Optional<Set<Field>> readOptional() throws ReaderException {
+        return Optional.of(read());
     }
 }

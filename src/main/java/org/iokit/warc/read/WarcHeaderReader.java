@@ -7,9 +7,10 @@ import org.iokit.imf.read.FieldSetReader;
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
-import org.iokit.core.read.TransformReader;
 
-public class WarcHeaderReader extends TransformReader<Reader, WarcHeader> {
+import java.util.Optional;
+
+public class WarcHeaderReader extends Reader<WarcHeader> {
 
     private final WarcVersionReader versionReader;
     private final FieldSetReader fieldSetReader;
@@ -19,14 +20,20 @@ public class WarcHeaderReader extends TransformReader<Reader, WarcHeader> {
     }
 
     public WarcHeaderReader(WarcVersionReader versionReader, FieldSetReader fieldSetReader) {
-        super(versionReader);
+        super(versionReader.getInput());
         this.versionReader = versionReader;
         this.fieldSetReader = fieldSetReader;
     }
 
+    @Override
     public WarcHeader read() throws ReaderException {
         return new WarcHeader(
             versionReader.read(),
             fieldSetReader.read());
+    }
+
+    @Override
+    public Optional<WarcHeader> readOptional() throws ReaderException {
+        return Optional.of(read());
     }
 }
