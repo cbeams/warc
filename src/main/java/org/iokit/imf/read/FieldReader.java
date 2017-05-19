@@ -4,14 +4,14 @@ import org.iokit.imf.Field;
 import org.iokit.imf.parse.FieldParser;
 
 import org.iokit.core.read.FoldedLineReader;
-import org.iokit.core.read.OptionalTransformReader;
 import org.iokit.core.read.ReaderException;
+import org.iokit.core.read.TransformReader;
 
 import org.iokit.core.parse.Parser;
 
 import java.util.Optional;
 
-public class FieldReader extends OptionalTransformReader<FoldedLineReader, Field> {
+public class FieldReader extends TransformReader<FoldedLineReader, Field> {
 
     private final Parser<Field> fieldParser;
 

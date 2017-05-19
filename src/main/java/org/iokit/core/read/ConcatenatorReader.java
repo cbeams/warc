@@ -1,10 +1,9 @@
 package org.iokit.core.read;
 
-public class ConcatenatorReader extends InputReader<Boolean> {
+public class ConcatenatorReader extends FilterReader<Boolean> {
 
     public static final boolean DEFAULT_EXPECT_TRAILING_CONCATENATOR = true;
 
-    private final Reader<Boolean> reader;
     private boolean expectTrailingConcatenator;
 
     public ConcatenatorReader(Reader<Boolean> reader) {
@@ -12,8 +11,7 @@ public class ConcatenatorReader extends InputReader<Boolean> {
     }
 
     public ConcatenatorReader(Reader<Boolean> reader, boolean expectTrailingConcatenator) {
-        super(reader.getInput());
-        this.reader = reader;
+        super(reader);
         this.expectTrailingConcatenator = expectTrailingConcatenator;
     }
 

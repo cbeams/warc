@@ -2,7 +2,7 @@ package org.iokit.core.read;
 
 import java.util.Optional;
 
-public class CountingReader<T> extends SequenceReader<T> {
+public class CountingReader<T> extends FilterReader<T> {
 
     protected long readCount = 0;
 

@@ -1,10 +1,10 @@
 package org.iokit.core.read;
 
-public class SkipReader extends TransformReader<OptionalReader, Boolean> {
+public class SkipReader extends TransformReader<Reader, Boolean> {
 
     private final int times;
 
-    public SkipReader(int times, OptionalReader reader) {
+    public SkipReader(int times, Reader reader) {
         super(reader);
         this.times = times;
     }

@@ -2,7 +2,7 @@ package org.iokit.core.read;
 
 import java.util.Optional;
 
-public class NewlineReader extends OptionalTransformReader<LineReader, String> {
+public class NewlineReader extends TransformReader<LineReader, String> {
 
     public NewlineReader(LineReader reader) {
         super(reader);

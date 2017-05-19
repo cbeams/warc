@@ -2,17 +2,17 @@ package org.iokit.core.read;
 
 import java.util.Optional;
 
-public abstract class TransformReader<R extends Reader, T> extends Reader<T> {
+public class FilterReader<T> extends Reader<T> {
 
-    protected final R reader;
+    protected final Reader<T> reader;
 
-    public TransformReader(R reader) {
+    public FilterReader(Reader<T> reader) {
         super(reader.getInput());
         this.reader = reader;
     }
 
     @Override
     public Optional<T> readOptional() throws ReaderException {
-        return Optional.of(read());
+        return input.isComplete() ? Optional.empty() : Optional.of(reader.read());
     }
 }

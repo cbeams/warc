@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 
 import java.util.Optional;
 
-public class LineReader extends CloseableReader<String> implements OptionalReader<String> {
+public class LineReader extends Reader<String> {
 
     private final Charset charset;
     private final LineInputStream input;
@@ -27,11 +27,6 @@ public class LineReader extends CloseableReader<String> implements OptionalReade
 
     public byte peek() {
         return input.peek();
-    }
-
-    @Override
-    public String read() throws ReaderException {
-        return readOptional().orElseThrow(EndOfInputException::new);
     }
 
     @Override
