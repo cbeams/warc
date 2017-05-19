@@ -12,7 +12,7 @@ import java.util.Optional;
 public class LineReader extends OptionalReader<String> {
 
     private final Charset charset;
-    private final LineInputStream input;
+    protected final LineInputStream input;
     byte[] chunk = new byte[1024];
 
     public LineReader(LineInputStream input) {

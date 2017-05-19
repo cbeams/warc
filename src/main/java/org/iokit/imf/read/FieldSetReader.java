@@ -2,7 +2,6 @@ package org.iokit.imf.read;
 
 import org.iokit.imf.Field;
 
-import org.iokit.core.read.FoldedLineReader;
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
 import org.iokit.core.read.ReaderException;
@@ -16,7 +15,7 @@ public class FieldSetReader extends Reader<Set<Field>> {
     private final FieldReader fieldReader;
 
     public FieldSetReader(LineReader lineReader) {
-        this(new FieldReader(new FoldedLineReader(lineReader)));
+        this(new FieldReader(lineReader));
     }
 
     public FieldSetReader(FieldReader fieldReader) {

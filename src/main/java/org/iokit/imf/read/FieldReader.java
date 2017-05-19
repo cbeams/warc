@@ -3,7 +3,7 @@ package org.iokit.imf.read;
 import org.iokit.imf.Field;
 import org.iokit.imf.parse.FieldParser;
 
-import org.iokit.core.read.FoldedLineReader;
+import org.iokit.core.read.LineReader;
 import org.iokit.core.read.OptionalReader;
 import org.iokit.core.read.ReaderException;
 
@@ -13,14 +13,14 @@ import java.util.Optional;
 
 public class FieldReader extends OptionalReader<Field> {
 
-    private final FoldedLineReader lineReader;
+    private final LineReader lineReader;
     private final Parser<Field> fieldParser;
 
-    public FieldReader(FoldedLineReader lineReader) {
+    public FieldReader(LineReader lineReader) {
         this(lineReader, new FieldParser());
     }
 
-    public FieldReader(FoldedLineReader lineReader, Parser<Field> fieldParser) {
+    public FieldReader(LineReader lineReader, Parser<Field> fieldParser) {
         super(lineReader.getInput());
         this.lineReader = lineReader;
         this.fieldParser = fieldParser;

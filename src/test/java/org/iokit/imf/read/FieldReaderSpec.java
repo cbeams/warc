@@ -3,7 +3,6 @@ package org.iokit.imf.read;
 import org.iokit.imf.Field;
 
 import org.iokit.core.read.FoldedLineReader;
-import org.iokit.core.read.LineReader;
 
 import org.iokit.core.input.LineInputStream;
 
@@ -20,9 +19,8 @@ public class FieldReaderSpec {
         FieldReader fieldReader =
             new FieldReader(
                 new FoldedLineReader(
-                    new LineReader(
                         new LineInputStream(
-                            new ByteArrayInputStream("Field-Name: field value".getBytes())))));
+                            new ByteArrayInputStream("Field-Name: field value".getBytes()))));
 
         Field field = fieldReader.read();
 
@@ -35,9 +33,8 @@ public class FieldReaderSpec {
         FieldReader fieldReader =
             new FieldReader(
                 new FoldedLineReader(
-                    new LineReader(
                         new LineInputStream(
-                            new ByteArrayInputStream("Field-Name: field\r\n     value".getBytes())))));
+                            new ByteArrayInputStream("Field-Name: field\r\n     value".getBytes()))));
 
         Field field = fieldReader.read();
 
@@ -52,9 +49,8 @@ public class FieldReaderSpec {
         FieldReader fieldReader =
             new FieldReader(
                 new FoldedLineReader(
-                    new LineReader(
                         new LineInputStream(
-                            new ByteArrayInputStream("Field-Name: field\r\n     value\r\n cont".getBytes())))));
+                            new ByteArrayInputStream("Field-Name: field\r\n     value\r\n cont".getBytes()))));
 
         Field field = fieldReader.read();
 
