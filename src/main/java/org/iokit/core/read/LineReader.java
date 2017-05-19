@@ -28,10 +28,6 @@ public class LineReader extends CloseableReader<String> {
     }
 
     @Override
-    public LineInputStream getInput() {
-        return input;
-    }
-
     public String read() throws ReaderException {
         int start = 0, length;
         while ((length = input.readLine(chunk, start, chunk.length - start)) == chunk.length - start) {
@@ -43,5 +39,10 @@ public class LineReader extends CloseableReader<String> {
             throw new EndOfInputException();
 
         return new String(chunk, 0, length + start, charset);
+    }
+
+    @Override
+    public LineInputStream getInput() {
+        return input;
     }
 }
