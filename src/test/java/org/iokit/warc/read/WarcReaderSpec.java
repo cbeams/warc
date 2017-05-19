@@ -37,11 +37,18 @@ public class WarcReaderSpec {
     }
 
     @Test
+    public void streamEmptyWarcFile() {
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
+        assertThatThrownBy(reader.stream()::count).isInstanceOf(ReaderException.class);
+        assertThat(reader.getReadCount()).isZero();
+    }
+
+    @Test
     public void readEmptyWarcFileWithMinimumReadCountSetToZero() {
         WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
         reader.setMinimumReadCount(0);
-        assertThat(reader.read()).isEqualTo(null);
-        assertThat(reader.getReadCount()).isZero();
+        assertThat(reader.readOptional()).isNotPresent();
+        assertThat(reader.getReadCount()).isEqualTo(0);
     }
 
     @Test
@@ -54,7 +61,7 @@ public class WarcReaderSpec {
         assertThat(record.getHeader().getContentLength()).isEqualTo(1152);
         assertThat(record.getBody().getData()[record.getBody().getData().length - 1]).isEqualTo((byte) '}');
 
-        assertThat(reader.read()).isEqualTo(null);
+        assertThat(reader.readOptional()).isNotPresent();
         assertThat(reader.getReadCount()).isEqualTo(1);
     }
 
@@ -65,7 +72,7 @@ public class WarcReaderSpec {
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
         assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
-        assertThat(reader.read()).isNull();
+        assertThat(reader.readOptional()).isNotPresent();
         assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
@@ -137,7 +144,7 @@ public class WarcReaderSpec {
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
         assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
-        assertThat(reader.read()).isNull();
+        assertThat(reader.readOptional()).isNotPresent();
         assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
@@ -149,7 +156,7 @@ public class WarcReaderSpec {
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
         assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
-        assertThat(reader.read()).isNull();
+        assertThat(reader.readOptional()).isNotPresent();
         assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
@@ -160,7 +167,7 @@ public class WarcReaderSpec {
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
         assertThat(record3.getHeader().getContentLength()).isEqualTo(1434);
-        assertThat(reader.read()).isNull();
+        assertThat(reader.readOptional()).isNotPresent();
         assertThat(reader.getReadCount()).isEqualTo(3);
     }
 

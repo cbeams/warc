@@ -31,12 +31,7 @@ public class LineReader extends CloseableReader<String> implements OptionalReade
 
     @Override
     public String read() throws ReaderException {
-        Optional<String> line = readOptional();
-
-        if (!line.isPresent())
-            throw new EndOfInputException();
-
-        return line.get();
+        return readOptional().orElseThrow(EndOfInputException::new);
     }
 
     @Override

@@ -4,15 +4,14 @@ import org.iokit.imf.Field;
 import org.iokit.imf.parse.FieldParser;
 
 import org.iokit.core.read.FoldedLineReader;
-import org.iokit.core.read.OptionalReader;
+import org.iokit.core.read.OptionalTransformReader;
 import org.iokit.core.read.ReaderException;
-import org.iokit.core.read.TransformReader;
 
 import org.iokit.core.parse.Parser;
 
 import java.util.Optional;
 
-public class FieldReader extends TransformReader<FoldedLineReader, Field> implements OptionalReader<Field> {
+public class FieldReader extends OptionalTransformReader<FoldedLineReader, Field> {
 
     private final Parser<Field> fieldParser;
 
@@ -23,11 +22,6 @@ public class FieldReader extends TransformReader<FoldedLineReader, Field> implem
     public FieldReader(FoldedLineReader reader, Parser<Field> fieldParser) {
         super(reader);
         this.fieldParser = fieldParser;
-    }
-
-    @Override
-    public Field read() throws ReaderException {
-        return readOptional().orElseThrow(() -> new ReaderException("TODO"));
     }
 
     public Optional<Field> readOptional() throws ReaderException {

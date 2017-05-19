@@ -2,15 +2,10 @@ package org.iokit.core.read;
 
 import java.util.Optional;
 
-public class FoldedLineReader extends TransformReader<LineReader, String> implements OptionalReader<String> {
+public class FoldedLineReader extends OptionalTransformReader<LineReader, String> {
 
     public FoldedLineReader(LineReader reader) {
         super(reader);
-    }
-
-    @Override
-    public String read() throws ReaderException {
-        throw new UnsupportedOperationException();
     }
 
     @Override

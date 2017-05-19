@@ -17,13 +17,14 @@ public class ConcatenationReader<T> extends BoundedReader<T> {
         this.concatenatorReader = concatenatorReader;
     }
 
-    public T read() throws ReaderException {
+    @Override
+    public Optional<T> readOptional() throws ReaderException {
         Optional<T> value = super.readOptional();
 
         value.ifPresent(v ->
             concatenatorReader.read());
 
-        return value.orElse(null);
+        return value;
     }
 
     public void setExpectTrailingConcatenator(boolean expectTrailingConcatenator) {

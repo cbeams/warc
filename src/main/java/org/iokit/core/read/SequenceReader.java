@@ -1,6 +1,7 @@
 package org.iokit.core.read;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Spliterators;
 import java.util.stream.Stream;
@@ -28,19 +29,34 @@ public class SequenceReader<T> extends InputReader<T> implements OptionalReader<
     }
 
     public Stream<T> stream() {
-        return StreamSupport.stream(
-            Spliterators.spliteratorUnknownSize(
-                new Iterator<T>() {
-                    @Override
-                    public boolean hasNext() {
-                        return !input.isComplete();
-                    }
+        Iterator<T> iterator = new Iterator<T>() {
+            T nextValue = null;
 
-                    @Override
-                    public T next() {
-                        return SequenceReader.this.read();
-                    }
-                }, NONNULL | ORDERED | IMMUTABLE),
+            @Override
+            public boolean hasNext() {
+                if (nextValue != null)
+                    return true;
+
+                Optional<T> result = SequenceReader.this.readOptional();
+                if (result.isPresent()) {
+                    nextValue = result.get();
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public T next() {
+                if (nextValue != null || hasNext()) {
+                    T value = nextValue;
+                    nextValue = null;
+                    return value;
+                }
+                throw new NoSuchElementException();
+            }
+        };
+        return StreamSupport.stream(
+            Spliterators.spliteratorUnknownSize(iterator, NONNULL | ORDERED | IMMUTABLE),
             false);
     }
 }
