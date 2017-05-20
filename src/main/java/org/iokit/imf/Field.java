@@ -1,6 +1,7 @@
 package org.iokit.imf;
 
-import org.iokit.core.token.SimpleToken;
+import org.iokit.core.parse.NullSafeParser;
+import org.iokit.core.parse.ParsingException;
 
 import java.util.Objects;
 
@@ -8,19 +9,19 @@ public class Field {
 
     public static final char SEPARATOR = ':';
 
-    private final Name name;
-    private final Value value;
+    private final FieldName name;
+    private final FieldValue value;
 
-    public Field(Name name, Value value) {
+    public Field(FieldName name, FieldValue value) {
         this.name = name;
         this.value = value;
     }
 
-    public Name getName() {
+    public FieldName getName() {
         return name;
     }
 
-    public Value getValue() {
+    public FieldValue getValue() {
         return value;
     }
 
@@ -46,66 +47,42 @@ public class Field {
 
     public interface Type {
 
-        Name getName();
+        FieldName getName();
     }
 
 
-    /**
-     * Field names are case-insensitive.
-     */
-    public static class Name extends SimpleToken {
+    public static class Parser extends NullSafeParser<Field> {
 
-        public Name(String value) {
-            super(value);
+        private final org.iokit.core.parse.Parser<FieldName> nameParser;
+        private final org.iokit.core.parse.Parser<FieldValue> valueParser;
+
+        public Parser() {
+            this(new FieldName.Parser(), new FieldValue.Parser());
         }
 
-        @Override
-        public boolean equals(Object that) {
-            if (this == that) return true;
-            if (that == null || getClass() != that.getClass()) return false;
-            Name name = (Name) that;
-            return Objects.equals(this.getValue().toLowerCase(), name.getValue().toLowerCase());
+        public Parser(org.iokit.core.parse.Parser<FieldName> nameParser,
+                      org.iokit.core.parse.Parser<FieldValue> valueParser) {
+            this.nameParser = nameParser;
+            this.valueParser = valueParser;
         }
 
-        @Override
-        public int hashCode() {
-            return Objects.hash(this.getValue().toLowerCase());
-        }
-    }
+        public Field parseNullSafe(String input) throws ParsingException {
+            int separatorIndex = input.indexOf(SEPARATOR);
+            if (separatorIndex == -1)
+                throw new MissingSeparatorException(input);
 
-
-    public static class Value {
-
-        private final String value;
-
-        public Value(String value) {
-            this.value = value;
+            return new Field(
+                nameParser.parse(input.substring(0, separatorIndex)),
+                valueParser.parse(input.substring(separatorIndex + 1, input.length())));
         }
 
-        public String getFoldedValue() {
-            return value;
-        }
 
-        public String getUnfoldedValue() {
-            return value.replaceAll("\\r\\n[ \\t]+", " ");
-        }
+        public static class MissingSeparatorException extends ParsingException {
 
-        @Override
-        public String toString() {
-            return getUnfoldedValue();
-        }
-
-        @Override
-        public boolean equals(Object that) {
-            if (this == that) return true;
-            if (that == null || getClass() != that.getClass()) return false;
-            Value value = (Value) that;
-            return Objects.equals(this.value, value.value);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(value);
+            public MissingSeparatorException(String input) {
+                super("%s input must contain '%c' separator. Input was [%s]",
+                    Field.class.getSimpleName(), SEPARATOR, input);
+            }
         }
     }
 }

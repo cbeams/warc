@@ -1,12 +1,7 @@
 package org.iokit.imf;
 
-import org.iokit.imf.parse.FieldNameParser;
-import org.iokit.imf.parse.FieldParser;
-import org.iokit.imf.parse.FieldValueParser;
-
 import org.iokit.core.validate.InvalidCharacterException;
 
-import org.iokit.core.parse.Parser;
 import org.iokit.core.parse.TokenSpec;
 
 import io.beams.valjo.ValjoSpec;
@@ -20,7 +15,6 @@ import java.util.stream.Stream;
 
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.*;
-import static org.iokit.imf.Field.Name;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -41,27 +35,27 @@ public class FieldSpecs {
 
         @Override
         protected Object parse(String input) {
-            return new FieldParser().parse(input);
+            return new Field.Parser().parse(input);
         }
 
         @Test
         public void parseSplitsNameAndValueOnSeparator() {
-            Field field = new FieldParser().parse("Valid-Name: valid value");
+            Field field = new Field.Parser().parse("Valid-Name: valid value");
             assertThat(field.getName()).hasToString("Valid-Name");
             assertThat(field.getValue()).hasToString("valid value");
         }
 
         @Test
         public void parseInputWithoutFieldSeparator() {
-            assertThatThrownBy(() -> new FieldParser().parse("invalid input"))
-                .isInstanceOf(FieldParser.MissingSeparatorException.class);
+            assertThatThrownBy(() -> new Field.Parser().parse("invalid input"))
+                .isInstanceOf(Field.Parser.MissingSeparatorException.class);
         }
 
         @Override
         @Test
         public void parseEmptyInput() {
             assertThatThrownBy(() -> parse(""))
-                .isInstanceOf(FieldParser.MissingSeparatorException.class);
+                .isInstanceOf(Field.Parser.MissingSeparatorException.class);
         }
 
         @Override
@@ -70,14 +64,14 @@ public class FieldSpecs {
             Stream.of(" ", "\t")
                 .forEach(blank ->
                     assertThatThrownBy(() -> parse(blank))
-                        .isInstanceOf(FieldParser.MissingSeparatorException.class));
+                        .isInstanceOf(Field.Parser.MissingSeparatorException.class));
         }
     }
 
 
     public static class NameSpec extends TokenSpec {
 
-        private Parser<Name> parser = new FieldNameParser();
+        private org.iokit.core.parse.Parser parser = new FieldName.Parser();
 
         public NameSpec() {
             super(
@@ -111,59 +105,59 @@ public class FieldSpecs {
 
         @Override
         protected Object parse(String input) {
-            return new FieldValueParser().parse(input);
+            return new FieldValue.Parser().parse(input);
         }
 
         @Test
         @Override
         public void parseEmptyInput() {
-            assertThat(new FieldValueParser().parse("")).hasToString("");
+            assertThat(new FieldValue.Parser().parse("")).hasToString("");
         }
 
         @Test
         @Override
         public void parseBlankInput() {
-            assertThat(new FieldValueParser().parse("  ")).hasToString("");
+            assertThat(new FieldValue.Parser().parse("  ")).hasToString("");
         }
 
         @Test
         public void parseInputWithLeadingWhitespace() {
-            assertThat(new FieldValueParser().parse(" valid input")).hasToString("valid input");
+            assertThat(new FieldValue.Parser().parse(" valid input")).hasToString("valid input");
         }
 
         @Test
         public void parseInputWithTrailingWhitespace() {
-            assertThat(new FieldValueParser().parse("valid input ")).hasToString("valid input");
+            assertThat(new FieldValue.Parser().parse("valid input ")).hasToString("valid input");
         }
 
         @Test
         public void parseInputWithInnerFoldingWhitespace() {
-            assertThat(new FieldValueParser().parse("valid\r\n input")).hasToString("valid input");
-            assertThat(new FieldValueParser().parse("valid\r\n  input")).hasToString("valid input");
-            assertThat(new FieldValueParser().parse("valid\r\n\t\tinput")).hasToString("valid input");
-            assertThat(new FieldValueParser().parse("valid\r\n \r\n input")).hasToString("valid  input");
-            assertThat(new FieldValueParser().parse("valid\r\n in\r\n put")).hasToString("valid in put");
+            assertThat(new FieldValue.Parser().parse("valid\r\n input")).hasToString("valid input");
+            assertThat(new FieldValue.Parser().parse("valid\r\n  input")).hasToString("valid input");
+            assertThat(new FieldValue.Parser().parse("valid\r\n\t\tinput")).hasToString("valid input");
+            assertThat(new FieldValue.Parser().parse("valid\r\n \r\n input")).hasToString("valid  input");
+            assertThat(new FieldValue.Parser().parse("valid\r\n in\r\n put")).hasToString("valid in put");
         }
 
         @Test
         public void parseInputWithLeadingFoldingWhitespace() {
-            assertThat(new FieldValueParser().parse("\r\n valid input")).hasToString("valid input");
+            assertThat(new FieldValue.Parser().parse("\r\n valid input")).hasToString("valid input");
         }
 
         @Test
         public void parseInputWithMultipleFoldingWhitespace() {
-            assertThat(new FieldValueParser().parse("two\r\n valid lines")).hasToString("two valid lines");
-            assertThat(new FieldValueParser().parse("three\r\n valid\r\n lines")).hasToString("three valid lines");
+            assertThat(new FieldValue.Parser().parse("two\r\n valid lines")).hasToString("two valid lines");
+            assertThat(new FieldValue.Parser().parse("three\r\n valid\r\n lines")).hasToString("three valid lines");
         }
 
         @Test
         public void parseInputWithTrailingFoldingWhitespace() {
-            assertThat(new FieldValueParser().parse("valid input\r\n ")).hasToString("valid input");
+            assertThat(new FieldValue.Parser().parse("valid input\r\n ")).hasToString("valid input");
         }
 
         @Test
         public void parseInputWithNonAsciiCharacters() {
-            assertThat(new FieldValueParser().parse("Gültiger Eingabe")).hasToString("Gültiger Eingabe");
+            assertThat(new FieldValue.Parser().parse("Gültiger Eingabe")).hasToString("Gültiger Eingabe");
         }
 
         @Test
@@ -196,7 +190,7 @@ public class FieldSpecs {
         }
 
         private void assertInvalid(String input, char invalidChar, int atIndex) {
-            assertThatThrownBy(() -> new FieldValueParser().parse(input))
+            assertThatThrownBy(() -> new FieldValue.Parser().parse(input))
                 .isInstanceOf(InvalidCharacterException.class);
         }
     }

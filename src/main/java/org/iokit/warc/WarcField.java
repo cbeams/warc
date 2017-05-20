@@ -1,6 +1,8 @@
 package org.iokit.warc;
 
 import org.iokit.imf.Field;
+import org.iokit.imf.FieldName;
+import org.iokit.imf.FieldValue;
 
 import org.iokit.core.validate.Validator;
 import org.iokit.core.validate.ValidatorException;
@@ -11,7 +13,7 @@ public class WarcField extends Field {
 
     public static final String MIME_TYPE = "application/warc-fields";
 
-    public WarcField(Name name, Value value) {
+    public WarcField(FieldName name, FieldValue value) {
         super(name, value);
     }
 
@@ -23,14 +25,14 @@ public class WarcField extends Field {
         Content_Length("Content-Length"),
         WARC_Date("WARC-Date");
 
-        private final Name name;
+        private final FieldName name;
 
         Type(String name) {
-            this.name = new Name(name);
+            this.name = new FieldName(name);
         }
 
         @Override
-        public Name getName() {
+        public FieldName getName() {
             return name;
         }
     }

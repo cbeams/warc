@@ -1,7 +1,6 @@
 package org.iokit.imf.read;
 
 import org.iokit.imf.Field;
-import org.iokit.imf.parse.FieldParser;
 
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.OptionalReader;
@@ -17,7 +16,7 @@ public class FieldReader extends OptionalReader<Field> {
     private final Parser<Field> fieldParser;
 
     public FieldReader(LineReader lineReader) {
-        this(lineReader, new FieldParser());
+        this(lineReader, new Field.Parser());
     }
 
     public FieldReader(LineReader lineReader, Parser<Field> fieldParser) {
