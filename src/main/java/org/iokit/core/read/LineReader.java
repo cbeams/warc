@@ -28,10 +28,6 @@ public class LineReader extends OptionalReader<String> {
         this.charset = charset;
     }
 
-    public byte peek() {
-        return input.peek();
-    }
-
     @Override
     public Optional<String> readOptional() throws ReaderException {
         int start = 0, length;
