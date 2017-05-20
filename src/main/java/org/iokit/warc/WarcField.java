@@ -15,6 +15,7 @@ public class WarcField extends Field {
         super(name, value);
     }
 
+
     public enum Type implements Field.Type {
         WARC_Type("WARC-Type"),
         WARC_Record_ID("WARC-Record-ID"),

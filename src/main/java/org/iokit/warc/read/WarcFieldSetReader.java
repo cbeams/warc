@@ -16,12 +16,14 @@ import java.util.Set;
 
 public class WarcFieldSetReader extends FieldSetReader {
 
+    public static final Validator<Set<Field>> DEFAULT_FIELD_SET_VALIDATOR = new WarcField.SetValidator();
+
     public WarcFieldSetReader(LineReader lineReader) {
-        this(new FoldedLineReader(lineReader));
+        this(new FoldedLineReader(lineReader.getInput()));
     }
 
     public WarcFieldSetReader(FoldedLineReader lineReader) {
-        this(new FieldReader(lineReader), new WarcField.SetValidator());
+        this(new FieldReader(lineReader), DEFAULT_FIELD_SET_VALIDATOR);
     }
 
     public WarcFieldSetReader(FieldReader fieldReader, Validator<Set<Field>> fieldSetValidator) {

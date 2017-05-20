@@ -12,6 +12,7 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
         super(header, body);
     }
 
+
     public enum Type {
 
         /**

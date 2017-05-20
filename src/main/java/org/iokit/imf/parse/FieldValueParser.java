@@ -13,7 +13,7 @@ import static org.iokit.core.token.Ascii.isAsciiControlChar;
 
 public class FieldValueParser extends ValidatingParser<Field.Value> {
 
-    public FieldValueParser(Validator validator) {
+    public FieldValueParser(Validator<String> validator) {
         super(validator);
     }
 

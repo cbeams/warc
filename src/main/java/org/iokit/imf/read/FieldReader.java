@@ -28,11 +28,11 @@ public class FieldReader extends OptionalReader<Field> {
 
     @Override
     public Optional<Field> readOptional() throws ReaderException {
-        Optional<String> input = lineReader.readOptional().filter(s -> !s.isEmpty());
+        Optional<String> line = lineReader.readOptional().filter(l -> !l.isEmpty());
 
-        if (!input.isPresent())
+        if (!line.isPresent())
             return Optional.empty();
 
-        return Optional.of(fieldParser.parse(input.get()));
+        return Optional.of(fieldParser.parse(line.get()));
     }
 }

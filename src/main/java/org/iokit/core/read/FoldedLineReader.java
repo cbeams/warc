@@ -6,10 +6,6 @@ import java.util.Optional;
 
 public class FoldedLineReader extends LineReader {
 
-    public FoldedLineReader(LineReader lineReader) {
-        this(lineReader.getInput());
-    }
-
     public FoldedLineReader(LineInputStream input) {
         super(input);
     }

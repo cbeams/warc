@@ -8,8 +8,9 @@ import org.iokit.core.read.ReaderException;
 import org.iokit.core.validate.Validator;
 
 import java.util.LinkedHashSet;
-import java.util.Optional;
 import java.util.Set;
+
+import static java.util.stream.Collectors.toCollection;
 
 public class FieldSetReader extends Reader<Set<Field>> {
 
@@ -23,14 +24,8 @@ public class FieldSetReader extends Reader<Set<Field>> {
     }
 
     public Set<Field> read() throws ReaderException {
-        LinkedHashSet<Field> fields = new LinkedHashSet<>();
-
-        Optional<Field> field;
-        while ((field = fieldReader.readOptional()).isPresent())
-            fields.add(field.get());
-
+        Set<Field> fields = fieldReader.stream().collect(toCollection(LinkedHashSet::new));
         fieldSetValidator.validate(fields);
-
         return fields;
     }
 }

@@ -11,12 +11,15 @@ import java.util.Optional;
 
 public class LineReader extends OptionalReader<String> {
 
-    private final Charset charset;
+    public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+
     protected final LineInputStream input;
-    byte[] chunk = new byte[1024];
+    protected final Charset charset;
+
+    private byte[] chunk = new byte[1024];
 
     public LineReader(LineInputStream input) {
-        this(input, StandardCharsets.UTF_8);
+        this(input, DEFAULT_CHARSET);
     }
 
     public LineReader(LineInputStream input, Charset charset) {
