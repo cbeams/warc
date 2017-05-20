@@ -17,7 +17,7 @@ public abstract class CountingReader<T> extends OptionalReader<T> {
     }
 
     public final Optional<T> readOptional() throws ReaderException {
-        Optional<T> value = readBeforeCounting();
+        Optional<T> value = readOptionalBeforeCounting();
 
         if (value.isPresent())
             readCount++;
@@ -29,7 +29,7 @@ public abstract class CountingReader<T> extends OptionalReader<T> {
         return value;
     }
 
-    protected abstract Optional<T> readBeforeCounting();
+    protected abstract Optional<T> readOptionalBeforeCounting();
 
     public void setMinimumReadCount(int minimumReadCount) {
         this.minimumReadCount = minimumReadCount;

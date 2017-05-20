@@ -3,9 +3,10 @@ package org.iokit.warc.read;
 import org.iokit.warc.WarcRecord;
 
 import org.iokit.core.read.ConcatenationReader;
-import org.iokit.core.read.ConcatenatorReader;
 import org.iokit.core.read.LineReader;
+import org.iokit.core.read.NewlineReader;
 import org.iokit.core.read.Reader;
+import org.iokit.core.read.SkipReader;
 
 import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
@@ -42,10 +43,10 @@ public class WarcReader extends ConcatenationReader<WarcRecord> {
     }
 
     public WarcReader(LineReader lineReader) {
-        this(new WarcRecordReader(lineReader), new WarcConcatenatorReader(lineReader));
+        this(new WarcRecordReader(lineReader), new SkipReader(2, new NewlineReader(lineReader)));
     }
 
-    public WarcReader(Reader<WarcRecord> recordReader, ConcatenatorReader concatenatorReader) {
+    public WarcReader(Reader<WarcRecord> recordReader, Reader<Boolean> concatenatorReader) {
         super(recordReader, concatenatorReader);
         setMinimumReadCount(DEFAULT_MINIMUM_READ_COUNT);
     }
