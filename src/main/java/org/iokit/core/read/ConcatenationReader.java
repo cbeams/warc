@@ -2,28 +2,32 @@ package org.iokit.core.read;
 
 import java.util.Optional;
 
-public class ConcatenationReader<T> extends FilterReader<T> {
+public class ConcatenationReader<T> extends OptionalReader<T> {
 
     public static final int DEFAULT_MINIMUM_READ_COUNT = 0;
 
+    private final Reader<T> reader;
     private final ConcatenatorReader concatenatorReader;
 
     private int minimumReadCount;
-    private long readCount = 0;
+    private long readCount;
 
     public ConcatenationReader(Reader<T> reader, ConcatenatorReader concatenatorReader) {
         this(reader, concatenatorReader, DEFAULT_MINIMUM_READ_COUNT);
     }
 
     public ConcatenationReader(Reader<T> reader, ConcatenatorReader concatenatorReader, int minimumReadCount) {
-        super(reader);
+        super(reader.getInput());
+        this.reader = reader;
         this.concatenatorReader = concatenatorReader;
         this.minimumReadCount = minimumReadCount;
     }
 
     @Override
     public Optional<T> readOptional() throws ReaderException {
-        Optional<T> value = super.readOptional();
+        Optional<T> value = input.isComplete() ?
+            Optional.empty() :
+            Optional.of(reader.read());
 
         if (value.isPresent()) {
             readCount++;
