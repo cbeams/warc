@@ -46,6 +46,7 @@ public class WarcReader extends ConcatenationReader<WarcRecord> {
     }
 
     public WarcReader(Reader<WarcRecord> recordReader, ConcatenatorReader concatenatorReader) {
-        super(recordReader, concatenatorReader, DEFAULT_MINIMUM_READ_COUNT);
+        super(recordReader, concatenatorReader);
+        setMinimumReadCount(DEFAULT_MINIMUM_READ_COUNT);
     }
 }

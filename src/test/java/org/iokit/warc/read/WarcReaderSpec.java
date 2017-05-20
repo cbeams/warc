@@ -113,7 +113,7 @@ public class WarcReaderSpec {
         assertThatThrownBy(reader::read)
             .isInstanceOf(EndOfInputException.class);
 
-        assertThat(reader.getReadCount()).isEqualTo(3);
+        assertThat(reader.getReadCount()).isEqualTo(2);
     }
 
     @Test
