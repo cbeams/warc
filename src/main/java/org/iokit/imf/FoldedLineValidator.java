@@ -1,6 +1,10 @@
-package org.iokit.core.validate;
+package org.iokit.imf;
 
-import static org.iokit.core.token.Ascii.isAsciiControlChar;
+import org.iokit.core.validate.InvalidCharacterException;
+import org.iokit.core.validate.Validator;
+import org.iokit.core.validate.ValidatorException;
+
+import static org.iokit.core.Ascii.isAsciiControlChar;
 
 public class FoldedLineValidator extends Validator<String> {
 

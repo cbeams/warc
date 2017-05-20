@@ -2,8 +2,6 @@ package org.iokit.imf.read;
 
 import org.iokit.imf.Field;
 
-import org.iokit.core.read.FoldedLineReader;
-
 import org.iokit.core.input.LineInputStream;
 
 import org.junit.Test;

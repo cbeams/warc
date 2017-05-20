@@ -1,9 +1,9 @@
-package org.iokit.core.parse;
+package org.iokit.imf;
 
-import org.iokit.core.validate.TokenValidator;
 import org.iokit.core.validate.Validator;
 
-import org.iokit.core.token.Token;
+import org.iokit.core.parse.ParsingException;
+import org.iokit.core.parse.ValidatingParser;
 
 public class TokenParser extends ValidatingParser<Token> {
 

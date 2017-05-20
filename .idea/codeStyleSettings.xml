@@ -21,7 +21,7 @@
             <emptyLine />
             <package name="org.iokit.core.input" withSubpackages="true" static="false" />
             <emptyLine />
-            <package name="org.iokit.core.token" withSubpackages="true" static="false" />
+            <package name="org.iokit.core" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.lang" withSubpackages="true" static="false" />
             <emptyLine />

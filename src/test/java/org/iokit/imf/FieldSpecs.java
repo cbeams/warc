@@ -2,8 +2,6 @@ package org.iokit.imf;
 
 import org.iokit.core.validate.InvalidCharacterException;
 
-import org.iokit.core.parse.TokenSpec;
-
 import io.beams.valjo.ValjoSpec;
 
 import org.junit.Test;

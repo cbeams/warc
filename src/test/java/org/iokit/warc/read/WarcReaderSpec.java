@@ -9,6 +9,8 @@ import org.iokit.core.read.ReaderException;
 import org.iokit.core.validate.Validator;
 import org.iokit.core.validate.ValidatorException;
 
+import org.iokit.core.config.Reflector;
+
 import org.junit.Test;
 
 import java.util.zip.GZIPInputStream;
@@ -21,11 +23,6 @@ import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.iokit.warc.WarcRecord.Type.metadata;
-
-
-
-
-import org.iokit.core.config.Reflector;
 
 public class WarcReaderSpec {
 

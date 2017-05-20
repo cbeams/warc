@@ -1,6 +1,6 @@
 package org.iokit.core.input;
 
-import org.iokit.core.token.LineTerminator;
+import org.iokit.core.LineTerminator;
 
 import org.iokit.lang.Try;
 

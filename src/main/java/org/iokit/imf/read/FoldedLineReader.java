@@ -1,4 +1,7 @@
-package org.iokit.core.read;
+package org.iokit.imf.read;
+
+import org.iokit.core.read.LineReader;
+import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.input.LineInputStream;
 

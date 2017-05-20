@@ -1,4 +1,4 @@
-package org.iokit.core.parse;
+package org.iokit.imf;
 
 import org.iokit.core.validate.InvalidCharacterException;
 

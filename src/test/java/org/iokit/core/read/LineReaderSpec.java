@@ -1,9 +1,8 @@
-package org.iokit.core.input;
+package org.iokit.core.read;
 
-import org.iokit.core.read.EndOfInputException;
-import org.iokit.core.read.LineReader;
+import org.iokit.core.input.LineInputStream;
 
-import org.iokit.core.token.LineTerminator;
+import org.iokit.core.LineTerminator;
 
 import org.junit.Test;
 

@@ -2,9 +2,6 @@ package org.iokit.imf;
 
 import org.iokit.core.parse.NullSafeParser;
 import org.iokit.core.parse.ParsingException;
-import org.iokit.core.parse.TokenParser;
-
-import org.iokit.core.token.Token;
 
 import java.util.Objects;
 

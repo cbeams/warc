@@ -7,7 +7,7 @@ import org.iokit.core.validate.Validator;
 import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
 
-import org.iokit.core.token.LineTerminator;
+import org.iokit.core.LineTerminator;
 
 import org.junit.Ignore;
 import org.junit.Rule;

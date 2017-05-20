@@ -7,7 +7,7 @@ import org.iokit.imf.read.FieldSetReader;
 
 import org.iokit.imf.Field;
 
-import org.iokit.core.read.FoldedLineReader;
+import org.iokit.imf.read.FoldedLineReader;
 import org.iokit.core.read.LineReader;
 
 import org.iokit.core.validate.Validator;

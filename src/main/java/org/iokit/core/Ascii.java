@@ -1,4 +1,4 @@
-package org.iokit.core.token;
+package org.iokit.core;
 
 public class Ascii {
 

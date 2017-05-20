@@ -1,6 +1,11 @@
-package org.iokit.core.validate;
+package org.iokit.imf;
 
-import static org.iokit.core.token.Ascii.*;
+import org.iokit.core.validate.InvalidCharacterException;
+import org.iokit.core.validate.InvalidLengthException;
+import org.iokit.core.validate.Validator;
+import org.iokit.core.validate.ValidatorException;
+
+import static org.iokit.core.Ascii.*;
 import static org.iokit.warc.Separator.isSeparatorChar;
 
 public class TokenValidator extends Validator<String> {

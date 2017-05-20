@@ -1,4 +1,4 @@
-package org.iokit.core.token;
+package org.iokit.imf;
 
 import java.util.Objects;
 

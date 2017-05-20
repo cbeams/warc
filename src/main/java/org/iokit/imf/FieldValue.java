@@ -2,7 +2,6 @@ package org.iokit.imf;
 
 import org.iokit.core.validate.Validator;
 
-import org.iokit.core.validate.FoldedLineValidator;
 import org.iokit.core.parse.ParsingException;
 import org.iokit.core.parse.ValidatingParser;
 
