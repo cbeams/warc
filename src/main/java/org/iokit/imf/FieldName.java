@@ -2,9 +2,8 @@ package org.iokit.imf;
 
 import org.iokit.core.parse.NullSafeParser;
 import org.iokit.core.parse.ParsingException;
-import org.iokit.core.parse.SimpleTokenParser;
+import org.iokit.core.parse.TokenParser;
 
-import org.iokit.core.token.SimpleToken;
 import org.iokit.core.token.Token;
 
 import java.util.Objects;
@@ -12,7 +11,7 @@ import java.util.Objects;
 /**
  * Field names are case-insensitive.
  */
-public class FieldName extends SimpleToken {
+public class FieldName extends Token {
 
     public FieldName(String value) {
         super(value);
@@ -37,7 +36,7 @@ public class FieldName extends SimpleToken {
         private final org.iokit.core.parse.Parser<Token> tokenParser;
 
         public Parser() {
-            this(new SimpleTokenParser());
+            this(new TokenParser());
         }
 
         public Parser(org.iokit.core.parse.Parser<Token> tokenParser) {

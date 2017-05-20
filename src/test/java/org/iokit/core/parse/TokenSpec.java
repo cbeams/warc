@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class TokenSpec extends ValjoSpec {
 
-    private final SimpleTokenParser tokenParser = new SimpleTokenParser();
+    private final TokenParser tokenParser = new TokenParser();
 
     public TokenSpec() {
         super(

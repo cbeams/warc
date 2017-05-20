@@ -1,6 +1,6 @@
 package org.iokit.core.token;
 
-public enum LineTerminator implements Token {
+public enum LineTerminator {
 
     /** A carriage return (CR, ASCII 13). */
     CR("\r"),
