@@ -1,4 +1,4 @@
-package org.iokit.warc.write;
+package org.iokit.imf.write;
 
 import org.iokit.imf.Field;
 

@@ -2,6 +2,8 @@ package org.iokit.warc.write;
 
 import org.iokit.warc.WarcHeader;
 
+import org.iokit.imf.write.FieldSetWriter;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
