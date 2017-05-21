@@ -47,13 +47,7 @@ public class WarcWriterSpec {
         try (WarcReader reader = new WarcReader(originalFile);
              WarcWriter writer = new WarcWriter(new FileOutputStream(newFile))) {
 
-            reader.stream().forEach(record -> {
-                try {
-                    writer.write(record);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
+            reader.stream().forEach(writer::write);
         }
 
         assertThat(newFile).hasSameContentAs(originalFile);
@@ -67,13 +61,7 @@ public class WarcWriterSpec {
         try (WarcReader reader = new WarcReader(originalFile);
              WarcWriter writer = new WarcWriter(new FileOutputStream(newFile))) {
 
-            reader.stream().forEach(record -> {
-                try {
-                    writer.write(record);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
+            reader.stream().forEach(writer::write);
         }
 
         assertThat(newFile).hasSameContentAs(originalFile);
@@ -88,16 +76,10 @@ public class WarcWriterSpec {
         // 42864 (before parallel)
         // 18797 (after parallel)
 
-        try (WarcReader reader = new WarcReader(new CrlfLineInputStream(new GZIPInputStream(new FileInputStream(originalFile), 1024*1024)));
+        try (WarcReader reader = new WarcReader(new CrlfLineInputStream(new GZIPInputStream(new FileInputStream(originalFile), 1024 * 1024)));
              WarcWriter writer = new WarcWriter(new ParallelGZIPOutputStream(new FileOutputStream(newFile)))) {
 
-            reader.stream().forEach(record -> {
-                try {
-                    writer.write(record);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
+            reader.stream().forEach(writer::write);
         }
 
         //assertThat(newFile).hasSameContentAs(originalFile);

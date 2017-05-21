@@ -2,12 +2,13 @@ package org.iokit.imf.write;
 
 import org.iokit.imf.Field;
 
-import java.io.IOException;
+import org.iokit.core.write.Writer;
+
 import java.io.OutputStream;
 
 import java.util.Set;
 
-public class FieldSetWriter {
+public class FieldSetWriter extends Writer<Set<Field>> {
 
     private final FieldWriter fieldWriter;
 
@@ -19,7 +20,7 @@ public class FieldSetWriter {
         this.fieldWriter = fieldWriter;
     }
 
-    public void write(Set<Field> fields) throws IOException {
+    public void write(Set<Field> fields) {
         for (Field field : fields)
             fieldWriter.write(field);
     }
