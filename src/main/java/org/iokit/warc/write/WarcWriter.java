@@ -2,24 +2,28 @@ package org.iokit.warc.write;
 
 import org.iokit.warc.WarcRecord;
 
+import org.iokit.core.write.LineWriter;
 import org.iokit.core.write.Writer;
 
-import java.io.Closeable;
-import java.io.IOException;
+import org.iokit.lang.Try;
+
 import java.io.OutputStream;
 
-public class WarcWriter extends Writer<WarcRecord> implements Closeable {
+public class WarcWriter extends Writer<WarcRecord> {
 
-    private final OutputStream output;
     private final Writer<WarcRecord> recordWriter;
     private final Writer<Void> concatenatorWriter;
 
-    public WarcWriter(OutputStream output) {
-        this(output, new WarcRecordWriter(output), new WarcConcatenatorWriter(output));
+    public WarcWriter(OutputStream out) {
+        this(new LineWriter(out));
     }
 
-    public WarcWriter(OutputStream output, Writer<WarcRecord> recordWriter, Writer<Void> concatenatorWriter) {
-        this.output = output;
+    public WarcWriter(LineWriter lineWriter) {
+        this(new WarcRecordWriter(lineWriter), new WarcConcatenatorWriter(lineWriter));
+    }
+
+    public WarcWriter(Writer<WarcRecord> recordWriter, Writer<Void> concatenatorWriter) {
+        super(recordWriter.getOutput());
         this.recordWriter = recordWriter;
         this.concatenatorWriter = concatenatorWriter;
     }
@@ -31,7 +35,7 @@ public class WarcWriter extends Writer<WarcRecord> implements Closeable {
     }
 
     @Override
-    public void close() throws IOException {
-        output.close();
+    public void close() {
+        Try.toRun(output::close);
     }
 }

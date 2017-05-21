@@ -10,10 +10,8 @@ import java.io.OutputStream;
 
 public class WarcBodyWriter extends Writer<WarcBody> {
 
-    private final OutputStream output;
-
     public WarcBodyWriter(OutputStream output) {
-        this.output = output;
+        super(output);
     }
 
     public void write(WarcBody body) {

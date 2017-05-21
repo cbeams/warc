@@ -5,33 +5,30 @@ import org.iokit.warc.WarcVersion;
 
 import org.iokit.imf.write.FieldSetWriter;
 
+import org.iokit.core.write.LineWriter;
 import org.iokit.core.write.Writer;
-
-import org.iokit.lang.Try;
-
-import java.io.OutputStream;
 
 public class WarcHeaderWriter extends Writer<WarcHeader> {
 
-    private final OutputStream output;
     private final Writer<WarcVersion> versionWriter;
     private final FieldSetWriter fieldSetWriter;
+    private final LineWriter lineWriter;
 
-    public WarcHeaderWriter(OutputStream output) {
-        this(output, new WarcVersionWriter(output), new FieldSetWriter(output));
+    public WarcHeaderWriter(LineWriter lineWriter) {
+        this(new WarcVersionWriter(lineWriter), new FieldSetWriter(lineWriter), lineWriter);
     }
 
-    public WarcHeaderWriter(OutputStream output, Writer<WarcVersion> versionWriter, FieldSetWriter fieldSetWriter) {
-        this.output = output;
+    public WarcHeaderWriter(Writer<WarcVersion> versionWriter, FieldSetWriter fieldSetWriter, LineWriter lineWriter) {
+        super(versionWriter.getOutput());
         this.versionWriter = versionWriter;
         this.fieldSetWriter = fieldSetWriter;
+        this.lineWriter = lineWriter;
     }
 
     @Override
     public void write(WarcHeader header) {
         versionWriter.write(header.getVersion());
-        Try.toRun(() -> output.write("\r\n".getBytes()));
         fieldSetWriter.write(header.getFields());
-        Try.toRun(() -> output.write("\r\n".getBytes()));
+        lineWriter.writeNewLine();
     }
 }

@@ -1,8 +1,26 @@
 package org.iokit.core.write;
 
-import org.iokit.core.read.ReaderException;
+import org.iokit.lang.Try;
 
-public abstract class Writer<T> {
+import java.io.Closeable;
+import java.io.OutputStream;
 
-    public abstract void write(T value) throws ReaderException;
+public abstract class Writer<T> implements Closeable {
+
+    protected final OutputStream output;
+
+    public Writer(OutputStream output) {
+        this.output = output;
+    }
+
+    public abstract void write(T value);
+
+    public OutputStream getOutput() {
+        return output;
+    }
+
+    @Override
+    public void close() {
+        Try.toRun(output::close);
+    }
 }
