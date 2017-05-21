@@ -1,6 +1,5 @@
 package org.iokit.warc.write;
 
-import org.iokit.warc.WarcRecord;
 import org.iokit.warc.read.WarcReader;
 
 import org.iokit.core.input.CrlfLineInputStream;
@@ -25,46 +24,45 @@ import org.anarres.parallelgzip.ParallelGZIPOutputStream;
 public class WarcWriterSpec {
 
     @Test
-    public void writeSingleRecordWarcFile() throws IOException {
-        File originalFile = new File(getClass().getResource("/org/iokit/warc/single.warc").getFile());
-        WarcReader reader = new WarcReader(originalFile);
-
-        WarcRecord record = reader.read();
-
+    public void writeSingleRecordWarcFile() {
+        File oldFile = new File(getClass().getResource("/org/iokit/warc/single.warc").getFile());
         File newFile = new File("/tmp/single.warc");
-        try (WarcWriter writer = new WarcWriter(new FileOutputStream(newFile))) {
-            writer.write(record);
+
+        try (WarcReader reader = new WarcReader(oldFile);
+             WarcWriter writer = new WarcWriter(newFile)) {
+
+            writer.write(reader.read());
         }
 
-        assertThat(newFile).hasSameContentAs(originalFile);
+        assertThat(newFile).hasSameContentAs(oldFile);
     }
 
     @Test
-    public void writeMultiRecordWarcFile() throws IOException {
-        File originalFile = new File(getClass().getResource("/org/iokit/warc/multi.warc").getFile());
+    public void writeMultiRecordWarcFile() {
+        File oldFile = new File(getClass().getResource("/org/iokit/warc/multi.warc").getFile());
         File newFile = new File("/tmp/multi.warc");
 
-        try (WarcReader reader = new WarcReader(originalFile);
-             WarcWriter writer = new WarcWriter(new FileOutputStream(newFile))) {
+        try (WarcReader reader = new WarcReader(oldFile);
+             WarcWriter writer = new WarcWriter(newFile)) {
 
             reader.stream().forEach(writer::write);
         }
 
-        assertThat(newFile).hasSameContentAs(originalFile);
+        assertThat(newFile).hasSameContentAs(oldFile);
     }
 
     @Test
     public void writeMultiRecordWarcFileWithFoldingLine() throws IOException {
-        File originalFile = new File(getClass().getResource("/org/iokit/warc/multi-with-folding.warc").getFile());
+        File oldFile = new File(getClass().getResource("/org/iokit/warc/multi-with-folding.warc").getFile());
         File newFile = new File("/tmp/multi-with-folding.warc");
 
-        try (WarcReader reader = new WarcReader(originalFile);
-             WarcWriter writer = new WarcWriter(new FileOutputStream(newFile))) {
+        try (WarcReader reader = new WarcReader(oldFile);
+             WarcWriter writer = new WarcWriter(newFile)) {
 
             reader.stream().forEach(writer::write);
         }
 
-        assertThat(newFile).hasSameContentAs(originalFile);
+        assertThat(newFile).hasSameContentAs(oldFile);
     }
 
     @Test
