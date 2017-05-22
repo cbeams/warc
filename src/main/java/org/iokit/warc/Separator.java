@@ -6,7 +6,7 @@ public final class Separator { // TODO: rename to 'specials'?
     }
 
     private static final int[] CHARS = new int[]{
-        '(', ')', '@', ',', ';', ':', '\\', '/', '[', ']', '?', '=', '{', '}', ' ', '\t'
+        '(', ')', '@', ',', ';', ':', '\\', '/', '[', ']', '?', '=', '{', '}', ' ', '\t' // TODO: Ascii
     };
 
     private static final CharSequence[] SEQUENCES = new CharSequence[]{

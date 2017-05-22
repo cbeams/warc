@@ -8,9 +8,13 @@ import org.iokit.core.parse.ValidatingParser;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import static org.iokit.core.Ascii.*;
+import static org.iokit.core.LineTerminator.CR_LF;
+
 public class FieldValue {
 
-    private final Pattern FOLDED_WHITESPACE_REGEX = Pattern.compile("\\r\\n[ \\t]+"); // TODO: format
+    private final Pattern FOLDED_WHITESPACE_PATTERN = Pattern.compile(String.format("%s[%c%c]+", CR_LF, SPACE, TAB));
+    private final String UNFOLDED_WHITESPACE = String.valueOf(SPACE);
 
     private final String value;
 
@@ -18,12 +22,12 @@ public class FieldValue {
         this.value = value;
     }
 
-    public String getFoldedValue() {
+    public String getFoldedValue() { // TODO: rename to getValue?
         return value;
     }
 
     public String getUnfoldedValue() {
-        return FOLDED_WHITESPACE_REGEX.matcher(value).replaceAll(" "); // TODO: extract to Ascii.SPACE
+        return FOLDED_WHITESPACE_PATTERN.matcher(value).replaceAll(UNFOLDED_WHITESPACE);
     }
 
     @Override
@@ -54,7 +58,6 @@ public class FieldValue {
         public Parser(Validator<String> validator) {
             super(validator);
         }
-
 
         public FieldValue parseValidated(String input) throws ParsingException {
             return new FieldValue(input.trim());

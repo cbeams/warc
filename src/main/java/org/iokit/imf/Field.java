@@ -4,9 +4,11 @@ import org.iokit.core.parse.ParsingException;
 
 import java.util.Objects;
 
+import static org.iokit.core.Ascii.COLON;
+
 public class Field {
 
-    public static final char SEPARATOR = ':'; // TODO: extract to Ascii.COLON
+    public static final char SEPARATOR = COLON;
 
     private final FieldName name;
     private final FieldValue value;

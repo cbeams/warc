@@ -4,7 +4,8 @@ import org.iokit.core.validate.InvalidCharacterException;
 import org.iokit.core.validate.Validator;
 import org.iokit.core.validate.ValidatorException;
 
-import static org.iokit.core.Ascii.isAsciiControlChar;
+import static org.iokit.core.Ascii.*;
+import static org.iokit.core.LineTerminator.CR_LF;
 
 public class FoldedLineValidator implements Validator<String> {
 
@@ -15,13 +16,13 @@ public class FoldedLineValidator implements Validator<String> {
         for (int index = 0, increment = 1; index < chars.length; index += increment, increment = 1) {
             char c = chars[index];
 
-            if (c == '\t') // TODO: extract to Ascii class, e.g. Ascii.TAB
+            if (c == TAB)
                 continue;
 
-            if (c == '\r'  // TODO: extract to Ascii class, e.g. Ascii.CR and refactor LineTerminator to use it too
-                && chars.length > index + 2
-                && chars[index + 1] == '\n'
-                && (chars[index + 2] == ' ' || chars[index + 2] == '\t')) {
+            if (c == CR_LF.bytes[0]
+                && chars.length > index + CR_LF.bytes.length
+                && chars[index + 1] == CR_LF.bytes[1]
+                && (chars[index + 2] == SPACE || chars[index + 2] == TAB)) {
 
                 increment = 3;
                 continue;
