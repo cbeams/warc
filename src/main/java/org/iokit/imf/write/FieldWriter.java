@@ -10,7 +10,7 @@ public class FieldWriter extends Writer<Field> {
     private final LineWriter lineWriter;
 
     public FieldWriter(LineWriter lineWriter) {
-        super(lineWriter.getOutputStream());
+        super(lineWriter.out);
         this.lineWriter = lineWriter;
     }
 

@@ -19,11 +19,11 @@ public class WarcRecordWriter extends Writer<WarcRecord> {
     }
 
     public WarcRecordWriter(LineWriter lineWriter) {
-        this(new WarcHeaderWriter(lineWriter), new WarcBodyWriter(lineWriter.getOutputStream()));
+        this(new WarcHeaderWriter(lineWriter), new WarcBodyWriter(lineWriter.out));
     }
 
     public WarcRecordWriter(Writer<WarcHeader> headerWriter, Writer<WarcBody> bodyWriter) {
-        super(headerWriter.getOutputStream());
+        super(headerWriter.out);
         this.headerWriter = headerWriter;
         this.bodyWriter = bodyWriter;
     }

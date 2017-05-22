@@ -18,7 +18,7 @@ public class MessageReader<H extends Header, B extends Body, M extends Message> 
 
     public MessageReader(Reader<H> headerReader, ParameterizedReader<H, B> bodyReader,
                          BiFunction<H, B, M> messageFactory) {
-        super(headerReader.getInputStream());
+        super(headerReader.in);
         this.headerReader = headerReader;
         this.bodyReader = bodyReader;
         this.messageFactory = messageFactory;

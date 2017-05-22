@@ -19,7 +19,7 @@ public class WarcHeaderWriter extends Writer<WarcHeader> {
     }
 
     public WarcHeaderWriter(Writer<WarcVersion> versionWriter, FieldSetWriter fieldSetWriter, LineWriter lineWriter) {
-        super(versionWriter.getOutputStream());
+        super(versionWriter.out);
         this.versionWriter = versionWriter;
         this.fieldSetWriter = fieldSetWriter;
         this.lineWriter = lineWriter;

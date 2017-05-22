@@ -19,7 +19,7 @@ public class WarcFieldSetReader extends FieldSetReader {
     public static final Validator<FieldSet> DEFAULT_FIELD_SET_VALIDATOR = new WarcFieldSet.Validator();
 
     public WarcFieldSetReader(LineReader lineReader) {
-        this(new FoldedLineReader(lineReader.getInputStream()));
+        this(new FoldedLineReader(lineReader.in));
     }
 
     public WarcFieldSetReader(FoldedLineReader lineReader) {

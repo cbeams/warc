@@ -17,7 +17,7 @@ public class FieldSetReader extends Reader<FieldSet> {
     private final Validator<FieldSet> fieldSetValidator;
 
     public FieldSetReader(FieldReader fieldReader, Validator<FieldSet> fieldSetValidator) {
-        super(fieldReader.getInputStream());
+        super(fieldReader.in);
         this.fieldReader = fieldReader;
         this.fieldSetValidator = fieldSetValidator;
     }

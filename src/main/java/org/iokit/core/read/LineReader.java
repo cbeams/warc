@@ -13,7 +13,7 @@ public class LineReader extends OptionalReader<String> {
 
     public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
-    protected final LineInputStream in;
+    public final LineInputStream in;
     protected final Charset charset;
 
     private byte[] chunk = new byte[1024];
@@ -40,10 +40,5 @@ public class LineReader extends OptionalReader<String> {
         return length == -1 ?
             Optional.empty() :
             Optional.of(new String(chunk, 0, length + start, charset));
-    }
-
-    @Override
-    public LineInputStream getInputStream() {
-        return in;
     }
 }

@@ -8,7 +8,7 @@ public class WarcConcatenatorWriter extends Writer<Void> {
     private final LineWriter lineWriter;
 
     public WarcConcatenatorWriter(LineWriter lineWriter) {
-        super(lineWriter.getOutputStream());
+        super(lineWriter.out);
         this.lineWriter = lineWriter;
     }
 

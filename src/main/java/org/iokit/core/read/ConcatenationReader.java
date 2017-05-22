@@ -14,7 +14,7 @@ public class ConcatenationReader<T> extends CountingReader<T> {
     private final Reader<Boolean> concatenatorReader;
 
     public ConcatenationReader(Reader<T> reader, Reader<Boolean> concatenatorReader) {
-        super(reader.getInputStream());
+        super(reader.in);
         this.reader = reader;
         this.concatenatorReader = concatenatorReader;
     }

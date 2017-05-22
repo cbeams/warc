@@ -7,7 +7,7 @@ public class NewlineReader extends OptionalReader<String> {
     private final LineReader lineReader;
 
     public NewlineReader(LineReader lineReader) {
-        super(lineReader.getInputStream());
+        super(lineReader.in);
         this.lineReader = lineReader;
     }
 

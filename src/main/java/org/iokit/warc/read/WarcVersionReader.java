@@ -18,7 +18,7 @@ public class WarcVersionReader extends Reader<WarcVersion> {
     }
 
     public WarcVersionReader(LineReader lineReader, Parser<WarcVersion> parser) {
-        super(lineReader.getInputStream());
+        super(lineReader.in);
         this.lineReader = lineReader;
         this.parser = parser;
     }
