@@ -36,13 +36,4 @@ public class WarcField extends Field {
             return name;
         }
     }
-
-
-    public static class SetValidator extends Validator<Set<Field>> {
-
-        @Override
-        public void validate(Set<Field> fields) throws ValidatorException {
-            // TODO
-        }
-    }
 }
