@@ -31,7 +31,7 @@ public class LineInputStream extends InputStream implements Scrollable {
 
         this.terminators = EnumSet.copyOf(
             Stream.of(terminators)
-                .map(terminator -> FastBufferedInputStream.LineTerminator.valueOf(terminator.toString()))
+                .map(terminator -> FastBufferedInputStream.LineTerminator.valueOf(terminator.name()))
                 .collect(toSet()));
     }
 

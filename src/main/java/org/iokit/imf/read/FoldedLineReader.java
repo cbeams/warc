@@ -5,12 +5,23 @@ import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.input.LineInputStream;
 
+import org.iokit.core.LineTerminator;
+
 import java.util.Optional;
 
 public class FoldedLineReader extends LineReader {
 
+    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF;
+
+    private final LineTerminator terminator;
+
     public FoldedLineReader(LineInputStream in) {
+        this(in, DEFAULT_LINE_TERMINATOR);
+    }
+
+    public FoldedLineReader(LineInputStream in, LineTerminator terminator) {
         super(in);
+        this.terminator = terminator;
     }
 
     @Override
@@ -23,7 +34,7 @@ public class FoldedLineReader extends LineReader {
         StringBuilder lines = new StringBuilder(firstLine.get());
 
         while (isTabOrSpace(in.peek()))
-            lines.append("\r\n").append(super.read());
+            lines.append(terminator).append(super.read());
 
         return Optional.of(lines.toString());
     }

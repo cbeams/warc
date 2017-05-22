@@ -13,7 +13,7 @@ public class WarcConcatenatorWriter extends Writer<Void> {
     }
 
     public void write(Void value) {
-        lineWriter.writeNewLine();
-        lineWriter.writeNewLine();
+        lineWriter.writeNewline();
+        lineWriter.writeNewline();
     }
 }
