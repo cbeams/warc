@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Field {
 
-    public static final char SEPARATOR = ':'; // TODO: rename to default, add final separator field
+    public static final char SEPARATOR = ':'; // TODO: extract to Ascii.COLON
 
     private final FieldName name;
     private final FieldValue value;
