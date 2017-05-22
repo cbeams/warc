@@ -9,8 +9,8 @@ import java.util.Optional;
 
 public class FoldedLineReader extends LineReader {
 
-    public FoldedLineReader(LineInputStream input) {
-        super(input);
+    public FoldedLineReader(LineInputStream in) {
+        super(in);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class FoldedLineReader extends LineReader {
 
         StringBuilder lines = new StringBuilder(firstLine.get());
 
-        while (isTabOrSpace(input.peek()))
+        while (isTabOrSpace(in.peek()))
             lines.append("\r\n").append(super.read());
 
         return Optional.of(lines.toString());

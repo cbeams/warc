@@ -30,17 +30,17 @@ public class MappedInputStream extends FilterInputStream {
 
     public static InputStream map(InputStream in, int size) {
         byte[] magic = new byte[size];
-        PushbackInputStream input = new PushbackInputStream(in, size);
+        PushbackInputStream pbin = new PushbackInputStream(in, size);
 
-        int len = Try.toCall(() -> input.read(magic));
+        int len = Try.toCall(() -> pbin.read(magic));
         if (len == -1)
-            return input;
-        Try.toRun(() -> input.unread(magic, 0, len));
+            return pbin;
+        Try.toRun(() -> pbin.unread(magic, 0, len));
 
         return MAPPERS.stream()
             .filter(mapper -> mapper.canMap(magic))
-            .map(mapper -> mapper.map(input))
+            .map(mapper -> mapper.map(pbin))
             .findFirst()
-            .orElse(input);
+            .orElse(pbin);
     }
 }

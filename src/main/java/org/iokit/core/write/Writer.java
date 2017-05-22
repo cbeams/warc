@@ -7,20 +7,20 @@ import java.io.OutputStream;
 
 public abstract class Writer<T> implements Closeable {
 
-    protected final OutputStream output;
+    protected final OutputStream out;
 
-    public Writer(OutputStream output) {
-        this.output = output;
+    public Writer(OutputStream out) {
+        this.out = out;
     }
 
     public abstract void write(T value);
 
-    public OutputStream getOutput() {
-        return output;
+    public OutputStream getOutputStream() {
+        return out;
     }
 
     @Override
     public void close() {
-        Try.toRun(output::close);
+        Try.toRun(out::close);
     }
 }

@@ -2,8 +2,6 @@ package org.iokit.core.read;
 
 import org.iokit.core.input.LineInputStream;
 
-import java.io.InputStream;
-
 import java.util.Optional;
 
 public class ConcatenationReader<T> extends CountingReader<T> {
@@ -16,7 +14,7 @@ public class ConcatenationReader<T> extends CountingReader<T> {
     private final Reader<Boolean> concatenatorReader;
 
     public ConcatenationReader(Reader<T> reader, Reader<Boolean> concatenatorReader) {
-        super(reader.getInput());
+        super(reader.getInputStream());
         this.reader = reader;
         this.concatenatorReader = concatenatorReader;
     }
@@ -29,10 +27,8 @@ public class ConcatenationReader<T> extends CountingReader<T> {
     }
 
     protected Optional<T> readValue() {
-        InputStream input = reader.getInput();
-
-        if (input instanceof LineInputStream)
-            return ((LineInputStream) input).isComplete() ?
+        if (in instanceof LineInputStream)
+            return ((LineInputStream) in).isComplete() ?
                 Optional.empty() :
                 Optional.of(reader.read());
 

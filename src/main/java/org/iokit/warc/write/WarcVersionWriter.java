@@ -10,7 +10,7 @@ public class WarcVersionWriter extends Writer<WarcVersion> {
     private final LineWriter lineWriter;
 
     public WarcVersionWriter(LineWriter lineWriter) {
-        super(lineWriter.getOutput());
+        super(lineWriter.getOutputStream());
         this.lineWriter = lineWriter;
     }
 

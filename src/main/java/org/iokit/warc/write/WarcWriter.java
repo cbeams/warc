@@ -39,7 +39,7 @@ public class WarcWriter extends Writer<WarcRecord> {
     }
 
     public WarcWriter(Writer<WarcRecord> recordWriter, Writer<Void> concatenatorWriter) {
-        super(recordWriter.getOutput());
+        super(recordWriter.getOutputStream());
         this.recordWriter = recordWriter;
         this.concatenatorWriter = concatenatorWriter;
     }
@@ -52,6 +52,6 @@ public class WarcWriter extends Writer<WarcRecord> {
 
     @Override
     public void close() {
-        Try.toRun(output::close);
+        Try.toRun(out::close);
     }
 }

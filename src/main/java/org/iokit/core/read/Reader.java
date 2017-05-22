@@ -7,20 +7,20 @@ import java.io.InputStream;
 
 public abstract class Reader<T> implements Closeable {
 
-    protected final InputStream input;
+    protected final InputStream in;
 
-    public Reader(InputStream input) {
-        this.input = input;
+    public Reader(InputStream in) {
+        this.in = in;
     }
 
     public abstract T read() throws ReaderException;
 
-    public InputStream getInput() {
-        return input;
+    public InputStream getInputStream() {
+        return in;
     }
 
     @Override
     public void close() {
-        Try.toRun(input::close);
+        Try.toRun(in::close);
     }
 }

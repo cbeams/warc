@@ -20,7 +20,7 @@ public class FieldReader extends OptionalReader<Field> {
     }
 
     public FieldReader(LineReader lineReader, Parser<Field> fieldParser) {
-        super(lineReader.getInput());
+        super(lineReader.getInputStream());
         this.lineReader = lineReader;
         this.fieldParser = fieldParser;
     }

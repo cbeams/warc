@@ -6,7 +6,7 @@ public class SkipReader extends Reader<Boolean> {
     private final OptionalReader reader;
 
     public SkipReader(int times, OptionalReader reader) {
-        super(reader.getInput());
+        super(reader.getInputStream());
         this.times = times;
         this.reader = reader;
     }

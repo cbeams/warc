@@ -118,7 +118,7 @@ public class RandomAccessExperiments {
     public void test5() throws IOException {
         WarcReader reader = new WarcReader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat");
 
-        ((LineInputStream)reader.getInput()).seek(1_549_727_457);
+        ((LineInputStream)reader.getInputStream()).seek(1_549_727_457);
 
         WarcRecord record = reader.read();
 
@@ -133,7 +133,7 @@ public class RandomAccessExperiments {
     public void test6() throws IOException {
         WarcReader reader = new WarcReader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz");
 
-        ((LineInputStream)reader.getInput()).seek(1_549_727_457);
+        ((LineInputStream)reader.getInputStream()).seek(1_549_727_457);
 
         WarcRecord record = reader.read();
 

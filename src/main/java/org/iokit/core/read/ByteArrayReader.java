@@ -6,17 +6,17 @@ import java.io.InputStream;
 
 public class ByteArrayReader implements FixedLengthReader<byte[]> {
 
-    private final InputStream input;
+    private final InputStream in;
 
-    public ByteArrayReader(InputStream input) {
-        this.input = input;
+    public ByteArrayReader(InputStream in) {
+        this.in = in;
     }
 
     @Override
     public byte[] read(int length) throws ReaderException {
         byte[] array = new byte[length];
 
-        int actual = Try.toCall(() -> input.read(array, 0, length));
+        int actual = Try.toCall(() -> in.read(array, 0, length));
 
         if (actual != length)
             throw new ReaderException("expected to read %d bytes, but read only %d", length, actual);

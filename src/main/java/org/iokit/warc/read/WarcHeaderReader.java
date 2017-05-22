@@ -19,7 +19,7 @@ public class WarcHeaderReader extends Reader<WarcHeader> {
     }
 
     public WarcHeaderReader(Reader<WarcVersion> versionReader, FieldSetReader fieldSetReader) {
-        super(versionReader.getInput());
+        super(versionReader.getInputStream());
         this.versionReader = versionReader;
         this.fieldSetReader = fieldSetReader;
     }

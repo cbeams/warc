@@ -13,8 +13,8 @@ import static java.util.Spliterator.*;
 
 public abstract class OptionalReader<T> extends Reader<T> {
 
-    public OptionalReader(InputStream input) {
-        super(input);
+    public OptionalReader(InputStream in) {
+        super(in);
     }
 
     public final T read() throws ReaderException {

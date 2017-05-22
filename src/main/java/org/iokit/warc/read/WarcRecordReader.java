@@ -21,7 +21,7 @@ public class WarcRecordReader extends MessageReader<WarcHeader, WarcBody, WarcRe
     }
 
     public WarcRecordReader(LineReader lineReader) {
-        this(new WarcHeaderReader(lineReader), new WarcBodyReader(lineReader.getInput()));
+        this(new WarcHeaderReader(lineReader), new WarcBodyReader(lineReader.getInputStream()));
     }
 
     public WarcRecordReader(Reader<WarcHeader> headerReader, ParameterizedReader<WarcHeader, WarcBody> bodyReader) {

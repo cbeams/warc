@@ -12,8 +12,8 @@ public abstract class CountingReader<T> extends OptionalReader<T> {
 
     private long readCount;
 
-    public CountingReader(InputStream input) {
-        super(input);
+    public CountingReader(InputStream in) {
+        super(in);
     }
 
     public final Optional<T> readOptional() throws ReaderException {

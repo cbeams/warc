@@ -16,7 +16,7 @@ public class FieldSetWriter extends Writer<Set<Field>> {
     }
 
     public FieldSetWriter(FieldWriter fieldWriter) {
-        super(fieldWriter.getOutput());
+        super(fieldWriter.getOutputStream());
         this.fieldWriter = fieldWriter;
     }
 

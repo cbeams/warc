@@ -6,19 +6,19 @@ import java.io.OutputStream;
 
 public class LineWriter extends Writer<String> {
 
-    public LineWriter(OutputStream output) {
-        super(output);
+    public LineWriter(OutputStream out) {
+        super(out);
     }
 
     @Override
     public void write(String value) {
         Try.toRun(() -> {
-            output.write(value.getBytes());
+            out.write(value.getBytes());
             writeNewLine();
         });
     }
 
     public void writeNewLine() {
-        Try.toRun(() -> output.write("\r\n".getBytes()));
+        Try.toRun(() -> out.write("\r\n".getBytes()));
     }
 }
