@@ -31,7 +31,7 @@ public class WarcWriter extends Writer<WarcRecord> {
     }
 
     public WarcWriter(OutputStream out) {
-        this(new LineWriter(out));
+        this(new LineWriter(out, WarcRecordWriter.DEFAULT_LINE_TERMINATOR));
     }
 
     public WarcWriter(LineWriter lineWriter) {

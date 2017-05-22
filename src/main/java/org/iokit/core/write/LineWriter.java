@@ -8,13 +8,7 @@ import java.io.OutputStream;
 
 public class LineWriter extends Writer<String> {
 
-    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF;
-
     private final LineTerminator terminator;
-
-    public LineWriter(OutputStream out) {
-        this(out, DEFAULT_LINE_TERMINATOR);
-    }
 
     public LineWriter(OutputStream out, LineTerminator terminator) {
         super(out);
@@ -23,13 +17,11 @@ public class LineWriter extends Writer<String> {
 
     @Override
     public void write(String value) {
-        Try.toRun(() -> {
-            out.write(value.getBytes());
-            writeNewline();
-        });
+        Try.toRun(() -> out.write(value.getBytes()));
+        write();
     }
 
-    public void writeNewline() { // TODO: rename to write()
+    public void write() {
         Try.toRun(() -> out.write(terminator.bytes));
     }
 }

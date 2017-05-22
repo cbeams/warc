@@ -6,7 +6,6 @@ import org.iokit.core.read.ConcatenationReader;
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.Reader;
 
-import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
 import org.iokit.core.input.mapping.MappedInputStream;
 
@@ -33,7 +32,7 @@ public class WarcReader extends ConcatenationReader<WarcRecord> {
     }
 
     public WarcReader(MappedInputStream in) {
-        this(new CrlfLineInputStream(in));
+        this(new LineInputStream(in, WarcRecordReader.DEFAULT_LINE_TERMINATOR));
     }
 
     public WarcReader(LineInputStream in) {

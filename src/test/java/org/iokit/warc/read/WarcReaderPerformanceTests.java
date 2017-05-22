@@ -2,7 +2,6 @@ package org.iokit.warc.read;
 
 import org.iokit.core.read.LineReader;
 
-import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
 
 import org.iokit.core.LineTerminator;
@@ -32,6 +31,7 @@ import java.util.stream.Stream;
 
 import static java.lang.System.currentTimeMillis;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.iokit.warc.write.WarcRecordWriter.DEFAULT_LINE_TERMINATOR;
 
 
 
@@ -110,7 +110,7 @@ public class WarcReaderPerformanceTests {
                 System.out.println("reading: " + warcFile);
                 try {
                     byte[] chunk = new byte[1024];
-                    CrlfLineInputStream input = new CrlfLineInputStream(new FileInputStream(warcFile));
+                    LineInputStream input = new LineInputStream(new FileInputStream(warcFile), DEFAULT_LINE_TERMINATOR);
                     //FastBufferedInputStream input = new FastBufferedInputStream(new FileInputStream(warcFile));
 
                     int start = 0, length;
@@ -140,7 +140,7 @@ public class WarcReaderPerformanceTests {
                 System.out.println("reading: " + warcFile);
                 LineReader reader = null;
                 try {
-                    reader = new LineReader(new CrlfLineInputStream(new FileInputStream(warcFile)));
+                    reader = new LineReader(new LineInputStream(new FileInputStream(warcFile), DEFAULT_LINE_TERMINATOR));
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
                 }
@@ -779,7 +779,7 @@ public class WarcReaderPerformanceTests {
                     gzSize),
                 fbSize);
 
-        org.iokit.warc.read.WarcReader reader = new org.iokit.warc.read.WarcReader(new CrlfLineInputStream(input));
+        org.iokit.warc.read.WarcReader reader = new org.iokit.warc.read.WarcReader(new LineInputStream(input, DEFAULT_LINE_TERMINATOR));
 
         int count = 0;
         while (reader.read() != null)

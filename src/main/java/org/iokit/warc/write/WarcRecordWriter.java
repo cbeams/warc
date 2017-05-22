@@ -7,15 +7,19 @@ import org.iokit.warc.WarcRecord;
 import org.iokit.core.write.LineWriter;
 import org.iokit.core.write.Writer;
 
+import org.iokit.core.LineTerminator;
+
 import java.io.OutputStream;
 
 public class WarcRecordWriter extends Writer<WarcRecord> {
+
+    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF;
 
     private final Writer<WarcHeader> headerWriter;
     private final Writer<WarcBody> bodyWriter;
 
     public WarcRecordWriter(OutputStream out) {
-        this(new LineWriter(out));
+        this(new LineWriter(out, DEFAULT_LINE_TERMINATOR));
     }
 
     public WarcRecordWriter(LineWriter lineWriter) {
