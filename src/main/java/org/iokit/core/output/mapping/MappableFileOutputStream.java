@@ -1,4 +1,4 @@
-package org.iokit.core.output;
+package org.iokit.core.output.mapping;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package org.iokit.core.output;
+package org.iokit.core.output.mapping;
 
 import java.io.FilterOutputStream;
 import java.io.OutputStream;

@@ -10,7 +10,7 @@ import org.iokit.core.read.SkipReader;
 
 import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
-import org.iokit.core.input.MappedInputStream;
+import org.iokit.core.input.mapping.MappedInputStream;
 
 import org.iokit.lang.Try;
 

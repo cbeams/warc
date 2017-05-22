@@ -5,8 +5,8 @@ import org.iokit.warc.WarcRecord;
 import org.iokit.core.write.LineWriter;
 import org.iokit.core.write.Writer;
 
-import org.iokit.core.output.MappableFileOutputStream;
-import org.iokit.core.output.MappedOutputStream;
+import org.iokit.core.output.mapping.MappableFileOutputStream;
+import org.iokit.core.output.mapping.MappedOutputStream;
 
 import org.iokit.lang.Try;
 
