@@ -1,6 +1,9 @@
 package org.iokit.core;
 
-public enum LineTerminator { // TODO: document that names must be same as fastutil terminators
+public enum LineTerminator {
+
+    // Note that names below (CR, LF, CR_LF) must be exactly
+    // the same as the names in fastutil's LineTerminator enum
 
     CR("\r"),
     LF("\n"),
