@@ -1,6 +1,7 @@
 package org.iokit.imf.read;
 
 import org.iokit.core.read.LineReader;
+import org.iokit.core.read.NewlineReader;
 import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.input.LineInputStream;
@@ -26,17 +27,21 @@ public class FoldedLineReader extends LineReader {
 
     @Override
     public Optional<String> readOptional() throws ReaderException {
-        Optional<String> firstLine = super.readOptional().filter(value -> !value.isEmpty());
+        Optional<String> firstLine = super.readOptional().filter(string -> !NewlineReader.isNewline(string));
 
         if (!firstLine.isPresent())
             return Optional.empty();
 
         StringBuilder lines = new StringBuilder(firstLine.get());
 
-        while (isTabOrSpace(in.peek()))
+        while (nextLineStartsWithTabOrSpace())
             lines.append(terminator).append(super.read());
 
         return Optional.of(lines.toString());
+    }
+
+    private boolean nextLineStartsWithTabOrSpace() {
+        return isTabOrSpace(in.peek());
     }
 
     private boolean isTabOrSpace(byte b) {

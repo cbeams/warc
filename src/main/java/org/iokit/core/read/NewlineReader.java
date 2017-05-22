@@ -16,15 +16,19 @@ public class NewlineReader extends OptionalReader<String> {
 
     @Override
     public Optional<String> readOptional() throws ReaderException {
-        return lineReader.readOptional().filter(validNewline());
+        return lineReader.readOptional().filter(assertNewline());
     }
 
-    private Predicate<String> validNewline() {
+    private static Predicate<String> assertNewline() {
         return string -> {
-            if (!string.isEmpty())
+            if (!isNewline(string))
                 throw new ValidatorException("Expected an empty string (newline) but actually got [" + string + "]");
 
             return true;
         };
+    }
+
+    public static boolean isNewline(String string) {
+        return string.isEmpty();
     }
 }
