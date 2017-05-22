@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
 
-public class LineInputStream extends InputStream implements Input {
+public class LineInputStream extends InputStream {
 
     private final FastBufferedInputStream in;
     private final EnumSet<FastBufferedInputStream.LineTerminator> terminators;

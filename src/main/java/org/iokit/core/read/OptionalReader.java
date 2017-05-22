@@ -1,6 +1,6 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.Input;
+import java.io.InputStream;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -13,7 +13,7 @@ import static java.util.Spliterator.*;
 
 public abstract class OptionalReader<T> extends Reader<T> {
 
-    public OptionalReader(Input input) {
+    public OptionalReader(InputStream input) {
         super(input);
     }
 

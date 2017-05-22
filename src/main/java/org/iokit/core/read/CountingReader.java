@@ -1,6 +1,6 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.Input;
+import java.io.InputStream;
 
 import java.util.Optional;
 
@@ -12,7 +12,7 @@ public abstract class CountingReader<T> extends OptionalReader<T> {
 
     private long readCount;
 
-    public CountingReader(Input input) {
+    public CountingReader(InputStream input) {
         super(input);
     }
 

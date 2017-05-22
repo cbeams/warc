@@ -1,5 +1,9 @@
 package org.iokit.core.read;
 
+import org.iokit.core.input.LineInputStream;
+
+import java.io.InputStream;
+
 import java.util.Optional;
 
 public class ConcatenationReader<T> extends CountingReader<T> {
@@ -19,15 +23,24 @@ public class ConcatenationReader<T> extends CountingReader<T> {
 
     @Override
     protected Optional<T> readOptionalBeforeCounting() throws ReaderException {
-
-        Optional<T> value = input.isComplete() ?
-            Optional.empty() :
-            Optional.of(reader.read());
-
-        value.ifPresent(v ->
-            readConcatenator());
-
+        Optional<T> value = readValue();
+        value.ifPresent(v -> readConcatenator());
         return value;
+    }
+
+    protected Optional<T> readValue() {
+        InputStream input = reader.getInput();
+
+        if (input instanceof LineInputStream)
+            return ((LineInputStream) input).isComplete() ?
+                Optional.empty() :
+                Optional.of(reader.read());
+
+        try {
+            return Optional.of(reader.read());
+        } catch (EndOfInputException ex) {
+            return Optional.empty();
+        }
     }
 
     protected void readConcatenator() {
