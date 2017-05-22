@@ -1,13 +1,11 @@
 package org.iokit.imf;
 
-import java.util.Set;
-
 public class Header {
 
-    private final Set<Field> fields;
+    private final FieldSet fieldSet;
 
-    public Header(Set<Field> fields) {
-        this.fields = fields;
+    public Header(FieldSet fieldSet) {
+        this.fieldSet = fieldSet;
     }
 
     public Field getField(Field.Type field) {
@@ -15,13 +13,13 @@ public class Header {
     }
 
     public Field getField(String name) {
-        return fields.stream()
+        return fieldSet.stream()
             .filter(f -> f.getName().getValue().equals(name))
             .findAny()
             .orElseThrow(IllegalArgumentException::new);
     }
 
-    public Set<Field> getFields() {
-        return fields;
+    public FieldSet getFieldSet() {
+        return fieldSet;
     }
 }

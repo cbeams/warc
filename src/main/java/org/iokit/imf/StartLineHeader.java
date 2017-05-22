@@ -1,13 +1,11 @@
 package org.iokit.imf;
 
-import java.util.Set;
-
 public class StartLineHeader<T> extends Header {
 
     protected final T startLineValue;
 
-    public StartLineHeader(T startLineValue, Set<Field> fields) {
-        super(fields);
+    public StartLineHeader(T startLineValue, FieldSet fieldSet) {
+        super(fieldSet);
         this.startLineValue = startLineValue;
     }
 }

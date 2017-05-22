@@ -28,7 +28,7 @@ public class WarcHeaderWriter extends Writer<WarcHeader> {
     @Override
     public void write(WarcHeader header) {
         versionWriter.write(header.getVersion());
-        fieldSetWriter.write(header.getFields());
+        fieldSetWriter.write(header.getFieldSet());
         lineWriter.writeNewline();
     }
 }

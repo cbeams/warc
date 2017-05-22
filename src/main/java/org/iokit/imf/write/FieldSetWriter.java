@@ -1,13 +1,11 @@
 package org.iokit.imf.write;
 
-import org.iokit.imf.Field;
+import org.iokit.imf.FieldSet;
 
 import org.iokit.core.write.LineWriter;
 import org.iokit.core.write.Writer;
 
-import java.util.Set;
-
-public class FieldSetWriter extends Writer<Set<Field>> {
+public class FieldSetWriter extends Writer<FieldSet> {
 
     private final FieldWriter fieldWriter;
 
@@ -20,7 +18,7 @@ public class FieldSetWriter extends Writer<Set<Field>> {
         this.fieldWriter = fieldWriter;
     }
 
-    public void write(Set<Field> fields) {
-        fields.forEach(fieldWriter::write);
+    public void write(FieldSet fieldSet) {
+        fieldSet.forEach(fieldWriter::write);
     }
 }

@@ -1,16 +1,14 @@
 package org.iokit.warc;
 
-import org.iokit.imf.Field;
+import org.iokit.imf.FieldSet;
 import org.iokit.imf.StartLineHeader;
-
-import java.util.Set;
 
 import static org.iokit.warc.WarcField.Type.*;
 
 public class WarcHeader extends StartLineHeader<WarcVersion> {
 
-    public WarcHeader(WarcVersion version, Set<Field> fields) {
-        super(version, fields);
+    public WarcHeader(WarcVersion version, FieldSet fieldSet) {
+        super(version, fieldSet);
     }
 
     public WarcVersion getVersion() {

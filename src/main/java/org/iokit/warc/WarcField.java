@@ -4,11 +4,6 @@ import org.iokit.imf.Field;
 import org.iokit.imf.FieldName;
 import org.iokit.imf.FieldValue;
 
-import org.iokit.core.validate.Validator;
-import org.iokit.core.validate.ValidatorException;
-
-import java.util.Set;
-
 public class WarcField extends Field {
 
     public static final String MIME_TYPE = "application/warc-fields";
