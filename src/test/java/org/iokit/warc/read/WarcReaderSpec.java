@@ -6,10 +6,7 @@ import org.iokit.warc.WarcVersion;
 import org.iokit.core.read.EndOfInputException;
 import org.iokit.core.read.ReaderException;
 
-import org.iokit.core.validate.Validator;
 import org.iokit.core.validate.ValidatorException;
-
-import org.iokit.core.config.Reflector;
 
 import org.junit.Test;
 
@@ -207,14 +204,5 @@ public class WarcReaderSpec {
         assertThatThrownBy(input::read)
             .isInstanceOf(IOException.class)
             .hasMessage("Stream Closed");
-    }
-
-    @Test
-    public void disableValidators() throws Exception {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc"));
-
-        new Reflector().configure(reader, Validator.class, v -> v.setEnabled(false));
-
-        assertThat(reader.stream().count()).isEqualTo(3);
     }
 }

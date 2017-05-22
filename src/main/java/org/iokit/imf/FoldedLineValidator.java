@@ -6,12 +6,10 @@ import org.iokit.core.validate.ValidatorException;
 
 import static org.iokit.core.Ascii.isAsciiControlChar;
 
-public class FoldedLineValidator extends Validator<String> {
+public class FoldedLineValidator implements Validator<String> {
 
     @Override
     public void validate(String input) throws ValidatorException {
-        if (!this.isEnabled())
-            return;
 
         char[] chars = input.toCharArray();
         for (int index = 0, increment = 1; index < chars.length; index += increment, increment = 1) {

@@ -12,9 +12,7 @@ public abstract class ValidatingParser<T> implements Parser<T> {
 
     @Override
     public T parse(String input) throws ParsingException {
-        if (validator.isEnabled())
-            validator.validate(input);
-
+        validator.validate(input);
         return parseValidated(input);
     }
 

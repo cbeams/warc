@@ -58,13 +58,10 @@ public class WarcVersion {
     }
 
 
-    public static class Validator extends org.iokit.core.validate.Validator<String> {
+    public static class Validator implements org.iokit.core.validate.Validator<String> {
 
         @Override
         public void validate(String input) throws ValidatorException {
-            if (!this.isEnabled())
-                return;
-
             if (!WARC_1_0.equals(input) && !WARC_1_1.equals(input))
                 throw new ValidatorException("[%s] is an unsupported or otherwise malformed WARC record version", input);
         }

@@ -8,15 +8,12 @@ import org.iokit.core.validate.ValidatorException;
 import static org.iokit.core.Ascii.*;
 import static org.iokit.warc.Separator.isSeparatorChar; // TODO: generalize and remove package cycle
 
-public class TokenValidator extends Validator<String> { // TODO: make nested class of Token?
+public class TokenValidator implements Validator<String> { // TODO: make nested class of Token?
 
     public static final int MIN_TOKEN_LENGTH = 1;
 
     @Override
     public void validate(String input) throws ValidatorException {
-        if (!this.isEnabled())
-            return;
-
         if (input.length() < MIN_TOKEN_LENGTH)
             throw new InvalidLengthException(input, MIN_TOKEN_LENGTH);
 

@@ -2,8 +2,6 @@ package org.iokit.warc.read;
 
 import org.iokit.core.read.LineReader;
 
-import org.iokit.core.validate.Validator;
-
 import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
 
@@ -41,7 +39,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.archive.io.ArchiveRecord;
 import org.archive.io.warc.WARCReader;
 import org.archive.io.warc.WARCReaderFactory;
-import org.iokit.core.config.Reflector;
 
 @Ignore
 public class WarcReaderPerformanceTests {
@@ -66,11 +63,6 @@ public class WarcReaderPerformanceTests {
             .forEach(warcFile -> {
                 System.out.println("reading: " + warcFile);
                 WarcReader reader = new WarcReader(warcFile);
-                try {
-                    new Reflector().configure(reader, Validator.class, v -> v.setEnabled(false));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
                 total.set(total.get() + reader.stream().count());
             });
 
@@ -886,41 +878,5 @@ public class WarcReaderPerformanceTests {
         //
         System.out.printf("read %d records in %d ms\n", count, stopwatch.runtime(TimeUnit.MILLISECONDS));
         assertThat(count).isEqualTo(138_865);
-    }
-
-    @Test
-    public void A_withValidation() throws Exception {
-        WarcReader reader = new WarcReader(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz"));
-        new Reflector().configure(reader, Validator.class, v -> v.setEnabled(true));
-        long count = reader.stream().limit(10000).count();
-        long time = stopwatch.runtime(TimeUnit.MILLISECONDS);
-        System.out.printf("A (with) read %d records in %d ms\n", count, time);
-    }
-
-    @Test
-    public void B_withoutValidation() throws Exception {
-        WarcReader reader = new WarcReader(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz"));
-        new Reflector().configure(reader, Validator.class, v -> v.setEnabled(false));
-        long count = reader.stream().limit(10000).count();
-        long time = stopwatch.runtime(TimeUnit.MILLISECONDS);
-        System.out.printf("B (sans) read %d records in %d ms\n", count, time);
-    }
-
-    @Test
-    public void Y_withoutValidation() throws Exception {
-        WarcReader reader = new WarcReader(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz"));
-        new Reflector().configure(reader, Validator.class, v -> v.setEnabled(false));
-        long count = reader.stream().limit(10000).count();
-        long time = stopwatch.runtime(TimeUnit.MILLISECONDS);
-        System.out.printf("Y (sans) read %d records in %d ms\n", count, time);
-    }
-
-    @Test
-    public void Z_withValidation() throws Exception {
-        WarcReader reader = new WarcReader(new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz"));
-        new Reflector().configure(reader, Validator.class, v -> v.setEnabled(true));
-        long count = reader.stream().limit(10000).count();
-        long time = stopwatch.runtime(TimeUnit.MILLISECONDS);
-        System.out.printf("Z (with) read %d records in %d ms\n", count, time);
     }
 }
