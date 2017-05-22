@@ -1,7 +1,5 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.LineInputStream;
-
 import java.util.Optional;
 
 public class ConcatenationReader<T> extends CountingReader<T> {
@@ -27,8 +25,8 @@ public class ConcatenationReader<T> extends CountingReader<T> {
     }
 
     protected Optional<T> readValue() {
-        if (in instanceof LineInputStream)
-            return ((LineInputStream) in).isComplete() ?
+        if (cursor.supported)
+            return cursor.isAtEOF() ?
                 Optional.empty() :
                 Optional.of(reader.read());
 
@@ -42,7 +40,7 @@ public class ConcatenationReader<T> extends CountingReader<T> {
     protected void readConcatenator() {
         if (!concatenatorReader.read() && expectTrailingConcatenator)
             throw new EndOfInputException("" +
-                "Encountered end of input where a trailing concatenator was expected. " +
+                "Expected to read a trailing concatenator but actually encountered end of input. " +
                 "Call setExpectTrailingConcatenator(false) to avoid this error.");
     }
 

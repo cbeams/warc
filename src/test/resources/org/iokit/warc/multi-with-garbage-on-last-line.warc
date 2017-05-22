@@ -1,0 +1,35 @@
+WARC/1.0
+WARC-Type: warcinfo
+WARC-Date: 2017-04-01T22:36:57Z
+WARC-Filename: CC-MAIN-20170322212946-00006-ip-10-233-31-227.ec2.internal.warc.gz
+WARC-Record-ID: <urn:uuid:14c37b82-4398-4607-9d0e-77989496d7ca>
+Content-Type: application/warc-fields
+Content-Length: 108
+
+Software-Info: ia-web-commons.1.0-SNAPSHOT-20170319090041
+Extracted-Date: Sat, 01 Apr 2017 22:36:57 GMT
+
+
+
+WARC/1.0
+WARC-Type: metadata
+WARC-Target-URI: CC-MAIN-20170322212946-00006-ip-10-233-31-227.ec2.internal.warc.gz
+WARC-Date: 2017-03-31T03:57:45Z
+WARC-Record-ID: <urn:uuid:8edd598b-b9d2-4e8c-9390-46ab012d8d46>
+WARC-Refers-To: <urn:uuid:22ac0f4a-4d54-42f0-9743-d6a0f8f90b33>
+Content-Type: application/json
+Content-Length: 1151
+
+{"Envelope":{"Format":"WARC","WARC-Header-Length":"274","Block-Digest":"sha1:VHEQLKB5KT23M2WL44WYDQ7HAH2G6BYE","Actual-Content-Length":"342","WARC-Header-Metadata":{"WARC-Type":"warcinfo","WARC-Filename":"CC-MAIN-20170322212946-00006-ip-10-233-31-227.ec2.internal.warc.gz","WARC-Date":"2017-03-31T03:57:45Z","Content-Length":"342","WARC-Record-ID":"<urn:uuid:22ac0f4a-4d54-42f0-9743-d6a0f8f90b33>","Content-Type":"application/warc-fields"},"Payload-Metadata":{"Trailing-Slop-Length":"0","Actual-Content-Type":"application/warc-fields","Actual-Content-Length":"342","Headers-Corrupt":true,"WARC-Info-Metadata":{"robots":"classic","software":"Nutch 1.6 (CC)/CC WarcExport 1.0","description":"Wide crawl of the web for March 2017","hostname":"ip-10-233-31-227.ec2.internal","format":"WARC File Format 1.0","isPartOf":"CC-MAIN-2017-13","operator":"CommonCrawl Admin","publisher":"CommonCrawl"}}},"Container":{"Compressed":true,"Gzip-Metadata":{"Footer-Length":"8","Deflate-Length":"430","Header-Length":"10","Inflated-CRC":"1661820550","Inflated-Length":"620"},"Offset":"0","Filename":"CC-MAIN-20170322212946-00006-ip-10-233-31-227.ec2.internal.warc.gz"}}
+
+WARC/1.0
+WARC-Type: metadata
+WARC-Target-URI: http://007beritaterkini.blogspot.com/2013/03/waktu-yang-diperlukan-pesawat-luar.html
+WARC-Date: 2017-03-22T21:57:48Z
+WARC-Record-ID: <urn:uuid:568966ef-6c15-4cbd-815d-48f2dd466151>
+WARC-Refers-To: <urn:uuid:763ae91b-120a-4c30-b561-3ce3d1927fd3>
+Content-Type: application/json
+Content-Length: 1434
+
+{"Envelope":{"Format":"WARC","WARC-Header-Length":"401","Block-Digest":"sha1:7YFTZH6LA2AJI7SYHFTCKYCZR7YGT6HN","Actual-Content-Length":"268","WARC-Header-Metadata":{"WARC-Type":"request","WARC-Date":"2017-03-22T21:57:48Z","WARC-Warcinfo-ID":"<urn:uuid:22ac0f4a-4d54-42f0-9743-d6a0f8f90b33>","Content-Length":"268","WARC-Record-ID":"<urn:uuid:763ae91b-120a-4c30-b561-3ce3d1927fd3>","WARC-Target-URI":"http://007beritaterkini.blogspot.com/2013/03/waktu-yang-diperlukan-pesawat-luar.html","WARC-IP-Address":"172.217.3.33","Content-Type":"application/http; msgtype=request"},"Payload-Metadata":{"Trailing-Slop-Length":"4","HTTP-Request-Metadata":{"Headers":{"Host":"007beritaterkini.blogspot.com","Accept-Encoding":"x-gzip, gzip, deflate","User-Agent":"CCBot/2.0 (http://commoncrawl.org/faq/)","Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"},"Headers-Length":"266","Entity-Length":"0","Entity-Trailing-Slop-Bytes":"0","Request-Message":{"Method":"GET","Version":"HTTP/1.0","Path":"/2013/03/waktu-yang-diperlukan-pesawat-luar.html"},"Entity-Digest":"sha1:3I42H3S6NNFQ2MSVX7XZKYAYSCX5QBYJ"},"Actual-Content-Type":"application/http; msgtype=request"}},"Container":{"Compressed":true,"Gzip-Metadata":{"Footer-Length":"8","Deflate-Length":"434","Header-Length":"10","Inflated-CRC":"1428335675","Inflated-Length":"673"},"Offset":"430","Filename":"CC-MAIN-20170322212946-00006-ip-10-233-31-227.ec2.internal.warc.gz"}}
+GARBAGE

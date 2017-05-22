@@ -98,8 +98,8 @@ public class WarcReaderSpec {
     }
 
     @Test
-    public void readMultiRecordWarcFileWithMalformedEndOfFile() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-with-malformed-eof.warc"));
+    public void readMultiRecordWarcFileWithoutTrailingConcatenator() {
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-without-trailing-concatenator.warc"));
 
         // the first record is well-formed
         reader.read();
@@ -117,8 +117,8 @@ public class WarcReaderSpec {
     }
 
     @Test
-    public void readMultiRecordWarcFileWithMalformedEndOfFileAndSetExpectTrailingConcatenatorSetToFalse() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-with-malformed-eof.warc"));
+    public void read_MultiRecordWarcFile_WithoutTrailingConcatenator_And_SetExpectTrailingConcatenator_SetToFalse() {
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-without-trailing-concatenator.warc"));
         reader.setExpectTrailingConcatenator(false);
 
         // the first record is well-formed
@@ -132,6 +132,31 @@ public class WarcReaderSpec {
         // trailing newlines does not cause the read to fail
         reader.read();
         assertThat(reader.getReadCount()).isEqualTo(3);
+    }
+
+    @Test
+    public void readMultiRecordWarcFileWithGarbageOnLastLine() {
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-with-garbage-on-last-line.warc"));
+
+        // the first record is well-formed
+        reader.read();
+
+        // the second record is well-formed
+        reader.read();
+        assertThat(reader.getReadCount()).isEqualTo(2);
+
+        // the third record is well-formed but garbage on
+        // the last line of what should be a concatenator
+        // causes a validation exception
+        assertThatThrownBy(reader::read)
+            .isInstanceOf(ValidatorException.class);
+
+        // read count should still be at 2 since failing
+        // to read a concatenator/ means failing to read
+        // the record that precedes it
+        assertThat(reader.getReadCount()).isEqualTo(2);
+
+        assertThat(reader.cursor.isAtEOF()).isTrue();
     }
 
     @Test

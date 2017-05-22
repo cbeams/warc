@@ -1,6 +1,9 @@
 package org.iokit.core.read;
 
+import org.iokit.core.validate.ValidatorException;
+
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class NewlineReader extends OptionalReader<String> {
 
@@ -13,6 +16,15 @@ public class NewlineReader extends OptionalReader<String> {
 
     @Override
     public Optional<String> readOptional() throws ReaderException {
-        return lineReader.readOptional().filter(String::isEmpty);
+        return lineReader.readOptional().filter(validNewline());
+    }
+
+    private Predicate<String> validNewline() {
+        return string -> {
+            if (!string.isEmpty())
+                throw new ValidatorException("Expected an empty string (newline) but actually got [" + string + "]");
+
+            return true;
+        };
     }
 }

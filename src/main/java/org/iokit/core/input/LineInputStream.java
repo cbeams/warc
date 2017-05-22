@@ -12,9 +12,10 @@ import java.io.InputStream;
 import java.util.EnumSet;
 import java.util.stream.Stream;
 
+import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
 
-public class LineInputStream extends InputStream {
+public class LineInputStream extends InputStream implements Scrollable {
 
     private final FastBufferedInputStream in;
     private final EnumSet<FastBufferedInputStream.LineTerminator> terminators;
@@ -24,10 +25,7 @@ public class LineInputStream extends InputStream {
     }
 
     public LineInputStream(InputStream in, LineTerminator... terminators) {
-        if (in == null)
-            throw new IllegalArgumentException("input stream must not be null");
-
-        this.in = in instanceof FastBufferedInputStream ?
+        this.in = requireNonNull(in) instanceof FastBufferedInputStream ?
             (FastBufferedInputStream) in :
             new FastBufferedInputStream(in);
 
@@ -35,19 +33,6 @@ public class LineInputStream extends InputStream {
             Stream.of(terminators)
                 .map(terminator -> FastBufferedInputStream.LineTerminator.valueOf(terminator.toString()))
                 .collect(toSet()));
-    }
-
-    public byte peek() {
-        return Try.toCall(() -> {
-            long lastPosition = in.position();
-            int next = in.read();
-            in.position(lastPosition);
-            return (byte) next;
-        });
-    }
-
-    public void seek(long offset) {
-        Try.toCall(() -> in.skip(offset - in.position()));
     }
 
     @Override
@@ -59,8 +44,23 @@ public class LineInputStream extends InputStream {
         return Try.toCall(() -> in.readLine(chunk, start, length, terminators));
     }
 
-    public boolean isComplete() {
+    @Override
+    public boolean isAtEOF() {
         return peek() == -1;
+    }
+
+    @Override
+    public void seek(long offset) {
+        Try.toCall(() -> in.skip(offset - in.position()));
+    }
+
+    public byte peek() {
+        return Try.toCall(() -> {
+            long lastPosition = in.position();
+            int next = in.read();
+            in.position(lastPosition);
+            return (byte) next;
+        });
     }
 
     @Override

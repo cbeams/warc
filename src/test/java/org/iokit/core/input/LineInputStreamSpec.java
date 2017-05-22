@@ -10,6 +10,6 @@ public class LineInputStreamSpec {
     public void nullInput() {
         //noinspection ConstantConditions
         assertThatThrownBy(() -> new LineInputStream(null))
-            .isInstanceOf(IllegalArgumentException.class);
+            .isInstanceOf(NullPointerException.class);
     }
 }
