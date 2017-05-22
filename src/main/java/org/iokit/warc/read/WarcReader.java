@@ -10,7 +10,7 @@ import org.iokit.core.read.SkipReader;
 
 import org.iokit.core.input.CrlfLineInputStream;
 import org.iokit.core.input.LineInputStream;
-import org.iokit.core.input.MagicInputStream;
+import org.iokit.core.input.MappedInputStream;
 
 import org.iokit.lang.Try;
 
@@ -31,10 +31,10 @@ public class WarcReader extends ConcatenationReader<WarcRecord> {
     }
 
     public WarcReader(InputStream in) {
-        this(new MagicInputStream(in));
+        this(new MappedInputStream(in));
     }
 
-    public WarcReader(MagicInputStream in) {
+    public WarcReader(MappedInputStream in) {
         this(new CrlfLineInputStream(in));
     }
 

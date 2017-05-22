@@ -6,7 +6,7 @@ import java.util.zip.GZIPInputStream;
 
 import java.io.InputStream;
 
-public class GZipMagicInputStreamMapper implements MagicInputStreamMapper {
+public class GZipInputStreamMapper implements InputStreamMapper {
 
     @Override
     public boolean canMap(byte[] magic) {

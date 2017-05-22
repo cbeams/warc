@@ -10,21 +10,21 @@ import java.util.LinkedHashSet;
 import java.util.ServiceLoader;
 import java.util.Set;
 
-public class MagicInputStream extends FilterInputStream {
+public class MappedInputStream extends FilterInputStream {
 
     public static final int DEFAULT_MAGIC_SIZE = 16;
 
-    private static final Set<MagicInputStreamMapper> MAPPERS = new LinkedHashSet<>();
+    private static final Set<InputStreamMapper> MAPPERS = new LinkedHashSet<>();
 
     static {
-        ServiceLoader.load(MagicInputStreamMapper.class).forEach(MAPPERS::add);
+        ServiceLoader.load(InputStreamMapper.class).forEach(MAPPERS::add);
     }
 
-    public MagicInputStream(InputStream in) {
+    public MappedInputStream(InputStream in) {
         this(in, DEFAULT_MAGIC_SIZE);
     }
 
-    public MagicInputStream(InputStream in, int size) {
+    public MappedInputStream(InputStream in, int size) {
         super(map(in, size));
     }
 

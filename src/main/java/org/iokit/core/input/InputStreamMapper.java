@@ -2,7 +2,7 @@ package org.iokit.core.input;
 
 import java.io.InputStream;
 
-public interface MagicInputStreamMapper {
+public interface InputStreamMapper {
 
     boolean canMap(byte[] magic);
 
