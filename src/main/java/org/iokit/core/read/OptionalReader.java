@@ -24,7 +24,7 @@ public abstract class OptionalReader<T> extends Reader<T> {
     public abstract Optional<T> readOptional() throws ReaderException;
 
     public Stream<T> stream() {
-        Iterator<T> iterator = new Iterator<T>() {
+        Iterator<T> iterator = new Iterator<T>() { // TODO: separate out iterator
             T nextValue = null;
 
             @Override

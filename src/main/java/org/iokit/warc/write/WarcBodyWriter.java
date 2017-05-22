@@ -14,7 +14,7 @@ public class WarcBodyWriter extends Writer<WarcBody> {
         super(out);
     }
 
-    public void write(WarcBody body) {
+    public void write(WarcBody body) { // TODO: pull up to imf.BodyWriter
         Try.toRun(() -> out.write(body.getData()));
     }
 }

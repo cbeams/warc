@@ -2,7 +2,7 @@ package org.iokit.warc;
 
 import org.iokit.imf.Body;
 
-public class WarcBody implements Body<byte[]> {
+public class WarcBody implements Body<byte[]> { // TODO: pull up to ByteArrayBody?
 
     private final byte[] value;
 

@@ -29,7 +29,7 @@ public class LineWriter extends Writer<String> {
         });
     }
 
-    public void writeNewline() {
+    public void writeNewline() { // TODO: rename to write()
         Try.toRun(() -> out.write(terminator.bytes));
     }
 }

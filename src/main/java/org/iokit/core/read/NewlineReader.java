@@ -22,7 +22,7 @@ public class NewlineReader extends OptionalReader<String> {
     private static Predicate<String> assertNewline() {
         return string -> {
             if (!isNewline(string))
-                throw new ValidatorException("Expected an empty string (newline) but actually got [" + string + "]");
+                throw new ValidatorException("Expected an empty string (newline) but actually got [%s]", string);
 
             return true;
         };

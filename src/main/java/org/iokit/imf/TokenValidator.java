@@ -6,9 +6,9 @@ import org.iokit.core.validate.Validator;
 import org.iokit.core.validate.ValidatorException;
 
 import static org.iokit.core.Ascii.*;
-import static org.iokit.warc.Separator.isSeparatorChar;
+import static org.iokit.warc.Separator.isSeparatorChar; // TODO: generalize and remove package cycle
 
-public class TokenValidator extends Validator<String> {
+public class TokenValidator extends Validator<String> { // TODO: make nested class of Token?
 
     public static final int MIN_TOKEN_LENGTH = 1;
 

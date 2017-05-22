@@ -13,7 +13,7 @@ public class WarcField extends Field {
     }
 
 
-    public enum Type implements Field.Type {
+    public enum Type implements Field.Type { // TODO: support field-type specific validation
         WARC_Type("WARC-Type"),
         WARC_Record_ID("WARC-Record-ID"),
         Content_Type("Content-Type"),

@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-public final class Separator {
+public final class Separator { // TODO: rename to 'specials'?
 
     private Separator() {
     }

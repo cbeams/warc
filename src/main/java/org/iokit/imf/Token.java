@@ -10,7 +10,7 @@ public class Token {
         this.value = value;
     }
 
-    public String getValue() {
+    public String getValue() { // TODO: remove in favor of using toString only (confusing for field name to have a value)
         return value;
     }
 

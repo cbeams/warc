@@ -7,8 +7,4 @@ public class ParsingException extends UncheckedException {
     public ParsingException(String message, Object... args) {
         super(String.format(message, args));
     }
-
-    public ParsingException(Throwable cause) {
-        super(cause);
-    }
 }

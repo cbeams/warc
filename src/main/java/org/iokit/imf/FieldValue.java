@@ -20,7 +20,7 @@ public class FieldValue {
     }
 
     public String getUnfoldedValue() {
-        return value.replaceAll("\\r\\n[ \\t]+", " ");
+        return value.replaceAll("\\r\\n[ \\t]+", " "); // TODO: precompile and reuse regex
     }
 
     @Override

@@ -6,7 +6,7 @@ public abstract class Validator<T> {
 
     public abstract void validate(T input) throws ValidatorException;
 
-    public boolean isEnabled() {
+    public boolean isEnabled() { // TODO: remove for now
         return enabled;
     }
 

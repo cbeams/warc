@@ -13,7 +13,7 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
     }
 
 
-    public enum Type {
+    public enum Type { // TODO: add other warc record types
 
         /**
          * A 'warcinfo' record describes the records that follow it, up through end of file,

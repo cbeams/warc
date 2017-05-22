@@ -26,7 +26,7 @@ public class WarcWriter extends Writer<WarcRecord> {
         this(new MappedOutputStream(out));
     }
 
-    public WarcWriter(OutputStream out, Class<? extends OutputStream> toType) {
+    public WarcWriter(OutputStream out, Class<? extends OutputStream> toType) { // TODO: test
         this(new MappedOutputStream(out, toType));
     }
 

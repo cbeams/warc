@@ -1,6 +1,6 @@
 package org.iokit.core;
 
-public enum LineTerminator {
+public enum LineTerminator { // TODO: document that names must be same as fastutil terminators
 
     CR("\r"),
     LF("\n"),

@@ -17,10 +17,10 @@ public class FoldedLineValidator extends Validator<String> {
         for (int index = 0, increment = 1; index < chars.length; index += increment, increment = 1) {
             char c = chars[index];
 
-            if (c == '\t')
+            if (c == '\t') // TODO: extract to Ascii class, e.g. Ascii.TAB
                 continue;
 
-            if (c == '\r'
+            if (c == '\r'  // TODO: extract to Ascii class, e.g. Ascii.CR and refactor LineTerminator to use it too
                 && chars.length > index + 2
                 && chars[index + 1] == '\n'
                 && (chars[index + 2] == ' ' || chars[index + 2] == '\t')) {

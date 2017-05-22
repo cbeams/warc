@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-public class Reflector {
+public class Reflector { // TODO: remove
 
     public <T> void configure(Object node, Class<T> targetType, Consumer<T> visitor) throws Exception {
         configure(node, t -> targetType.isAssignableFrom(t.getClass()), visitor);

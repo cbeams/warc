@@ -10,7 +10,7 @@ public class WarcFieldSet extends FieldSet {
 
         @Override
         public void validate(FieldSet fieldSet) throws ValidatorException {
-            // TODO
+            // TODO: actually validate required fields, etc
         }
     }
 }

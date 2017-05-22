@@ -10,6 +10,8 @@ import org.iokit.core.parse.Parser;
 
 import java.util.Optional;
 
+import static org.iokit.core.read.NewlineReader.isNewline;
+
 public class FieldReader extends OptionalReader<Field> {
 
     private final LineReader lineReader;
@@ -27,11 +29,10 @@ public class FieldReader extends OptionalReader<Field> {
 
     @Override
     public Optional<Field> readOptional() throws ReaderException {
-        Optional<String> line = lineReader.readOptional().filter(l -> !l.isEmpty());
+        Optional<String> line = lineReader.readOptional().filter(s -> !isNewline(s));
 
-        if (!line.isPresent())
-            return Optional.empty();
-
-        return Optional.of(fieldParser.parse(line.get()));
+        return line.isPresent() ?
+            Optional.of(fieldParser.parse(line.get())) :
+            Optional.empty();
     }
 }

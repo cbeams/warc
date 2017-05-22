@@ -17,7 +17,7 @@ public class WarcHeader extends StartLineHeader<WarcVersion> {
 
     public WarcRecord.Type getRecordType() {
         try {
-            return WarcRecord.Type.valueOf(getField(WARC_Type).getValue().toString());
+            return WarcRecord.Type.valueOf(getField(WARC_Type).getValue().toString()); // TODO: add convenience getField accessor
         } catch (IllegalArgumentException ex) {
             return WarcRecord.Type.unknown;
         }

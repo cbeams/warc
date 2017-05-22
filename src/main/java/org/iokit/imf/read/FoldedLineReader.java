@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class FoldedLineReader extends LineReader {
 
-    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF;
+    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF; // TODO: move to Message? Move others too?
 
     private final LineTerminator terminator;
 

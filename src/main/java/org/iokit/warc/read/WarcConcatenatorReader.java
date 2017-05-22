@@ -20,7 +20,7 @@ public class WarcConcatenatorReader extends Reader<Boolean> {
 
     @Override
     public Boolean read() throws ReaderException {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 2; i++) // TODO: extract constant for newline count
             if (!newlineReader.readOptional().isPresent())
                 return false;
 

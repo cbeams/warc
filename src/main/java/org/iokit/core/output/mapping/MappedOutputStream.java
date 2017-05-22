@@ -24,7 +24,6 @@ public class MappedOutputStream extends FilterOutputStream {
     }
 
     public static OutputStream map(MappableFileOutputStream out) {
-
         return MAPPERS.stream()
             .filter(mapper -> mapper.canMap(out.getFile()))
             .map(mapper -> mapper.map(out))
@@ -33,7 +32,6 @@ public class MappedOutputStream extends FilterOutputStream {
     }
 
     public static OutputStream map(OutputStream out, Class<? extends OutputStream> toType) {
-
         return MAPPERS.stream()
             .filter(mapper -> mapper.canMap(toType))
             .map(mapper -> mapper.map(out))
