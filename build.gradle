@@ -9,13 +9,13 @@ repositories {
 
 dependencies {
     compile("it.unimi.dsi:fastutil:7.2.0")
+    compile("org.anarres:parallelgzip:1.0.1")
+
     testCompile("junit:junit:4.12")
     testCompile("org.assertj:assertj-core:3.7.0")
     testCompile("it.unimi.di.law:bubing:0.9.12");
     testCompile("org.netpreserve.commons:webarchive-commons:1.1.8") {
         exclude(module: "hadoop-core")
     }
-
     testCompile("org.jwat:jwat-warc:1.0.5")
-    testCompile("org.anarres:parallelgzip:1.0.1")
 }

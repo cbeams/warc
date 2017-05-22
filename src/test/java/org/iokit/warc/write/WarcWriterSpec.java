@@ -52,6 +52,24 @@ public class WarcWriterSpec {
     }
 
     @Test
+    public void writeGzippedMultiRecordWarcFile() throws IOException {
+        File oldFile = new File(getClass().getResource("/org/iokit/warc/multi.warc.gz").getFile());
+        File newFile = new File("/tmp/multi.warc.gz");
+
+        try (WarcReader reader = new WarcReader(oldFile);
+             WarcWriter writer = new WarcWriter(newFile)) {
+
+            reader.stream().forEach(writer::write);
+        }
+
+        try (GZIPInputStream oldInput = new GZIPInputStream(new FileInputStream(oldFile));
+             GZIPInputStream newInput = new GZIPInputStream(new FileInputStream(newFile))) {
+
+            assertThat(newInput).hasSameContentAs(oldInput);
+        }
+    }
+
+    @Test
     public void writeMultiRecordWarcFileWithFoldingLine() throws IOException {
         File oldFile = new File(getClass().getResource("/org/iokit/warc/multi-with-folding.warc").getFile());
         File newFile = new File("/tmp/multi-with-folding.warc");

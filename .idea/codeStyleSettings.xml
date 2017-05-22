@@ -7,17 +7,27 @@
         <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="2" />
         <option name="IMPORT_LAYOUT_TABLE">
           <value>
+            <package name="org.iokit.warc.write" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="org.iokit.warc.read" withSubpackages="true" static="false" />
+            <emptyLine />
             <package name="org.iokit.warc" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="org.iokit.imf.write" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.imf.read" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.imf" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="org.iokit.core.write" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.core.read" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.core.validate" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.core.parse" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="org.iokit.core.output" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.core.input" withSubpackages="true" static="false" />
             <emptyLine />
@@ -32,6 +42,8 @@
             <package name="org.assertj.core.api" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="java.net" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="org.anarres.parallelgzip" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="java.util.zip" withSubpackages="true" static="false" />
             <emptyLine />
