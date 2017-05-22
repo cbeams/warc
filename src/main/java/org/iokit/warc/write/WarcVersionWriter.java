@@ -5,8 +5,6 @@ import org.iokit.warc.WarcVersion;
 import org.iokit.core.write.LineWriter;
 import org.iokit.core.write.Writer;
 
-import org.iokit.lang.Try;
-
 public class WarcVersionWriter extends Writer<WarcVersion> {
 
     private final LineWriter lineWriter;
@@ -17,6 +15,6 @@ public class WarcVersionWriter extends Writer<WarcVersion> {
     }
 
     public void write(WarcVersion version) {
-        Try.toRun(() -> lineWriter.write(version.getValue()));
+        lineWriter.write(version.getValue());
     }
 }
