@@ -1,6 +1,5 @@
 package org.iokit.imf;
 
-import org.iokit.core.parse.NullSafeParser;
 import org.iokit.core.parse.ParsingException;
 
 import java.util.Objects;
@@ -51,7 +50,7 @@ public class Field {
     }
 
 
-    public static class Parser extends NullSafeParser<Field> {
+    public static class Parser implements org.iokit.core.parse.Parser<Field> {
 
         private final org.iokit.core.parse.Parser<FieldName> nameParser;
         private final org.iokit.core.parse.Parser<FieldValue> valueParser;
@@ -66,7 +65,7 @@ public class Field {
             this.valueParser = valueParser;
         }
 
-        public Field parseNullSafe(String input) throws ParsingException {
+        public Field parse(String input) throws ParsingException {
             int separatorIndex = input.indexOf(SEPARATOR);
             if (separatorIndex == -1)
                 throw new MissingSeparatorException(input);

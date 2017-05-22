@@ -3,8 +3,6 @@ package io.beams.valjo;
 import org.iokit.core.validate.InvalidCharacterException;
 import org.iokit.core.validate.InvalidLengthException;
 
-import org.iokit.core.parse.NullInputException;
-
 import org.junit.Test;
 
 import java.util.stream.Stream;
@@ -50,7 +48,7 @@ public abstract class ValjoSpec {
     @Test
     public void parseNullInput() {
         assertThatThrownBy(() -> parse(null))
-            .isInstanceOf(NullInputException.class);
+            .isInstanceOf(Exception.class);
     }
 
     @Test

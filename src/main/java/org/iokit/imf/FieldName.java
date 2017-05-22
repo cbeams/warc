@@ -1,6 +1,5 @@
 package org.iokit.imf;
 
-import org.iokit.core.parse.NullSafeParser;
 import org.iokit.core.parse.ParsingException;
 
 import java.util.Objects;
@@ -28,7 +27,7 @@ public class FieldName extends Token {
     }
 
 
-    public static class Parser extends NullSafeParser<FieldName> {
+    public static class Parser implements org.iokit.core.parse.Parser<FieldName> {
 
         private final org.iokit.core.parse.Parser<Token> tokenParser;
 
@@ -40,7 +39,7 @@ public class FieldName extends Token {
             this.tokenParser = tokenParser;
         }
 
-        public FieldName parseNullSafe(String input) throws ParsingException {
+        public FieldName parse(String input) throws ParsingException {
             return new FieldName(tokenParser.parse(input).getValue());
         }
     }
