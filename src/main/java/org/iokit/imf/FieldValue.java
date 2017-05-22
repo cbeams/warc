@@ -6,8 +6,11 @@ import org.iokit.core.parse.ParsingException;
 import org.iokit.core.parse.ValidatingParser;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class FieldValue {
+
+    private final Pattern FOLDED_WHITESPACE_REGEX = Pattern.compile("\\r\\n[ \\t]+"); // TODO: format
 
     private final String value;
 
@@ -20,7 +23,7 @@ public class FieldValue {
     }
 
     public String getUnfoldedValue() {
-        return value.replaceAll("\\r\\n[ \\t]+", " "); // TODO: precompile and reuse regex
+        return FOLDED_WHITESPACE_REGEX.matcher(value).replaceAll(" "); // TODO: extract to Ascii.SPACE
     }
 
     @Override
