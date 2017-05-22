@@ -20,7 +20,7 @@ import java.util.function.BiFunction;
 
 public class WarcRecordReader extends MessageReader<WarcHeader, WarcBody, WarcRecord> {
 
-    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF;
+    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF; // TODO: Consolidate into Warc class
 
     public WarcRecordReader(InputStream in) {
         this(new LineInputStream(in, DEFAULT_LINE_TERMINATOR));

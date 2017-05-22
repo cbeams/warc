@@ -13,7 +13,7 @@ import java.io.OutputStream;
 
 public class WarcRecordWriter extends Writer<WarcRecord> {
 
-    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF;
+    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF; // TODO: consolidate
 
     private final Writer<WarcHeader> headerWriter;
     private final Writer<WarcBody> bodyWriter;
