@@ -1,5 +1,6 @@
 package org.iokit.warc.read;
 
+import org.iokit.warc.Warc;
 import org.iokit.warc.WarcRecord;
 import org.iokit.warc.WarcVersion;
 
@@ -25,21 +26,21 @@ public class WarcReaderSpec {
 
     @Test
     public void readEmptyWarcFile() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
+        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
         assertThatThrownBy(reader::read).isInstanceOf(ReaderException.class);
         assertThat(reader.getReadCount()).isZero();
     }
 
     @Test
     public void streamEmptyWarcFile() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
+        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
         assertThatThrownBy(reader.stream()::count).isInstanceOf(ReaderException.class);
         assertThat(reader.getReadCount()).isZero();
     }
 
     @Test
     public void readEmptyWarcFileWithMinimumReadCountSetToZero() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
+        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
         reader.setMinimumReadCount(0);
         assertThat(reader.readOptional()).isNotPresent();
         assertThat(reader.getReadCount()).isEqualTo(0);
@@ -47,7 +48,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readSingleRecordWarcFile() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/single.warc"));
+        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/single.warc"));
 
         WarcRecord record = reader.read();
         assertThat(record.getHeader().getVersion()).hasToString(WarcVersion.WARC_1_0);
@@ -61,7 +62,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readMultiRecordWarcFile() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc"));
+        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc"));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
@@ -72,14 +73,14 @@ public class WarcReaderSpec {
 
     @Test
     public void streamMultiRecordWarcFile() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc"));
+        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc"));
         assertThat(reader.stream().count()).isEqualTo(3);
         assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
     @Test
     public void readMultiRecordWarcFileWithMalformedRecord() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-with-malformed-record.warc"));
+        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/multi-with-malformed-record.warc"));
 
         // the first record is well-formed
         reader.read();
@@ -96,7 +97,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readMultiRecordWarcFileWithoutTrailingConcatenator() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-without-trailing-concatenator.warc"));
+        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/multi-without-trailing-concatenator.warc"));
 
         // the first record is well-formed
         reader.read();
@@ -115,7 +116,7 @@ public class WarcReaderSpec {
 
     @Test
     public void read_MultiRecordWarcFile_WithoutTrailingConcatenator_And_SetExpectTrailingConcatenator_SetToFalse() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-without-trailing-concatenator.warc"));
+        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/multi-without-trailing-concatenator.warc"));
         reader.setExpectTrailingConcatenator(false);
 
         // the first record is well-formed
@@ -133,7 +134,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readMultiRecordWarcFileWithGarbageOnLastLine() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi-with-garbage-on-last-line.warc"));
+        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/multi-with-garbage-on-last-line.warc"));
 
         // the first record is well-formed
         reader.read();
@@ -158,7 +159,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readGzippedWarcFile() {
-        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc.gz"));
+        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/multi.warc.gz"));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
@@ -169,7 +170,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readGzippedWarcFileWithUserProvidedGZipInputStream() throws IOException {
-        WarcReader reader = new WarcReader(
+        Warc.Reader reader = new Warc.Reader(
             new GZIPInputStream(getClass().getResourceAsStream("/org/iokit/warc/multi.warc.gz")));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
@@ -181,7 +182,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readGzippedWarcFileAsFile() {
-        WarcReader reader = new WarcReader(new File(getClass().getResource("/org/iokit/warc/multi.warc.gz").getFile()));
+        Warc.Reader reader = new Warc.Reader(new File(getClass().getResource("/org/iokit/warc/multi.warc.gz").getFile()));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
@@ -196,7 +197,7 @@ public class WarcReaderSpec {
             new FileInputStream(
                 new File(getClass().getResource("/org/iokit/warc/multi.warc.gz").getFile()));
 
-        try (WarcReader reader = new WarcReader(input)) {
+        try (Warc.Reader reader = new Warc.Reader(input)) {
             reader.read();
         }
 

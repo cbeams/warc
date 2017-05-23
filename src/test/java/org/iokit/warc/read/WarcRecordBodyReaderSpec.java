@@ -26,7 +26,7 @@ public class WarcRecordBodyReaderSpec {
             }
         };
 
-        WarcBodyReader reader = new WarcBodyReader(new ByteArrayInputStream(input.getBytes()));
+        WarcBody.Reader reader = new WarcBody.Reader(new ByteArrayInputStream(input.getBytes()));
         WarcBody body = reader.read(header);
 
         byte[] data = body.getData();

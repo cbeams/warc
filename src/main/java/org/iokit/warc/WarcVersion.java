@@ -1,5 +1,10 @@
 package org.iokit.warc;
 
+import org.iokit.core.write.LineWriter;
+
+import org.iokit.core.read.LineReader;
+import org.iokit.core.read.ReaderException;
+
 import org.iokit.core.validate.ValidatorException;
 
 import org.iokit.core.parse.ParsingException;
@@ -64,6 +69,42 @@ public class WarcVersion {
         public void validate(String input) throws ValidatorException {
             if (!WARC_1_0.equals(input) && !WARC_1_1.equals(input))
                 throw new ValidatorException("[%s] is an unsupported or otherwise malformed WARC record version", input);
+        }
+    }
+
+
+    public static class Reader extends org.iokit.core.read.Reader<WarcVersion> {
+
+        private final LineReader lineReader;
+        private final org.iokit.core.parse.Parser<WarcVersion> parser;
+
+        public Reader(LineReader lineReader) {
+            this(lineReader, new Parser());
+        }
+
+        public Reader(LineReader lineReader, org.iokit.core.parse.Parser<WarcVersion> parser) {
+            super(lineReader.in);
+            this.lineReader = lineReader;
+            this.parser = parser;
+        }
+
+        public WarcVersion read() throws ReaderException {
+            return parser.parse(lineReader.read());
+        }
+    }
+
+
+    public static class Writer extends org.iokit.core.write.Writer<WarcVersion> {
+
+        private final LineWriter lineWriter;
+
+        public Writer(LineWriter lineWriter) {
+            super(lineWriter.out);
+            this.lineWriter = lineWriter;
+        }
+
+        public void write(WarcVersion version) {
+            lineWriter.write(version.getValue());
         }
     }
 }

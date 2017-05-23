@@ -1,5 +1,7 @@
 package org.iokit.warc.read;
 
+import org.iokit.warc.Warc;
+
 import org.iokit.core.read.LineReader;
 
 import org.iokit.core.input.LineInputStream;
@@ -31,7 +33,7 @@ import java.util.stream.Stream;
 
 import static java.lang.System.currentTimeMillis;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.iokit.warc.write.WarcRecordWriter.DEFAULT_LINE_TERMINATOR;
+import static org.iokit.warc.WarcRecord.Writer.DEFAULT_LINE_TERMINATOR;
 
 
 
@@ -62,7 +64,7 @@ public class WarcReaderPerformanceTests {
             .limit(3)
             .forEach(warcFile -> {
                 System.out.println("reading: " + warcFile);
-                WarcReader reader = new WarcReader(warcFile);
+                Warc.Reader reader = new Warc.Reader(warcFile);
                 total.set(total.get() + reader.stream().count());
             });
 
@@ -733,7 +735,7 @@ public class WarcReaderPerformanceTests {
 
     @Test
     public void k() throws FileNotFoundException {
-        org.iokit.warc.read.WarcReader reader = new org.iokit.warc.read.WarcReader(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"));
+        Warc.Reader reader = new Warc.Reader(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"));
 
 
         int count = 0;
@@ -751,7 +753,7 @@ public class WarcReaderPerformanceTests {
 
     @Test
     public void k_for_normal_warc() throws FileNotFoundException {
-        org.iokit.warc.read.WarcReader reader = new org.iokit.warc.read.WarcReader(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc"));
+        Warc.Reader reader = new Warc.Reader(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc"));
 
 
         int count = 0;
@@ -779,7 +781,7 @@ public class WarcReaderPerformanceTests {
                     gzSize),
                 fbSize);
 
-        org.iokit.warc.read.WarcReader reader = new org.iokit.warc.read.WarcReader(new LineInputStream(input, DEFAULT_LINE_TERMINATOR));
+        Warc.Reader reader = new Warc.Reader(new LineInputStream(input, DEFAULT_LINE_TERMINATOR));
 
         int count = 0;
         while (reader.read() != null)

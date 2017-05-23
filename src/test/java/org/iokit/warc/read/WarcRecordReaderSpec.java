@@ -7,8 +7,6 @@ import org.iokit.warc.WarcVersion;
 
 import org.iokit.core.read.EndOfInputException;
 
-import org.iokit.core.input.LineInputStream;
-
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -43,8 +41,8 @@ public class WarcRecordReaderSpec {
             "conformsTo:\r\n" +
             " http://www.archive.org/documents/WarcFileFormat-1.0.html";
 
-        WarcRecordReader reader =
-            new WarcRecordReader(new ByteArrayInputStream(input.getBytes()));
+        WarcRecord.Reader reader =
+            new WarcRecord.Reader(new ByteArrayInputStream(input.getBytes()));
 
         WarcRecord record = reader.read();
         WarcHeader header = record.getHeader();

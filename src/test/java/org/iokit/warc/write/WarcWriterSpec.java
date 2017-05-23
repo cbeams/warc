@@ -1,6 +1,6 @@
 package org.iokit.warc.write;
 
-import org.iokit.warc.read.WarcReader;
+import org.iokit.warc.Warc;
 
 import org.iokit.core.input.LineInputStream;
 
@@ -17,7 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.iokit.warc.write.WarcRecordWriter.DEFAULT_LINE_TERMINATOR;
+import static org.iokit.warc.WarcRecord.Writer.DEFAULT_LINE_TERMINATOR;
 
 public class WarcWriterSpec {
 
@@ -26,8 +26,8 @@ public class WarcWriterSpec {
         File oldFile = new File(getClass().getResource("/org/iokit/warc/single.warc").getFile());
         File newFile = new File("/tmp/single.warc");
 
-        try (WarcReader reader = new WarcReader(oldFile);
-             WarcWriter writer = new WarcWriter(newFile)) {
+        try (Warc.Reader reader = new Warc.Reader(oldFile);
+             Warc.Writer writer = new Warc.Writer(newFile)) {
 
             writer.write(reader.read());
         }
@@ -40,8 +40,8 @@ public class WarcWriterSpec {
         File oldFile = new File(getClass().getResource("/org/iokit/warc/multi.warc").getFile());
         File newFile = new File("/tmp/multi.warc");
 
-        try (WarcReader reader = new WarcReader(oldFile);
-             WarcWriter writer = new WarcWriter(newFile)) {
+        try (Warc.Reader reader = new Warc.Reader(oldFile);
+             Warc.Writer writer = new Warc.Writer(newFile)) {
 
             reader.stream().forEach(writer::write);
         }
@@ -54,8 +54,8 @@ public class WarcWriterSpec {
         File oldFile = new File(getClass().getResource("/org/iokit/warc/multi.warc.gz").getFile());
         File newFile = new File("/tmp/multi.warc.gz");
 
-        try (WarcReader reader = new WarcReader(oldFile);
-             WarcWriter writer = new WarcWriter(newFile)) {
+        try (Warc.Reader reader = new Warc.Reader(oldFile);
+             Warc.Writer writer = new Warc.Writer(newFile)) {
 
             reader.stream().forEach(writer::write);
         }
@@ -72,8 +72,8 @@ public class WarcWriterSpec {
         File oldFile = new File(getClass().getResource("/org/iokit/warc/multi-with-folding.warc").getFile());
         File newFile = new File("/tmp/multi-with-folding.warc");
 
-        try (WarcReader reader = new WarcReader(oldFile);
-             WarcWriter writer = new WarcWriter(newFile)) {
+        try (Warc.Reader reader = new Warc.Reader(oldFile);
+             Warc.Writer writer = new Warc.Writer(newFile)) {
 
             reader.stream().forEach(writer::write);
         }
@@ -90,8 +90,8 @@ public class WarcWriterSpec {
         // 42864 (before parallel)
         // 18797 (after parallel)
 
-        try (WarcReader reader = new WarcReader(new LineInputStream(new GZIPInputStream(new FileInputStream(originalFile), 1024 * 1024), DEFAULT_LINE_TERMINATOR));
-             WarcWriter writer = new WarcWriter(new ParallelGZIPOutputStream(new FileOutputStream(newFile)))) {
+        try (Warc.Reader reader = new Warc.Reader(new LineInputStream(new GZIPInputStream(new FileInputStream(originalFile), 1024 * 1024), DEFAULT_LINE_TERMINATOR));
+             Warc.Writer writer = new Warc.Writer(new ParallelGZIPOutputStream(new FileOutputStream(newFile)))) {
 
             reader.stream().forEach(writer::write);
         }

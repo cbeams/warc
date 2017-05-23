@@ -1,6 +1,22 @@
 package org.iokit.warc;
 
+import org.iokit.imf.read.MessageReader;
+
 import org.iokit.imf.Message;
+
+import org.iokit.core.write.LineWriter;
+
+import org.iokit.core.read.LineReader;
+import org.iokit.core.read.ParameterizedReader;
+
+import org.iokit.core.input.LineInputStream;
+
+import org.iokit.core.LineTerminator;
+
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import java.util.function.BiFunction;
 
 /**
  * Per http://bibnum.bnf.fr/WARC/ and
@@ -30,5 +46,64 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
         warcinfo,
         metadata,
         unknown
+    }
+
+
+    public static class Reader extends MessageReader<WarcHeader, WarcBody, WarcRecord> {
+
+        public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF; // TODO: Consolidate into Warc class
+
+        public Reader(InputStream in) {
+            this(new LineInputStream(in, DEFAULT_LINE_TERMINATOR));
+        }
+
+        public Reader(LineInputStream in) {
+            this(new LineReader(in));
+        }
+
+        public Reader(LineReader lineReader) {
+            this(new WarcHeader.Reader(lineReader), new WarcBody.Reader(lineReader.in));
+        }
+
+        public Reader(org.iokit.core.read.Reader<WarcHeader> headerReader,
+                      ParameterizedReader<WarcHeader, WarcBody> bodyReader) {
+            this(headerReader, bodyReader, WarcRecord::new);
+        }
+
+        public Reader(org.iokit.core.read.Reader<WarcHeader> headerReader,
+                      ParameterizedReader<WarcHeader, WarcBody> bodyReader,
+                      BiFunction<WarcHeader, WarcBody, WarcRecord> recordFactory) {
+            super(headerReader, bodyReader, recordFactory);
+        }
+    }
+
+
+    public static class Writer extends org.iokit.core.write.Writer<WarcRecord> {
+
+        public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF; // TODO: consolidate
+
+        private final org.iokit.core.write.Writer<WarcHeader> headerWriter;
+        private final org.iokit.core.write.Writer<WarcBody> bodyWriter;
+
+        public Writer(OutputStream out) {
+            this(new LineWriter(out, DEFAULT_LINE_TERMINATOR));
+        }
+
+        public Writer(LineWriter lineWriter) {
+            this(new WarcHeader.Writer(lineWriter), new WarcBody.Writer(lineWriter.out));
+        }
+
+        public Writer(org.iokit.core.write.Writer<WarcHeader> headerWriter,
+                      org.iokit.core.write.Writer<WarcBody> bodyWriter) {
+            super(headerWriter.out);
+            this.headerWriter = headerWriter;
+            this.bodyWriter = bodyWriter;
+        }
+
+        @Override
+        public void write(WarcRecord record) {
+            headerWriter.write(record.getHeader());
+            bodyWriter.write(record.getBody());
+        }
     }
 }

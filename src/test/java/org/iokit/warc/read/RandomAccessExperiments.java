@@ -1,7 +1,6 @@
 package org.iokit.warc.read;
 
-import org.iokit.warc.write.WarcRecordWriter;
-
+import org.iokit.warc.Warc;
 import org.iokit.warc.WarcRecord;
 
 import org.junit.Ignore;
@@ -114,13 +113,13 @@ public class RandomAccessExperiments {
 
     @Test
     public void test5() throws IOException {
-        WarcReader reader = new WarcReader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat");
+        Warc.Reader reader = new Warc.Reader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat");
 
         reader.cursor.seek(1_549_727_457);
 
         WarcRecord record = reader.read();
 
-        new WarcRecordWriter(System.out).write(record);
+        new WarcRecord.Writer(System.out).write(record);
 
         assertThat(record.getHeader().getRecordId()).isEqualTo("<urn:uuid:71124c20-52f4-4451-9de2-d41609631374>");
         assertThat(record.getHeader().getContentLength()).isEqualTo(1068);
@@ -129,13 +128,13 @@ public class RandomAccessExperiments {
     @Test
     @Ignore("need to make this faster")
     public void test6() throws IOException {
-        WarcReader reader = new WarcReader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz");
+        Warc.Reader reader = new Warc.Reader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz");
 
         reader.cursor.seek(1_549_727_457);
 
         WarcRecord record = reader.read();
 
-        new WarcRecordWriter(System.out).write(record);
+        new WarcRecord.Writer(System.out).write(record);
 
         assertThat(record.getHeader().getRecordId()).isEqualTo("<urn:uuid:71124c20-52f4-4451-9de2-d41609631374>");
         assertThat(record.getHeader().getContentLength()).isEqualTo(1068);
