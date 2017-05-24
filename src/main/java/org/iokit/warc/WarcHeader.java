@@ -1,9 +1,5 @@
 package org.iokit.warc;
 
-import org.iokit.imf.write.FieldSetWriter;
-
-import org.iokit.imf.read.FieldSetReader;
-
 import org.iokit.imf.FieldSet;
 import org.iokit.imf.StartLineHeader;
 
@@ -48,13 +44,13 @@ public class WarcHeader extends StartLineHeader<WarcVersion> {
     public static class Reader extends org.iokit.core.read.Reader<WarcHeader> {
 
         private final org.iokit.core.read.Reader<WarcVersion> versionReader;
-        private final FieldSetReader fieldSetReader;
+        private final FieldSet.Reader fieldSetReader;
 
         public Reader(LineReader lineReader) {
             this(new WarcVersion.Reader(lineReader), new WarcFieldSet.Reader(lineReader));
         }
 
-        public Reader(org.iokit.core.read.Reader<WarcVersion> versionReader, FieldSetReader fieldSetReader) {
+        public Reader(org.iokit.core.read.Reader<WarcVersion> versionReader, FieldSet.Reader fieldSetReader) {
             super(versionReader.in);
             this.versionReader = versionReader;
             this.fieldSetReader = fieldSetReader;
@@ -72,15 +68,15 @@ public class WarcHeader extends StartLineHeader<WarcVersion> {
     public static class Writer extends org.iokit.core.write.Writer<WarcHeader> {
 
         private final org.iokit.core.write.Writer<WarcVersion> versionWriter;
-        private final FieldSetWriter fieldSetWriter;
+        private final FieldSet.Writer fieldSetWriter;
         private final LineWriter lineWriter;
 
         public Writer(LineWriter lineWriter) {
-            this(new WarcVersion.Writer(lineWriter), new FieldSetWriter(lineWriter), lineWriter);
+            this(new WarcVersion.Writer(lineWriter), new FieldSet.Writer(lineWriter), lineWriter);
         }
 
         public Writer(org.iokit.core.write.Writer<WarcVersion> versionWriter,
-                      FieldSetWriter fieldSetWriter, LineWriter lineWriter) {
+                      FieldSet.Writer fieldSetWriter, LineWriter lineWriter) {
             super(versionWriter.out);
             this.versionWriter = versionWriter;
             this.fieldSetWriter = fieldSetWriter;
