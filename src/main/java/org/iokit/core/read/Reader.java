@@ -1,7 +1,5 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.InputStreamCursor;
-
 import org.iokit.lang.Try;
 
 import java.io.Closeable;
