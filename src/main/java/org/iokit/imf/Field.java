@@ -28,7 +28,7 @@ public class Field {
 
     @Override
     public String toString() {
-        return String.format("%s%c %s", name.toString(), SEPARATOR, value);
+        return String.format("%s%c %s", name, SEPARATOR, value);
     }
 
     @Override
