@@ -2,7 +2,7 @@ package org.iokit.warc;
 
 import org.iokit.imf.Specials;
 
-import static org.iokit.core.Ascii.*;
+import static org.iokit.coding.Ascii.*;
 
 public class WarcSpecials implements Specials {
 

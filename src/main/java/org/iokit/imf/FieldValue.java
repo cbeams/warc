@@ -8,7 +8,7 @@ import org.iokit.core.parse.ValidatingParser;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import static org.iokit.core.Ascii.*;
+import static org.iokit.coding.Ascii.*;
 import static org.iokit.line.LineTerminator.CR_LF;
 
 public class FieldValue {

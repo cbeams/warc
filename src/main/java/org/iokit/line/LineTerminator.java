@@ -1,6 +1,6 @@
 package org.iokit.line;
 
-import org.iokit.core.Ascii;
+import org.iokit.coding.Ascii;
 
 public enum LineTerminator {
 

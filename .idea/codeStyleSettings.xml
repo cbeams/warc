@@ -23,8 +23,6 @@
             <emptyLine />
             <package name="org.iokit.core.parse" withSubpackages="true" static="false" />
             <emptyLine />
-            <package name="org.iokit.core" withSubpackages="true" static="false" />
-            <emptyLine />
             <package name="org.iokit.lang" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="io.beams.valjo" withSubpackages="true" static="false" />

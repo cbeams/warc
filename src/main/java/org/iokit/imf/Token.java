@@ -9,7 +9,7 @@ import org.iokit.core.parse.ValidatingParser;
 
 import java.util.Objects;
 
-import static org.iokit.core.Ascii.*;
+import static org.iokit.coding.Ascii.*;
 
 public class Token {
 
