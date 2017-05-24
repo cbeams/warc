@@ -1,7 +1,7 @@
 package org.iokit.imf.read;
 
 import org.iokit.imf.Field;
-import org.iokit.imf.FoldedLineReader;
+import org.iokit.imf.FoldedLine;
 
 import org.iokit.line.LineInputStream;
 
@@ -17,7 +17,7 @@ public class FieldReaderSpec {
     public void readSimpleField() {
         Field.Reader fieldReader =
             new Field.Reader(
-                new FoldedLineReader(
+                new FoldedLine.Reader(
                         new LineInputStream(
                             new ByteArrayInputStream("Field-Name: field value".getBytes()))));
 
@@ -31,7 +31,7 @@ public class FieldReaderSpec {
     public void readFoldingWhitespace() {
         Field.Reader fieldReader =
             new Field.Reader(
-                new FoldedLineReader(
+                new FoldedLine.Reader(
                         new LineInputStream(
                             new ByteArrayInputStream("Field-Name: field\r\n     value".getBytes()))));
 
@@ -47,7 +47,7 @@ public class FieldReaderSpec {
     public void readTwoLinesOfFoldingWhitespace() {
         Field.Reader fieldReader =
             new Field.Reader(
-                new FoldedLineReader(
+                new FoldedLine.Reader(
                         new LineInputStream(
                             new ByteArrayInputStream("Field-Name: field\r\n     value\r\n cont".getBytes()))));
 

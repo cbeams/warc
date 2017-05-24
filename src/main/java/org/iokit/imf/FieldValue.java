@@ -52,7 +52,7 @@ public class FieldValue {
     public static class Parser extends ValidatingParser<FieldValue> {
 
         public Parser() {
-            this(new FoldedLineValidator());
+            this(new FoldedLine.Validator());
         }
 
         public Parser(Validator<String> validator) {

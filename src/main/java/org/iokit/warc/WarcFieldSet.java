@@ -1,9 +1,8 @@
 package org.iokit.warc;
 
-import org.iokit.imf.FoldedLineReader;
-
 import org.iokit.imf.Field;
 import org.iokit.imf.FieldSet;
+import org.iokit.imf.FoldedLine;
 
 import org.iokit.line.LineReader;
 
@@ -27,10 +26,10 @@ public class WarcFieldSet extends FieldSet {
         public static final org.iokit.core.validate.Validator<FieldSet> DEFAULT_FIELD_SET_VALIDATOR = new Validator();
 
         public Reader(LineReader lineReader) {
-            this(new FoldedLineReader(lineReader.in));
+            this(new FoldedLine.Reader(lineReader.in));
         }
 
-        public Reader(FoldedLineReader lineReader) {
+        public Reader(FoldedLine.Reader lineReader) {
             this(new WarcField.Reader(lineReader), DEFAULT_FIELD_SET_VALIDATOR);
         }
 
