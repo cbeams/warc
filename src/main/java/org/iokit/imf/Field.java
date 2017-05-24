@@ -90,7 +90,7 @@ public class Field {
         }
 
         public void write(Field field) {
-            lineWriter.write(String.format("%s%c %s", field.getName(), SEPARATOR, field.getValue().getFoldedValue()));
+            lineWriter.write(String.format("%s%c %s", field.getName(), SEPARATOR, field.getValue().getFoldedValue())); // TODO: FoldedLineWriter, folding policy (preserve, fold-at, unfold)
         }
     }
 
