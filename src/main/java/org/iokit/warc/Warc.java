@@ -8,6 +8,8 @@ import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
+import org.iokit.core.write.ConcatenationWriter;
+
 import org.iokit.core.read.ConcatenationReader;
 
 import org.iokit.lang.Try;
@@ -58,10 +60,9 @@ public class Warc {
     }
 
 
-    public static class Writer extends org.iokit.core.write.Writer<WarcRecord> { // TODO: pull up to ConcatenationWriter
+    public static class Writer extends ConcatenationWriter<WarcRecord> {
 
-        private final org.iokit.core.write.Writer<WarcRecord> recordWriter;
-        private final org.iokit.core.write.Writer<Void> concatenatorWriter;
+        // TODO: add and test String ctor
 
         public Writer(File warcFile) {
             this(Try.toCall(() -> new MappableFileOutputStream(warcFile)));
@@ -71,7 +72,7 @@ public class Warc {
             this(new MappedOutputStream(out));
         }
 
-        public Writer(OutputStream out, Class<? extends OutputStream> toType) { // TODO: test
+        public Writer(OutputStream out, Class<? extends OutputStream> toType) { // TODO: test this ctor
             this(new MappedOutputStream(out, toType));
         }
 
@@ -85,20 +86,7 @@ public class Warc {
 
         public Writer(org.iokit.core.write.Writer<WarcRecord> recordWriter,
                       org.iokit.core.write.Writer<Void> concatenatorWriter) {
-            super(recordWriter.out);
-            this.recordWriter = recordWriter;
-            this.concatenatorWriter = concatenatorWriter;
-        }
-
-        @Override
-        public void write(WarcRecord record) {
-            recordWriter.write(record);
-            concatenatorWriter.write(null);
-        }
-
-        @Override
-        public void close() {
-            Try.toRun(out::close);
+            super(recordWriter, concatenatorWriter);
         }
     }
 }
