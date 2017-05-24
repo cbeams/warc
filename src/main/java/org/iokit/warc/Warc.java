@@ -59,7 +59,7 @@ public class Warc {
     }
 
 
-    public static class Writer extends org.iokit.core.write.Writer<WarcRecord> {
+    public static class Writer extends org.iokit.core.write.Writer<WarcRecord> { // TODO: pull up to ConcatenationWriter
 
         private final org.iokit.core.write.Writer<WarcRecord> recordWriter;
         private final org.iokit.core.write.Writer<Void> concatenatorWriter;

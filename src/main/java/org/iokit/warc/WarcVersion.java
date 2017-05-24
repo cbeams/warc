@@ -46,7 +46,7 @@ public class WarcVersion {
     }
 
 
-    public static class Parser extends ValidatingParser<WarcVersion> {
+    public static class Parser extends ValidatingParser<WarcVersion> { // TODO: rearrange this and other members
 
         public Parser() {
             this(new WarcVersion.Validator());
