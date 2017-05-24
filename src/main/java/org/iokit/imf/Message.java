@@ -1,18 +1,15 @@
 package org.iokit.imf;
 
+import static java.util.Objects.requireNonNull;
+
 public class Message<H extends Header, B extends Body> {
 
     private final H header;
     private final B body;
 
     public Message(H header, B body) {
-        if (header == null) // TODO: asserts
-            throw new IllegalArgumentException("message header may not be null");
-        if (body == null)
-            throw new IllegalArgumentException("message body may not be null");
-
-        this.header = header;
-        this.body = body;
+        this.header = requireNonNull(header);
+        this.body = requireNonNull(body);
     }
 
     public H getHeader() {
