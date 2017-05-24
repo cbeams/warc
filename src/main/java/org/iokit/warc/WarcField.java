@@ -1,7 +1,5 @@
 package org.iokit.warc;
 
-import org.iokit.imf.read.FieldReader;
-
 import org.iokit.imf.Field;
 import org.iokit.imf.FieldName;
 import org.iokit.imf.FieldValue;
@@ -17,7 +15,7 @@ public class WarcField extends Field {
     }
 
 
-    public static class Reader extends FieldReader {
+    public static class Reader extends Field.Reader {
 
         public Reader(LineReader lineReader) {
             this(lineReader, new WarcField.Parser());

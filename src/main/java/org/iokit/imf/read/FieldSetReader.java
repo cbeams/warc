@@ -1,5 +1,6 @@
 package org.iokit.imf.read;
 
+import org.iokit.imf.Field;
 import org.iokit.imf.FieldSet;
 
 import org.iokit.core.read.Reader;
@@ -13,10 +14,10 @@ import static java.util.stream.Collectors.toCollection;
 
 public class FieldSetReader extends Reader<FieldSet> {
 
-    private final FieldReader fieldReader;
+    private final Field.Reader fieldReader;
     private final Validator<FieldSet> fieldSetValidator;
 
-    public FieldSetReader(FieldReader fieldReader, Validator<FieldSet> fieldSetValidator) {
+    public FieldSetReader(Field.Reader fieldReader, Validator<FieldSet> fieldSetValidator) {
         super(fieldReader.in);
         this.fieldReader = fieldReader;
         this.fieldSetValidator = fieldSetValidator;

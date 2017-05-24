@@ -14,8 +14,8 @@ public class FieldReaderSpec {
 
     @Test
     public void readSimpleField() {
-        FieldReader fieldReader =
-            new FieldReader(
+        Field.Reader fieldReader =
+            new Field.Reader(
                 new FoldedLineReader(
                         new LineInputStream(
                             new ByteArrayInputStream("Field-Name: field value".getBytes()))));
@@ -28,8 +28,8 @@ public class FieldReaderSpec {
 
     @Test
     public void readFoldingWhitespace() {
-        FieldReader fieldReader =
-            new FieldReader(
+        Field.Reader fieldReader =
+            new Field.Reader(
                 new FoldedLineReader(
                         new LineInputStream(
                             new ByteArrayInputStream("Field-Name: field\r\n     value".getBytes()))));
@@ -44,8 +44,8 @@ public class FieldReaderSpec {
 
     @Test
     public void readTwoLinesOfFoldingWhitespace() {
-        FieldReader fieldReader =
-            new FieldReader(
+        Field.Reader fieldReader =
+            new Field.Reader(
                 new FoldedLineReader(
                         new LineInputStream(
                             new ByteArrayInputStream("Field-Name: field\r\n     value\r\n cont".getBytes()))));

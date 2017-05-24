@@ -1,10 +1,18 @@
 package org.iokit.imf;
 
+import org.iokit.core.write.LineWriter;
+
+import org.iokit.core.read.LineReader;
+import org.iokit.core.read.OptionalReader;
+import org.iokit.core.read.ReaderException;
+
 import org.iokit.core.parse.ParsingException;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import static org.iokit.core.Ascii.COLON;
+import static org.iokit.core.read.NewlineReader.isNewline;
 
 public class Field {
 
@@ -43,6 +51,47 @@ public class Field {
     @Override
     public int hashCode() {
         return Objects.hash(name, value);
+    }
+
+
+    public static class Reader extends OptionalReader<Field> {
+
+        private final LineReader lineReader;
+        private final org.iokit.core.parse.Parser<Field> fieldParser;
+
+        public Reader(LineReader lineReader) {
+            this(lineReader, new Parser());
+        }
+
+        public Reader(LineReader lineReader, org.iokit.core.parse.Parser<Field> fieldParser) { // TODO: do away with this level of generality everywhere?
+            super(lineReader.in);
+            this.lineReader = lineReader;
+            this.fieldParser = fieldParser;
+        }
+
+        @Override
+        public Optional<Field> readOptional() throws ReaderException {
+            Optional<String> line = lineReader.readOptional().filter(s -> !isNewline(s));
+
+            return line.isPresent() ?
+                Optional.of(fieldParser.parse(line.get())) :
+                Optional.empty();
+        }
+    }
+
+
+    public static class Writer extends org.iokit.core.write.Writer<Field> {
+
+        private final LineWriter lineWriter;
+
+        public Writer(LineWriter lineWriter) {
+            super(lineWriter.out);
+            this.lineWriter = lineWriter;
+        }
+
+        public void write(Field field) {
+            lineWriter.write(String.format("%s%c %s", field.getName(), SEPARATOR, field.getValue().getFoldedValue()));
+        }
     }
 
 
