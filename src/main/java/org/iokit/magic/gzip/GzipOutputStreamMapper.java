@@ -1,4 +1,6 @@
-package org.iokit.core.output.mapping;
+package org.iokit.magic.gzip;
+
+import org.iokit.magic.OutputStreamMapper;
 
 import org.iokit.lang.Try;
 

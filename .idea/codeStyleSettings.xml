@@ -15,6 +15,8 @@
             <emptyLine />
             <package name="org.iokit.imf" withSubpackages="true" static="false" />
             <emptyLine />
+            <package name="org.iokit.magic" withSubpackages="true" static="false" />
+            <emptyLine />
             <package name="org.iokit.line" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.core.write" withSubpackages="true" static="false" />
@@ -24,8 +26,6 @@
             <package name="org.iokit.core.validate" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.core.parse" withSubpackages="true" static="false" />
-            <emptyLine />
-            <package name="org.iokit.core.output" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.core.input" withSubpackages="true" static="false" />
             <emptyLine />

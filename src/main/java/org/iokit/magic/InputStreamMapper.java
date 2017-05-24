@@ -1,4 +1,4 @@
-package org.iokit.core.input.mapping;
+package org.iokit.magic;
 
 import java.io.InputStream;
 

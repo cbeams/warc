@@ -1,15 +1,14 @@
 package org.iokit.warc;
 
+import org.iokit.magic.MappableFileOutputStream;
+import org.iokit.magic.MappedInputStream;
+import org.iokit.magic.MappedOutputStream;
+
 import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
 import org.iokit.core.read.ConcatenationReader;
-
-import org.iokit.core.output.mapping.MappableFileOutputStream;
-import org.iokit.core.output.mapping.MappedOutputStream;
-
-import org.iokit.core.input.mapping.MappedInputStream;
 
 import org.iokit.lang.Try;
 
