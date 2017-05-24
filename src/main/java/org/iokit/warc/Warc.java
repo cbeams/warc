@@ -63,6 +63,7 @@ public class Warc {
     public static class Writer extends ConcatenationWriter<WarcRecord> {
 
         // TODO: add and test String ctor
+        // TODO: implement getByteCount up the stack
 
         public Writer(File warcFile) {
             this(Try.toCall(() -> new MappableFileOutputStream(warcFile)));
