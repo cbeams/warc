@@ -1,8 +1,4 @@
-package org.iokit.imf.read;
-
-import org.iokit.imf.Body;
-import org.iokit.imf.Header;
-import org.iokit.imf.Message;
+package org.iokit.imf;
 
 import org.iokit.core.read.ParameterizedReader;
 import org.iokit.core.read.Reader;

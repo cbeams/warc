@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.imf.read.MessageReader;
+import org.iokit.imf.MessageReader;
 
 import org.iokit.imf.Message;
 import org.iokit.imf.MessageWriter;
