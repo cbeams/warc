@@ -17,26 +17,6 @@ public class WarcField extends Field {
     }
 
 
-    public enum Type implements Field.Type { // TODO: support field-type specific validation
-        WARC_Type("WARC-Type"),
-        WARC_Record_ID("WARC-Record-ID"),
-        Content_Type("Content-Type"),
-        Content_Length("Content-Length"),
-        WARC_Date("WARC-Date");
-
-        private final FieldName name;
-
-        Type(String name) {
-            this.name = new FieldName(name);
-        }
-
-        @Override
-        public FieldName getName() {
-            return name;
-        }
-    }
-
-
     public static class Reader extends FieldReader {
 
         public Reader(LineReader lineReader) {

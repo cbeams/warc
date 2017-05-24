@@ -46,12 +46,6 @@ public class Field {
     }
 
 
-    public interface Type {
-
-        FieldName getName();
-    }
-
-
     public static class Parser implements org.iokit.core.parse.Parser<Field> {
 
         private final org.iokit.core.parse.Parser<FieldName> nameParser;

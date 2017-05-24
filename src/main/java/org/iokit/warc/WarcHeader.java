@@ -12,7 +12,7 @@ import org.iokit.core.write.LineWriter;
 import org.iokit.core.read.LineReader;
 import org.iokit.core.read.ReaderException;
 
-import static org.iokit.warc.WarcField.Type.*;
+import static org.iokit.warc.WarcDefinedField.*;
 
 public class WarcHeader extends StartLineHeader<WarcVersion> {
 
@@ -25,27 +25,23 @@ public class WarcHeader extends StartLineHeader<WarcVersion> {
     }
 
     public WarcRecord.Type getRecordType() {
-        try {
-            return WarcRecord.Type.valueOf(getField(WARC_Type).getValue().toString()); // TODO: add convenience getField accessor
-        } catch (IllegalArgumentException ex) {
-            return WarcRecord.Type.unknown;
-        }
+        return getFieldValue(WARC_Type).map(WarcRecord.Type::of).get();
     }
 
     public String getDate() {
-        return getField(WARC_Date).getValue().toString();
+        return getFieldValue(WARC_Date).get();
     }
 
     public String getContentType() {
-        return getField(Content_Type).getValue().toString();
+        return getFieldValue(Content_Type).get();
     }
 
     public int getContentLength() {
-        return Integer.valueOf(getField(Content_Length).getValue().toString()); // TODO: should be long
+        return getFieldValue(Content_Length).map(Integer::valueOf).get();
     }
 
     public String getRecordId() {
-        return getField(WARC_Record_ID).getValue().toString();
+        return getFieldValue(WARC_Record_ID).get();
     }
 
 
