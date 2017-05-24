@@ -41,7 +41,7 @@ public class WarcHeader extends StartLineHeader<WarcVersion> {
     }
 
 
-    public static class Reader extends org.iokit.core.read.Reader<WarcHeader> {
+    public static class Reader extends org.iokit.core.read.Reader<WarcHeader> { // TODO: pull up to StartLineHeader.Reader
 
         private final org.iokit.core.read.Reader<WarcVersion> versionReader;
         private final FieldSet.Reader fieldSetReader;
@@ -65,7 +65,7 @@ public class WarcHeader extends StartLineHeader<WarcVersion> {
     }
 
 
-    public static class Writer extends org.iokit.core.write.Writer<WarcHeader> {
+    public static class Writer extends org.iokit.core.write.Writer<WarcHeader> { // TODO: pull up to StartLineHeader.Writer
 
         private final org.iokit.core.write.Writer<WarcVersion> versionWriter;
         private final FieldSet.Writer fieldSetWriter;

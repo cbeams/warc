@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 public class WarcFieldSet extends FieldSet {
 
-    public static class Validator implements org.iokit.core.validate.Validator<FieldSet> { // TODO: create (abstract?) FieldSet.Validator base class
+    public static class Validator implements org.iokit.core.validate.Validator<FieldSet> { // TODO: pull up to (abstract?) FieldSet.Validator base class
 
         @Override
         public void validate(FieldSet fieldSet) throws ValidatorException {
