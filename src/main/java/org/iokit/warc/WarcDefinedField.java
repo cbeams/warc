@@ -1,6 +1,7 @@
 package org.iokit.warc;
 
 import org.iokit.imf.DefinedField;
+import org.iokit.imf.FieldName;
 
 public enum WarcDefinedField implements DefinedField { // TODO: support field-type specific validation
     WARC_Type("WARC-Type"),
@@ -9,14 +10,14 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
     Content_Length("Content-Length"),
     WARC_Date("WARC-Date");
 
-    private final String fieldName;
+    private final FieldName fieldName;
 
     WarcDefinedField(String fieldName) {
-        this.fieldName = fieldName;
+        this.fieldName = new FieldName(fieldName);
     }
 
     @Override
-    public String fieldName() {
+    public FieldName fieldName() {
         return fieldName;
     }
 }

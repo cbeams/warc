@@ -4,14 +4,10 @@ import java.util.Objects;
 
 public class Token {
 
-    private final String value;
+    protected final String value;
 
     public Token(String value) {
         this.value = value;
-    }
-
-    public String getValue() { // TODO: remove in favor of using toString only (confusing for field name to have a value)
-        return value;
     }
 
     @Override

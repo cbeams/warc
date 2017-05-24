@@ -18,12 +18,12 @@ public class FieldName extends Token {
         if (this == that) return true;
         if (that == null || getClass() != that.getClass()) return false;
         FieldName name = (FieldName) that;
-        return Objects.equals(this.getValue().toLowerCase(), name.getValue().toLowerCase());
+        return this.value.equalsIgnoreCase(name.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getValue().toLowerCase());
+        return Objects.hash(value.toLowerCase());
     }
 
 
@@ -48,7 +48,7 @@ public class FieldName extends Token {
         }
 
         public FieldName parse(String input) throws ParsingException {
-            return new FieldName(tokenParser.parse(input).getValue());
+            return new FieldName(tokenParser.parse(input).value);
         }
     }
 }
