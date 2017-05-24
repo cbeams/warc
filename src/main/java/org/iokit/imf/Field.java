@@ -48,15 +48,14 @@ public class Field {
 
     public static class Parser implements org.iokit.core.parse.Parser<Field> {
 
-        private final org.iokit.core.parse.Parser<FieldName> nameParser;
-        private final org.iokit.core.parse.Parser<FieldValue> valueParser;
+        private final FieldName.Parser nameParser;
+        private final FieldValue.Parser valueParser;
 
         public Parser() {
             this(new FieldName.Parser(), new FieldValue.Parser());
         }
 
-        public Parser(org.iokit.core.parse.Parser<FieldName> nameParser,
-                      org.iokit.core.parse.Parser<FieldValue> valueParser) {
+        public Parser(FieldName.Parser nameParser, FieldValue.Parser valueParser) {
             this.nameParser = nameParser;
             this.valueParser = valueParser;
         }

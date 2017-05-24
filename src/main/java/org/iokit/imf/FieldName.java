@@ -27,9 +27,7 @@ public class FieldName extends Token {
     }
 
 
-    public static class Parser implements org.iokit.core.parse.Parser<FieldName> {
-
-        private final Token.Parser tokenParser;
+    public static class Parser extends Token.Parser {
 
         public Parser() {
             this(Specials.NONE);
@@ -39,16 +37,12 @@ public class FieldName extends Token {
             this(new Token.Validator(specials));
         }
 
-        public Parser(Token.Validator tokenValidator) {
-            this.tokenParser = new Token.Parser(tokenValidator);
-        }
-
-        public Parser(Token.Parser tokenParser) {
-            this.tokenParser = tokenParser;
+        public Parser(Token.Validator validator) {
+            super(validator);
         }
 
         public FieldName parse(String input) throws ParsingException {
-            return new FieldName(tokenParser.parse(input).value);
+            return new FieldName(super.parse(input).value);
         }
     }
 }

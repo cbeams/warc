@@ -66,7 +66,7 @@ public class Token {
             this(new Validator(specials));
         }
 
-        public Parser(org.iokit.core.validate.Validator validator) {
+        public Parser(org.iokit.core.validate.Validator<String> validator) {
             super(validator);
         }
 
