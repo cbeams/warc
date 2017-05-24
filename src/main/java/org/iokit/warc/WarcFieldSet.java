@@ -32,7 +32,7 @@ public class WarcFieldSet extends FieldSet {
         }
 
         public Reader(FoldedLineReader lineReader) {
-            this(new FieldReader(lineReader), DEFAULT_FIELD_SET_VALIDATOR);
+            this(new WarcField.Reader(lineReader), DEFAULT_FIELD_SET_VALIDATOR);
         }
 
         public Reader(FieldReader fieldReader, org.iokit.core.validate.Validator<FieldSet> fieldSetValidator) {

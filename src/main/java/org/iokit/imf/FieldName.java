@@ -29,13 +29,21 @@ public class FieldName extends Token {
 
     public static class Parser implements org.iokit.core.parse.Parser<FieldName> {
 
-        private final org.iokit.core.parse.Parser<Token> tokenParser;
+        private final TokenParser tokenParser;
 
         public Parser() {
-            this(new TokenParser());
+            this(Specials.NONE);
         }
 
-        public Parser(org.iokit.core.parse.Parser<Token> tokenParser) {
+        public Parser(Specials specials) {
+            this(new TokenValidator(specials));
+        }
+
+        public Parser(TokenValidator tokenValidator) {
+            this.tokenParser = new TokenParser(tokenValidator);
+        }
+
+        public Parser(TokenParser tokenParser) {
             this.tokenParser = tokenParser;
         }
 

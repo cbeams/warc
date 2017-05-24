@@ -7,8 +7,8 @@ import org.iokit.core.parse.ValidatingParser;
 
 public class TokenParser extends ValidatingParser<Token> { // TODO: make nested class of Token?
 
-    public TokenParser() {
-        this(new TokenValidator());
+    public TokenParser(Specials specials) {
+        this(new TokenValidator(specials));
     }
 
     public TokenParser(Validator<String> validator) {

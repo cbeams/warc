@@ -25,10 +25,14 @@ public class FieldSpecs {
     public static class FieldSpec extends ValjoSpec {
 
         public FieldSpec() {
-            super(
+            this(
                 "Valid-Name: valid value A",
                 "Valid-Name: valid value B"
             );
+        }
+
+        protected FieldSpec(String inputA, String inputB, String... moreInputs) {
+            super(inputA, inputB, moreInputs);
         }
 
         @Override

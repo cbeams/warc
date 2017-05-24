@@ -20,6 +20,9 @@ import java.io.OutputStream;
 
 public class Warc {
 
+    public static final String MIME_TYPE = "application/warc";
+
+
     public static class Reader extends ConcatenationReader<WarcRecord> {
 
         public static final int DEFAULT_MINIMUM_READ_COUNT = 1;
