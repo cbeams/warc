@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class TokenSpec extends ValjoSpec {
 
     private final Specials specials = () -> new char[]{'@', '?'};
-    private final TokenParser tokenParser = new TokenParser(specials);
+    private final Token.Parser tokenParser = new Token.Parser(specials);
 
     public TokenSpec() {
         super(
