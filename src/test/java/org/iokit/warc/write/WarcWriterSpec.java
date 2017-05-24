@@ -1,6 +1,7 @@
 package org.iokit.warc.write;
 
 import org.iokit.warc.Warc;
+import org.iokit.warc.WarcRecord;
 
 import org.iokit.core.input.LineInputStream;
 
@@ -17,7 +18,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.iokit.warc.WarcRecord.Writer.DEFAULT_LINE_TERMINATOR;
 
 public class WarcWriterSpec {
 
@@ -90,7 +90,7 @@ public class WarcWriterSpec {
         // 42864 (before parallel)
         // 18797 (after parallel)
 
-        try (Warc.Reader reader = new Warc.Reader(new LineInputStream(new GZIPInputStream(new FileInputStream(originalFile), 1024 * 1024), DEFAULT_LINE_TERMINATOR));
+        try (Warc.Reader reader = new Warc.Reader(new LineInputStream(new GZIPInputStream(new FileInputStream(originalFile), 1024 * 1024), WarcRecord.DEFAULT_LINE_TERMINATOR));
              Warc.Writer writer = new Warc.Writer(new ParallelGZIPOutputStream(new FileOutputStream(newFile)))) {
 
             reader.stream().forEach(writer::write);

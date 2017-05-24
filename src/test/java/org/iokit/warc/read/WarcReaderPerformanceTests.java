@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 
 import static java.lang.System.currentTimeMillis;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.iokit.warc.WarcRecord.Writer.DEFAULT_LINE_TERMINATOR;
+import static org.iokit.warc.WarcRecord.DEFAULT_LINE_TERMINATOR;
 
 
 

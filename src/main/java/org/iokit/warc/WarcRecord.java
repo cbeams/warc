@@ -24,6 +24,8 @@ import java.util.function.BiFunction;
  */
 public class WarcRecord extends Message<WarcHeader, WarcBody> {
 
+    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF;
+
     public WarcRecord(WarcHeader header, WarcBody body) {
         super(header, body);
     }
@@ -51,8 +53,6 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
 
     public static class Reader extends MessageReader<WarcHeader, WarcBody, WarcRecord> {
 
-        public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF; // TODO: Consolidate into Warc class
-
         public Reader(InputStream in) {
             this(new LineInputStream(in, DEFAULT_LINE_TERMINATOR));
         }
@@ -79,8 +79,6 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
 
 
     public static class Writer extends org.iokit.core.write.Writer<WarcRecord> {
-
-        public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF; // TODO: consolidate
 
         private final org.iokit.core.write.Writer<WarcHeader> headerWriter;
         private final org.iokit.core.write.Writer<WarcBody> bodyWriter;

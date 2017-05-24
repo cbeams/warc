@@ -6,23 +6,14 @@ import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.input.LineInputStream;
 
-import org.iokit.core.LineTerminator;
-
 import java.util.Optional;
 
-public class FoldedLineReader extends LineReader {
+import static org.iokit.core.LineTerminator.CR_LF;
 
-    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF; // TODO: move to Message? Move others too?
-
-    private final LineTerminator terminator;
+public class FoldedLineReader extends LineReader { // TODO: make nested class of FoldedLine
 
     public FoldedLineReader(LineInputStream in) {
-        this(in, DEFAULT_LINE_TERMINATOR);
-    }
-
-    public FoldedLineReader(LineInputStream in, LineTerminator terminator) {
         super(in);
-        this.terminator = terminator;
     }
 
     @Override
@@ -35,7 +26,7 @@ public class FoldedLineReader extends LineReader {
         StringBuilder lines = new StringBuilder(firstLine.get());
 
         while (nextLineStartsWithTabOrSpace())
-            lines.append(terminator).append(super.read());
+            lines.append(CR_LF).append(super.read());
 
         return Optional.of(lines.toString());
     }
@@ -45,6 +36,6 @@ public class FoldedLineReader extends LineReader {
     }
 
     private boolean isTabOrSpace(byte b) {
-        return b == ' ' || b == '\t';
+        return b == ' ' || b == '\t'; // TODO: Ascii
     }
 }

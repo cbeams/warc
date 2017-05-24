@@ -37,7 +37,7 @@ public class Warc {
         }
 
         public Reader(MappedInputStream in) {
-            this(new LineInputStream(in, WarcRecord.Reader.DEFAULT_LINE_TERMINATOR));
+            this(new LineInputStream(in, WarcRecord.DEFAULT_LINE_TERMINATOR));
         }
 
         public Reader(LineInputStream in) {
@@ -74,7 +74,7 @@ public class Warc {
         }
 
         public Writer(OutputStream out) {
-            this(new LineWriter(out, WarcRecord.Writer.DEFAULT_LINE_TERMINATOR));
+            this(new LineWriter(out, WarcRecord.DEFAULT_LINE_TERMINATOR));
         }
 
         public Writer(LineWriter lineWriter) {

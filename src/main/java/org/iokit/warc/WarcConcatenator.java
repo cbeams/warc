@@ -41,7 +41,7 @@ public class WarcConcatenator {
             this.lineWriter = lineWriter;
         }
 
-        public void write(Void value) {
+        public void write(Void value) { // TODO: write() variant
             lineWriter.write(); // TODO: extract Warc(Concatenator?).NEWLINE_COUNT
             lineWriter.write();
         }
