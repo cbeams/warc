@@ -6,6 +6,6 @@ public class WarcSpecials implements Specials {
 
     @Override
     public char[] chars() {
-        return new char[] { '(', ')', '@', ',', ';', ':', '\\', '/', '[', ']', '?', '=', '{', '}', ' ', '\t' };
+        return new char[] { '(', ')', '@', ',', ';', ':', '\\', '/', '[', ']', '?', '=', '{', '}', ' ', '\t' }; // TODO: Ascii
     }
 }

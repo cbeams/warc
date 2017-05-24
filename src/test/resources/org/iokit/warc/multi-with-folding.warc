@@ -19,9 +19,9 @@ WARC-Record-ID: <urn:uuid:8edd598b-b9d2-4e8c-9390-46ab012d8d46>
 WARC-Refers-To: <urn:uuid:22ac0f4a-4d54-42f0-9743-d6a0f8f90b33>
 Content-Type: application/json
 Content-Length: 1151
-Folded-Field: this line
- has been folded
- twice
+Folded-Field: this field value has been folded twice:
+	once with a tab
+ and once with a space
 
 {"Envelope":{"Format":"WARC","WARC-Header-Length":"274","Block-Digest":"sha1:VHEQLKB5KT23M2WL44WYDQ7HAH2G6BYE","Actual-Content-Length":"342","WARC-Header-Metadata":{"WARC-Type":"warcinfo","WARC-Filename":"CC-MAIN-20170322212946-00006-ip-10-233-31-227.ec2.internal.warc.gz","WARC-Date":"2017-03-31T03:57:45Z","Content-Length":"342","WARC-Record-ID":"<urn:uuid:22ac0f4a-4d54-42f0-9743-d6a0f8f90b33>","Content-Type":"application/warc-fields"},"Payload-Metadata":{"Trailing-Slop-Length":"0","Actual-Content-Type":"application/warc-fields","Actual-Content-Length":"342","Headers-Corrupt":true,"WARC-Info-Metadata":{"robots":"classic","software":"Nutch 1.6 (CC)/CC WarcExport 1.0","description":"Wide crawl of the web for March 2017","hostname":"ip-10-233-31-227.ec2.internal","format":"WARC File Format 1.0","isPartOf":"CC-MAIN-2017-13","operator":"CommonCrawl Admin","publisher":"CommonCrawl"}}},"Container":{"Compressed":true,"Gzip-Metadata":{"Footer-Length":"8","Deflate-Length":"430","Header-Length":"10","Inflated-CRC":"1661820550","Inflated-Length":"620"},"Offset":"0","Filename":"CC-MAIN-20170322212946-00006-ip-10-233-31-227.ec2.internal.warc.gz"}}
 

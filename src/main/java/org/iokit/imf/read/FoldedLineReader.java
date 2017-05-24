@@ -8,9 +8,10 @@ import org.iokit.core.input.LineInputStream;
 
 import java.util.Optional;
 
+import static org.iokit.core.Ascii.*;
 import static org.iokit.core.LineTerminator.CR_LF;
 
-public class FoldedLineReader extends LineReader { // TODO: make nested class of FoldedLine
+public class FoldedLineReader extends LineReader {
 
     public FoldedLineReader(LineInputStream in) {
         super(in);
@@ -36,6 +37,6 @@ public class FoldedLineReader extends LineReader { // TODO: make nested class of
     }
 
     private boolean isTabOrSpace(byte b) {
-        return b == ' ' || b == '\t'; // TODO: Ascii
+        return b == SPACE || b == TAB;
     }
 }
