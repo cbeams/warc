@@ -11,7 +11,7 @@ import org.iokit.lang.Try;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class WarcBody implements Body<byte[]> { // TODO: pull up to ByteArrayBody?
+public class WarcBody implements Body<byte[]> { // TODO: pull up to ByteArrayBody? BinaryBody?
 
     private final byte[] value;
 
@@ -25,9 +25,9 @@ public class WarcBody implements Body<byte[]> { // TODO: pull up to ByteArrayBod
     }
 
 
-    public static class Reader implements ParameterizedReader<WarcHeader, WarcBody> {
+    public static class Reader implements ParameterizedReader<WarcHeader, WarcBody> { // TODO: pull up to BinaryReader
 
-        private final ByteArrayReader byteArrayReader;
+        private final ByteArrayReader byteArrayReader; // TODO: // rename to BinaryReader
 
         public Reader(InputStream in) {
             this.byteArrayReader = new ByteArrayReader(in);
@@ -35,7 +35,7 @@ public class WarcBody implements Body<byte[]> { // TODO: pull up to ByteArrayBod
 
         @Override
         public WarcBody read(WarcHeader header) throws ReaderException {
-            return new WarcBody(byteArrayReader.read(header.getContentLength()));
+            return new WarcBody(byteArrayReader.read(header.getContentLength())); // TODO: call super.read(header.contentLength) on BinaryReader superclass (which just takes a long length to read)
         }
     }
 
@@ -46,7 +46,7 @@ public class WarcBody implements Body<byte[]> { // TODO: pull up to ByteArrayBod
             super(out);
         }
 
-        public void write(WarcBody body) { // TODO: pull up to imf.BodyWriter
+        public void write(WarcBody body) { // TODO: pull up to imf.BodyWriter / BinaryBodyWriter
             Try.toRun(() -> out.write(body.getData()));
         }
     }

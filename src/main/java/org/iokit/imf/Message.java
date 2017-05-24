@@ -1,4 +1,4 @@
-package org.iokit.imf;
+package org.iokit.imf; // TODO: rename to iokit.message
 
 import org.iokit.core.read.ParameterizedReader;
 import org.iokit.core.read.ReaderException;
