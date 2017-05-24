@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-class OptionalReaderIterator<T> implements Iterator<T> {
+class OptionalReaderIterator<T> implements Iterator<T> { // TODO: nest back within OptionalReader
 
     private final OptionalReader<T> reader;
 
