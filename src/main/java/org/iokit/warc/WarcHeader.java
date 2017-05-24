@@ -6,7 +6,6 @@ import org.iokit.imf.StartLineHeader;
 import org.iokit.core.write.LineWriter;
 
 import org.iokit.core.read.LineReader;
-import org.iokit.core.read.ReaderException;
 
 import static org.iokit.warc.WarcDefinedField.*;
 
@@ -17,11 +16,11 @@ public class WarcHeader extends StartLineHeader<WarcVersion> {
     }
 
     public WarcVersion getVersion() {
-        return startLineValue;
+        return startLine;
     }
 
     public WarcRecord.Type getRecordType() {
-        return getFieldValue(WARC_Type).map(WarcRecord.Type::of).get();
+        return getFieldValue(WARC_Type).map(WarcRecord.Type::of).get(); // TODO: decide what to do with unchecked gets
     }
 
     public String getDate() {
@@ -41,35 +40,19 @@ public class WarcHeader extends StartLineHeader<WarcVersion> {
     }
 
 
-    public static class Reader extends org.iokit.core.read.Reader<WarcHeader> { // TODO: pull up to StartLineHeader.Reader
-
-        private final org.iokit.core.read.Reader<WarcVersion> versionReader;
-        private final FieldSet.Reader fieldSetReader;
+    public static class Reader extends StartLineHeader.Reader<WarcVersion, WarcHeader> {
 
         public Reader(LineReader lineReader) {
             this(new WarcVersion.Reader(lineReader), new WarcFieldSet.Reader(lineReader));
         }
 
         public Reader(org.iokit.core.read.Reader<WarcVersion> versionReader, FieldSet.Reader fieldSetReader) {
-            super(versionReader.in);
-            this.versionReader = versionReader;
-            this.fieldSetReader = fieldSetReader;
-        }
-
-        @Override
-        public WarcHeader read() throws ReaderException {
-            return new WarcHeader(
-                versionReader.read(),
-                fieldSetReader.read());
+            super(versionReader, fieldSetReader, WarcHeader::new);
         }
     }
 
 
-    public static class Writer extends org.iokit.core.write.Writer<WarcHeader> { // TODO: pull up to StartLineHeader.Writer
-
-        private final org.iokit.core.write.Writer<WarcVersion> versionWriter;
-        private final FieldSet.Writer fieldSetWriter;
-        private final LineWriter lineWriter;
+    public static class Writer extends StartLineHeader.Writer {
 
         public Writer(LineWriter lineWriter) {
             this(new WarcVersion.Writer(lineWriter), new FieldSet.Writer(lineWriter), lineWriter);
@@ -77,17 +60,7 @@ public class WarcHeader extends StartLineHeader<WarcVersion> {
 
         public Writer(org.iokit.core.write.Writer<WarcVersion> versionWriter,
                       FieldSet.Writer fieldSetWriter, LineWriter lineWriter) {
-            super(versionWriter.out);
-            this.versionWriter = versionWriter;
-            this.fieldSetWriter = fieldSetWriter;
-            this.lineWriter = lineWriter;
-        }
-
-        @Override
-        public void write(WarcHeader header) {
-            versionWriter.write(header.getVersion());
-            fieldSetWriter.write(header.getFieldSet());
-            lineWriter.write();
+            super(versionWriter, fieldSetWriter, lineWriter);
         }
     }
 }
