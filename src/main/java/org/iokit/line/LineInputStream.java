@@ -1,6 +1,6 @@
-package org.iokit.core.input;
+package org.iokit.line;
 
-import org.iokit.core.LineTerminator;
+import org.iokit.core.input.Scrollable;
 
 import org.iokit.lang.Try;
 

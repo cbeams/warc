@@ -1,8 +1,8 @@
 package org.iokit.core.read;
 
-import org.iokit.core.input.LineInputStream;
-
-import org.iokit.core.LineTerminator;
+import org.iokit.line.LineInputStream;
+import org.iokit.line.LineReader;
+import org.iokit.line.LineTerminator;
 
 import org.junit.Test;
 

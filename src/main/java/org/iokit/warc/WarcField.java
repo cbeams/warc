@@ -4,7 +4,7 @@ import org.iokit.imf.Field;
 import org.iokit.imf.FieldName;
 import org.iokit.imf.FieldValue;
 
-import org.iokit.core.read.LineReader;
+import org.iokit.line.LineReader;
 
 public class WarcField extends Field {
 

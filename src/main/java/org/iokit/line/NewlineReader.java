@@ -1,4 +1,7 @@
-package org.iokit.core.read;
+package org.iokit.line;
+
+import org.iokit.core.read.OptionalReader;
+import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.validate.ValidatorException;
 

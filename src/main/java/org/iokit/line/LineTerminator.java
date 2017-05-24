@@ -1,6 +1,8 @@
-package org.iokit.core;
+package org.iokit.line;
 
-public enum LineTerminator { // TODO: move this and related line types to core.line
+import org.iokit.core.Ascii;
+
+public enum LineTerminator {
 
     // Note that names below (CR, LF, CR_LF) must be exactly
     // the same as the names in fastutil's LineTerminator enum

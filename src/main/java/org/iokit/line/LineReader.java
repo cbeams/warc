@@ -1,6 +1,7 @@
-package org.iokit.core.read;
+package org.iokit.line;
 
-import org.iokit.core.input.LineInputStream;
+import org.iokit.core.read.OptionalReader;
+import org.iokit.core.read.ReaderException;
 
 import it.unimi.dsi.fastutil.bytes.ByteArrays;
 

@@ -3,9 +3,8 @@ package org.iokit.warc;
 import org.iokit.imf.FieldSet;
 import org.iokit.imf.StartLineHeader;
 
-import org.iokit.core.write.LineWriter;
-
-import org.iokit.core.read.LineReader;
+import org.iokit.line.LineReader;
+import org.iokit.line.LineWriter;
 
 import static org.iokit.warc.WarcDefinedField.*;
 

@@ -2,14 +2,12 @@ package org.iokit.warc;
 
 import org.iokit.imf.Message;
 
-import org.iokit.core.write.LineWriter;
+import org.iokit.line.LineInputStream;
+import org.iokit.line.LineReader;
+import org.iokit.line.LineTerminator;
+import org.iokit.line.LineWriter;
 
-import org.iokit.core.read.LineReader;
 import org.iokit.core.read.ParameterizedReader;
-
-import org.iokit.core.input.LineInputStream;
-
-import org.iokit.core.LineTerminator;
 
 import java.io.InputStream;
 import java.io.OutputStream;

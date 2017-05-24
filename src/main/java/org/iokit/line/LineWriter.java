@@ -1,6 +1,6 @@
-package org.iokit.core.write;
+package org.iokit.line;
 
-import org.iokit.core.LineTerminator;
+import org.iokit.core.write.Writer;
 
 import org.iokit.lang.Try;
 

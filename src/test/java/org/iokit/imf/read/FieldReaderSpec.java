@@ -2,7 +2,7 @@ package org.iokit.imf.read;
 
 import org.iokit.imf.Field;
 
-import org.iokit.core.input.LineInputStream;
+import org.iokit.line.LineInputStream;
 
 import org.junit.Test;
 

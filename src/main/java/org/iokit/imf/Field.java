@@ -1,8 +1,8 @@
 package org.iokit.imf;
 
-import org.iokit.core.write.LineWriter;
+import org.iokit.line.LineReader;
+import org.iokit.line.LineWriter;
 
-import org.iokit.core.read.LineReader;
 import org.iokit.core.read.OptionalReader;
 import org.iokit.core.read.ReaderException;
 
@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static org.iokit.core.Ascii.COLON;
-import static org.iokit.core.read.NewlineReader.isNewline;
+import static org.iokit.line.NewlineReader.isNewline;
 
 public class Field {
 

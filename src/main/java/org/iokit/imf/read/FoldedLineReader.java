@@ -1,15 +1,15 @@
 package org.iokit.imf.read;
 
-import org.iokit.core.read.LineReader;
-import org.iokit.core.read.NewlineReader;
-import org.iokit.core.read.ReaderException;
+import org.iokit.line.LineInputStream;
+import org.iokit.line.LineReader;
+import org.iokit.line.NewlineReader;
 
-import org.iokit.core.input.LineInputStream;
+import org.iokit.core.read.ReaderException;
 
 import java.util.Optional;
 
 import static org.iokit.core.Ascii.*;
-import static org.iokit.core.LineTerminator.CR_LF;
+import static org.iokit.line.LineTerminator.CR_LF;
 
 public class FoldedLineReader extends LineReader {
 

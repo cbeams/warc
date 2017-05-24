@@ -1,6 +1,6 @@
 package org.iokit.imf;
 
-import org.iokit.core.write.LineWriter;
+import org.iokit.line.LineWriter;
 
 import org.iokit.core.read.ReaderException;
 

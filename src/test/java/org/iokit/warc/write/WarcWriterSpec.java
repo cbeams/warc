@@ -3,7 +3,7 @@ package org.iokit.warc.write;
 import org.iokit.warc.Warc;
 import org.iokit.warc.WarcRecord;
 
-import org.iokit.core.input.LineInputStream;
+import org.iokit.line.LineInputStream;
 
 import org.junit.Ignore;
 import org.junit.Test;

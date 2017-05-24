@@ -5,7 +5,7 @@ import org.iokit.core.validate.Validator;
 import org.iokit.core.validate.ValidatorException;
 
 import static org.iokit.core.Ascii.*;
-import static org.iokit.core.LineTerminator.CR_LF;
+import static org.iokit.line.LineTerminator.CR_LF;
 
 public class FoldedLineValidator implements Validator<String> {
 
