@@ -8,6 +8,9 @@ import org.iokit.core.read.ReaderException;
 
 public class WarcConcatenator {
 
+    public static final int NEWLINE_COUNT = 2;
+
+
     public static class Reader extends org.iokit.core.read.Reader<Boolean> {
 
         private final NewlineReader newlineReader;
@@ -23,7 +26,7 @@ public class WarcConcatenator {
 
         @Override
         public Boolean read() throws ReaderException {
-            for (int i = 0; i < 2; i++) // TODO: extract constant for newline count
+            for (int i = 0; i < NEWLINE_COUNT; i++)
                 if (!newlineReader.readOptional().isPresent())
                     return false;
 
@@ -42,8 +45,8 @@ public class WarcConcatenator {
         }
 
         public void write(Void value) { // TODO: write() variant
-            lineWriter.write(); // TODO: extract Warc(Concatenator?).NEWLINE_COUNT
-            lineWriter.write();
+            for (int i = 0; i < NEWLINE_COUNT; i++)
+                lineWriter.write();
         }
     }
 }

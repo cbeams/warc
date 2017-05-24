@@ -23,7 +23,7 @@ public abstract class Reader<T> implements Closeable {
         this.cursor = requireNonNull(cursor);
     }
 
-    public abstract T read() throws ReaderException;
+    public abstract T read() throws ReaderException; // TODO: stop declaring unchecked exceptions at interface level?
 
     @Override
     public void close() {
