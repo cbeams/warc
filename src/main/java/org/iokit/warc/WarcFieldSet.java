@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.imf.read.FoldedLineReader;
+import org.iokit.imf.FoldedLineReader;
 
 import org.iokit.imf.Field;
 import org.iokit.imf.FieldSet;

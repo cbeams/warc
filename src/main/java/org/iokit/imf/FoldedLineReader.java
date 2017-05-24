@@ -1,4 +1,4 @@
-package org.iokit.imf.read;
+package org.iokit.imf;
 
 import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;

@@ -9,10 +9,6 @@
           <value>
             <package name="org.iokit.warc" withSubpackages="true" static="false" />
             <emptyLine />
-            <package name="org.iokit.imf.write" withSubpackages="true" static="false" />
-            <emptyLine />
-            <package name="org.iokit.imf.read" withSubpackages="true" static="false" />
-            <emptyLine />
             <package name="org.iokit.imf" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.magic" withSubpackages="true" static="false" />
