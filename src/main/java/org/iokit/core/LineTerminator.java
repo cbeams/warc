@@ -5,16 +5,16 @@ public enum LineTerminator {
     // Note that names below (CR, LF, CR_LF) must be exactly
     // the same as the names in fastutil's LineTerminator enum
 
-    CR("\r"),
-    LF("\n"),
-    CR_LF("\r\n");
+    CR((byte) Ascii.CR),
+    LF((byte) Ascii.LF),
+    CR_LF((byte) Ascii.CR, (byte) Ascii.LF);
 
-    private final String value;
     public final byte[] bytes;
+    private final String value;
 
-    LineTerminator(String value) {
-        this.value = value;
-        this.bytes = value.getBytes();
+    LineTerminator(byte... bytes) {
+        this.bytes = bytes;
+        this.value = new String(bytes);
     }
 
     @Override
