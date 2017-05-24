@@ -10,7 +10,7 @@ import org.iokit.core.read.ReaderException;
 
 import java.util.function.BiFunction;
 
-public class MessageReader<H extends Header, B extends Body, M extends Message> extends Reader<M> {
+public class MessageReader<H extends Header, B extends Body, M extends Message<H, B>> extends Reader<M> {
 
     protected final Reader<H> headerReader;
     protected final ParameterizedReader<H, B> bodyReader;

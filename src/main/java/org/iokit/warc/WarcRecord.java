@@ -3,6 +3,7 @@ package org.iokit.warc;
 import org.iokit.imf.read.MessageReader;
 
 import org.iokit.imf.Message;
+import org.iokit.imf.MessageWriter;
 
 import org.iokit.core.write.LineWriter;
 
@@ -86,10 +87,7 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
     }
 
 
-    public static class Writer extends org.iokit.core.write.Writer<WarcRecord> {
-
-        private final org.iokit.core.write.Writer<WarcHeader> headerWriter;
-        private final org.iokit.core.write.Writer<WarcBody> bodyWriter;
+    public static class Writer extends MessageWriter<WarcHeader, WarcBody, WarcRecord> {
 
         public Writer(OutputStream out) {
             this(new LineWriter(out, DEFAULT_LINE_TERMINATOR));
@@ -101,15 +99,7 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
 
         public Writer(org.iokit.core.write.Writer<WarcHeader> headerWriter,
                       org.iokit.core.write.Writer<WarcBody> bodyWriter) {
-            super(headerWriter.out);
-            this.headerWriter = headerWriter;
-            this.bodyWriter = bodyWriter;
-        }
-
-        @Override
-        public void write(WarcRecord record) {
-            headerWriter.write(record.getHeader());
-            bodyWriter.write(record.getBody());
+            super(headerWriter, bodyWriter);
         }
     }
 }
