@@ -1,9 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.imf.MessageReader;
-
 import org.iokit.imf.Message;
-import org.iokit.imf.MessageWriter;
 
 import org.iokit.core.write.LineWriter;
 
@@ -60,7 +57,7 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
     }
 
 
-    public static class Reader extends MessageReader<WarcHeader, WarcBody, WarcRecord> {
+    public static class Reader extends Message.Reader<WarcHeader, WarcBody, WarcRecord> {
 
         public Reader(InputStream in) {
             this(new LineInputStream(in, DEFAULT_LINE_TERMINATOR));
@@ -87,7 +84,7 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
     }
 
 
-    public static class Writer extends MessageWriter<WarcHeader, WarcBody, WarcRecord> {
+    public static class Writer extends Message.Writer<WarcHeader, WarcBody, WarcRecord> {
 
         public Writer(OutputStream out) {
             this(new LineWriter(out, DEFAULT_LINE_TERMINATOR));
