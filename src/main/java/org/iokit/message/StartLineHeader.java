@@ -15,7 +15,7 @@ public abstract class StartLineHeader<SL, FS extends FieldSet> extends FieldSetH
     public abstract static class Reader<SL, FS extends FieldSet, H extends StartLineHeader<SL, FS>>
         extends Header.Reader<H> {
 
-        private final org.iokit.core.read.Reader<SL> startLineReader; // TODO: introduce StartLine.Reader/Writer pair
+        private final org.iokit.core.read.Reader<SL> startLineReader;
         private final FieldSet.Reader<FS> fieldSetReader;
         private final BiFunction<SL, FS, H> headerFactory;
 
