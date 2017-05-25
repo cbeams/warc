@@ -14,8 +14,8 @@ import static org.iokit.warc.WarcDefinedField.*;
 
 public class WarcFieldSet extends FieldSet {
 
-    public WarcRecord.Type getRecordType() {
-        return getRequiredFieldValue(WARC_Type, WarcRecord.Type::unknownSafeValueOf);
+    public WarcType getRecordType() {
+        return getRequiredFieldValue(WARC_Type, WarcType::typeOf);
     }
 
     public String getDate() {
@@ -39,7 +39,7 @@ public class WarcFieldSet extends FieldSet {
 
         @Override
         public void validate(WarcFieldSet fieldSet) throws ValidatorException {
-            WarcRecord.Type type = fieldSet.getRecordType();
+            WarcType type = fieldSet.getRecordType();
             for (WarcDefinedField field : WarcDefinedField.values())
                 if (field.isRequiredFor(type) && !fieldSet.getField(field.fieldName()).isPresent())
                     throw new FieldNotFoundException(field.fieldName());

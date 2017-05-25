@@ -14,7 +14,7 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.iokit.warc.WarcRecord.Type.warcinfo;
+import static org.iokit.warc.WarcType.warcinfo;
 
 public class WarcRecordReaderSpec {
 

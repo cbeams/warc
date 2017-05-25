@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.iokit.warc.WarcRecord.Type.metadata;
+import static org.iokit.warc.WarcType.metadata;
 
 public class WarcReaderSpec {
 

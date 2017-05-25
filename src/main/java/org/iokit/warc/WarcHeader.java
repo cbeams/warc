@@ -16,7 +16,7 @@ public class WarcHeader extends StartLineHeader<WarcVersion, WarcFieldSet> {
         return startLine;
     }
 
-    public WarcRecord.Type getRecordType() {
+    public WarcType getRecordType() {
         return fieldSet.getRecordType();
     }
 

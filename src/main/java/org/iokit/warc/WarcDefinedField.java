@@ -27,13 +27,13 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
     WARC_Segment_Total_Length;
 
     private final FieldName fieldName;
-    private final Predicate<WarcRecord.Type> required;
+    private final Predicate<WarcType> required;
 
     WarcDefinedField() {
         this(t -> false);
     }
 
-    WarcDefinedField(Predicate<WarcRecord.Type> required) {
+    WarcDefinedField(Predicate<WarcType> required) {
         this.fieldName = new FieldName(translate(name()));
         this.required = required;
     }
@@ -47,7 +47,7 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
         return fieldName;
     }
 
-    public boolean isRequiredFor(WarcRecord.Type type) {
+    public boolean isRequiredFor(WarcType type) {
         return required.test(type);
     }
 }
