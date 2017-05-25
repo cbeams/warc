@@ -26,6 +26,7 @@ public class BinaryBody implements Body<byte[]> {
         protected final BinaryReader binaryReader;
 
         public Reader(InputStream in) {
+            super(in);
             this.binaryReader = new BinaryReader(in);
         }
     }

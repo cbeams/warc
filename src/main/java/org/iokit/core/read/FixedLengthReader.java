@@ -1,6 +1,18 @@
 package org.iokit.core.read;
 
-public interface FixedLengthReader<T> { // TODO: extend Reader and throw UOE from read()?
+import java.io.InputStream;
 
-    T read(int length);
+public abstract class FixedLengthReader<T> extends Reader<T> {
+
+    public FixedLengthReader(InputStream in) {
+        super(in);
+    }
+
+    @Override
+    @Deprecated
+    public T read() {
+        throw new UnsupportedOperationException("This reader requires a parameter. Call read(int) instead.");
+    }
+
+    public abstract T read(int length);
 }

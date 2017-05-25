@@ -1,6 +1,18 @@
 package org.iokit.core.read;
 
-public interface ParameterizedReader<P, T> { // TODO: extend Reader and throw UOE from read()?
+import java.io.InputStream;
 
-    T read(P param);
+public abstract class ParameterizedReader<P, T> extends Reader {
+
+    public ParameterizedReader(InputStream in) {
+        super(in);
+    }
+
+    @Override
+    @Deprecated
+    public T read() {
+        throw new UnsupportedOperationException("This reader requires a parameter. Call read(P) instead.");
+    }
+
+    public abstract T read(P param);
 }

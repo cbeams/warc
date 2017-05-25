@@ -4,12 +4,10 @@ import org.iokit.lang.Try;
 
 import java.io.InputStream;
 
-public class BinaryReader implements FixedLengthReader<byte[]> {
-
-    private final InputStream in;
+public class BinaryReader extends FixedLengthReader<byte[]> {
 
     public BinaryReader(InputStream in) {
-        this.in = in;
+        super(in);
     }
 
     @Override

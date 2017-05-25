@@ -9,6 +9,7 @@ public abstract class ParameterlessWriter extends Writer<Void> {
     }
 
     @Override
+    @Deprecated
     public final void write(Void unsupported) {
         throw new UnsupportedOperationException("This writer does not accept a parameter. Call write() instead.");
     }
