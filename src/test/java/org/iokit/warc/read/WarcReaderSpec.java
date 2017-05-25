@@ -52,7 +52,7 @@ public class WarcReaderSpec {
 
         WarcRecord record = reader.read();
         assertThat(record.getHeader().getVersion()).hasToString(WarcVersion.WARC_1_0);
-        assertThat(record.getHeader().getRecordType()).isEqualTo(metadata);
+        assertThat(record.getHeader().getType()).isEqualTo(metadata);
         assertThat(record.getHeader().getContentLength()).isEqualTo(1152);
         assertThat(record.getBody().getData()[record.getBody().getData().length - 1]).isEqualTo((byte) '}');
 

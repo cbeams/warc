@@ -8,30 +8,87 @@ import org.iokit.line.LineReader;
 
 import org.iokit.core.validate.ValidatorException;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import static org.iokit.warc.WarcDefinedField.*;
 
 public class WarcFieldSet extends FieldSet {
 
-    public WarcType getRecordType() {
+    public WarcType getType() {
         return getRequiredFieldValue(WARC_Type, WarcType::typeOf);
+    }
+
+    public String getRecordId() {
+        return getRequiredFieldValue(WARC_Record_ID);
     }
 
     public String getDate() {
         return getRequiredFieldValue(WARC_Date);
     }
 
-    public String getContentType() {
-        return getRequiredFieldValue(Content_Type);
-    }
-
     public int getContentLength() {
         return getRequiredFieldValue(Content_Length, Integer::valueOf);
     }
 
-    public String getRecordId() {
-        return getRequiredFieldValue(WARC_Record_ID);
+    public Optional<String> getContentType() {
+        return getFieldValue(Content_Type);
+    }
+
+    public Optional<String> getConcurrentTo() {
+        return getFieldValue(WARC_Concurrent_To);
+    }
+
+    public Optional<String> getBlockDigest() {
+        return getFieldValue(WARC_Block_Digest);
+    }
+
+    public Optional<String> getPayloadDigest() {
+        return getFieldValue(WARC_Payload_Digest);
+    }
+
+    public Optional<String> getIpAddress() {
+        return getFieldValue(WARC_IP_Address);
+    }
+
+    public Optional<String> getRefersTo() {
+        return getFieldValue(WARC_Refers_To);
+    }
+
+    public Optional<String> getTargetUri() {
+        return getFieldValue(WARC_Target_URI);
+    }
+
+    public Optional<String> getTruncated() {
+        return getFieldValue(WARC_Truncated);
+    }
+
+    public Optional<String> getWarcinfoID() {
+        return getFieldValue(WARC_Block_Digest);
+    }
+
+    public Optional<String> getFilename() {
+        return getFieldValue(WARC_Filename);
+    }
+
+    public Optional<String> getProfile() {
+        return getFieldValue(WARC_Profile);
+    }
+
+    public Optional<String> getIdentifiedPayloadType() {
+        return getFieldValue(WARC_Identified_Payload_Type);
+    }
+
+    public Optional<String> getSegmentOriginID() {
+        return getFieldValue(WARC_Segment_Origin_ID);
+    }
+
+    public Optional<String> getSegmentNumber() {
+        return getFieldValue(WARC_Segment_Number);
+    }
+
+    public Optional<String> getSegmentTotalLength() {
+        return getFieldValue(WARC_Segment_Total_Length);
     }
 
 
@@ -39,7 +96,7 @@ public class WarcFieldSet extends FieldSet {
 
         @Override
         public void validate(WarcFieldSet fieldSet) throws ValidatorException {
-            WarcType type = fieldSet.getRecordType();
+            WarcType type = fieldSet.getType();
             for (WarcDefinedField field : WarcDefinedField.values())
                 if (field.isRequiredFor(type) && !fieldSet.getField(field.fieldName()).isPresent())
                     throw new FieldNotFoundException(field.fieldName());

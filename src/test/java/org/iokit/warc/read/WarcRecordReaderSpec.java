@@ -51,7 +51,7 @@ public class WarcRecordReaderSpec {
         byte[] body = record.getBody().getData();
 
         assertThat(header.getVersion()).hasToString(WarcVersion.WARC_1_0);
-        assertThat(header.getRecordType()).isEqualTo(warcinfo);
+        assertThat(header.getType()).isEqualTo(warcinfo);
         assertThat(header.getDate()).isEqualTo("2006-09-19T17:20:14Z");
         assertThat(header.getRecordId()).isEqualTo("<urn:uuid:d7ae5c10-e6b3-4d27-967d-34780c58ba39>");
         assertThat(header.getContentType()).isEqualTo(WarcField.MIME_TYPE);
