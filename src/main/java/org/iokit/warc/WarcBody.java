@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.imf.Body;
+import org.iokit.imf.BinaryBody;
 
 import org.iokit.core.read.ByteArrayReader;
 import org.iokit.core.read.ParameterizedReader;
@@ -11,17 +11,10 @@ import org.iokit.lang.Try;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class WarcBody implements Body<byte[]> { // TODO: pull up to ByteArrayBody? BinaryBody?
-
-    private final byte[] value;
+public class WarcBody extends BinaryBody {
 
     public WarcBody(byte[] value) {
-        this.value = value;
-    }
-
-    @Override
-    public byte[] getData() {
-        return value;
+        super(value);
     }
 
 
