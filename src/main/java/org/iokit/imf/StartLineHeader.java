@@ -18,11 +18,11 @@ public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHea
     public abstract static class Reader<S, F extends FieldSet, H extends StartLineHeader<S, F>> extends org.iokit.core.read.Reader<H> {
 
         private final org.iokit.core.read.Reader<S> startLineReader;
-        private final org.iokit.core.read.Reader<F> fieldSetReader;
+        private final FieldSet.Reader<F> fieldSetReader;
         private final BiFunction<S, F, H> headerFactory;
 
         public Reader(org.iokit.core.read.Reader<S> startLineReader,
-                      org.iokit.core.read.Reader<F> fieldSetReader,
+                      FieldSet.Reader<F> fieldSetReader,
                       BiFunction<S, F, H> headerFactory) {
             super(startLineReader.in);
             this.startLineReader = startLineReader;

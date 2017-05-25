@@ -104,7 +104,7 @@ public class WarcFieldSet extends FieldSet {
     }
 
 
-    public static class Reader extends FieldSet.Reader {
+    public static class Reader extends FieldSet.Reader<WarcFieldSet> {
 
         public Reader(LineReader lineReader) {
             this(new FoldedLine.Reader(lineReader.in));
@@ -119,7 +119,7 @@ public class WarcFieldSet extends FieldSet {
         }
 
         @Override
-        protected Supplier<FieldSet> newFieldSet() {
+        protected Supplier<WarcFieldSet> newFieldSet() {
             return WarcFieldSet::new;
         }
     }
