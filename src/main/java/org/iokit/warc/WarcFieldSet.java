@@ -90,18 +90,6 @@ public class WarcFieldSet extends FieldSet {
     }
 
 
-    public static class Validator implements org.iokit.core.validate.Validator<WarcFieldSet> { // TODO: pull up to (abstract?) FieldSet.Validator base class
-
-        @Override
-        public void validate(WarcFieldSet fieldSet) {
-            WarcType type = fieldSet.getType();
-            for (WarcDefinedField field : WarcDefinedField.values())
-                if (field.isRequiredFor(type) && !fieldSet.getField(field.fieldName()).isPresent())
-                    throw new FieldNotFoundException(field.fieldName());
-        }
-    }
-
-
     public static class Reader extends FieldSet.Reader<WarcFieldSet> {
 
         public Reader(LineReader lineReader) {
@@ -119,6 +107,18 @@ public class WarcFieldSet extends FieldSet {
         @Override
         protected Supplier<WarcFieldSet> newFieldSet() {
             return WarcFieldSet::new;
+        }
+    }
+
+
+    public static class Validator implements org.iokit.core.validate.Validator<WarcFieldSet> { // TODO: pull up to (abstract?) FieldSet.Validator base class
+
+        @Override
+        public void validate(WarcFieldSet fieldSet) {
+            WarcType type = fieldSet.getType();
+            for (WarcDefinedField field : WarcDefinedField.values())
+                if (field.isRequiredFor(type) && !fieldSet.getField(field.fieldName()).isPresent())
+                    throw new FieldNotFoundException(field.fieldName());
         }
     }
 }

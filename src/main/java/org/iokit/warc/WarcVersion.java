@@ -43,33 +43,6 @@ public class WarcVersion {
     }
 
 
-    public static class Parser extends ValidatingParser<WarcVersion> { // TODO: rearrange this and other members
-
-        public Parser() {
-            this(new WarcVersion.Validator());
-        }
-
-        public Parser(org.iokit.core.validate.Validator<String> validator) {
-            super(validator);
-        }
-
-        @Override
-        public WarcVersion parseValidated(String input) {
-            return new WarcVersion(input);
-        }
-    }
-
-
-    public static class Validator implements org.iokit.core.validate.Validator<String> {
-
-        @Override
-        public void validate(String input) {
-            if (!WARC_1_0.equals(input) && !WARC_1_1.equals(input))
-                throw new ValidatorException("[%s] is an unsupported or otherwise malformed WARC record version", input);
-        }
-    }
-
-
     public static class Reader extends org.iokit.core.read.Reader<WarcVersion> {
 
         private final LineReader lineReader;
@@ -102,6 +75,33 @@ public class WarcVersion {
 
         public void write(WarcVersion version) {
             lineWriter.write(version.getValue());
+        }
+    }
+
+
+    public static class Parser extends ValidatingParser<WarcVersion> {
+
+        public Parser() {
+            this(new WarcVersion.Validator());
+        }
+
+        public Parser(org.iokit.core.validate.Validator<String> validator) {
+            super(validator);
+        }
+
+        @Override
+        public WarcVersion parseValidated(String input) {
+            return new WarcVersion(input);
+        }
+    }
+
+
+    public static class Validator implements org.iokit.core.validate.Validator<String> {
+
+        @Override
+        public void validate(String input) {
+            if (!WARC_1_0.equals(input) && !WARC_1_1.equals(input))
+                throw new ValidatorException("[%s] is an unsupported or otherwise malformed WARC record version", input);
         }
     }
 }
