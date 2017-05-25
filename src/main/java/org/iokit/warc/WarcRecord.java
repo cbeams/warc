@@ -26,6 +26,8 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
         super(header, body);
     }
 
+    // TODO: generate delegate methods for WarcHeader. Everything should be super-convenient and directly accessible from WarcRecord
+
 
     public static class Reader extends Message.Reader<WarcHeader, WarcBody, WarcRecord> {
 

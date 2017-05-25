@@ -3,7 +3,6 @@ package org.iokit.warc.read;
 import org.iokit.warc.WarcField;
 import org.iokit.warc.WarcHeader;
 import org.iokit.warc.WarcRecord;
-import org.iokit.warc.WarcVersion;
 
 import org.iokit.imf.FieldNotFoundException;
 
@@ -15,6 +14,7 @@ import java.io.ByteArrayInputStream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.iokit.warc.WarcType.warcinfo;
+import static org.iokit.warc.WarcVersion.WARC_1_0;
 
 public class WarcRecordReaderSpec {
 
@@ -50,12 +50,12 @@ public class WarcRecordReaderSpec {
         WarcHeader header = record.getHeader();
         byte[] body = record.getBody().getData();
 
-        assertThat(header.getVersion()).hasToString(WarcVersion.WARC_1_0);
+        assertThat(header.getVersion()).hasToString(WARC_1_0);
         assertThat(header.getType()).isEqualTo(warcinfo);
         assertThat(header.getDate()).isEqualTo("2006-09-19T17:20:14Z");
         assertThat(header.getRecordId()).isEqualTo("<urn:uuid:d7ae5c10-e6b3-4d27-967d-34780c58ba39>");
-        assertThat(header.getContentType()).isEqualTo(WarcField.MIME_TYPE);
         assertThat(header.getContentLength()).isEqualTo(398);
+        assertThat(header.getContentType()).isPresent().hasValue(WarcField.MIME_TYPE);
 
         assertThat(body[0]).isEqualTo((byte) 's'); // the 's' in "software:" on the first line
         assertThat(body[body.length - 1]).isEqualTo((byte) 'l'); // the 'l' in ".html" on the last line
