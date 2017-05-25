@@ -2,24 +2,25 @@ package org.iokit.imf;
 
 import java.util.function.BiFunction;
 
-public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHeader<F> { // TODO: SL, FS vs S F for clarity. Do it everywhere
+public abstract class StartLineHeader<SL, FS extends FieldSet> extends FieldSetHeader<FS> {
 
-    protected final S startLine;
+    protected final SL startLine;
 
-    public StartLineHeader(S startLine, F fieldSet) {
+    public StartLineHeader(SL startLine, FS fieldSet) {
         super(fieldSet);
         this.startLine = startLine;
     }
 
-    public abstract static class Reader<S, F extends FieldSet, H extends StartLineHeader<S, F>> extends Header.Reader<H> {
+    public abstract static class Reader<SL, FS extends FieldSet, H extends StartLineHeader<SL, FS>>
+        extends Header.Reader<H> {
 
-        private final org.iokit.core.read.Reader<S> startLineReader; // TODO: introduce StartLine.Reader/Writer pair
-        private final FieldSet.Reader<F> fieldSetReader;
-        private final BiFunction<S, F, H> headerFactory;
+        private final org.iokit.core.read.Reader<SL> startLineReader; // TODO: introduce StartLine.Reader/Writer pair
+        private final FieldSet.Reader<FS> fieldSetReader;
+        private final BiFunction<SL, FS, H> headerFactory;
 
-        public Reader(org.iokit.core.read.Reader<S> startLineReader,
-                      FieldSet.Reader<F> fieldSetReader,
-                      BiFunction<S, F, H> headerFactory) {
+        public Reader(org.iokit.core.read.Reader<SL> startLineReader,
+                      FieldSet.Reader<FS> fieldSetReader,
+                      BiFunction<SL, FS, H> headerFactory) {
             super(startLineReader.in);
             this.startLineReader = startLineReader;
             this.fieldSetReader = fieldSetReader;
@@ -33,13 +34,14 @@ public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHea
     }
 
 
-    public abstract static class Writer<S, F extends FieldSet, H extends StartLineHeader<S, F>> extends Header.Writer<H> {
+    public abstract static class Writer<SL, FS extends FieldSet, H extends StartLineHeader<SL, FS>>
+        extends Header.Writer<H> {
 
-        private final org.iokit.core.write.Writer<S> startLineWriter;
-        private final FieldSet.Writer<F> fieldSetWriter;
+        private final org.iokit.core.write.Writer<SL> startLineWriter;
+        private final FieldSet.Writer<FS> fieldSetWriter;
 
-        public Writer(org.iokit.core.write.Writer<S> startLineWriter,
-                      FieldSet.Writer<F> fieldSetWriter) {
+        public Writer(org.iokit.core.write.Writer<SL> startLineWriter,
+                      FieldSet.Writer<FS> fieldSetWriter) {
             super(startLineWriter.out);
             this.startLineWriter = startLineWriter;
             this.fieldSetWriter = fieldSetWriter;

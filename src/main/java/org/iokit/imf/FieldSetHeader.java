@@ -1,10 +1,10 @@
 package org.iokit.imf;
 
-public class FieldSetHeader<F extends FieldSet> implements Header {
+public class FieldSetHeader<FS extends FieldSet> implements Header {
 
-    protected final F fieldSet;
+    protected final FS fieldSet;
 
-    public FieldSetHeader(F fieldSet) {
+    public FieldSetHeader(FS fieldSet) {
         this.fieldSet = fieldSet;
     }
 }

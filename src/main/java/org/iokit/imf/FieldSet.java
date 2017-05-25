@@ -45,28 +45,28 @@ public class FieldSet extends LinkedHashSet<Field> {
     }
 
 
-    public abstract static class Reader<F extends FieldSet> extends org.iokit.core.read.Reader<F> {
+    public abstract static class Reader<FS extends FieldSet> extends org.iokit.core.read.Reader<FS> {
 
         private final Field.Reader fieldReader;
-        private final Validator<F> fieldSetValidator;
+        private final Validator<FS> fieldSetValidator;
 
-        public Reader(Field.Reader fieldReader, Validator<F> fieldSetValidator) {
+        public Reader(Field.Reader fieldReader, Validator<FS> fieldSetValidator) {
             super(fieldReader.in);
             this.fieldReader = fieldReader;
             this.fieldSetValidator = fieldSetValidator;
         }
 
-        public F read() {
-            F fieldSet = fieldReader.stream().collect(toCollection(newFieldSet()));
+        public FS read() {
+            FS fieldSet = fieldReader.stream().collect(toCollection(newFieldSet()));
             fieldSetValidator.validate(fieldSet);
             return fieldSet;
         }
 
-        protected abstract Supplier<F> newFieldSet();
+        protected abstract Supplier<FS> newFieldSet();
     }
 
 
-    public abstract static class Writer<F extends FieldSet> extends org.iokit.core.write.Writer<F> {
+    public abstract static class Writer<FS extends FieldSet> extends org.iokit.core.write.Writer<FS> {
 
         private final Field.Writer fieldWriter;
 
@@ -75,7 +75,7 @@ public class FieldSet extends LinkedHashSet<Field> {
             this.fieldWriter = fieldWriter;
         }
 
-        public final void write(F fieldSet) {
+        public final void write(FS fieldSet) {
             fieldSet.forEach(fieldWriter::write);
             writeAfterFields();
         }
