@@ -6,7 +6,7 @@ import org.iokit.core.read.ReaderException;
 
 import java.util.function.BiFunction;
 
-public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHeader<F> {
+public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHeader<F> { // TODO: SL, FS vs S F for clarity. Do it everywhere
 
     protected final S startLine;
 
