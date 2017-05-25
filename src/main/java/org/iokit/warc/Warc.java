@@ -9,7 +9,6 @@ import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
 import org.iokit.core.write.ConcatenationWriter;
-import org.iokit.core.write.ParameterlessWriter;
 
 import org.iokit.core.read.ConcatenationReader;
 
@@ -53,8 +52,7 @@ public class Warc {
             this(new WarcRecord.Reader(lineReader), new WarcConcatenator.Reader(lineReader));
         }
 
-        public Reader(org.iokit.core.read.Reader<WarcRecord> recordReader,
-                      org.iokit.core.read.Reader<Boolean> concatenatorReader) {
+        public Reader(WarcRecord.Reader recordReader, WarcConcatenator.Reader concatenatorReader) {
             super(recordReader, concatenatorReader);
             setMinimumReadCount(DEFAULT_MINIMUM_READ_COUNT);
         }
@@ -86,9 +84,9 @@ public class Warc {
             this(new WarcRecord.Writer(lineWriter), new WarcConcatenator.Writer(lineWriter));
         }
 
-        public Writer(org.iokit.core.write.Writer<WarcRecord> recordWriter,
-                      ParameterlessWriter concatenatorWriter) {
+        public Writer(WarcRecord.Writer recordWriter, WarcConcatenator.Writer concatenatorWriter) {
             super(recordWriter, concatenatorWriter);
+            // TODO: set minimum write count
         }
     }
 }

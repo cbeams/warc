@@ -46,13 +46,13 @@ public class WarcVersion {
     public static class Reader extends org.iokit.core.read.Reader<WarcVersion> {
 
         private final LineReader lineReader;
-        private final org.iokit.core.parse.Parser<WarcVersion> parser;
+        private final WarcVersion.Parser parser;
 
         public Reader(LineReader lineReader) {
-            this(lineReader, new Parser());
+            this(lineReader, new WarcVersion.Parser());
         }
 
-        public Reader(LineReader lineReader, org.iokit.core.parse.Parser<WarcVersion> parser) {
+        public Reader(LineReader lineReader, WarcVersion.Parser parser) {
             super(lineReader.in);
             this.lineReader = lineReader;
             this.parser = parser;

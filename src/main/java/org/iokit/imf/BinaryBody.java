@@ -1,7 +1,6 @@
 package org.iokit.imf;
 
 import org.iokit.core.read.BinaryReader;
-import org.iokit.core.read.ParameterizedReader;
 
 import org.iokit.lang.Try;
 
@@ -22,7 +21,7 @@ public class BinaryBody implements Body<byte[]> {
     }
 
 
-    public abstract static class Reader<H extends Header, B extends BinaryBody> implements ParameterizedReader<H, B> {
+    public abstract static class Reader<H extends Header, B extends BinaryBody> extends Body.Reader<H, B> {
 
         protected final BinaryReader binaryReader;
 
@@ -32,7 +31,7 @@ public class BinaryBody implements Body<byte[]> {
     }
 
 
-    public static class Writer<B extends BinaryBody> extends org.iokit.core.write.Writer<B> {
+    public static class Writer<B extends BinaryBody> extends Body.Writer<B> {
 
         public Writer(OutputStream out) {
             super(out);

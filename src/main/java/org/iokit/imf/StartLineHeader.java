@@ -11,9 +11,9 @@ public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHea
         this.startLine = startLine;
     }
 
-    public abstract static class Reader<S, F extends FieldSet, H extends StartLineHeader<S, F>> extends org.iokit.core.read.Reader<H> {
+    public abstract static class Reader<S, F extends FieldSet, H extends StartLineHeader<S, F>> extends Header.Reader<H> {
 
-        private final org.iokit.core.read.Reader<S> startLineReader;
+        private final org.iokit.core.read.Reader<S> startLineReader; // TODO: introduce StartLine.Reader/Writer pair
         private final FieldSet.Reader<F> fieldSetReader;
         private final BiFunction<S, F, H> headerFactory;
 
@@ -33,13 +33,13 @@ public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHea
     }
 
 
-    public abstract static class Writer<S, F extends FieldSet, H extends StartLineHeader<S, F>> extends org.iokit.core.write.Writer<H> {
+    public abstract static class Writer<S, F extends FieldSet, H extends StartLineHeader<S, F>> extends Header.Writer<H> {
 
         private final org.iokit.core.write.Writer<S> startLineWriter;
-        private final FieldSet.Writer fieldSetWriter;
+        private final FieldSet.Writer<F> fieldSetWriter;
 
         public Writer(org.iokit.core.write.Writer<S> startLineWriter,
-                      FieldSet.Writer fieldSetWriter) {
+                      FieldSet.Writer<F> fieldSetWriter) {
             super(startLineWriter.out);
             this.startLineWriter = startLineWriter;
             this.fieldSetWriter = fieldSetWriter;

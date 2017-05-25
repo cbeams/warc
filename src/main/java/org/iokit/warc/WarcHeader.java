@@ -100,7 +100,7 @@ public class WarcHeader extends StartLineHeader<WarcVersion, WarcFieldSet> {
             this(new WarcVersion.Reader(lineReader), new WarcFieldSet.Reader(lineReader));
         }
 
-        public Reader(org.iokit.core.read.Reader<WarcVersion> versionReader, WarcFieldSet.Reader fieldSetReader) {
+        public Reader(WarcVersion.Reader versionReader, WarcFieldSet.Reader fieldSetReader) {
             super(versionReader, fieldSetReader, WarcHeader::new);
         }
     }
@@ -112,7 +112,7 @@ public class WarcHeader extends StartLineHeader<WarcVersion, WarcFieldSet> {
             this(new WarcVersion.Writer(lineWriter), new WarcFieldSet.Writer(lineWriter));
         }
 
-        public Writer(org.iokit.core.write.Writer<WarcVersion> versionWriter, WarcFieldSet.Writer fieldSetWriter) {
+        public Writer(WarcVersion.Writer versionWriter, WarcFieldSet.Writer fieldSetWriter) {
             super(versionWriter, fieldSetWriter);
         }
     }

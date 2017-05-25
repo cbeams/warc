@@ -56,13 +56,13 @@ public class Field {
     public static class Reader extends OptionalReader<Field> {
 
         private final LineReader lineReader;
-        private final org.iokit.core.parse.Parser<Field> fieldParser;
+        private final Field.Parser fieldParser;
 
         public Reader(LineReader lineReader) {
-            this(lineReader, new Parser());
+            this(lineReader, new Field.Parser());
         }
 
-        public Reader(LineReader lineReader, org.iokit.core.parse.Parser<Field> fieldParser) { // TODO: do away with this level of generality everywhere?
+        public Reader(LineReader lineReader, Field.Parser fieldParser) {
             super(lineReader.in);
             this.lineReader = lineReader;
             this.fieldParser = fieldParser;

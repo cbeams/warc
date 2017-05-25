@@ -21,7 +21,7 @@ public class WarcField extends Field {
             this(lineReader, new WarcField.Parser());
         }
 
-        public Reader(LineReader lineReader, org.iokit.core.parse.Parser<Field> fieldParser) {
+        public Reader(LineReader lineReader, WarcField.Parser fieldParser) {
             super(lineReader, fieldParser);
         }
     }

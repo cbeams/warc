@@ -60,10 +60,10 @@ public class Token {
     public static class Parser extends ValidatingParser<Token> {
 
         public Parser(Specials specials) {
-            this(new Validator(specials));
+            this(new Token.Validator(specials));
         }
 
-        public Parser(org.iokit.core.validate.Validator<String> validator) {
+        public Parser(Token.Validator validator) {
             super(validator);
         }
 

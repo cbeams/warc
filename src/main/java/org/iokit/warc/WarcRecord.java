@@ -1,13 +1,13 @@
 package org.iokit.warc;
 
+import org.iokit.imf.Body;
+import org.iokit.imf.Header;
 import org.iokit.imf.Message;
 
 import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
 import org.iokit.line.LineTerminator;
 import org.iokit.line.LineWriter;
-
-import org.iokit.core.read.ParameterizedReader;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -41,13 +41,13 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generat
             this(new WarcHeader.Reader(lineReader), new WarcBody.Reader(lineReader.in));
         }
 
-        public Reader(org.iokit.core.read.Reader<WarcHeader> headerReader,
-                      ParameterizedReader<WarcHeader, WarcBody> bodyReader) {
+        public Reader(Header.Reader<WarcHeader> headerReader,
+                      Body.Reader<WarcHeader, WarcBody> bodyReader) {
             this(headerReader, bodyReader, WarcRecord::new);
         }
 
-        public Reader(org.iokit.core.read.Reader<WarcHeader> headerReader,
-                      ParameterizedReader<WarcHeader, WarcBody> bodyReader,
+        public Reader(Header.Reader<WarcHeader> headerReader,
+                      Body.Reader<WarcHeader, WarcBody> bodyReader,
                       BiFunction<WarcHeader, WarcBody, WarcRecord> recordFactory) {
             super(headerReader, bodyReader, recordFactory);
         }
@@ -64,8 +64,8 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generat
             this(new WarcHeader.Writer(lineWriter), new WarcBody.Writer(lineWriter.out));
         }
 
-        public Writer(org.iokit.core.write.Writer<WarcHeader> headerWriter,
-                      org.iokit.core.write.Writer<WarcBody> bodyWriter) {
+        public Writer(Header.Writer<WarcHeader> headerWriter,
+                      Body.Writer<WarcBody> bodyWriter) {
             super(headerWriter, bodyWriter);
         }
     }
