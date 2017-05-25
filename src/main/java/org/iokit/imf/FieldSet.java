@@ -1,7 +1,5 @@
 package org.iokit.imf;
 
-import org.iokit.core.validate.Validator;
-
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.function.Function;
@@ -50,7 +48,7 @@ public class FieldSet extends LinkedHashSet<Field> {
         private final Field.Reader fieldReader;
         private final Validator<FS> fieldSetValidator;
 
-        public Reader(Field.Reader fieldReader, Validator<FS> fieldSetValidator) {
+        public Reader(Field.Reader fieldReader, FieldSet.Validator<FS> fieldSetValidator) {
             super(fieldReader.in);
             this.fieldReader = fieldReader;
             this.fieldSetValidator = fieldSetValidator;
@@ -81,5 +79,9 @@ public class FieldSet extends LinkedHashSet<Field> {
         }
 
         protected abstract void writeAfterFields();
+    }
+
+
+    public abstract static class Validator<FS extends FieldSet> implements org.iokit.core.validate.Validator<FS> {
     }
 }

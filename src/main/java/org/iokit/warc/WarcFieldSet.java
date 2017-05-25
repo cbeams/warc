@@ -128,7 +128,7 @@ public class WarcFieldSet extends FieldSet {
     }
 
 
-    public static class Validator implements org.iokit.core.validate.Validator<WarcFieldSet> { // TODO: pull up to (abstract?) FieldSet.Validator base class
+    public static class Validator extends FieldSet.Validator<WarcFieldSet> {
 
         @Override
         public void validate(WarcFieldSet fieldSet) {
