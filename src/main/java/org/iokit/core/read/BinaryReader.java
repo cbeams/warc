@@ -4,11 +4,11 @@ import org.iokit.lang.Try;
 
 import java.io.InputStream;
 
-public class ByteArrayReader implements FixedLengthReader<byte[]> {
+public class BinaryReader implements FixedLengthReader<byte[]> {
 
     private final InputStream in;
 
-    public ByteArrayReader(InputStream in) {
+    public BinaryReader(InputStream in) {
         this.in = in;
     }
 
