@@ -1,10 +1,12 @@
 package org.iokit.warc;
 
+import org.iokit.imf.Field;
 import org.iokit.imf.FieldNotFoundException;
 import org.iokit.imf.FieldSet;
 import org.iokit.imf.FoldedLine;
 
 import org.iokit.line.LineReader;
+import org.iokit.line.LineWriter;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -107,6 +109,21 @@ public class WarcFieldSet extends FieldSet {
         @Override
         protected Supplier<WarcFieldSet> newFieldSet() {
             return WarcFieldSet::new;
+        }
+    }
+
+
+    public static class Writer extends FieldSet.Writer<WarcFieldSet> {
+
+        private final LineWriter lineWriter;
+
+        public Writer(LineWriter lineWriter) {
+            super(new Field.Writer(lineWriter));
+            this.lineWriter = lineWriter;
+        }
+
+        public void writeAfterFields() {
+            lineWriter.write();
         }
     }
 

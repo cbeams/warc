@@ -1,7 +1,5 @@
 package org.iokit.imf;
 
-import org.iokit.line.LineWriter;
-
 import org.iokit.core.validate.Validator;
 
 import java.util.LinkedHashSet;
@@ -68,21 +66,20 @@ public class FieldSet extends LinkedHashSet<Field> {
     }
 
 
-    public static class Writer extends org.iokit.core.write.Writer<FieldSet> {
+    public abstract static class Writer<F extends FieldSet> extends org.iokit.core.write.Writer<F> {
 
         private final Field.Writer fieldWriter;
-
-        public Writer(LineWriter lineWriter) {
-            this(new Field.Writer(lineWriter));
-        }
 
         public Writer(Field.Writer fieldWriter) {
             super(fieldWriter.out);
             this.fieldWriter = fieldWriter;
         }
 
-        public void write(FieldSet fieldSet) {
+        public final void write(F fieldSet) {
             fieldSet.forEach(fieldWriter::write);
+            writeAfterFields();
         }
+
+        protected abstract void writeAfterFields();
     }
 }

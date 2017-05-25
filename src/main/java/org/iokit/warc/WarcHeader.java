@@ -1,6 +1,5 @@
 package org.iokit.warc;
 
-import org.iokit.imf.FieldSet;
 import org.iokit.imf.StartLineHeader;
 
 import org.iokit.line.LineReader;
@@ -110,12 +109,11 @@ public class WarcHeader extends StartLineHeader<WarcVersion, WarcFieldSet> {
     public static class Writer extends StartLineHeader.Writer<WarcVersion, WarcFieldSet, WarcHeader> {
 
         public Writer(LineWriter lineWriter) {
-            this(new WarcVersion.Writer(lineWriter), new FieldSet.Writer(lineWriter), lineWriter);
+            this(new WarcVersion.Writer(lineWriter), new WarcFieldSet.Writer(lineWriter));
         }
 
-        public Writer(org.iokit.core.write.Writer<WarcVersion> versionWriter, FieldSet.Writer fieldSetWriter,
-                      LineWriter lineWriter) { // TODO: eliminate need for passing along lineWriter here. Instead, create WarcFieldSet.Writer than always writes a trailing newline per the spec
-            super(versionWriter, fieldSetWriter, lineWriter);
+        public Writer(org.iokit.core.write.Writer<WarcVersion> versionWriter, WarcFieldSet.Writer fieldSetWriter) {
+            super(versionWriter, fieldSetWriter);
         }
     }
 }

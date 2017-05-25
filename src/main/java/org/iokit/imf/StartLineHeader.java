@@ -1,7 +1,5 @@
 package org.iokit.imf;
 
-import org.iokit.line.LineWriter;
-
 import java.util.function.BiFunction;
 
 public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHeader<F> { // TODO: SL, FS vs S F for clarity. Do it everywhere
@@ -39,22 +37,18 @@ public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHea
 
         private final org.iokit.core.write.Writer<S> startLineWriter;
         private final FieldSet.Writer fieldSetWriter;
-        private final LineWriter lineWriter;
 
         public Writer(org.iokit.core.write.Writer<S> startLineWriter,
-                      FieldSet.Writer fieldSetWriter,
-                      LineWriter lineWriter) {
+                      FieldSet.Writer fieldSetWriter) {
             super(startLineWriter.out);
             this.startLineWriter = startLineWriter;
             this.fieldSetWriter = fieldSetWriter;
-            this.lineWriter = lineWriter;
         }
 
         @Override
         public void write(H header) {
             startLineWriter.write(header.startLine);
             fieldSetWriter.write(header.fieldSet);
-            lineWriter.write();
         }
     }
 }
