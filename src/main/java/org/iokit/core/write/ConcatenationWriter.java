@@ -5,9 +5,9 @@ import org.iokit.lang.Try;
 public class ConcatenationWriter<T> extends Writer<T> {
 
     private final Writer<T> valueWriter;
-    private final Writer<Void> concatenatorWriter;
+    private final ParameterlessWriter concatenatorWriter;
 
-    public ConcatenationWriter(Writer<T> valueWriter, Writer<Void> concatenatorWriter) {
+    public ConcatenationWriter(Writer<T> valueWriter, ParameterlessWriter concatenatorWriter) {
         super(valueWriter.out);
         this.valueWriter = valueWriter;
         this.concatenatorWriter = concatenatorWriter;
@@ -16,7 +16,7 @@ public class ConcatenationWriter<T> extends Writer<T> {
     @Override
     public void write(T record) {
         valueWriter.write(record);
-        concatenatorWriter.write(null);
+        concatenatorWriter.write();
     }
 
     @Override

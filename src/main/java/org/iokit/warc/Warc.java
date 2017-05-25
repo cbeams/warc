@@ -9,6 +9,7 @@ import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
 import org.iokit.core.write.ConcatenationWriter;
+import org.iokit.core.write.ParameterlessWriter;
 
 import org.iokit.core.read.ConcatenationReader;
 
@@ -86,7 +87,7 @@ public class Warc {
         }
 
         public Writer(org.iokit.core.write.Writer<WarcRecord> recordWriter,
-                      org.iokit.core.write.Writer<Void> concatenatorWriter) {
+                      ParameterlessWriter concatenatorWriter) {
             super(recordWriter, concatenatorWriter);
         }
     }

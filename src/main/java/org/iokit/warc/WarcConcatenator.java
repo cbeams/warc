@@ -4,6 +4,8 @@ import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 import org.iokit.line.NewlineReader;
 
+import org.iokit.core.write.ParameterlessWriter;
+
 public class WarcConcatenator {
 
     public static final int NEWLINE_COUNT = 2;
@@ -33,7 +35,7 @@ public class WarcConcatenator {
     }
 
 
-    public static class Writer extends org.iokit.core.write.Writer<Void> {
+    public static class Writer extends ParameterlessWriter {
 
         private final LineWriter lineWriter;
 
@@ -42,7 +44,8 @@ public class WarcConcatenator {
             this.lineWriter = lineWriter;
         }
 
-        public void write(Void value) { // TODO: write() variant
+        @Override
+        public void write() {
             for (int i = 0; i < NEWLINE_COUNT; i++)
                 lineWriter.write();
         }
