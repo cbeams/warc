@@ -1,7 +1,4 @@
-package org.iokit.warc.read;
-
-import org.iokit.warc.Warc;
-import org.iokit.warc.WarcRecord;
+package org.iokit.warc;
 
 import org.junit.Ignore;
 import org.junit.Test;

@@ -1,7 +1,4 @@
-package org.iokit.warc.read;
-
-import org.iokit.warc.WarcBody;
-import org.iokit.warc.WarcHeader;
+package org.iokit.warc;
 
 import org.junit.Test;
 

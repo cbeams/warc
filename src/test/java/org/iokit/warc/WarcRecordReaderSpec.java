@@ -1,8 +1,4 @@
-package org.iokit.warc.read;
-
-import org.iokit.warc.WarcField;
-import org.iokit.warc.WarcHeader;
-import org.iokit.warc.WarcRecord;
+package org.iokit.warc;
 
 import org.iokit.message.FieldNotFoundException;
 

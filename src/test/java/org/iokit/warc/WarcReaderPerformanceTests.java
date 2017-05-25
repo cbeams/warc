@@ -1,6 +1,4 @@
-package org.iokit.warc.read;
-
-import org.iokit.warc.Warc;
+package org.iokit.warc;
 
 import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;

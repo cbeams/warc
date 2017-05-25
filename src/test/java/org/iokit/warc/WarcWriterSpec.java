@@ -1,7 +1,4 @@
-package org.iokit.warc.write;
-
-import org.iokit.warc.Warc;
-import org.iokit.warc.WarcRecord;
+package org.iokit.warc;
 
 import org.iokit.line.LineInputStream;
 

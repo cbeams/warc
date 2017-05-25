@@ -1,8 +1,4 @@
-package org.iokit.warc.read;
-
-import org.iokit.warc.Warc;
-import org.iokit.warc.WarcRecord;
-import org.iokit.warc.WarcVersion;
+package org.iokit.warc;
 
 import org.iokit.core.read.EndOfInputException;
 import org.iokit.core.read.ReaderException;
