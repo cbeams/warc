@@ -49,7 +49,6 @@ public class FieldSet extends LinkedHashSet<Field> {
     }
 
 
-    // TODO: do 2-newline spaces in every case where there are only nested classes
     public abstract static class Reader<F extends FieldSet> extends org.iokit.core.read.Reader<F> {
 
         private final Field.Reader fieldReader;

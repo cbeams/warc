@@ -18,15 +18,13 @@ import java.util.function.BiFunction;
  * Per http://bibnum.bnf.fr/WARC/ and
  * http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf.
  */
-public class WarcRecord extends Message<WarcHeader, WarcBody> {
+public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generate delegate methods for WarcHeader. Everything should be super-convenient and directly accessible from WarcRecord
 
     public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF;
 
     public WarcRecord(WarcHeader header, WarcBody body) {
         super(header, body);
     }
-
-    // TODO: generate delegate methods for WarcHeader. Everything should be super-convenient and directly accessible from WarcRecord
 
 
     public static class Reader extends Message.Reader<WarcHeader, WarcBody, WarcRecord> {
