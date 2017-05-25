@@ -7,33 +7,67 @@ import org.iokit.core.read.ReaderException;
 import org.iokit.core.validate.Validator;
 
 import java.util.LinkedHashSet;
+import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toCollection;
 
 public class FieldSet extends LinkedHashSet<Field> {
 
+    public Optional<String> getFieldValue(String name) {
+        return getFieldValue(new FieldName(name));
+    }
+
+    public Optional<String> getFieldValue(DefinedField definedField) {
+        return getFieldValue(definedField.fieldName());
+    }
+
+    public Optional<String> getFieldValue(FieldName name) {
+        Optional<Field> field = getField(name);
+        return field.isPresent() ?
+            Optional.of(field.get().getValue()).map(FieldValue::toString) :
+            Optional.empty();
+    }
+
+    public Optional<Field> getField(String name) {
+        return getField(new FieldName(name));
+    }
+
+    public Optional<Field> getField(FieldName name) {
+        return this.stream()
+            .filter(field -> field.getName().equals(name))
+            .findFirst();
+    }
+
+    public String getRequiredFieldValue(DefinedField field) {
+        return getRequiredFieldValue(field, Function.identity());
+    }
+
+    public <T> T getRequiredFieldValue(DefinedField field, Function<String, T> mapper) {
+        return getFieldValue(field).map(mapper).orElseThrow(() -> new FieldNotFoundException(field.fieldName()));
+    }
+
+
     // TODO: do 2-newline spaces in every case where there are only nested classes
-    public static class Reader extends org.iokit.core.read.Reader<FieldSet> {
+    public abstract static class Reader<F extends FieldSet> extends org.iokit.core.read.Reader<F> {
 
         private final Field.Reader fieldReader;
-        private final Validator<FieldSet> fieldSetValidator;
+        private final Validator<F> fieldSetValidator;
 
-        public Reader(Field.Reader fieldReader, Validator<FieldSet> fieldSetValidator) {
+        public Reader(Field.Reader fieldReader, Validator<F> fieldSetValidator) {
             super(fieldReader.in);
             this.fieldReader = fieldReader;
             this.fieldSetValidator = fieldSetValidator;
         }
 
-        public FieldSet read() throws ReaderException {
-            FieldSet fieldSet = fieldReader.stream().collect(toCollection(newFieldSet()));
+        public F read() throws ReaderException {
+            F fieldSet = fieldReader.stream().collect(toCollection(newFieldSet()));
             fieldSetValidator.validate(fieldSet);
             return fieldSet;
         }
 
-        protected Supplier<FieldSet> newFieldSet() {
-            return FieldSet::new;
-        }
+        protected abstract Supplier<F> newFieldSet();
     }
 
 

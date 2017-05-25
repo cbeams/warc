@@ -6,24 +6,24 @@ import org.iokit.core.read.ReaderException;
 
 import java.util.function.BiFunction;
 
-public abstract class StartLineHeader<T> extends Header {
+public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHeader<F> {
 
-    protected final T startLine;
+    protected final S startLine;
 
-    public StartLineHeader(T startLine, FieldSet fieldSet) {
+    public StartLineHeader(S startLine, F fieldSet) {
         super(fieldSet);
         this.startLine = startLine;
     }
 
-    public abstract static class Reader<S, H extends StartLineHeader<S>> extends org.iokit.core.read.Reader<H> {
+    public abstract static class Reader<S, F extends FieldSet, H extends StartLineHeader<S, F>> extends org.iokit.core.read.Reader<H> {
 
         private final org.iokit.core.read.Reader<S> startLineReader;
-        private final FieldSet.Reader fieldSetReader;
-        private final BiFunction<S, FieldSet, H> headerFactory;
+        private final org.iokit.core.read.Reader<F> fieldSetReader;
+        private final BiFunction<S, F, H> headerFactory;
 
         public Reader(org.iokit.core.read.Reader<S> startLineReader,
-                      FieldSet.Reader fieldSetReader,
-                      BiFunction<S, FieldSet, H> headerFactory) {
+                      org.iokit.core.read.Reader<F> fieldSetReader,
+                      BiFunction<S, F, H> headerFactory) {
             super(startLineReader.in);
             this.startLineReader = startLineReader;
             this.fieldSetReader = fieldSetReader;
@@ -37,7 +37,7 @@ public abstract class StartLineHeader<T> extends Header {
     }
 
 
-    public abstract static class Writer<S, H extends StartLineHeader<S>> extends org.iokit.core.write.Writer<H> {
+    public abstract static class Writer<S, F extends FieldSet, H extends StartLineHeader<S, F>> extends org.iokit.core.write.Writer<H> {
 
         private final org.iokit.core.write.Writer<S> startLineWriter;
         private final FieldSet.Writer fieldSetWriter;
@@ -55,7 +55,7 @@ public abstract class StartLineHeader<T> extends Header {
         @Override
         public void write(H header) {
             startLineWriter.write(header.startLine);
-            fieldSetWriter.write(header.getFieldSet());
+            fieldSetWriter.write(header.fieldSet);
             lineWriter.write();
         }
     }

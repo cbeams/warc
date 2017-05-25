@@ -27,7 +27,7 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
     }
 
 
-    public enum Type { // TODO: add other warc record types
+    public enum Type { // TODO: move up to WarcType
 
         /**
          * A 'warcinfo' record describes the records that follow it, up through end of file,
@@ -41,7 +41,7 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
          * DCMI Metadata Terms</a> plus the following field definitions. All fields are
          * optional.
          */
-        warcinfo,
+        warcinfo, // TODO: add other warc record types
         metadata,
         unknown;
 

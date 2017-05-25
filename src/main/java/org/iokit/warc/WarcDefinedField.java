@@ -3,11 +3,13 @@ package org.iokit.warc;
 import org.iokit.imf.DefinedField;
 import org.iokit.imf.FieldName;
 
+import java.util.function.Predicate;
+
 public enum WarcDefinedField implements DefinedField { // TODO: support field-type specific validation
-    WARC_Type,
-    WARC_Record_ID,
-    WARC_Date,
-    Content_Length,
+    WARC_Type(t -> true),
+    WARC_Record_ID(t -> true),
+    WARC_Date(t -> true),
+    Content_Length(t -> true),
     Content_Type,
     WARC_Concurrent_To,
     WARC_Block_Digest,
@@ -25,9 +27,15 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
     WARC_Segment_Total_Length;
 
     private final FieldName fieldName;
+    private final Predicate<WarcRecord.Type> required;
 
     WarcDefinedField() {
+        this(t -> false);
+    }
+
+    WarcDefinedField(Predicate<WarcRecord.Type> required) {
         this.fieldName = new FieldName(translate(name()));
+        this.required = required;
     }
 
     private String translate(String name) {
@@ -37,5 +45,9 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
     @Override
     public FieldName fieldName() {
         return fieldName;
+    }
+
+    public boolean isRequiredFor(WarcRecord.Type type) {
+        return required.test(type);
     }
 }
