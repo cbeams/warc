@@ -45,9 +45,9 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> {
         metadata,
         unknown;
 
-        public static Type of(String name) {
+        public static Type unknownSafeValueOf(String name) {
             try {
-                return Enum.valueOf(Type.class, name);
+                return valueOf(Type.class, name);
             } catch (IllegalArgumentException ex) {
                 return WarcRecord.Type.unknown;
             }

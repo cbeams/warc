@@ -19,23 +19,23 @@ public class WarcHeader extends StartLineHeader<WarcVersion> {
     }
 
     public WarcRecord.Type getRecordType() {
-        return getFieldValue(WARC_Type).map(WarcRecord.Type::of).get(); // TODO: decide what to do with unchecked gets
+        return getRequiredFieldValue(WARC_Type, WarcRecord.Type::unknownSafeValueOf);
     }
 
     public String getDate() {
-        return getFieldValue(WARC_Date).get();
+        return getRequiredFieldValue(WARC_Date);
     }
 
     public String getContentType() {
-        return getFieldValue(Content_Type).get();
+        return getRequiredFieldValue(Content_Type);
     }
 
     public int getContentLength() {
-        return getFieldValue(Content_Length).map(Integer::valueOf).get();
+        return getRequiredFieldValue(Content_Length, Integer::valueOf);
     }
 
     public String getRecordId() {
-        return getFieldValue(WARC_Record_ID).get();
+        return getRequiredFieldValue(WARC_Record_ID);
     }
 
 
@@ -51,7 +51,7 @@ public class WarcHeader extends StartLineHeader<WarcVersion> {
     }
 
 
-    public static class Writer extends StartLineHeader.Writer {
+    public static class Writer extends StartLineHeader.Writer<WarcVersion, WarcHeader> {
 
         public Writer(LineWriter lineWriter) {
             this(new WarcVersion.Writer(lineWriter), new FieldSet.Writer(lineWriter), lineWriter);

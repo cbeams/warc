@@ -1,6 +1,7 @@
 package org.iokit.imf;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 public class Header {
 
@@ -33,6 +34,14 @@ public class Header {
         return fieldSet.stream()
             .filter(field -> field.getName().equals(name))
             .findFirst();
+    }
+
+    public String getRequiredFieldValue(DefinedField field) {
+        return getRequiredFieldValue(field, Function.identity());
+    }
+
+    public <T> T getRequiredFieldValue(DefinedField field, Function<String, T> mapper) {
+        return getFieldValue(field).map(mapper).orElseThrow(() -> new FieldNotFoundException(field.fieldName()));
     }
 
     public FieldSet getFieldSet() {
