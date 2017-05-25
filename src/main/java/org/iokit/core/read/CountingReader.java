@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 import java.util.Optional;
 
-public abstract class CountingReader<T> extends OptionalReader<T> {
+public abstract class CountingReader<V> extends OptionalReader<V> {
 
     public static final int DEFAULT_MINIMUM_READ_COUNT = 0;
 
@@ -16,8 +16,8 @@ public abstract class CountingReader<T> extends OptionalReader<T> {
         super(in);
     }
 
-    public final Optional<T> readOptional() {
-        Optional<T> value = readOptionalBeforeCounting();
+    public final Optional<V> readOptional() {
+        Optional<V> value = readOptionalBeforeCounting();
 
         if (value.isPresent())
             readCount++;
@@ -29,7 +29,7 @@ public abstract class CountingReader<T> extends OptionalReader<T> {
         return value;
     }
 
-    protected abstract Optional<T> readOptionalBeforeCounting();
+    protected abstract Optional<V> readOptionalBeforeCounting();
 
     public void setMinimumReadCount(int minimumReadCount) {
         this.minimumReadCount = minimumReadCount;

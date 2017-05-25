@@ -11,34 +11,34 @@ import java.util.stream.StreamSupport;
 import static java.util.Spliterator.*;
 import static java.util.Spliterators.spliteratorUnknownSize;
 
-public abstract class OptionalReader<T> extends Reader<T> implements Iterable<T> {
+public abstract class OptionalReader<V> extends Reader<V> implements Iterable<V> {
 
     public OptionalReader(InputStream in) {
         super(in);
     }
 
-    public final T read() {
+    public final V read() {
         return readOptional().orElseThrow(EndOfInputException::new);
     }
 
-    public abstract Optional<T> readOptional();
+    public abstract Optional<V> readOptional();
 
-    public Stream<T> stream() {
+    public Stream<V> stream() {
         return StreamSupport.stream(spliteratorUnknownSize(iterator(), NONNULL | ORDERED | IMMUTABLE), false);
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
+    public Iterator<V> iterator() {
+        return new Iterator<V>() {
 
-            private T nextValue = null;
+            private V nextValue = null;
 
             @Override
             public boolean hasNext() {
                 if (nextValue != null)
                     return true;
 
-                Optional<T> result = OptionalReader.this.readOptional();
+                Optional<V> result = OptionalReader.this.readOptional();
                 if (result.isPresent()) {
                     nextValue = result.get();
                     return true;
@@ -47,9 +47,9 @@ public abstract class OptionalReader<T> extends Reader<T> implements Iterable<T>
             }
 
             @Override
-            public T next() {
+            public V next() {
                 if (nextValue != null || hasNext()) {
-                    T value = nextValue;
+                    V value = nextValue;
                     nextValue = null;
                     return value;
                 }

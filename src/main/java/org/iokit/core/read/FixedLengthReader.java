@@ -2,7 +2,7 @@ package org.iokit.core.read;
 
 import java.io.InputStream;
 
-public abstract class FixedLengthReader<T> extends Reader<T> {
+public abstract class FixedLengthReader<V> extends Reader<V> {
 
     public FixedLengthReader(InputStream in) {
         super(in);
@@ -10,9 +10,9 @@ public abstract class FixedLengthReader<T> extends Reader<T> {
 
     @Override
     @Deprecated
-    public T read() {
+    public V read() {
         throw new UnsupportedOperationException("This reader requires a parameter. Call read(int) instead.");
     }
 
-    public abstract T read(int length);
+    public abstract V read(int length);
 }

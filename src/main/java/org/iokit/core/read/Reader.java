@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 import static java.util.Objects.requireNonNull;
 
-public abstract class Reader<T> implements Closeable { // TODO: use V vs T throughout reader hierarchy?
+public abstract class Reader<V> implements Closeable {
 
     public final InputStream in;
     public final InputStreamCursor cursor;
@@ -21,7 +21,7 @@ public abstract class Reader<T> implements Closeable { // TODO: use V vs T throu
         this.cursor = requireNonNull(cursor);
     }
 
-    public abstract T read();
+    public abstract V read();
 
     @Override
     public void close() {

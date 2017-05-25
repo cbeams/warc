@@ -11,6 +11,7 @@ public abstract class StartLineHeader<SL, FS extends FieldSet> extends FieldSetH
         this.startLine = startLine;
     }
 
+
     public abstract static class Reader<SL, FS extends FieldSet, H extends StartLineHeader<SL, FS>>
         extends Header.Reader<H> {
 

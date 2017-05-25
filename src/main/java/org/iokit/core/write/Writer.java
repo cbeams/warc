@@ -5,7 +5,7 @@ import org.iokit.lang.Try;
 import java.io.Closeable;
 import java.io.OutputStream;
 
-public abstract class Writer<T> implements Closeable {
+public abstract class Writer<V> implements Closeable {
 
     public final OutputStream out;
 
@@ -13,7 +13,7 @@ public abstract class Writer<T> implements Closeable {
         this.out = out;
     }
 
-    public abstract void write(T value);
+    public abstract void write(V value);
 
     @Override
     public void close() {

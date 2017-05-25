@@ -2,7 +2,7 @@ package org.iokit.core.parse;
 
 import org.iokit.core.validate.Validator;
 
-public abstract class ValidatingParser<T> implements Parser<T> {
+public abstract class ValidatingParser<V> implements Parser<V> {
 
     private final Validator<String> validator;
 
@@ -11,10 +11,10 @@ public abstract class ValidatingParser<T> implements Parser<T> {
     }
 
     @Override
-    public T parse(String input) {
+    public V parse(String input) {
         validator.validate(input);
         return parseValidated(input);
     }
 
-    public abstract T parseValidated(String input);
+    public abstract V parseValidated(String input);
 }

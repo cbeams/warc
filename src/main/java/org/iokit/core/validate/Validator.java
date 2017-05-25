@@ -1,6 +1,6 @@
 package org.iokit.core.validate;
 
-public interface Validator<T> {
+public interface Validator<V> {
 
-    void validate(T input);
+    void validate(V input);
 }

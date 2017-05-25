@@ -38,7 +38,7 @@ public class FieldSet extends LinkedHashSet<Field> {
         return getRequiredFieldValue(field, Function.identity());
     }
 
-    public <T> T getRequiredFieldValue(DefinedField field, Function<String, T> mapper) {
+    public <V> V getRequiredFieldValue(DefinedField field, Function<String, V> mapper) {
         return getFieldValue(field).map(mapper).orElseThrow(() -> new FieldNotFoundException(field.fieldName()));
     }
 

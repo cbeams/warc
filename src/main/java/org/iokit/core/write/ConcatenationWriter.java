@@ -2,19 +2,19 @@ package org.iokit.core.write;
 
 import org.iokit.lang.Try;
 
-public class ConcatenationWriter<T> extends Writer<T> {
+public class ConcatenationWriter<V> extends Writer<V> {
 
-    private final Writer<T> valueWriter;
+    private final Writer<V> valueWriter;
     private final ParameterlessWriter concatenatorWriter;
 
-    public ConcatenationWriter(Writer<T> valueWriter, ParameterlessWriter concatenatorWriter) {
+    public ConcatenationWriter(Writer<V> valueWriter, ParameterlessWriter concatenatorWriter) {
         super(valueWriter.out);
         this.valueWriter = valueWriter;
         this.concatenatorWriter = concatenatorWriter;
     }
 
     @Override
-    public void write(T record) {
+    public void write(V record) {
         valueWriter.write(record);
         concatenatorWriter.write();
     }
