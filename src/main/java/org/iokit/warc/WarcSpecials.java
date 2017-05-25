@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.imf.Specials;
+import org.iokit.message.Specials;
 
 import static org.iokit.coding.Ascii.*;
 

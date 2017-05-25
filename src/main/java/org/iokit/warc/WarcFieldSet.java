@@ -1,9 +1,9 @@
 package org.iokit.warc;
 
-import org.iokit.imf.Field;
-import org.iokit.imf.FieldNotFoundException;
-import org.iokit.imf.FieldSet;
-import org.iokit.imf.FoldedLine;
+import org.iokit.message.Field;
+import org.iokit.message.FieldNotFoundException;
+import org.iokit.message.FieldSet;
+import org.iokit.message.FoldedLine;
 
 import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;

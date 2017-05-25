@@ -1,7 +1,7 @@
-package org.iokit.imf.read;
+package org.iokit.message.read;
 
-import org.iokit.imf.Field;
-import org.iokit.imf.FoldedLine;
+import org.iokit.message.Field;
+import org.iokit.message.FoldedLine;
 
 import org.iokit.line.LineInputStream;
 

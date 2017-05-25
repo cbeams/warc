@@ -4,7 +4,7 @@ import org.iokit.warc.WarcField;
 import org.iokit.warc.WarcHeader;
 import org.iokit.warc.WarcRecord;
 
-import org.iokit.imf.FieldNotFoundException;
+import org.iokit.message.FieldNotFoundException;
 
 import org.iokit.core.read.EndOfInputException;
 

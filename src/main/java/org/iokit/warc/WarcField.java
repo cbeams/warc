@@ -1,8 +1,8 @@
 package org.iokit.warc;
 
-import org.iokit.imf.Field;
-import org.iokit.imf.FieldName;
-import org.iokit.imf.FieldValue;
+import org.iokit.message.Field;
+import org.iokit.message.FieldName;
+import org.iokit.message.FieldValue;
 
 import org.iokit.line.LineReader;
 

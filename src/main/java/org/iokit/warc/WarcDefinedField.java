@@ -1,7 +1,7 @@
 package org.iokit.warc;
 
-import org.iokit.imf.DefinedField;
-import org.iokit.imf.FieldName;
+import org.iokit.message.DefinedField;
+import org.iokit.message.FieldName;
 
 import java.util.function.Predicate;
 

@@ -1,8 +1,8 @@
 package org.iokit.warc;
 
-import org.iokit.imf.Body;
-import org.iokit.imf.Header;
-import org.iokit.imf.Message;
+import org.iokit.message.Body;
+import org.iokit.message.Header;
+import org.iokit.message.Message;
 
 import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;

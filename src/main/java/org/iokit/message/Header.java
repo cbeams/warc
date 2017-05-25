@@ -1,4 +1,4 @@
-package org.iokit.imf;
+package org.iokit.message;
 
 import java.io.InputStream;
 import java.io.OutputStream;

@@ -1,4 +1,4 @@
-package org.iokit.imf; // TODO: rename to iokit.message
+package org.iokit.message;
 
 import java.util.function.BiFunction;
 

@@ -1,4 +1,4 @@
-package org.iokit.imf;
+package org.iokit.message;
 
 public class FieldSetHeader<FS extends FieldSet> implements Header {
 

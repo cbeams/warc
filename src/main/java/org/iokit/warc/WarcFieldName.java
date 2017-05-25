@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.imf.FieldName;
+import org.iokit.message.FieldName;
 
 public class WarcFieldName extends FieldName {
 

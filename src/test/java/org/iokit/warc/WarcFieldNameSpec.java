@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.imf.TokenSpec;
+import org.iokit.message.TokenSpec;
 
 import org.iokit.core.validate.InvalidCharacterException;
 

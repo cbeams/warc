@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.imf.StartLineHeader;
+import org.iokit.message.StartLineHeader;
 
 import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;

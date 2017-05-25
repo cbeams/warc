@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.imf.BinaryBody;
+import org.iokit.message.BinaryBody;
 
 import java.io.InputStream;
 import java.io.OutputStream;
