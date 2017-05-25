@@ -17,7 +17,10 @@ public class MappedInputStream extends FilterInputStream {
     private static final Set<InputStreamMapper> MAPPERS = new LinkedHashSet<>();
 
     static {
-        ServiceLoader.load(InputStreamMapper.class).forEach(MAPPERS::add);
+        ServiceLoader.load(InputStreamMapper.class).forEach(MAPPERS::add); /* TODO: ~100ms performance hit is negligible
+                                                                              for large files (eg warc), but noticable
+                                                                              for small files.
+                                                                              See https://stackoverflow.com/a/7237152 */
     }
 
     public MappedInputStream(InputStream in) {
