@@ -2,7 +2,6 @@ package org.iokit.imf;
 
 import org.iokit.core.validate.Validator;
 
-import org.iokit.core.parse.ParsingException;
 import org.iokit.core.parse.ValidatingParser;
 
 import java.util.Objects;
@@ -59,7 +58,7 @@ public class FieldValue {
             super(validator);
         }
 
-        public FieldValue parseValidated(String input) throws ParsingException {
+        public FieldValue parseValidated(String input) {
             return new FieldValue(input.trim());
         }
     }

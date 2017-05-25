@@ -1,7 +1,6 @@
 package org.iokit.line;
 
 import org.iokit.core.read.OptionalReader;
-import org.iokit.core.read.ReaderException;
 
 import it.unimi.dsi.fastutil.bytes.ByteArrays;
 
@@ -30,7 +29,7 @@ public class LineReader extends OptionalReader<String> {
     }
 
     @Override
-    public Optional<String> readOptional() throws ReaderException {
+    public Optional<String> readOptional() {
         int start = 0, length;
 
         while ((length = in.readLine(chunk, start, chunk.length - start)) == chunk.length - start) {

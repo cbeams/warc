@@ -11,10 +11,10 @@ public abstract class ValidatingParser<T> implements Parser<T> {
     }
 
     @Override
-    public T parse(String input) throws ParsingException {
+    public T parse(String input) {
         validator.validate(input);
         return parseValidated(input);
     }
 
-    public abstract T parseValidated(String input) throws ParsingException;
+    public abstract T parseValidated(String input);
 }

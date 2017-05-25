@@ -1,7 +1,6 @@
 package org.iokit.line;
 
 import org.iokit.core.read.OptionalReader;
-import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.validate.ValidatorException;
 
@@ -18,7 +17,7 @@ public class NewlineReader extends OptionalReader<String> {
     }
 
     @Override
-    public Optional<String> readOptional() throws ReaderException {
+    public Optional<String> readOptional() {
         return lineReader.readOptional().filter(assertNewline());
     }
 

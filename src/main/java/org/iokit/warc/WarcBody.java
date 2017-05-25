@@ -2,8 +2,6 @@ package org.iokit.warc;
 
 import org.iokit.imf.BinaryBody;
 
-import org.iokit.core.read.ReaderException;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -21,7 +19,7 @@ public class WarcBody extends BinaryBody {
         }
 
         @Override
-        public WarcBody read(WarcHeader header) throws ReaderException {
+        public WarcBody read(WarcHeader header) {
             return new WarcBody(binaryReader.read(header.getContentLength()));
         }
     }

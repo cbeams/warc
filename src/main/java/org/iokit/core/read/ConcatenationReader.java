@@ -18,7 +18,7 @@ public class ConcatenationReader<T> extends CountingReader<T> {
     }
 
     @Override
-    protected Optional<T> readOptionalBeforeCounting() throws ReaderException {
+    protected Optional<T> readOptionalBeforeCounting() {
         Optional<T> value = readValue();
         value.ifPresent(v -> readConcatenator());
         return value;

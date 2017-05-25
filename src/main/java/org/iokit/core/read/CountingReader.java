@@ -16,7 +16,7 @@ public abstract class CountingReader<T> extends OptionalReader<T> {
         super(in);
     }
 
-    public final Optional<T> readOptional() throws ReaderException {
+    public final Optional<T> readOptional() {
         Optional<T> value = readOptionalBeforeCounting();
 
         if (value.isPresent())

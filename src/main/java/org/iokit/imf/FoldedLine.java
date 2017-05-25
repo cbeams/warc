@@ -4,10 +4,7 @@ import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
 import org.iokit.line.NewlineReader;
 
-import org.iokit.core.read.ReaderException;
-
 import org.iokit.core.validate.InvalidCharacterException;
-import org.iokit.core.validate.ValidatorException;
 
 import java.util.Optional;
 
@@ -24,7 +21,7 @@ public class FoldedLine {
         }
 
         @Override
-        public Optional<String> readOptional() throws ReaderException {
+        public Optional<String> readOptional() {
             Optional<String> firstLine = super.readOptional().filter(string -> !NewlineReader.isNewline(string));
 
             if (!firstLine.isPresent())
@@ -51,7 +48,7 @@ public class FoldedLine {
     public static class Validator implements org.iokit.core.validate.Validator<String> {
 
         @Override
-        public void validate(String input) throws ValidatorException {
+        public void validate(String input) {
 
             char[] chars = input.toCharArray();
             for (int index = 0, increment = 1; index < chars.length; index += increment, increment = 1) {

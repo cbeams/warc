@@ -1,7 +1,5 @@
 package org.iokit.imf;
 
-import org.iokit.core.parse.ParsingException;
-
 import java.util.Objects;
 
 /**
@@ -41,7 +39,7 @@ public class FieldName extends Token {
             super(validator);
         }
 
-        public FieldName parse(String input) throws ParsingException {
+        public FieldName parse(String input) {
             return new FieldName(super.parse(input).value);
         }
     }

@@ -2,5 +2,5 @@ package org.iokit.core.parse;
 
 public interface Parser<T> {
 
-    T parse(String input) throws ParsingException;
+    T parse(String input);
 }

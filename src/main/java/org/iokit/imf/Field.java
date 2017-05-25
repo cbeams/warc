@@ -4,7 +4,6 @@ import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
 import org.iokit.core.read.OptionalReader;
-import org.iokit.core.read.ReaderException;
 
 import org.iokit.core.parse.ParsingException;
 
@@ -70,7 +69,7 @@ public class Field {
         }
 
         @Override
-        public Optional<Field> readOptional() throws ReaderException {
+        public Optional<Field> readOptional() {
             Optional<String> line = lineReader.readOptional().filter(s -> !isNewline(s));
 
             return line.isPresent() ?
@@ -109,7 +108,7 @@ public class Field {
             this.valueParser = valueParser;
         }
 
-        public Field parse(String input) throws ParsingException {
+        public Field parse(String input) {
             int separatorIndex = input.indexOf(SEPARATOR);
             if (separatorIndex == -1)
                 throw new MissingSeparatorException(input);

@@ -17,11 +17,11 @@ public abstract class OptionalReader<T> extends Reader<T> implements Iterable<T>
         super(in);
     }
 
-    public final T read() throws ReaderException {
+    public final T read() {
         return readOptional().orElseThrow(EndOfInputException::new);
     }
 
-    public abstract Optional<T> readOptional() throws ReaderException;
+    public abstract Optional<T> readOptional();
 
     public Stream<T> stream() {
         return StreamSupport.stream(spliteratorUnknownSize(iterator(), NONNULL | ORDERED | IMMUTABLE), false);

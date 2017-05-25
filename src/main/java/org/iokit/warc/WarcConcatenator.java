@@ -4,8 +4,6 @@ import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 import org.iokit.line.NewlineReader;
 
-import org.iokit.core.read.ReaderException;
-
 public class WarcConcatenator {
 
     public static final int NEWLINE_COUNT = 2;
@@ -25,7 +23,7 @@ public class WarcConcatenator {
         }
 
         @Override
-        public Boolean read() throws ReaderException {
+        public Boolean read() {
             for (int i = 0; i < NEWLINE_COUNT; i++)
                 if (!newlineReader.readOptional().isPresent())
                     return false;

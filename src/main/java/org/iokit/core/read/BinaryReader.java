@@ -13,7 +13,7 @@ public class BinaryReader implements FixedLengthReader<byte[]> {
     }
 
     @Override
-    public byte[] read(int length) throws ReaderException {
+    public byte[] read(int length) {
         byte[] array = new byte[length];
 
         int actual = Try.toCall(() -> in.read(array, 0, length));

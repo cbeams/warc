@@ -2,9 +2,7 @@ package org.iokit.imf;
 
 import org.iokit.core.validate.InvalidCharacterException;
 import org.iokit.core.validate.InvalidLengthException;
-import org.iokit.core.validate.ValidatorException;
 
-import org.iokit.core.parse.ParsingException;
 import org.iokit.core.parse.ValidatingParser;
 
 import java.util.Objects;
@@ -49,7 +47,7 @@ public class Token {
         }
 
         @Override
-        public void validate(String input) throws ValidatorException {
+        public void validate(String input) {
             if (input.length() < MIN_TOKEN_LENGTH)
                 throw new InvalidLengthException(input, MIN_TOKEN_LENGTH);
 
@@ -69,7 +67,7 @@ public class Token {
             super(validator);
         }
 
-        public Token parseValidated(String input) throws ParsingException {
+        public Token parseValidated(String input) {
             return new Token(input);
         }
     }

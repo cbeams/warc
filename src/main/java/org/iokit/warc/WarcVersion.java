@@ -3,11 +3,8 @@ package org.iokit.warc;
 import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
-import org.iokit.core.read.ReaderException;
-
 import org.iokit.core.validate.ValidatorException;
 
-import org.iokit.core.parse.ParsingException;
 import org.iokit.core.parse.ValidatingParser;
 
 import java.util.Objects;
@@ -57,7 +54,7 @@ public class WarcVersion {
         }
 
         @Override
-        public WarcVersion parseValidated(String input) throws ParsingException {
+        public WarcVersion parseValidated(String input) {
             return new WarcVersion(input);
         }
     }
@@ -66,7 +63,7 @@ public class WarcVersion {
     public static class Validator implements org.iokit.core.validate.Validator<String> {
 
         @Override
-        public void validate(String input) throws ValidatorException {
+        public void validate(String input) {
             if (!WARC_1_0.equals(input) && !WARC_1_1.equals(input))
                 throw new ValidatorException("[%s] is an unsupported or otherwise malformed WARC record version", input);
         }
@@ -88,7 +85,7 @@ public class WarcVersion {
             this.parser = parser;
         }
 
-        public WarcVersion read() throws ReaderException {
+        public WarcVersion read() {
             return parser.parse(lineReader.read());
         }
     }

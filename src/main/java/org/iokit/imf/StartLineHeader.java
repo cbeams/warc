@@ -2,8 +2,6 @@ package org.iokit.imf;
 
 import org.iokit.line.LineWriter;
 
-import org.iokit.core.read.ReaderException;
-
 import java.util.function.BiFunction;
 
 public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHeader<F> { // TODO: SL, FS vs S F for clarity. Do it everywhere
@@ -31,7 +29,7 @@ public abstract class StartLineHeader<S, F extends FieldSet> extends FieldSetHea
         }
 
         @Override
-        public H read() throws ReaderException {
+        public H read() {
             return headerFactory.apply(startLineReader.read(), fieldSetReader.read());
         }
     }

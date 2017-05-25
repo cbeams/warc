@@ -1,7 +1,6 @@
 package org.iokit.imf; // TODO: rename to iokit.message
 
 import org.iokit.core.read.ParameterizedReader;
-import org.iokit.core.read.ReaderException;
 
 import java.util.function.BiFunction;
 
@@ -42,7 +41,7 @@ public class Message<H extends Header, B extends Body> {
         }
 
         @Override
-        public M read() throws ReaderException {
+        public M read() {
             H header = headerReader.read();
             B body = bodyReader.read(header);
             return messageFactory.apply(header, body);

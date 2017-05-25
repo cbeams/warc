@@ -21,7 +21,7 @@ public abstract class Reader<T> implements Closeable { // TODO: use V vs T throu
         this.cursor = requireNonNull(cursor);
     }
 
-    public abstract T read() throws ReaderException; // TODO: stop declaring unchecked exceptions at interface level?
+    public abstract T read();
 
     @Override
     public void close() {

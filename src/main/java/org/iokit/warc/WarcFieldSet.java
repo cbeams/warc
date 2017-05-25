@@ -6,8 +6,6 @@ import org.iokit.imf.FoldedLine;
 
 import org.iokit.line.LineReader;
 
-import org.iokit.core.validate.ValidatorException;
-
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -95,7 +93,7 @@ public class WarcFieldSet extends FieldSet {
     public static class Validator implements org.iokit.core.validate.Validator<WarcFieldSet> { // TODO: pull up to (abstract?) FieldSet.Validator base class
 
         @Override
-        public void validate(WarcFieldSet fieldSet) throws ValidatorException {
+        public void validate(WarcFieldSet fieldSet) {
             WarcType type = fieldSet.getType();
             for (WarcDefinedField field : WarcDefinedField.values())
                 if (field.isRequiredFor(type) && !fieldSet.getField(field.fieldName()).isPresent())

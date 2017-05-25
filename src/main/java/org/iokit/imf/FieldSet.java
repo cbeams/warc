@@ -2,8 +2,6 @@ package org.iokit.imf;
 
 import org.iokit.line.LineWriter;
 
-import org.iokit.core.read.ReaderException;
-
 import org.iokit.core.validate.Validator;
 
 import java.util.LinkedHashSet;
@@ -60,7 +58,7 @@ public class FieldSet extends LinkedHashSet<Field> {
             this.fieldSetValidator = fieldSetValidator;
         }
 
-        public F read() throws ReaderException {
+        public F read() {
             F fieldSet = fieldReader.stream().collect(toCollection(newFieldSet()));
             fieldSetValidator.validate(fieldSet);
             return fieldSet;
