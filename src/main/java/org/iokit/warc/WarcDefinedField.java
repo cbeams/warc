@@ -30,7 +30,7 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
     WARC_Segment_Origin_ID(mandatoryIn(continuation), permittedIn(continuation)),
     WARC_Segment_Number(mandatoryIn(continuation)),
     WARC_Segment_Total_Length(optional(), permittedIn(continuation)),
-    Extension_Field;
+    EXTENSION_FIELD; // i.e. any field other than those listed above
 
     private final String displayName;
     private final FieldName fieldName;
@@ -75,19 +75,16 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
     }
 
     public static WarcDefinedField typeOf(Field field) {
-        try {
-            return WarcDefinedField.valueOf(enumLabelFor(field.getName().toString()));
-        } catch (IllegalArgumentException ex) {
-            return WarcDefinedField.Extension_Field;
+        for (WarcDefinedField definedField : WarcDefinedField.values()) {
+            if (definedField.displayName().equalsIgnoreCase(field.getName().toString()))
+                return definedField;
         }
+
+        return WarcDefinedField.EXTENSION_FIELD;
     }
 
     private static String displayNameFor(String enumLabel) {
         return enumLabel.replace('_', '-');
-    }
-
-    private static String enumLabelFor(String displayName) {
-        return displayName.replace('-', '_');
     }
 
     private static Predicate<WarcType> mandatory() {

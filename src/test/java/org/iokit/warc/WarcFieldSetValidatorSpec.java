@@ -45,6 +45,18 @@ public class WarcFieldSetValidatorSpec {
     }
 
     @Test
+    public void validateExtensionFieldsArePermitted() {
+        List<String> fieldSet = asList(
+            "WARC-Type: metadata",
+            "WARC-Record-ID: ...",
+            "WARC-Date:      ...",
+            "Content-Length: ...",
+            "X-My-Extension: ...");
+
+        assertThatCode(() -> validate(fieldSet)).doesNotThrowAnyException();
+    }
+
+    @Test
     public void validateMandatoryFieldsInRevisitFieldSet() {
         List<String> fieldSet = asList(
             "WARC-Type:   revisit",
@@ -107,6 +119,21 @@ public class WarcFieldSetValidatorSpec {
             .doesNotThrowAnyException();
     }
 
+    @Test
+    public void validateLowercaseFieldsInWarcinfoFieldSet() {
+        List<String> fieldSet = asList(
+            "WARC-Type:     warcinfo",
+            "WARC-Record-ID:     ...",
+            "WARC-Date: some     ...",
+            "Content-Length:     ...",
+            "warc-target-uri:    ..."); // lowercase
+
+        assertThatCode(() -> validate(fieldSet))
+            .describedAs("Expected validation to fail because field '%s' is forbidden", "warc-target-uri")
+            .isInstanceOf(FieldNotPermittedException.class)
+            .hasMessageContaining("warc-target-uri");
+    }
+
     void validate(List<String> lines) {
         validator.validate(fieldSetOf(lines));
     }
@@ -129,7 +156,7 @@ public class WarcFieldSetValidatorSpec {
 
     List<String> excludeFrom(List<String> fields, String fieldName) {
         return fields.stream()
-            .filter(field -> !field.startsWith(fieldName))
+            .filter(field -> !field.toLowerCase().startsWith(fieldName.toLowerCase()))
             .collect(toList());
     }
 }
