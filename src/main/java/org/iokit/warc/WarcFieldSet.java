@@ -2,6 +2,7 @@ package org.iokit.warc;
 
 import org.iokit.message.Field;
 import org.iokit.message.FieldNotFoundException;
+import org.iokit.message.FieldNotPermittedException;
 import org.iokit.message.FieldSet;
 import org.iokit.message.FoldedLine;
 
@@ -133,9 +134,14 @@ public class WarcFieldSet extends FieldSet {
         @Override
         public void validate(WarcFieldSet fieldSet) {
             WarcType type = fieldSet.getType();
-            for (WarcDefinedField field : WarcDefinedField.values())
-                if (field.isMandatoryFor(type) && !fieldSet.getField(field.fieldName()).isPresent())
-                    throw new FieldNotFoundException(field.fieldName());
+
+            for (WarcDefinedField definedField : WarcDefinedField.values())
+                if (definedField.isMandatoryIn(type) && !fieldSet.getField(definedField).isPresent())
+                    throw new FieldNotFoundException(definedField.fieldName());
+
+            for (Field field : fieldSet)
+                if (!WarcDefinedField.typeOf(field).isPermittedIn(type))
+                    throw new FieldNotPermittedException(field, fieldSet);
         }
     }
 }

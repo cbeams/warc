@@ -28,6 +28,10 @@ public class FieldSet extends LinkedHashSet<Field> {
         return getField(new FieldName(name));
     }
 
+    public Optional<Field> getField(DefinedField field) {
+        return getField(field.fieldName());
+    }
+
     public Optional<Field> getField(FieldName name) {
         return this.stream()
             .filter(field -> field.getName().equals(name))

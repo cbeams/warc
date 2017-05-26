@@ -1,6 +1,7 @@
 package org.iokit.warc;
 
 import org.iokit.message.FieldNotFoundException;
+import org.iokit.message.FieldNotPermittedException;
 
 import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
@@ -51,6 +52,7 @@ public class WarcFieldSetValidatorSpec {
         "WARC-Record-ID: someval",
         "WARC-Date: some date",
         "Content-Length: 42",
+        "WARC-Target-URI: uri",
         "WARC-Profile: someuri");
 
     @Test
@@ -74,6 +76,8 @@ public class WarcFieldSetValidatorSpec {
         "WARC-Record-ID: someval",
         "WARC-Date: some date",
         "Content-Length: 42",
+        "WARC-Target-URI: uri",
+        "WARC-Segment-Number: 2",
         "WARC-Segment-Origin-ID: value");
 
     @Test
@@ -90,6 +94,21 @@ public class WarcFieldSetValidatorSpec {
                     .describedAs("Expected validation to fail because mandatory field '%s' is missing", fieldName)
                     .isInstanceOf(FieldNotFoundException.class)
                     .hasMessageContaining(fieldName));
+    }
+
+    @Test
+    public void validateForbiddenField() {
+        List<String> fieldSet = asList(
+            "WARC-Type: warcinfo",
+            "WARC-Record-ID: someval",
+            "WARC-Date: some date",
+            "Content-Length: 42",
+            "WARC-Target-URI: uri");
+
+        assertThatCode(() -> validate(fieldSet))
+            .describedAs("Expected validation to fail because field 'WARC-Target-URI' is forbidden in warcinfo records")
+            .isInstanceOf(FieldNotPermittedException.class)
+            .hasMessageContaining("WARC-Target-URI");
     }
 
     void validate(List<String> lines) {
