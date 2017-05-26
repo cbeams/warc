@@ -26,20 +26,22 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
     WARC_Segment_Number,
     WARC_Segment_Total_Length;
 
+    private final String displayName;
     private final FieldName fieldName;
-    private final Predicate<WarcType> required;
+    private final Predicate<WarcType> mandatory;
 
     WarcDefinedField() {
         this(t -> false);
     }
 
-    WarcDefinedField(Predicate<WarcType> required) {
-        this.fieldName = new FieldName(translate(name()));
-        this.required = required;
+    WarcDefinedField(Predicate<WarcType> mandatory) {
+        this.displayName = name().replace('_', '-');
+        this.fieldName = new FieldName(displayName);
+        this.mandatory = mandatory;
     }
 
-    private String translate(String name) {
-        return name.replace('_', '-');
+    public String displayName() {
+        return displayName;
     }
 
     @Override
@@ -47,7 +49,12 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
         return fieldName;
     }
 
-    public boolean isRequiredFor(WarcType type) {
-        return required.test(type);
+    @Override
+    public String toString() {
+        return displayName();
+    }
+
+    public boolean isMandatoryFor(WarcType type) {
+        return mandatory.test(type);
     }
 }

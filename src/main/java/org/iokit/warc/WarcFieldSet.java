@@ -134,7 +134,7 @@ public class WarcFieldSet extends FieldSet {
         public void validate(WarcFieldSet fieldSet) {
             WarcType type = fieldSet.getType();
             for (WarcDefinedField field : WarcDefinedField.values())
-                if (field.isRequiredFor(type) && !fieldSet.getField(field.fieldName()).isPresent())
+                if (field.isMandatoryFor(type) && !fieldSet.getField(field.fieldName()).isPresent())
                     throw new FieldNotFoundException(field.fieldName());
         }
     }

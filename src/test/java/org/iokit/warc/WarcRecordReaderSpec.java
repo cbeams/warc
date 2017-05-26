@@ -1,7 +1,5 @@
 package org.iokit.warc;
 
-import org.iokit.message.FieldNotFoundException;
-
 import org.iokit.core.read.EndOfInputException;
 
 import org.junit.Test;
@@ -58,20 +56,5 @@ public class WarcRecordReaderSpec {
         assertThat(body.length).isEqualTo(header.getContentLength());
 
         assertThatThrownBy(reader::read).isInstanceOf(EndOfInputException.class);
-    }
-
-    @Test
-    public void readWarcinfoRecordWithMissingRequiredFields() {
-        String input = "" +
-            "WARC/1.0\r\n" +
-            "WARC-Type: warcinfo\r\n" +
-            "Content-Length: 5\r\n" +
-            "\r\n" +
-            "12345";
-
-        WarcRecord.Reader reader =
-            new WarcRecord.Reader(new ByteArrayInputStream(input.getBytes()));
-
-        assertThatThrownBy(reader::read).isInstanceOf(FieldNotFoundException.class);
     }
 }
