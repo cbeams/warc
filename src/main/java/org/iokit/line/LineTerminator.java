@@ -11,6 +11,8 @@ public enum LineTerminator {
     LF((byte) Ascii.LF),
     CR_LF((byte) Ascii.CR, (byte) Ascii.LF);
 
+    public static final String SYSTEM_LINE_TERMINATOR_KEY = "line.separator";
+
     public final byte[] bytes;
     private final String value;
 
@@ -22,5 +24,17 @@ public enum LineTerminator {
     @Override
     public String toString() {
         return value;
+    }
+
+    public static LineTerminator systemValue() {
+        return parseValue(System.getProperty(SYSTEM_LINE_TERMINATOR_KEY));
+    }
+
+    public static LineTerminator parseValue(String value) {
+        for (LineTerminator terminator : values())
+            if (terminator.value.equals(value))
+                return terminator;
+
+        throw new IllegalArgumentException("No LineTerminator found matching [" + value + "]");
     }
 }

@@ -4,7 +4,6 @@ import org.iokit.message.FieldNotFoundException;
 
 import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
-import org.iokit.line.LineTerminator;
 import org.iokit.line.LineWriter;
 
 import org.junit.Test;
@@ -60,12 +59,12 @@ public class WarcFieldSetValidatorSpec {
     WarcFieldSet.Reader fieldSetReaderFor(InputStream in) {
         return new WarcFieldSet.Reader(
             new LineReader(
-                new LineInputStream(in, LineTerminator.CR_LF)));
+                new LineInputStream(in)));
     }
 
     InputStream inputOf(List<String> lines) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        LineWriter lineWriter = new LineWriter(out, LineTerminator.CR_LF);
+        LineWriter lineWriter = new LineWriter(out);
         for (String line : lines)
             lineWriter.write(line);
         return new ByteArrayInputStream(out.toByteArray());

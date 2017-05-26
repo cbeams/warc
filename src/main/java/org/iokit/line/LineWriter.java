@@ -10,6 +10,10 @@ public class LineWriter extends Writer<String> {
 
     private final LineTerminator terminator;
 
+    public LineWriter(OutputStream out) {
+        this(out, LineTerminator.systemValue());
+    }
+
     public LineWriter(OutputStream out, LineTerminator terminator) {
         super(out);
         this.terminator = terminator;
