@@ -25,90 +25,86 @@ public class WarcFieldSetValidatorSpec {
 
     WarcFieldSet.Validator validator = new WarcFieldSet.Validator();
 
-    List<String> validFieldSet = asList(
-        "WARC-Type: metadata",
-        "WARC-Record-ID: someval",
-        "WARC-Date: some date",
-        "Content-Length: 42");
-
     @Test
-    public void validateFieldSetWithAllMandatoryFields() {
-        assertThatCode(() -> validate(validFieldSet)).doesNotThrowAnyException();
-    }
+    public void validateMandatoryFieldsInMetadataFieldSet() {
+        List<String> fieldSet = asList(
+            "WARC-Type: metadata",
+            "WARC-Record-ID: ...",
+            "WARC-Date:      ...",
+            "Content-Length: ...");
 
-    @Test
-    public void validateFieldSetMissingOneMandatoryField() {
-        Stream.of(WARC_Type, WARC_Record_ID, WARC_Date, Content_Length) // mandatory fields
+        assertThatCode(() -> validate(fieldSet)).doesNotThrowAnyException();
+
+        Stream.of(WARC_Type, WARC_Record_ID, WARC_Date, Content_Length)
             .map(WarcDefinedField::displayName)
             .forEach(fieldName ->
-                assertThatCode(() -> validate(excludeFrom(validFieldSet, fieldName)))
+                assertThatCode(() -> validate(excludeFrom(fieldSet, fieldName)))
                     .describedAs("Expected validation to fail because mandatory field '%s' is missing", fieldName)
                     .isInstanceOf(FieldNotFoundException.class)
                     .hasMessageContaining(fieldName));
     }
 
-    List<String> validRevisitFields = asList(
-        "WARC-Type: revisit",
-        "WARC-Record-ID: someval",
-        "WARC-Date: some date",
-        "Content-Length: 42",
-        "WARC-Target-URI: uri",
-        "WARC-Profile: someuri");
-
     @Test
-    public void validateRevisitFieldSetWithAllMandatoryFields() {
-        assertThatCode(() -> validate(validRevisitFields)).doesNotThrowAnyException();
-    }
+    public void validateMandatoryFieldsInRevisitFieldSet() {
+        List<String> fieldSet = asList(
+            "WARC-Type:   revisit",
+            "WARC-Record-ID:  ...",
+            "WARC-Date:       ...",
+            "Content-Length:  ...",
+            "WARC-Target-URI: ...",
+            "WARC-Profile:    ...");
 
-    @Test
-    public void validateRevisitFieldSetMissingOneMandatoryField() {
+        assertThatCode(() -> validate(fieldSet)).doesNotThrowAnyException();
+
         Stream.of(WARC_Profile)
             .map(WarcDefinedField::displayName)
             .forEach(fieldName ->
-                assertThatCode(() -> validate(excludeFrom(validRevisitFields, fieldName)))
+                assertThatCode(() -> validate(excludeFrom(fieldSet, fieldName)))
                     .describedAs("Expected validation to fail because mandatory field '%s' is missing", fieldName)
                     .isInstanceOf(FieldNotFoundException.class)
                     .hasMessageContaining(fieldName));
     }
 
-    List<String> validContinuationFields = asList(
-        "WARC-Type: continuation",
-        "WARC-Record-ID: someval",
-        "WARC-Date: some date",
-        "Content-Length: 42",
-        "WARC-Target-URI: uri",
-        "WARC-Segment-Number: 2",
-        "WARC-Segment-Origin-ID: value");
-
     @Test
-    public void validateContinuationFieldSetWithAllMandatoryFields() {
-        assertThatCode(() -> validate(validContinuationFields)).doesNotThrowAnyException();
-    }
+    public void validateMandatoryFieldsInContinuationFieldSet() {
+        List<String> fieldSet = asList(
+            "WARC-Type:     continuation",
+            "WARC-Record-ID:         ...",
+            "WARC-Date:              ...",
+            "Content-Length:         ...",
+            "WARC-Target-URI:        ...",
+            "WARC-Segment-Number:    ...",
+            "WARC-Segment-Origin-ID: ...");
 
-    @Test
-    public void validateContinuationFieldSetMissingOneMandatoryField() {
+        assertThatCode(() -> validate(fieldSet)).doesNotThrowAnyException();
+
         Stream.of(WARC_Segment_Origin_ID)
             .map(WarcDefinedField::displayName)
             .forEach(fieldName ->
-                assertThatCode(() -> validate(excludeFrom(validContinuationFields, fieldName)))
+                assertThatCode(() -> validate(excludeFrom(fieldSet, fieldName)))
                     .describedAs("Expected validation to fail because mandatory field '%s' is missing", fieldName)
                     .isInstanceOf(FieldNotFoundException.class)
                     .hasMessageContaining(fieldName));
     }
 
     @Test
-    public void validateForbiddenField() {
+    public void validateForbiddenFieldsInWarcinfoFieldSet() {
         List<String> fieldSet = asList(
-            "WARC-Type: warcinfo",
-            "WARC-Record-ID: someval",
-            "WARC-Date: some date",
-            "Content-Length: 42",
-            "WARC-Target-URI: uri");
+            "WARC-Type:     warcinfo",
+            "WARC-Record-ID:     ...",
+            "WARC-Date: some     ...",
+            "Content-Length:     ...",
+            "WARC-Target-URI:    ...");
+
+        String fieldName = WARC_Target_URI.displayName();
 
         assertThatCode(() -> validate(fieldSet))
-            .describedAs("Expected validation to fail because field 'WARC-Target-URI' is forbidden in warcinfo records")
+            .describedAs("Expected validation to fail because field '%s' is forbidden", fieldName)
             .isInstanceOf(FieldNotPermittedException.class)
-            .hasMessageContaining("WARC-Target-URI");
+            .hasMessageContaining(fieldName);
+
+        assertThatCode(() -> validate(excludeFrom(fieldSet, fieldName)))
+            .doesNotThrowAnyException();
     }
 
     void validate(List<String> lines) {
@@ -120,9 +116,7 @@ public class WarcFieldSetValidatorSpec {
     }
 
     WarcFieldSet.Reader fieldSetReaderFor(InputStream in) {
-        return new WarcFieldSet.Reader(
-            new LineReader(
-                new LineInputStream(in)));
+        return new WarcFieldSet.Reader(new LineReader(new LineInputStream(in)));
     }
 
     InputStream inputOf(List<String> lines) {

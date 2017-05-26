@@ -4,6 +4,7 @@ import org.iokit.message.DefinedField;
 import org.iokit.message.Field;
 import org.iokit.message.FieldName;
 
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import static org.iokit.warc.WarcType.*;
@@ -45,7 +46,7 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
     }
 
     WarcDefinedField(Predicate<WarcType> mandatory, Predicate<WarcType> permitted) {
-        this.displayName = name().replace('_', '-');
+        this.displayName = displayNameFor(name());
         this.fieldName = new FieldName(displayName);
         this.mandatory = mandatory;
         this.permitted = permitted;
@@ -73,6 +74,22 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
         return permitted.test(type);
     }
 
+    public static WarcDefinedField typeOf(Field field) {
+        try {
+            return WarcDefinedField.valueOf(enumLabelFor(field.getName().toString()));
+        } catch (IllegalArgumentException ex) {
+            return WarcDefinedField.Extension_Field;
+        }
+    }
+
+    private static String displayNameFor(String enumLabel) {
+        return enumLabel.replace('_', '-');
+    }
+
+    private static String enumLabelFor(String displayName) {
+        return displayName.replace('-', '_');
+    }
+
     private static Predicate<WarcType> mandatory() {
         return t -> true;
     }
@@ -82,10 +99,7 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
     }
 
     private static Predicate<WarcType> mandatoryIn(WarcType... types) {
-        return t -> {
-            for (WarcType type : types) if (t == type) return true;
-            return false;
-        };
+        return t -> Arrays.binarySearch(types, t, null) >= 0;
     }
 
     private static Predicate<WarcType> permitted() {
@@ -93,24 +107,10 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
     }
 
     private static Predicate<WarcType> permittedIn(WarcType... types) {
-        return t -> {
-            for (WarcType type : types) if (t == type) return true;
-            return false;
-        };
+        return t -> Arrays.binarySearch(types, t, null) >= 0;
     }
 
     private static Predicate<WarcType> forbiddenIn(WarcType... types) {
-        return t -> {
-            for (WarcType type : types) if (t == type) return false;
-            return true;
-        };
-    }
-
-    public static WarcDefinedField typeOf(Field field) {
-        try {
-            return WarcDefinedField.valueOf(field.getName().toString().replace('-', '_'));
-        } catch (IllegalArgumentException ex) {
-            return WarcDefinedField.Extension_Field;
-        }
+        return t -> Arrays.binarySearch(types, t, null) < 0;
     }
 }
