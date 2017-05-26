@@ -20,9 +20,9 @@ public enum WarcDefinedField implements DefinedField { // TODO: support field-ty
     WARC_Truncated,
     WARC_Warcinfo_ID,
     WARC_Filename,
-    WARC_Profile,
+    WARC_Profile(t -> t == WarcType.revisit),
     WARC_Identified_Payload_Type,
-    WARC_Segment_Origin_ID,
+    WARC_Segment_Origin_ID(t -> t == WarcType.continuation),
     WARC_Segment_Number,
     WARC_Segment_Total_Length;
 

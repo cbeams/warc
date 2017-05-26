@@ -30,7 +30,6 @@ public class WarcFieldSetValidatorSpec {
         "WARC-Date: some date",
         "Content-Length: 42");
 
-
     @Test
     public void validateFieldSetWithAllMandatoryFields() {
         assertThatCode(() -> validate(validFieldSet)).doesNotThrowAnyException();
@@ -47,6 +46,51 @@ public class WarcFieldSetValidatorSpec {
                     .hasMessageContaining(fieldName));
     }
 
+    List<String> validRevisitFields = asList(
+        "WARC-Type: revisit",
+        "WARC-Record-ID: someval",
+        "WARC-Date: some date",
+        "Content-Length: 42",
+        "WARC-Profile: someuri");
+
+    @Test
+    public void validateRevisitFieldSetWithAllMandatoryFields() {
+        assertThatCode(() -> validate(validRevisitFields)).doesNotThrowAnyException();
+    }
+
+    @Test
+    public void validateRevisitFieldSetMissingOneMandatoryField() {
+        Stream.of(WARC_Profile)
+            .map(WarcDefinedField::displayName)
+            .forEach(fieldName ->
+                assertThatCode(() -> validate(excludeFrom(validRevisitFields, fieldName)))
+                    .describedAs("Expected validation to fail because mandatory field '%s' is missing", fieldName)
+                    .isInstanceOf(FieldNotFoundException.class)
+                    .hasMessageContaining(fieldName));
+    }
+
+    List<String> validContinuationFields = asList(
+        "WARC-Type: continuation",
+        "WARC-Record-ID: someval",
+        "WARC-Date: some date",
+        "Content-Length: 42",
+        "WARC-Segment-Origin-ID: value");
+
+    @Test
+    public void validateContinuationFieldSetWithAllMandatoryFields() {
+        assertThatCode(() -> validate(validContinuationFields)).doesNotThrowAnyException();
+    }
+
+    @Test
+    public void validateContinuationFieldSetMissingOneMandatoryField() {
+        Stream.of(WARC_Segment_Origin_ID)
+            .map(WarcDefinedField::displayName)
+            .forEach(fieldName ->
+                assertThatCode(() -> validate(excludeFrom(validContinuationFields, fieldName)))
+                    .describedAs("Expected validation to fail because mandatory field '%s' is missing", fieldName)
+                    .isInstanceOf(FieldNotFoundException.class)
+                    .hasMessageContaining(fieldName));
+    }
 
     void validate(List<String> lines) {
         validator.validate(fieldSetOf(lines));
