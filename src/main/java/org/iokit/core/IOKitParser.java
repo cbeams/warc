@@ -1,4 +1,4 @@
-package org.iokit.core.parse;
+package org.iokit.core;
 
 public interface IOKitParser<V> {
 

@@ -5,9 +5,8 @@ import org.iokit.line.LineWriter;
 
 import org.iokit.core.read.OptionalReader;
 
-import org.iokit.core.parse.IOKitParser;
-
 import org.iokit.core.IOKitException;
+import org.iokit.core.IOKitParser;
 import org.iokit.core.IOKitWriter;
 
 import java.util.Objects;

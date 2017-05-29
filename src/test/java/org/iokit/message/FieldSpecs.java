@@ -2,7 +2,7 @@ package org.iokit.message;
 
 import org.iokit.core.validate.InvalidCharacterException;
 
-import org.iokit.core.parse.IOKitParser;
+import org.iokit.core.IOKitParser;
 
 import io.beams.valjo.ValjoSpec;
 
