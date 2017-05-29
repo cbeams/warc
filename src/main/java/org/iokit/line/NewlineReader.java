@@ -2,7 +2,7 @@ package org.iokit.line;
 
 import org.iokit.core.read.OptionalReader;
 
-import org.iokit.core.validate.IOKitValidator;
+import org.iokit.core.IOKitException;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -24,7 +24,7 @@ public class NewlineReader extends OptionalReader<String> {
     private static Predicate<String> assertNewline() {
         return string -> {
             if (!isNewline(string))
-                throw new IOKitValidator.Exception("Expected an empty string (newline) but actually got [%s]", string);
+                throw new IOKitException("Expected an empty string (newline) but actually got [%s]", string);
 
             return true;
         };

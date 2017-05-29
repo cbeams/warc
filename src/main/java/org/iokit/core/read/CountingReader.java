@@ -1,5 +1,7 @@
 package org.iokit.core.read;
 
+import org.iokit.core.IOKitException;
+
 import java.io.InputStream;
 
 import java.util.Optional;
@@ -23,7 +25,7 @@ public abstract class CountingReader<V> extends OptionalReader<V> {
             readCount++;
 
         else if (readCount < minimumReadCount)
-            throw new IOKitReader.Exception(
+            throw new IOKitException(
                 "Expected to read at least %d value(s), but %d were found", minimumReadCount, readCount);
 
         return value;

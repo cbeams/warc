@@ -1,6 +1,8 @@
 package org.iokit.core.read;
 
-public class EndOfInputException extends IOKitReader.Exception {
+import org.iokit.core.IOKitException;
+
+public class EndOfInputException extends IOKitException {
 
     public EndOfInputException(String message) {
         super(message);

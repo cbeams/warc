@@ -1,5 +1,6 @@
 package org.iokit.core.read;
 
+import org.iokit.core.IOKitException;
 import org.iokit.core.Try;
 
 import java.io.InputStream;
@@ -17,7 +18,7 @@ public class BinaryReader extends FixedLengthReader<byte[]> {
         int actual = Try.toCall(() -> in.read(array, 0, length));
 
         if (actual != length)
-            throw new IOKitReader.Exception("expected to read %d bytes, but read only %d", length, actual);
+            throw new IOKitException("expected to read %d bytes, but read only %d", length, actual);
 
         return array;
     }
