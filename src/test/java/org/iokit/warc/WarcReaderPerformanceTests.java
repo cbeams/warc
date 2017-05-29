@@ -1,8 +1,8 @@
 package org.iokit.warc;
 
-import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
-import org.iokit.line.LineTerminator;
+
+import org.iokit.core.IOKitInputStream;
 
 import org.junit.Ignore;
 import org.junit.Rule;
@@ -108,7 +108,7 @@ public class WarcReaderPerformanceTests {
                 System.out.println("reading: " + warcFile);
                 try {
                     byte[] chunk = new byte[1024];
-                    LineInputStream input = new LineInputStream(new FileInputStream(warcFile), DEFAULT_LINE_TERMINATOR);
+                    IOKitInputStream input = new IOKitInputStream(new FileInputStream(warcFile), DEFAULT_LINE_TERMINATOR);
                     //FastBufferedInputStream input = new FastBufferedInputStream(new FileInputStream(warcFile));
 
                     int start = 0, length;
@@ -138,7 +138,7 @@ public class WarcReaderPerformanceTests {
                 System.out.println("reading: " + warcFile);
                 LineReader reader = null;
                 try {
-                    reader = new LineReader(new LineInputStream(new FileInputStream(warcFile), DEFAULT_LINE_TERMINATOR));
+                    reader = new LineReader(new IOKitInputStream(new FileInputStream(warcFile), DEFAULT_LINE_TERMINATOR));
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
                 }
@@ -427,7 +427,7 @@ public class WarcReaderPerformanceTests {
 
         // 1.7 1.7 1.9 (checked)
 
-        LineInputStream input = new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"), LineTerminator.CR_LF);
+        IOKitInputStream input = new IOKitInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"), IOKitInputStream.LineTerminator.CR_LF);
 
         int count = 0;
         int size = 32 * 1024;
@@ -454,7 +454,7 @@ public class WarcReaderPerformanceTests {
     @Test
     public void linesToExclude() throws FileNotFoundException {
 
-        LineInputStream input = new LineInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"), LineTerminator.CR_LF);
+        IOKitInputStream input = new IOKitInputStream(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"), IOKitInputStream.LineTerminator.CR_LF);
 
         int bodyLines = 0;
         int count = 0;
@@ -777,7 +777,7 @@ public class WarcReaderPerformanceTests {
                     gzSize),
                 fbSize);
 
-        Warc.Reader reader = new Warc.Reader(new LineInputStream(input, DEFAULT_LINE_TERMINATOR));
+        Warc.Reader reader = new Warc.Reader(new IOKitInputStream(input, DEFAULT_LINE_TERMINATOR));
 
         int count = 0;
         while (reader.read() != null)

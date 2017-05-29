@@ -1,6 +1,6 @@
 package org.iokit.core.input;
 
-import org.iokit.line.LineInputStream;
+import org.iokit.core.IOKitInputStream;
 
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ public class LineInputStreamSpec {
     @Test
     public void nullInput() {
         //noinspection ConstantConditions
-        assertThatThrownBy(() -> new LineInputStream(null))
+        assertThatThrownBy(() -> new IOKitInputStream(null))
             .isInstanceOf(NullPointerException.class);
     }
 }

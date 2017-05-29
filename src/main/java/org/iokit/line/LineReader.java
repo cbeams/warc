@@ -2,6 +2,8 @@ package org.iokit.line;
 
 import org.iokit.core.read.OptionalReader;
 
+import org.iokit.core.IOKitInputStream;
+
 import it.unimi.dsi.fastutil.bytes.ByteArrays;
 
 import java.nio.charset.Charset;
@@ -13,18 +15,16 @@ public class LineReader extends OptionalReader<String> {
 
     public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
-    public final LineInputStream in;
     protected final Charset charset;
 
     private byte[] chunk = new byte[1024];
 
-    public LineReader(LineInputStream in) {
+    public LineReader(IOKitInputStream in) {
         this(in, DEFAULT_CHARSET);
     }
 
-    public LineReader(LineInputStream in, Charset charset) {
+    public LineReader(IOKitInputStream in, Charset charset) {
         super(in);
-        this.in = in;
         this.charset = charset;
     }
 

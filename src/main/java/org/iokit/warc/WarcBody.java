@@ -2,7 +2,8 @@ package org.iokit.warc;
 
 import org.iokit.message.BinaryBody;
 
-import java.io.InputStream;
+import org.iokit.core.IOKitInputStream;
+
 import java.io.OutputStream;
 
 public class WarcBody extends BinaryBody {
@@ -14,7 +15,7 @@ public class WarcBody extends BinaryBody {
 
     public static class Reader extends BinaryBody.Reader<WarcHeader, WarcBody> {
 
-        public Reader(InputStream in) {
+        public Reader(IOKitInputStream in) {
             super(in);
         }
 

@@ -1,8 +1,7 @@
 package org.iokit.core.read;
 
 import org.iokit.core.IOKitException;
-
-import java.io.InputStream;
+import org.iokit.core.IOKitInputStream;
 
 import java.util.Optional;
 
@@ -14,7 +13,7 @@ public abstract class CountingReader<V> extends OptionalReader<V> {
 
     private long readCount;
 
-    public CountingReader(InputStream in) {
+    public CountingReader(IOKitInputStream in) {
         super(in);
     }
 

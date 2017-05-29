@@ -2,9 +2,9 @@ package org.iokit.message;
 
 import org.iokit.core.read.BinaryReader;
 
+import org.iokit.core.IOKitInputStream;
 import org.iokit.core.Try;
 
-import java.io.InputStream;
 import java.io.OutputStream;
 
 public class BinaryBody implements Body<byte[]> {
@@ -25,7 +25,7 @@ public class BinaryBody implements Body<byte[]> {
 
         protected final BinaryReader binaryReader;
 
-        public Reader(InputStream in) {
+        public Reader(IOKitInputStream in) {
             super(in);
             this.binaryReader = new BinaryReader(in);
         }

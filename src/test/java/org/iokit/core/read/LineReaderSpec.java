@@ -1,8 +1,8 @@
 package org.iokit.core.read;
 
-import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
-import org.iokit.line.LineTerminator;
+
+import org.iokit.core.IOKitInputStream;
 
 import org.junit.Test;
 
@@ -15,8 +15,8 @@ public class LineReaderSpec {
     protected LineReader reader(String input) {
         return
             new LineReader(
-                new LineInputStream(
-                    new ByteArrayInputStream(input.getBytes()), LineTerminator.CR_LF));
+                new IOKitInputStream(
+                    new ByteArrayInputStream(input.getBytes()), IOKitInputStream.LineTerminator.CR_LF));
     }
 
     @Test

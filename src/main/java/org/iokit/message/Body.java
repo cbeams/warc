@@ -4,7 +4,8 @@ import org.iokit.core.write.IOKitWriter;
 
 import org.iokit.core.read.ParameterizedReader;
 
-import java.io.InputStream;
+import org.iokit.core.IOKitInputStream;
+
 import java.io.OutputStream;
 
 public interface Body<Data> {
@@ -14,7 +15,7 @@ public interface Body<Data> {
 
     abstract class Reader<H, B> extends ParameterizedReader<H, B> {
 
-        public Reader(InputStream in) {
+        public Reader(IOKitInputStream in) {
             super(in);
         }
 

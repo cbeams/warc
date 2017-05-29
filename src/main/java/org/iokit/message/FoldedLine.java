@@ -1,23 +1,24 @@
 package org.iokit.message;
 
-import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
 import org.iokit.line.NewlineReader;
 
 import org.iokit.core.validate.IOKitValidator;
 import org.iokit.core.validate.InvalidCharacterException;
 
+import org.iokit.core.IOKitInputStream;
+
 import java.util.Optional;
 
 import static org.iokit.coding.Ascii.*;
-import static org.iokit.line.LineTerminator.CR_LF;
+import static org.iokit.core.IOKitInputStream.LineTerminator.CR_LF;
 
 public class FoldedLine {
 
 
     public static class Reader extends LineReader {
 
-        public Reader(LineInputStream in) {
+        public Reader(IOKitInputStream in) {
             super(in);
         }
 

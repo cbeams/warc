@@ -1,10 +1,10 @@
 package org.iokit.core.read;
 
-import java.io.InputStream;
+import org.iokit.core.IOKitInputStream;
 
 public abstract class ParameterizedReader<P, T> extends IOKitReader {
 
-    public ParameterizedReader(InputStream in) {
+    public ParameterizedReader(IOKitInputStream in) {
         super(in);
     }
 

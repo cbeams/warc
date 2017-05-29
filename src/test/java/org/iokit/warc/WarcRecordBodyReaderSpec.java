@@ -1,5 +1,7 @@
 package org.iokit.warc;
 
+import org.iokit.core.IOKitInputStream;
+
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -23,7 +25,7 @@ public class WarcRecordBodyReaderSpec {
             }
         };
 
-        WarcBody.Reader reader = new WarcBody.Reader(new ByteArrayInputStream(input.getBytes()));
+        WarcBody.Reader reader = new WarcBody.Reader(new IOKitInputStream(new ByteArrayInputStream(input.getBytes())));
         WarcBody body = reader.read(header);
 
         byte[] data = body.getData();

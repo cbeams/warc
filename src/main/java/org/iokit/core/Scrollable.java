@@ -1,4 +1,4 @@
-package org.iokit.core.read;
+package org.iokit.core;
 
 public interface Scrollable {
 

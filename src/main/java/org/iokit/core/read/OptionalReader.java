@@ -1,6 +1,6 @@
 package org.iokit.core.read;
 
-import java.io.InputStream;
+import org.iokit.core.IOKitInputStream;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -13,7 +13,7 @@ import static java.util.Spliterators.spliteratorUnknownSize;
 
 public abstract class OptionalReader<V> extends IOKitReader<V> implements Iterable<V> {
 
-    public OptionalReader(InputStream in) {
+    public OptionalReader(IOKitInputStream in) {
         super(in);
     }
 

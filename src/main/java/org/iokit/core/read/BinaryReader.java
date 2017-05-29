@@ -1,13 +1,12 @@
 package org.iokit.core.read;
 
 import org.iokit.core.IOKitException;
+import org.iokit.core.IOKitInputStream;
 import org.iokit.core.Try;
-
-import java.io.InputStream;
 
 public class BinaryReader extends FixedLengthReader<byte[]> {
 
-    public BinaryReader(InputStream in) {
+    public BinaryReader(IOKitInputStream in) {
         super(in);
     }
 

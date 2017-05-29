@@ -1,10 +1,10 @@
 package org.iokit.core.read;
 
-import java.io.InputStream;
+import org.iokit.core.IOKitInputStream;
 
 public abstract class FixedLengthReader<V> extends IOKitReader<V> {
 
-    public FixedLengthReader(InputStream in) {
+    public FixedLengthReader(IOKitInputStream in) {
         super(in);
     }
 

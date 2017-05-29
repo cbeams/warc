@@ -1,6 +1,6 @@
 package org.iokit.message;
 
-import org.iokit.line.LineInputStream;
+import org.iokit.core.IOKitInputStream;
 
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public class FieldReaderSpec {
         Field.Reader fieldReader =
             new Field.Reader(
                 new FoldedLine.Reader(
-                        new LineInputStream(
+                        new IOKitInputStream(
                             new ByteArrayInputStream("Field-Name: field value".getBytes()))));
 
         Field field = fieldReader.read();
@@ -29,7 +29,7 @@ public class FieldReaderSpec {
         Field.Reader fieldReader =
             new Field.Reader(
                 new FoldedLine.Reader(
-                        new LineInputStream(
+                        new IOKitInputStream(
                             new ByteArrayInputStream("Field-Name: field\r\n     value".getBytes()))));
 
         Field field = fieldReader.read();
@@ -45,7 +45,7 @@ public class FieldReaderSpec {
         Field.Reader fieldReader =
             new Field.Reader(
                 new FoldedLine.Reader(
-                        new LineInputStream(
+                        new IOKitInputStream(
                             new ByteArrayInputStream("Field-Name: field\r\n     value\r\n cont".getBytes()))));
 
         Field field = fieldReader.read();

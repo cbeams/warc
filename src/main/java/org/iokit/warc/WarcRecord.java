@@ -4,10 +4,10 @@ import org.iokit.message.Body;
 import org.iokit.message.Header;
 import org.iokit.message.Message;
 
-import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
-import org.iokit.line.LineTerminator;
 import org.iokit.line.LineWriter;
+
+import org.iokit.core.IOKitInputStream;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,7 +20,7 @@ import java.util.function.BiFunction;
  */
 public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generate delegate methods for WarcHeader. Everything should be super-convenient and directly accessible from WarcRecord
 
-    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF;
+    public static final IOKitInputStream.LineTerminator DEFAULT_LINE_TERMINATOR = IOKitInputStream.LineTerminator.CR_LF;
 
     public WarcRecord(WarcHeader header, WarcBody body) {
         super(header, body);
@@ -30,10 +30,10 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generat
     public static class Reader extends Message.Reader<WarcHeader, WarcBody, WarcRecord> {
 
         public Reader(InputStream in) {
-            this(new LineInputStream(in, DEFAULT_LINE_TERMINATOR));
+            this(new IOKitInputStream(in, DEFAULT_LINE_TERMINATOR));
         }
 
-        public Reader(LineInputStream in) {
+        public Reader(IOKitInputStream in) {
             this(new LineReader(in));
         }
 

@@ -3,9 +3,10 @@ package org.iokit.warc;
 import org.iokit.message.FieldNotFoundException;
 import org.iokit.message.FieldNotPermittedException;
 
-import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
+
+import org.iokit.core.IOKitInputStream;
 
 import org.junit.Test;
 
@@ -143,7 +144,7 @@ public class WarcFieldSetValidatorSpec {
     }
 
     WarcFieldSet.Reader fieldSetReaderFor(InputStream in) {
-        return new WarcFieldSet.Reader(new LineReader(new LineInputStream(in)));
+        return new WarcFieldSet.Reader(new LineReader(new IOKitInputStream(in)));
     }
 
     InputStream inputOf(List<String> lines) {

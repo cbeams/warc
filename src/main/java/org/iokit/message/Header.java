@@ -4,7 +4,8 @@ import org.iokit.core.write.IOKitWriter;
 
 import org.iokit.core.read.IOKitReader;
 
-import java.io.InputStream;
+import org.iokit.core.IOKitInputStream;
+
 import java.io.OutputStream;
 
 public interface Header {
@@ -12,7 +13,7 @@ public interface Header {
 
     abstract class Reader<H extends Header> extends IOKitReader<H> {
 
-        public Reader(InputStream in) {
+        public Reader(IOKitInputStream in) {
             super(in);
         }
     }
