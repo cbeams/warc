@@ -8,7 +8,6 @@ import org.iokit.core.write.IOKitWriter;
 import org.iokit.core.read.OptionalReader;
 
 import org.iokit.core.parse.IOKitParser;
-import org.iokit.core.parse.ParsingException;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -122,7 +121,7 @@ public class Field {
         }
 
 
-        public static class MissingSeparatorException extends ParsingException {
+        public static class MissingSeparatorException extends IOKitParser.Exception {
 
             public MissingSeparatorException(String input) {
                 super("%s input must contain '%c' separator. Input was [%s]",
