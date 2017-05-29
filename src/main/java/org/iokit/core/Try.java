@@ -1,4 +1,4 @@
-package org.iokit.lang;
+package org.iokit.core;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -29,7 +29,7 @@ public final class Try {
     private static RuntimeException unchecked(Exception ex) {
         return ex instanceof IOException ?
             new UncheckedIOException((IOException) ex) :
-            new UncheckedException(ex);
+            new IOKitException(ex);
     }
 
     @FunctionalInterface

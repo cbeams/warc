@@ -1,6 +1,6 @@
 package org.iokit.magic;
 
-import org.iokit.lang.Try;
+import org.iokit.core.Try;
 
 import java.io.InputStream;
 import java.io.PushbackInputStream;

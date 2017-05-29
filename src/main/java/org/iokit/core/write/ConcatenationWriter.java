@@ -1,6 +1,6 @@
 package org.iokit.core.write;
 
-import org.iokit.lang.Try;
+import org.iokit.core.Try;
 
 public class ConcatenationWriter<V> extends IOKitWriter<V> {
 

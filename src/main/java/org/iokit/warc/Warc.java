@@ -12,7 +12,7 @@ import org.iokit.core.write.ConcatenationWriter;
 
 import org.iokit.core.read.ConcatenationReader;
 
-import org.iokit.lang.Try;
+import org.iokit.core.Try;
 
 import java.io.File;
 import java.io.FileInputStream;

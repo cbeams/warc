@@ -2,7 +2,7 @@ package org.iokit.gzip;
 
 import org.iokit.magic.InputStreamMapper;
 
-import org.iokit.lang.Try;
+import org.iokit.core.Try;
 
 import java.util.zip.GZIPInputStream;
 

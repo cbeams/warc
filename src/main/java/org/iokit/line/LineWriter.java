@@ -2,7 +2,7 @@ package org.iokit.line;
 
 import org.iokit.core.write.IOKitWriter;
 
-import org.iokit.lang.Try;
+import org.iokit.core.Try;
 
 import java.io.OutputStream;
 

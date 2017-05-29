@@ -2,7 +2,7 @@ package org.iokit.line;
 
 import org.iokit.core.read.Scrollable;
 
-import org.iokit.lang.Try;
+import org.iokit.core.Try;
 
 import it.unimi.dsi.fastutil.io.FastBufferedInputStream;
 

@@ -1,8 +1,8 @@
 package org.iokit.core.read;
 
-import org.iokit.lang.UncheckedException;
+import org.iokit.core.IOKitException;
 
-public class ReaderException extends UncheckedException {
+public class ReaderException extends IOKitException {
 
     public ReaderException(Throwable cause, String message, Object... args) {
         super(cause, message, args);

@@ -1,6 +1,6 @@
 package org.iokit.core.read;
 
-import org.iokit.lang.Try;
+import org.iokit.core.Try;
 
 import java.io.Closeable;
 import java.io.InputStream;

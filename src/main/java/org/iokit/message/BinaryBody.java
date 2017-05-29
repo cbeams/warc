@@ -2,7 +2,7 @@ package org.iokit.message;
 
 import org.iokit.core.read.BinaryReader;
 
-import org.iokit.lang.Try;
+import org.iokit.core.Try;
 
 import java.io.InputStream;
 import java.io.OutputStream;

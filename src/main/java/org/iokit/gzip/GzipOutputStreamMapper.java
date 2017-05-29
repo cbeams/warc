@@ -2,7 +2,7 @@ package org.iokit.gzip;
 
 import org.iokit.magic.OutputStreamMapper;
 
-import org.iokit.lang.Try;
+import org.iokit.core.Try;
 
 import org.anarres.parallelgzip.ParallelGZIPOutputStream;
 

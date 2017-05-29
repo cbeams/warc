@@ -2,7 +2,7 @@ package org.iokit.gzip;
 
 import org.iokit.core.write.Segmentable;
 
-import org.iokit.lang.Try;
+import org.iokit.core.Try;
 
 import java.util.zip.GZIPOutputStream;
 
