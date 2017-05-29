@@ -14,9 +14,15 @@ public class ConcatenationWriter<V> extends Writer<V> {
     }
 
     @Override
-    public void write(V record) {
-        valueWriter.write(record);
+    public void write(V value) {
+        if (segmenter.supported)
+            segmenter.startSegment();
+
+        valueWriter.write(value);
         concatenatorWriter.write();
+
+        if (segmenter.supported)
+            segmenter.finishSegment();
     }
 
     @Override

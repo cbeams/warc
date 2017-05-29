@@ -3,11 +3,39 @@ package org.iokit.magic;
 import java.io.File;
 import java.io.OutputStream;
 
-public interface OutputStreamMapper {
+import java.util.LinkedHashSet;
+import java.util.ServiceLoader;
+import java.util.Set;
 
-    boolean canMap(File file);
+public abstract class OutputStreamMapper {
 
-    boolean canMap(Class<? extends OutputStream> type);
+    private static final Set<OutputStreamMapper> MAPPERS = new LinkedHashSet<>();
 
-    OutputStream map(OutputStream out);
+    static {
+        ServiceLoader.load(OutputStreamMapper.class).forEach(MAPPERS::add);
+    }
+
+    public abstract boolean canMap(File file);
+
+    public abstract boolean canMap(Class<? extends OutputStream> type);
+
+    public abstract OutputStream map(OutputStream out);
+
+    public static OutputStream mapFrom(MappableFileOutputStream out) {
+        ServiceLoader.load(OutputStreamMapper.class).forEach(OutputStreamMapper.MAPPERS::add);
+        return MAPPERS.stream()
+            .filter(mapper -> mapper.canMap(out.getFile()))
+            .map(mapper -> mapper.map(out))
+            .findFirst()
+            .orElse(out);
+    }
+
+    public static OutputStream mapFrom(OutputStream out, Class<? extends OutputStream> toType) {
+        ServiceLoader.load(OutputStreamMapper.class).forEach(OutputStreamMapper.MAPPERS::add);
+        return OutputStreamMapper.MAPPERS.stream()
+            .filter(mapper -> mapper.canMap(toType))
+            .map(mapper -> mapper.map(out))
+            .findFirst()
+            .orElse(out);
+    }
 }

@@ -1,8 +1,8 @@
 package org.iokit.warc;
 
+import org.iokit.magic.InputStreamMapper;
 import org.iokit.magic.MappableFileOutputStream;
-import org.iokit.magic.MappedInputStream;
-import org.iokit.magic.MappedOutputStream;
+import org.iokit.magic.OutputStreamMapper;
 
 import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
@@ -37,11 +37,7 @@ public class Warc {
         }
 
         public Reader(InputStream in) {
-            this(new MappedInputStream(in));
-        }
-
-        public Reader(MappedInputStream in) {
-            this(new LineInputStream(in, WarcRecord.DEFAULT_LINE_TERMINATOR));
+            this(new LineInputStream(InputStreamMapper.mapFrom(in), WarcRecord.DEFAULT_LINE_TERMINATOR));
         }
 
         public Reader(LineInputStream in) {
@@ -69,11 +65,11 @@ public class Warc {
         }
 
         public Writer(MappableFileOutputStream out) {
-            this(new MappedOutputStream(out));
+            this(OutputStreamMapper.mapFrom(out));
         }
 
         public Writer(OutputStream out, Class<? extends OutputStream> toType) { // TODO: test this ctor
-            this(new MappedOutputStream(out, toType));
+            this(OutputStreamMapper.mapFrom(out, toType));
         }
 
         public Writer(OutputStream out) {

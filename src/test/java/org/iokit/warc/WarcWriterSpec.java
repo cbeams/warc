@@ -1,17 +1,12 @@
 package org.iokit.warc;
 
-import org.iokit.line.LineInputStream;
-
 import org.junit.Ignore;
 import org.junit.Test;
-
-import org.anarres.parallelgzip.ParallelGZIPOutputStream;
 
 import java.util.zip.GZIPInputStream;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -81,14 +76,15 @@ public class WarcWriterSpec {
     @Test
     @Ignore
     public void copyEntireWarcFile() throws IOException {
-        File originalFile = new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz");
-        File newFile = new File("/tmp/entire.warc.gz");
+        File oldFile = new File("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00003-ip-10-233-31-227.ec2.internal.warc.wat.gz");
+        File newFile = new File("/tmp/00003.warc.gz");
 
         // 42864 (before parallel)
         // 18797 (after parallel)
+        // 68630 (after segmentable)
 
-        try (Warc.Reader reader = new Warc.Reader(new LineInputStream(new GZIPInputStream(new FileInputStream(originalFile), 1024 * 1024), WarcRecord.DEFAULT_LINE_TERMINATOR));
-             Warc.Writer writer = new Warc.Writer(new ParallelGZIPOutputStream(new FileOutputStream(newFile)))) {
+        try (Warc.Reader reader = new Warc.Reader(oldFile);
+             Warc.Writer writer = new Warc.Writer(newFile)) {
 
             reader.stream().forEach(writer::write);
         }

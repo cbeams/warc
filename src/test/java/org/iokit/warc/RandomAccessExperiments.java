@@ -1,5 +1,7 @@
 package org.iokit.warc;
 
+import org.iokit.magic.InputStreamMapper;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -14,6 +16,11 @@ import java.io.RandomAccessFile;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
+
+
+
+
+import com.google.common.io.ByteStreams;
 
 public class RandomAccessExperiments {
 
@@ -109,31 +116,32 @@ public class RandomAccessExperiments {
     }
 
     @Test
+    @Ignore
     public void test5() throws IOException {
-        Warc.Reader reader = new Warc.Reader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat");
+        Warc.Reader reader = new Warc.Reader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00003-ip-10-233-31-227.ec2.internal.warc.wat");
 
-        reader.cursor.seek(1_549_727_457);
+        reader.cursor.seek(1_523_285);
 
         WarcRecord record = reader.read();
+        System.out.println(reader.in);
 
         new WarcRecord.Writer(System.out).write(record);
 
-        assertThat(record.getHeader().getRecordId()).isEqualTo("<urn:uuid:71124c20-52f4-4451-9de2-d41609631374>");
-        assertThat(record.getHeader().getContentLength()).isEqualTo(1068);
+        assertThat(record.getHeader().getRecordId()).isEqualTo("<urn:uuid:9e7ade15-65c9-472e-93ad-84ec16030cf0>");
+        assertThat(record.getHeader().getContentLength()).isEqualTo(30686);
     }
 
     @Test
-    @Ignore("need to make this faster")
     public void test6() throws IOException {
-        Warc.Reader reader = new Warc.Reader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat.gz");
+        Warc.Reader reader = new Warc.Reader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00003-ip-10-233-31-227.ec2.internal.warc.wat.gz");
 
-        reader.cursor.seek(1_549_727_457);
+        ByteStreams.skipFully(InputStreamMapper.MAPPED_STREAM.get(), 0x145c1f7b);
 
         WarcRecord record = reader.read();
 
         new WarcRecord.Writer(System.out).write(record);
 
-        assertThat(record.getHeader().getRecordId()).isEqualTo("<urn:uuid:71124c20-52f4-4451-9de2-d41609631374>");
-        assertThat(record.getHeader().getContentLength()).isEqualTo(1068);
+        assertThat(record.getHeader().getRecordId()).isEqualTo("<urn:uuid:9e7ade15-65c9-472e-93ad-84ec16030cf0>");
+        assertThat(record.getHeader().getContentLength()).isEqualTo(30686);
     }
 }

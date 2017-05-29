@@ -1,4 +1,4 @@
-package org.iokit.magic.gzip;
+package org.iokit.gzip;
 
 import org.iokit.magic.InputStreamMapper;
 
@@ -8,7 +8,7 @@ import java.util.zip.GZIPInputStream;
 
 import java.io.InputStream;
 
-public class GZipInputStreamMapper implements InputStreamMapper {
+public class GzipInputStreamMapper extends InputStreamMapper {
 
     @Override
     public boolean canMap(byte[] magic) {
@@ -17,6 +17,6 @@ public class GZipInputStreamMapper implements InputStreamMapper {
 
     @Override
     public InputStream map(InputStream in) {
-        return in instanceof GZIPInputStream ? in : Try.toCall(() -> new GZIPInputStream(in));
+        return in instanceof GZIPInputStream ? in : Try.toCall(() -> new GZIPInputStream(in, 1024*1024));
     }
 }
