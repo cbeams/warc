@@ -2,6 +2,8 @@ package org.iokit.message;
 
 import org.iokit.core.validate.InvalidCharacterException;
 
+import org.iokit.core.parse.IOKitParser;
+
 import io.beams.valjo.ValjoSpec;
 
 import org.junit.Test;
@@ -73,7 +75,7 @@ public class FieldSpecs {
 
     public static class NameSpec extends TokenSpec {
 
-        private org.iokit.core.parse.Parser parser = new FieldName.Parser();
+        private IOKitParser parser = new FieldName.Parser();
 
         public NameSpec() {
             super(

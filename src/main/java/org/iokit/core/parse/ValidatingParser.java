@@ -2,7 +2,7 @@ package org.iokit.core.parse;
 
 import org.iokit.core.validate.IOKitValidator;
 
-public abstract class ValidatingParser<V> implements Parser<V> {
+public abstract class ValidatingParser<V> implements IOKitParser<V> {
 
     private final IOKitValidator<String> validator;
 

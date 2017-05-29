@@ -7,6 +7,7 @@ import org.iokit.core.write.IOKitWriter;
 
 import org.iokit.core.read.OptionalReader;
 
+import org.iokit.core.parse.IOKitParser;
 import org.iokit.core.parse.ParsingException;
 
 import java.util.Objects;
@@ -96,7 +97,7 @@ public class Field {
     }
 
 
-    public static class Parser implements org.iokit.core.parse.Parser<Field> {
+    public static class Parser implements IOKitParser<Field> {
 
         private final FieldName.Parser nameParser;
         private final FieldValue.Parser valueParser;

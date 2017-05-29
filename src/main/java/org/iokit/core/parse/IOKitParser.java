@@ -1,6 +1,6 @@
 package org.iokit.core.parse;
 
-public interface Parser<V> {
+public interface IOKitParser<V> {
 
     V parse(String input);
 }
