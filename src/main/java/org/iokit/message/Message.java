@@ -1,5 +1,7 @@
 package org.iokit.message;
 
+import org.iokit.core.write.IOKitWriter;
+
 import org.iokit.core.read.IOKitReader;
 
 import java.util.function.BiFunction;
@@ -49,7 +51,7 @@ public class Message<H extends Header, B extends Body> {
 
 
     public static class Writer<H extends Header, B extends Body, M extends Message<H, B>>
-        extends org.iokit.core.write.Writer<M> {
+        extends IOKitWriter<M> {
 
         private final Header.Writer<H> headerWriter;
         private final Body.Writer<B> bodyWriter;

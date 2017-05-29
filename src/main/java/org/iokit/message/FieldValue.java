@@ -21,7 +21,7 @@ public class FieldValue {
         this.value = value;
     }
 
-    public String getFoldedValue() { // TODO: rename to getValue? See TODO in Field.Writer
+    public String getFoldedValue() { // TODO: rename to getValue? See TODO in Field.IOKitWriter
         return value;
     }
 

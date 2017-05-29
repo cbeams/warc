@@ -2,7 +2,7 @@ package org.iokit.core.write;
 
 import java.io.OutputStream;
 
-public abstract class ParameterlessWriter extends Writer<Void> {
+public abstract class ParameterlessWriter extends IOKitWriter<Void> {
 
     public ParameterlessWriter(OutputStream out) {
         super(out);

@@ -1,5 +1,7 @@
 package org.iokit.message;
 
+import org.iokit.core.write.IOKitWriter;
+
 import org.iokit.core.read.ParameterizedReader;
 
 import java.io.InputStream;
@@ -21,7 +23,7 @@ public interface Body<Data> {
     }
 
 
-    abstract class Writer<B> extends org.iokit.core.write.Writer<B> {
+    abstract class Writer<B> extends IOKitWriter<B> {
 
         public Writer(OutputStream out) {
             super(out);

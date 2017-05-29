@@ -1,5 +1,7 @@
 package org.iokit.message;
 
+import org.iokit.core.write.IOKitWriter;
+
 import org.iokit.core.read.IOKitReader;
 
 import java.util.LinkedHashSet;
@@ -70,7 +72,7 @@ public class FieldSet extends LinkedHashSet<Field> {
     }
 
 
-    public abstract static class Writer<FS extends FieldSet> extends org.iokit.core.write.Writer<FS> {
+    public abstract static class Writer<FS extends FieldSet> extends IOKitWriter<FS> {
 
         private final Field.Writer fieldWriter;
 

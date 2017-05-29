@@ -3,6 +3,8 @@ package org.iokit.message;
 import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
+import org.iokit.core.write.IOKitWriter;
+
 import org.iokit.core.read.OptionalReader;
 
 import org.iokit.core.parse.ParsingException;
@@ -79,7 +81,7 @@ public class Field {
     }
 
 
-    public static class Writer extends org.iokit.core.write.Writer<Field> {
+    public static class Writer extends IOKitWriter<Field> {
 
         private final LineWriter lineWriter;
 

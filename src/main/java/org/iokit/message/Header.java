@@ -1,5 +1,7 @@
 package org.iokit.message;
 
+import org.iokit.core.write.IOKitWriter;
+
 import org.iokit.core.read.IOKitReader;
 
 import java.io.InputStream;
@@ -16,7 +18,7 @@ public interface Header {
     }
 
 
-    abstract class Writer<H extends Header> extends org.iokit.core.write.Writer<H> {
+    abstract class Writer<H extends Header> extends IOKitWriter<H> {
 
         public Writer(OutputStream out) {
             super(out);

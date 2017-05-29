@@ -1,5 +1,7 @@
 package org.iokit.message;
 
+import org.iokit.core.write.IOKitWriter;
+
 import org.iokit.core.read.IOKitReader;
 
 import java.util.function.BiFunction;
@@ -40,10 +42,10 @@ public abstract class StartLineHeader<SL, FS extends FieldSet> extends FieldSetH
     public abstract static class Writer<SL, FS extends FieldSet, H extends StartLineHeader<SL, FS>>
         extends Header.Writer<H> {
 
-        private final org.iokit.core.write.Writer<SL> startLineWriter;
+        private final IOKitWriter<SL> startLineWriter;
         private final FieldSet.Writer<FS> fieldSetWriter;
 
-        public Writer(org.iokit.core.write.Writer<SL> startLineWriter,
+        public Writer(IOKitWriter<SL> startLineWriter,
                       FieldSet.Writer<FS> fieldSetWriter) {
             super(startLineWriter.out);
             this.startLineWriter = startLineWriter;

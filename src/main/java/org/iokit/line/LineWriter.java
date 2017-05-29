@@ -1,12 +1,12 @@
 package org.iokit.line;
 
-import org.iokit.core.write.Writer;
+import org.iokit.core.write.IOKitWriter;
 
 import org.iokit.lang.Try;
 
 import java.io.OutputStream;
 
-public class LineWriter extends Writer<String> {
+public class LineWriter extends IOKitWriter<String> {
 
     private final LineTerminator terminator;
 
