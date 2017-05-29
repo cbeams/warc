@@ -14,8 +14,8 @@ import org.iokit.core.IOKitException;
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.iokit.coding.Ascii.COLON;
 import static org.iokit.line.NewlineReader.isNewline;
+import static org.iokit.util.Ascii.COLON;
 
 public class Field {
 

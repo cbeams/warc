@@ -10,8 +10,8 @@ import org.iokit.core.IOKitInputStream;
 
 import java.util.Optional;
 
-import static org.iokit.coding.Ascii.*;
 import static org.iokit.core.IOKitInputStream.LineTerminator.CR_LF;
+import static org.iokit.util.Ascii.*;
 
 public class FoldedLine {
 

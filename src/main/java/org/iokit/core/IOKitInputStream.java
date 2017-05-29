@@ -1,5 +1,7 @@
 package org.iokit.core;
 
+import org.iokit.util.Ascii;
+
 import it.unimi.dsi.fastutil.io.FastBufferedInputStream;
 
 import java.io.IOException;
@@ -10,8 +12,6 @@ import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
-
-import org.iokit.coding.Ascii;
 
 public class IOKitInputStream extends InputStream implements Scrollable {
 

@@ -1,4 +1,4 @@
-package org.iokit.coding;
+package org.iokit.util;
 
 public class Ascii {
 
