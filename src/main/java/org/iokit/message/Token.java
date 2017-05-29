@@ -1,5 +1,6 @@
 package org.iokit.message;
 
+import org.iokit.core.validate.IOKitValidator;
 import org.iokit.core.validate.InvalidCharacterException;
 import org.iokit.core.validate.InvalidLengthException;
 
@@ -36,7 +37,7 @@ public class Token {
     }
 
 
-    public static class Validator implements org.iokit.core.validate.Validator<String> {
+    public static class Validator implements IOKitValidator<String> {
 
         public static final int MIN_TOKEN_LENGTH = 1;
 

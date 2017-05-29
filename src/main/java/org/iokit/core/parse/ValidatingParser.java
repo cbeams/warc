@@ -1,12 +1,12 @@
 package org.iokit.core.parse;
 
-import org.iokit.core.validate.Validator;
+import org.iokit.core.validate.IOKitValidator;
 
 public abstract class ValidatingParser<V> implements Parser<V> {
 
-    private final Validator<String> validator;
+    private final IOKitValidator<String> validator;
 
-    public ValidatingParser(Validator<String> validator) {
+    public ValidatingParser(IOKitValidator<String> validator) {
         this.validator = validator;
     }
 

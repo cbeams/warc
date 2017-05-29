@@ -4,6 +4,7 @@ import org.iokit.line.LineInputStream;
 import org.iokit.line.LineReader;
 import org.iokit.line.NewlineReader;
 
+import org.iokit.core.validate.IOKitValidator;
 import org.iokit.core.validate.InvalidCharacterException;
 
 import java.util.Optional;
@@ -45,7 +46,7 @@ public class FoldedLine {
     }
 
 
-    public static class Validator implements org.iokit.core.validate.Validator<String> {
+    public static class Validator implements IOKitValidator<String> {
 
         @Override
         public void validate(String input) {

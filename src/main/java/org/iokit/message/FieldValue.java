@@ -1,6 +1,6 @@
 package org.iokit.message;
 
-import org.iokit.core.validate.Validator;
+import org.iokit.core.validate.IOKitValidator;
 
 import org.iokit.core.parse.ValidatingParser;
 
@@ -54,7 +54,7 @@ public class FieldValue {
             this(new FoldedLine.Validator());
         }
 
-        public Parser(Validator<String> validator) {
+        public Parser(IOKitValidator<String> validator) {
             super(validator);
         }
 

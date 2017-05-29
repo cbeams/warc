@@ -4,6 +4,8 @@ import org.iokit.core.write.IOKitWriter;
 
 import org.iokit.core.read.IOKitReader;
 
+import org.iokit.core.validate.IOKitValidator;
+
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.function.Function;
@@ -90,6 +92,6 @@ public class FieldSet extends LinkedHashSet<Field> {
     }
 
 
-    public abstract static class Validator<FS extends FieldSet> implements org.iokit.core.validate.Validator<FS> {
+    public abstract static class Validator<FS extends FieldSet> implements IOKitValidator<FS> {
     }
 }

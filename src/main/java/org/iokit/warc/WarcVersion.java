@@ -7,6 +7,7 @@ import org.iokit.core.write.IOKitWriter;
 
 import org.iokit.core.read.IOKitReader;
 
+import org.iokit.core.validate.IOKitValidator;
 import org.iokit.core.validate.ValidatorException;
 
 import org.iokit.core.parse.ValidatingParser;
@@ -89,7 +90,7 @@ public class WarcVersion {
             this(new WarcVersion.Validator());
         }
 
-        public Parser(org.iokit.core.validate.Validator<String> validator) {
+        public Parser(IOKitValidator<String> validator) {
             super(validator);
         }
 
@@ -100,7 +101,7 @@ public class WarcVersion {
     }
 
 
-    public static class Validator implements org.iokit.core.validate.Validator<String> {
+    public static class Validator implements IOKitValidator<String> {
 
         @Override
         public void validate(String input) {
