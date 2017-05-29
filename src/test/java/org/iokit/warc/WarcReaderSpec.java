@@ -149,7 +149,7 @@ public class WarcReaderSpec {
         // the record that precedes it
         assertThat(reader.getReadCount()).isEqualTo(2);
 
-        assertThat(reader.cursor.isAtEOF()).isTrue();
+        assertThat(reader.in.isAtEOF()).isTrue();
     }
 
     @Test

@@ -25,16 +25,9 @@ public class ConcatenationReader<V> extends CountingReader<V> {
     }
 
     protected Optional<V> readValue() {
-        if (cursor.supported)
-            return cursor.isAtEOF() ?
-                Optional.empty() :
-                Optional.of(valueReader.read());
-
-        try {
-            return Optional.of(valueReader.read());
-        } catch (EndOfInputException ex) {
-            return Optional.empty();
-        }
+        return in.isAtEOF() ?
+            Optional.empty() :
+            Optional.of(valueReader.read());
     }
 
     protected void readConcatenator() {

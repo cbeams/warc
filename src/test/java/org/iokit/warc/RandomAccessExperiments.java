@@ -120,7 +120,7 @@ public class RandomAccessExperiments {
     public void test5() throws IOException {
         Warc.Reader reader = new Warc.Reader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00003-ip-10-233-31-227.ec2.internal.warc.wat");
 
-        reader.cursor.seek(1_523_285);
+        reader.in.seek(1_523_285);
 
         WarcRecord record = reader.read();
         System.out.println(reader.in);

@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
 
-public class IOKitInputStream extends InputStream implements Scrollable {
+public class IOKitInputStream extends InputStream {
 
     private final FastBufferedInputStream in;
     private final EnumSet<FastBufferedInputStream.LineTerminator> terminators;
@@ -40,12 +40,10 @@ public class IOKitInputStream extends InputStream implements Scrollable {
         return Try.toCall(() -> in.readLine(chunk, start, length, terminators));
     }
 
-    @Override
     public boolean isAtEOF() {
         return peek() == -1;
     }
 
-    @Override
     public void seek(long offset) {
         Try.toCall(() -> in.skip(offset - in.position()));
     }
