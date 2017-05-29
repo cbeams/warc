@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.core.validate.ValidatorException;
+import org.iokit.core.validate.IOKitValidator;
 
 import io.beams.valjo.ValjoSpec;
 
@@ -28,7 +28,7 @@ public class WarcRecordVersionSpec extends ValjoSpec {
     @Test
     public void parseEmptyInput() {
         assertThatThrownBy(() -> parse(""))
-            .isInstanceOf(ValidatorException.class);
+            .isInstanceOf(IOKitValidator.Exception.class);
     }
 
     @Override
@@ -37,6 +37,6 @@ public class WarcRecordVersionSpec extends ValjoSpec {
         Stream.of(" ", "\t")
             .forEach(blank ->
                 assertThatThrownBy(() -> parse(blank))
-                    .isInstanceOf(ValidatorException.class));
+                    .isInstanceOf(IOKitValidator.Exception.class));
     }
 }

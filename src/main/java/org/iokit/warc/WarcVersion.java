@@ -8,7 +8,6 @@ import org.iokit.core.write.IOKitWriter;
 import org.iokit.core.read.IOKitReader;
 
 import org.iokit.core.validate.IOKitValidator;
-import org.iokit.core.validate.ValidatorException;
 
 import org.iokit.core.parse.ValidatingParser;
 
@@ -106,7 +105,7 @@ public class WarcVersion {
         @Override
         public void validate(String input) {
             if (!WARC_1_0.equals(input) && !WARC_1_1.equals(input))
-                throw new ValidatorException("[%s] is an unsupported or otherwise malformed WARC record version", input);
+                throw new Exception("[%s] is an unsupported or otherwise malformed WARC record version", input);
         }
     }
 }

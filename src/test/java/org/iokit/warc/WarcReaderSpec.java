@@ -3,7 +3,7 @@ package org.iokit.warc;
 import org.iokit.core.read.EndOfInputException;
 import org.iokit.core.read.IOKitReader;
 
-import org.iokit.core.validate.ValidatorException;
+import org.iokit.core.validate.IOKitValidator;
 
 import org.junit.Test;
 
@@ -83,7 +83,7 @@ public class WarcReaderSpec {
 
         // the second record is garbage
         assertThatThrownBy(reader::read)
-            .isExactlyInstanceOf(ValidatorException.class);
+            .isExactlyInstanceOf(IOKitValidator.Exception.class);
 
         // we never get to the third record
 
@@ -143,7 +143,7 @@ public class WarcReaderSpec {
         // the last line of what should be a concatenator
         // causes a validation exception
         assertThatThrownBy(reader::read)
-            .isInstanceOf(ValidatorException.class);
+            .isInstanceOf(IOKitValidator.Exception.class);
 
         // read count should still be at 2 since failing
         // to read a concatenator/ means failing to read

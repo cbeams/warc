@@ -1,6 +1,6 @@
 package org.iokit.core.validate;
 
-public class InvalidCharacterException extends ValidatorException {
+public class InvalidCharacterException extends IOKitValidator.Exception {
 
     public InvalidCharacterException(String input) {
         super("input [%s] contains one or more invalid characters", input);
