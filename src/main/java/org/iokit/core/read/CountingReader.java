@@ -23,7 +23,7 @@ public abstract class CountingReader<V> extends OptionalReader<V> {
             readCount++;
 
         else if (readCount < minimumReadCount)
-            throw new ReaderException(
+            throw new IOKitReader.Exception(
                 "Expected to read at least %d value(s), but %d were found", minimumReadCount, readCount);
 
         return value;

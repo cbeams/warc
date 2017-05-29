@@ -1,7 +1,7 @@
 package org.iokit.warc;
 
 import org.iokit.core.read.EndOfInputException;
-import org.iokit.core.read.ReaderException;
+import org.iokit.core.read.IOKitReader;
 
 import org.iokit.core.validate.ValidatorException;
 
@@ -23,14 +23,14 @@ public class WarcReaderSpec {
     @Test
     public void readEmptyWarcFile() {
         Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
-        assertThatThrownBy(reader::read).isInstanceOf(ReaderException.class);
+        assertThatThrownBy(reader::read).isInstanceOf(IOKitReader.Exception.class);
         assertThat(reader.getReadCount()).isZero();
     }
 
     @Test
     public void streamEmptyWarcFile() {
         Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/org/iokit/warc/empty.warc"));
-        assertThatThrownBy(reader.stream()::count).isInstanceOf(ReaderException.class);
+        assertThatThrownBy(reader.stream()::count).isInstanceOf(IOKitReader.Exception.class);
         assertThat(reader.getReadCount()).isZero();
     }
 

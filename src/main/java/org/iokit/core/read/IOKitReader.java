@@ -1,5 +1,6 @@
 package org.iokit.core.read;
 
+import org.iokit.core.IOKitException;
 import org.iokit.core.Try;
 
 import java.io.Closeable;
@@ -26,5 +27,25 @@ public abstract class IOKitReader<V> implements Closeable {
     @Override
     public void close() {
         Try.toRun(in::close);
+    }
+
+
+    public static class Exception extends IOKitException {
+
+        public Exception(Throwable cause, String message, Object... args) {
+            super(cause, message, args);
+        }
+
+        public Exception(String message, Object... args) {
+            super(message, args);
+        }
+
+        public Exception(Throwable cause) {
+            super(cause);
+        }
+
+        public Exception() {
+            super();
+        }
     }
 }

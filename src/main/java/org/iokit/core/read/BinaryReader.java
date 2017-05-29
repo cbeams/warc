@@ -17,7 +17,7 @@ public class BinaryReader extends FixedLengthReader<byte[]> {
         int actual = Try.toCall(() -> in.read(array, 0, length));
 
         if (actual != length)
-            throw new ReaderException("expected to read %d bytes, but read only %d", length, actual);
+            throw new IOKitReader.Exception("expected to read %d bytes, but read only %d", length, actual);
 
         return array;
     }
