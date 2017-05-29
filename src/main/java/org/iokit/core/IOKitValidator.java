@@ -1,4 +1,4 @@
-package org.iokit.core.validate;
+package org.iokit.core;
 
 public interface IOKitValidator<V> {
 

@@ -1,8 +1,8 @@
 package org.iokit.message;
 
-import org.iokit.core.validate.IOKitValidator;
-
 import org.iokit.core.parse.ValidatingParser;
+
+import org.iokit.core.IOKitValidator;
 
 import java.util.Objects;
 import java.util.regex.Pattern;

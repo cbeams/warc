@@ -3,10 +3,10 @@ package org.iokit.message;
 import org.iokit.line.LineReader;
 import org.iokit.line.NewlineReader;
 
-import org.iokit.core.validate.IOKitValidator;
 import org.iokit.core.validate.InvalidCharacterException;
 
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.IOKitValidator;
 
 import java.util.Optional;
 
