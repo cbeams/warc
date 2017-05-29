@@ -6,12 +6,14 @@ import org.iokit.line.NewlineReader;
 
 import org.iokit.core.write.ParameterlessWriter;
 
+import org.iokit.core.read.IOKitReader;
+
 public class WarcConcatenator {
 
     public static final int NEWLINE_COUNT = 2;
 
 
-    public static class Reader extends org.iokit.core.read.Reader<Boolean> {
+    public static class Reader extends IOKitReader<Boolean> {
 
         private final NewlineReader newlineReader;
 

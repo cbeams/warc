@@ -8,10 +8,10 @@ public class ConcatenationReader<V> extends CountingReader<V> {
 
     private boolean expectTrailingConcatenator = DEFAULT_EXPECT_TRAILING_CONCATENATOR;
 
-    private final Reader<V> valueReader;
-    private final Reader<Boolean> concatenatorReader;
+    private final IOKitReader<V> valueReader;
+    private final IOKitReader<Boolean> concatenatorReader;
 
-    public ConcatenationReader(Reader<V> valueReader, Reader<Boolean> concatenatorReader) {
+    public ConcatenationReader(IOKitReader<V> valueReader, IOKitReader<Boolean> concatenatorReader) {
         super(valueReader.in);
         this.valueReader = valueReader;
         this.concatenatorReader = concatenatorReader;

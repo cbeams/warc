@@ -1,5 +1,7 @@
 package org.iokit.message;
 
+import org.iokit.core.read.IOKitReader;
+
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.function.Function;
@@ -47,7 +49,7 @@ public class FieldSet extends LinkedHashSet<Field> {
     }
 
 
-    public abstract static class Reader<FS extends FieldSet> extends org.iokit.core.read.Reader<FS> {
+    public abstract static class Reader<FS extends FieldSet> extends IOKitReader<FS> {
 
         private final Field.Reader fieldReader;
         private final Validator<FS> fieldSetValidator;

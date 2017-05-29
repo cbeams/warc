@@ -1,5 +1,7 @@
 package org.iokit.message;
 
+import org.iokit.core.read.IOKitReader;
+
 import java.util.function.BiFunction;
 
 import static java.util.Objects.requireNonNull;
@@ -24,7 +26,7 @@ public class Message<H extends Header, B extends Body> {
 
 
     public static class Reader<H extends Header, B extends Body, M extends Message<H, B>>
-        extends org.iokit.core.read.Reader<M> {
+        extends IOKitReader<M> {
 
         protected final Header.Reader<H> headerReader;
         protected final Body.Reader<H, B> bodyReader;

@@ -3,6 +3,8 @@ package org.iokit.warc;
 import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
+import org.iokit.core.read.IOKitReader;
+
 import org.iokit.core.validate.ValidatorException;
 
 import org.iokit.core.parse.ValidatingParser;
@@ -43,7 +45,7 @@ public class WarcVersion {
     }
 
 
-    public static class Reader extends org.iokit.core.read.Reader<WarcVersion> {
+    public static class Reader extends IOKitReader<WarcVersion> {
 
         private final LineReader lineReader;
         private final WarcVersion.Parser parser;

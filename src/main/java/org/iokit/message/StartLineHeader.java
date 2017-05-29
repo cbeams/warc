@@ -1,5 +1,7 @@
 package org.iokit.message;
 
+import org.iokit.core.read.IOKitReader;
+
 import java.util.function.BiFunction;
 
 public abstract class StartLineHeader<SL, FS extends FieldSet> extends FieldSetHeader<FS> {
@@ -15,11 +17,11 @@ public abstract class StartLineHeader<SL, FS extends FieldSet> extends FieldSetH
     public abstract static class Reader<SL, FS extends FieldSet, H extends StartLineHeader<SL, FS>>
         extends Header.Reader<H> {
 
-        private final org.iokit.core.read.Reader<SL> startLineReader;
+        private final IOKitReader<SL> startLineReader;
         private final FieldSet.Reader<FS> fieldSetReader;
         private final BiFunction<SL, FS, H> headerFactory;
 
-        public Reader(org.iokit.core.read.Reader<SL> startLineReader,
+        public Reader(IOKitReader<SL> startLineReader,
                       FieldSet.Reader<FS> fieldSetReader,
                       BiFunction<SL, FS, H> headerFactory) {
             super(startLineReader.in);

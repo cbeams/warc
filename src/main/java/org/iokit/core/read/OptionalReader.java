@@ -11,7 +11,7 @@ import java.util.stream.StreamSupport;
 import static java.util.Spliterator.*;
 import static java.util.Spliterators.spliteratorUnknownSize;
 
-public abstract class OptionalReader<V> extends Reader<V> implements Iterable<V> {
+public abstract class OptionalReader<V> extends IOKitReader<V> implements Iterable<V> {
 
     public OptionalReader(InputStream in) {
         super(in);

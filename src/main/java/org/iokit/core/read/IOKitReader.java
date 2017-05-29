@@ -7,16 +7,16 @@ import java.io.InputStream;
 
 import static java.util.Objects.requireNonNull;
 
-public abstract class Reader<V> implements Closeable {
+public abstract class IOKitReader<V> implements Closeable {
 
     public final InputStream in;
     public final InputStreamCursor cursor;
 
-    public Reader(InputStream in) {
+    public IOKitReader(InputStream in) {
         this(in, new InputStreamCursor(in));
     }
 
-    public Reader(InputStream in, InputStreamCursor cursor) {
+    public IOKitReader(InputStream in, InputStreamCursor cursor) {
         this.in = requireNonNull(in);
         this.cursor = requireNonNull(cursor);
     }
