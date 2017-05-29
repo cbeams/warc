@@ -1,8 +1,7 @@
 package org.iokit.line;
 
-import org.iokit.core.write.IOKitWriter;
-
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.IOKitWriter;
 import org.iokit.core.Try;
 
 import java.io.OutputStream;

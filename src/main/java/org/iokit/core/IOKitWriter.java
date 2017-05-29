@@ -1,6 +1,6 @@
-package org.iokit.core.write;
+package org.iokit.core;
 
-import org.iokit.core.Try;
+import org.iokit.core.write.OutputStreamSegmenter;
 
 import java.io.Closeable;
 import java.io.OutputStream;

@@ -3,13 +3,12 @@ package org.iokit.message;
 import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
-import org.iokit.core.write.IOKitWriter;
-
 import org.iokit.core.read.OptionalReader;
 
 import org.iokit.core.parse.IOKitParser;
 
 import org.iokit.core.IOKitException;
+import org.iokit.core.IOKitWriter;
 
 import java.util.Objects;
 import java.util.Optional;

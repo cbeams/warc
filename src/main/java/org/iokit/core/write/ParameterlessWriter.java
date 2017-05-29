@@ -1,5 +1,7 @@
 package org.iokit.core.write;
 
+import org.iokit.core.IOKitWriter;
+
 import java.io.OutputStream;
 
 public abstract class ParameterlessWriter extends IOKitWriter<Void> {

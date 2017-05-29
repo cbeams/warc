@@ -3,14 +3,13 @@ package org.iokit.warc;
 import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
-import org.iokit.core.write.IOKitWriter;
-
 import org.iokit.core.validate.IOKitValidator;
 
 import org.iokit.core.parse.ValidatingParser;
 
 import org.iokit.core.IOKitException;
 import org.iokit.core.IOKitReader;
+import org.iokit.core.IOKitWriter;
 
 import java.util.Objects;
 
