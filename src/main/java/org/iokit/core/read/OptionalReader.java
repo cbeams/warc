@@ -1,6 +1,7 @@
 package org.iokit.core.read;
 
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.IOKitReader;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

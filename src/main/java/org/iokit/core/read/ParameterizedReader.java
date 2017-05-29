@@ -1,6 +1,7 @@
 package org.iokit.core.read;
 
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.IOKitReader;
 
 public abstract class ParameterizedReader<P, T> extends IOKitReader {
 

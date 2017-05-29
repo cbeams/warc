@@ -6,7 +6,7 @@ import org.iokit.line.NewlineReader;
 
 import org.iokit.core.write.ParameterlessWriter;
 
-import org.iokit.core.read.IOKitReader;
+import org.iokit.core.IOKitReader;
 
 public class WarcConcatenator {
 

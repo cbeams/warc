@@ -1,7 +1,4 @@
-package org.iokit.core.read;
-
-import org.iokit.core.IOKitInputStream;
-import org.iokit.core.Try;
+package org.iokit.core;
 
 import java.io.Closeable;
 

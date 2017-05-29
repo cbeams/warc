@@ -2,9 +2,9 @@ package org.iokit.message;
 
 import org.iokit.core.write.IOKitWriter;
 
-import org.iokit.core.read.IOKitReader;
-
 import org.iokit.core.validate.IOKitValidator;
+
+import org.iokit.core.IOKitReader;
 
 import java.util.LinkedHashSet;
 import java.util.Optional;

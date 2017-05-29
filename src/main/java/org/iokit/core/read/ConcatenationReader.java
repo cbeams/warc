@@ -1,5 +1,7 @@
 package org.iokit.core.read;
 
+import org.iokit.core.IOKitReader;
+
 import java.util.Optional;
 
 public class ConcatenationReader<V> extends CountingReader<V> {

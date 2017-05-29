@@ -2,9 +2,8 @@ package org.iokit.message;
 
 import org.iokit.core.write.IOKitWriter;
 
-import org.iokit.core.read.IOKitReader;
-
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.IOKitReader;
 
 import java.io.OutputStream;
 
