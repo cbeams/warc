@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 
 import static java.lang.System.currentTimeMillis;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.iokit.warc.WarcRecord.DEFAULT_LINE_TERMINATOR;
+import static org.iokit.warc.WarcRecord.LINE_TERMINATOR;
 
 
 
@@ -109,7 +109,7 @@ public class WarcReaderPerformanceTests {
                 System.out.println("reading: " + warcFile);
                 try {
                     byte[] chunk = new byte[1024];
-                    IOKitInputStream input = new IOKitInputStream(new FileInputStream(warcFile), EnumSet.of(DEFAULT_LINE_TERMINATOR));
+                    IOKitInputStream input = new IOKitInputStream(new FileInputStream(warcFile), EnumSet.of(LINE_TERMINATOR));
                     //FastBufferedInputStream input = new FastBufferedInputStream(new FileInputStream(warcFile));
 
                     int start = 0, length;
@@ -139,7 +139,7 @@ public class WarcReaderPerformanceTests {
                 System.out.println("reading: " + warcFile);
                 LineReader reader = null;
                 try {
-                    reader = new LineReader(new IOKitInputStream(new FileInputStream(warcFile), EnumSet.of(DEFAULT_LINE_TERMINATOR)));
+                    reader = new LineReader(new IOKitInputStream(new FileInputStream(warcFile), EnumSet.of(LINE_TERMINATOR)));
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
                 }
@@ -778,7 +778,7 @@ public class WarcReaderPerformanceTests {
                     gzSize),
                 fbSize);
 
-        Warc.Reader reader = new Warc.Reader(new IOKitInputStream(input, EnumSet.of(DEFAULT_LINE_TERMINATOR)));
+        Warc.Reader reader = new Warc.Reader(new IOKitInputStream(input, EnumSet.of(LINE_TERMINATOR)));
 
         int count = 0;
         while (reader.read() != null)

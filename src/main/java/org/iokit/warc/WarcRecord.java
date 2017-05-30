@@ -23,7 +23,7 @@ import java.util.function.BiFunction;
  */
 public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generate delegate methods for WarcHeader. Everything should be super-convenient and directly accessible from WarcRecord
 
-    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF;
+    public static final LineTerminator LINE_TERMINATOR = LineTerminator.CR_LF;
 
     public WarcRecord(WarcHeader header, WarcBody body) {
         super(header, body);
@@ -33,7 +33,7 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generat
     public static class Reader extends Message.Reader<WarcHeader, WarcBody, WarcRecord> {
 
         public Reader(InputStream in) {
-            this(new IOKitInputStream(in, EnumSet.of(DEFAULT_LINE_TERMINATOR)));
+            this(new IOKitInputStream(in, EnumSet.of(LINE_TERMINATOR)));
         }
 
         public Reader(IOKitInputStream in) {
@@ -60,7 +60,7 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generat
     public static class Writer extends Message.Writer<WarcHeader, WarcBody, WarcRecord> {
 
         public Writer(OutputStream out) {
-            this(new IOKitOutputStream(out, DEFAULT_LINE_TERMINATOR));
+            this(new IOKitOutputStream(out, LINE_TERMINATOR));
         }
 
         public Writer(IOKitOutputStream out) {

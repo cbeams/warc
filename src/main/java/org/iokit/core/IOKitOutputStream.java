@@ -1,14 +1,11 @@
 package org.iokit.core;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import java.util.LinkedHashSet;
-import java.util.ServiceLoader;
-import java.util.Set;
+import java.util.Arrays;
 
 public class IOKitOutputStream extends OutputStream {
 
@@ -59,40 +56,19 @@ public class IOKitOutputStream extends OutputStream {
     }
 
 
-    public abstract static class Adapter {
+    public interface Adapter {
 
-        private static final Set<Adapter> ADAPTERS = new LinkedHashSet<>();
+        boolean canAdapt(File file);
 
-        static {
-            ServiceLoader.load(Adapter.class).forEach(ADAPTERS::add);
-        }
-
-        public abstract boolean canAdapt(File file);
-
-        public abstract IOKitOutputStream adapt(OutputStream out);
-
-        public static IOKitOutputStream adaptFrom(AdaptableFileOutputStream out) {
-            ServiceLoader.load(Adapter.class).forEach(Adapter.ADAPTERS::add);
-            return ADAPTERS.stream()
-                .filter(mapper -> mapper.canAdapt(out.getFile()))
-                .map(mapper -> mapper.adapt(out))
-                .findFirst()
-                .orElse(new IOKitOutputStream(out));
-        }
+        IOKitOutputStream adapt(File file, LineTerminator terminator);
     }
 
 
-    public static class AdaptableFileOutputStream extends FileOutputStream {
-
-        private final File file;
-
-        public AdaptableFileOutputStream(File file) throws FileNotFoundException {
-            super(file);
-            this.file = file;
-        }
-
-        public File getFile() {
-            return file;
-        }
+    public static IOKitOutputStream adapt(File file, LineTerminator terminator, Adapter... adapters) {
+        return Arrays.stream(adapters)
+            .filter(adapter -> adapter.canAdapt(file))
+            .map(adapter -> adapter.adapt(file, terminator))
+            .findFirst()
+            .orElse(new IOKitOutputStream(Try.toCall(() -> new FileOutputStream(file)), terminator));
     }
 }

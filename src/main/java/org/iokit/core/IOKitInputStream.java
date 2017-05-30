@@ -8,10 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
 
+import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.LinkedHashSet;
-import java.util.ServiceLoader;
-import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
@@ -80,42 +78,37 @@ public class IOKitInputStream extends InputStream {
     }
 
 
-    public abstract static class Adapter {
+    public interface Adapter {
 
-        public static final int DEFAULT_MAGIC_SIZE = 8;
+        int DEFAULT_MAGIC_SIZE = 8;
 
-        private static final Set<Adapter> ADAPTERS = new LinkedHashSet<>();
+        boolean canAdapt(byte[] magic);
 
-        static {
-            ServiceLoader.load(Adapter.class).forEach(ADAPTERS::add); /* TODO: ~100ms performance hit is negligible
-                                                                         for large files (eg warc), but noticable
-                                                                         for small files.
-                                                                         See https://stackoverflow.com/a/7237152 */
-        }
-
-        public abstract boolean canAdapt(byte[] magic);
-
-        public abstract IOKitInputStream adapt(InputStream in);
+        IOKitInputStream adapt(InputStream in);
+    }
 
 
-        public static IOKitInputStream adaptFrom(InputStream in, EnumSet<LineTerminator> terminators) {
-            return adaptFrom(in, terminators, DEFAULT_MAGIC_SIZE);
-        }
+    public static IOKitInputStream adapt(InputStream in, LineTerminator terminator, Adapter... adapters) {
+        return adapt(in, EnumSet.of(terminator), adapters);
+    }
 
-        public static IOKitInputStream adaptFrom(InputStream in, EnumSet<LineTerminator> terminators, int size) {
-            byte[] magic = new byte[size];
-            PushbackInputStream pbin = new PushbackInputStream(in, size);
+    public static IOKitInputStream adapt(InputStream in, EnumSet<LineTerminator> terminators, Adapter... adapters) {
+        return adapt(in, Adapter.DEFAULT_MAGIC_SIZE, terminators, adapters);
+    }
 
-            int len = Try.toCall(() -> pbin.read(magic));
-            if (len == -1)
-                return new IOKitInputStream(pbin, terminators);
-            Try.toRun(() -> pbin.unread(magic, 0, len));
+    static IOKitInputStream adapt(InputStream in, int size, EnumSet<LineTerminator> terminators, Adapter... adapters) {
+        byte[] magic = new byte[size];
+        PushbackInputStream pbin = new PushbackInputStream(in, size);
 
-            return ADAPTERS.stream()
-                .filter(mapper -> mapper.canAdapt(magic))
-                .map(mapper -> mapper.adapt(pbin))
-                .findFirst()
-                .orElse(new IOKitInputStream(pbin, terminators));
-        }
+        int len = Try.toCall(() -> pbin.read(magic));
+        if (len == -1)
+            return new IOKitInputStream(pbin, terminators);
+        Try.toRun(() -> pbin.unread(magic, 0, len));
+
+        return Arrays.stream(adapters)
+            .filter(adapter -> adapter.canAdapt(magic))
+            .map(adapter -> adapter.adapt(pbin))
+            .findFirst()
+            .orElse(new IOKitInputStream(pbin, terminators));
     }
 }
