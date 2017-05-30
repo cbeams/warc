@@ -4,8 +4,12 @@ import it.unimi.dsi.fastutil.io.FastBufferedInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PushbackInputStream;
 
 import java.util.EnumSet;
+import java.util.LinkedHashSet;
+import java.util.ServiceLoader;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
@@ -58,5 +62,49 @@ public class IOKitInputStream extends InputStream {
     @Override
     public void close() throws IOException {
         in.close();
+    }
+
+
+    public abstract static class Adapter {
+
+        public static final int DEFAULT_MAGIC_SIZE = 8;
+
+        private static final Set<Adapter> ADAPTERS = new LinkedHashSet<>();
+
+        public static final ThreadLocal<InputStream> ADAPTED_STREAM = new ThreadLocal<>();
+
+        static {
+            ServiceLoader.load(Adapter.class).forEach(ADAPTERS::add); /* TODO: ~100ms performance hit is negligible
+                                                                         for large files (eg warc), but noticable
+                                                                         for small files.
+                                                                         See https://stackoverflow.com/a/7237152 */
+        }
+
+        public abstract boolean canAdapt(byte[] magic);
+
+        public abstract InputStream adapt(InputStream in);
+
+
+        public static InputStream adaptFrom(InputStream in) {
+            return adaptFrom(in, DEFAULT_MAGIC_SIZE);
+        }
+
+        public static InputStream adaptFrom(InputStream in, int size) {
+            byte[] magic = new byte[size];
+            PushbackInputStream pbin = new PushbackInputStream(in, size);
+
+            ADAPTED_STREAM.set(pbin);
+
+            int len = Try.toCall(() -> pbin.read(magic));
+            if (len == -1)
+                return pbin;
+            Try.toRun(() -> pbin.unread(magic, 0, len));
+
+            return ADAPTERS.stream()
+                .filter(mapper -> mapper.canAdapt(magic))
+                .map(mapper -> mapper.adapt(pbin))
+                .findFirst()
+                .orElse(pbin);
+        }
     }
 }

@@ -1,9 +1,5 @@
 package org.iokit.warc;
 
-import org.iokit.magic.InputStreamMapper;
-import org.iokit.magic.MappableFileOutputStream;
-import org.iokit.magic.OutputStreamMapper;
-
 import org.iokit.general.ConcatenationReader;
 import org.iokit.general.ConcatenationWriter;
 import org.iokit.general.LineReader;
@@ -36,7 +32,7 @@ public class Warc {
         }
 
         public Reader(InputStream in) {
-            this(new IOKitInputStream(InputStreamMapper.mapFrom(in), WarcRecord.DEFAULT_LINE_TERMINATOR));
+            this(new IOKitInputStream(IOKitInputStream.Adapter.adaptFrom(in), WarcRecord.DEFAULT_LINE_TERMINATOR));
         }
 
         public Reader(IOKitInputStream in) {
@@ -60,15 +56,15 @@ public class Warc {
         // TODO: implement getByteCount up the stack
 
         public Writer(File warcFile) {
-            this(Try.toCall(() -> new MappableFileOutputStream(warcFile)));
+            this(Try.toCall(() -> new IOKitOutputStream.AdaptableFileOutputStream(warcFile)));
         }
 
-        public Writer(MappableFileOutputStream out) {
-            this(OutputStreamMapper.mapFrom(out));
+        public Writer(IOKitOutputStream.AdaptableFileOutputStream out) {
+            this(IOKitOutputStream.Adapter.adaptFrom(out));
         }
 
         public Writer(OutputStream out, Class<? extends OutputStream> toType) { // TODO: test this ctor
-            this(OutputStreamMapper.mapFrom(out, toType));
+            this(IOKitOutputStream.Adapter.adaptFrom(out, toType));
         }
 
         public Writer(OutputStream out) {

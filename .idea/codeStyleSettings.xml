@@ -11,8 +11,6 @@
             <emptyLine />
             <package name="org.iokit.message" withSubpackages="true" static="false" />
             <emptyLine />
-            <package name="org.iokit.magic" withSubpackages="true" static="false" />
-            <emptyLine />
             <package name="org.iokit.general" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.core" withSubpackages="true" static="false" />
