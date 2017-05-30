@@ -2,7 +2,6 @@ package org.iokit.line;
 
 import org.iokit.core.IOKitOutputStream;
 import org.iokit.core.IOKitWriter;
-import org.iokit.core.Try;
 
 public class LineWriter extends IOKitWriter<String> {
 
@@ -12,11 +11,10 @@ public class LineWriter extends IOKitWriter<String> {
 
     @Override
     public void write(String value) {
-        Try.toRun(() -> out.write(value.getBytes()));
-        write();
+        out.writeLine(value);
     }
 
     public void write() {
-        Try.toRun(() -> out.write(out.terminator.bytes));
+        out.writeLine();
     }
 }

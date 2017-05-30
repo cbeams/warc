@@ -6,7 +6,7 @@ import java.io.OutputStream;
 public class IOKitOutputStream extends OutputStream {
 
     protected final OutputStream out;
-    public final LineTerminator terminator;
+    protected final LineTerminator terminator;
 
     public IOKitOutputStream(OutputStream out) {
         this(out, LineTerminator.systemValue());
@@ -25,6 +25,19 @@ public class IOKitOutputStream extends OutputStream {
     @Override
     public void write(byte[] b, int off, int len) throws IOException {
         out.write(b, off, len);
+    }
+
+    public void writeLine(String string) {
+        writeLine(string.getBytes());
+    }
+
+    public void writeLine(byte[] bytes) {
+        Try.toRun(() -> write(bytes));
+        writeLine();
+    }
+
+    public void writeLine() {
+        Try.toRun(() -> write(terminator.bytes));
     }
 
     @Override
