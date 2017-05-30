@@ -16,14 +16,12 @@ public class ConcatenationWriter<V> extends IOKitWriter<V> {
 
     @Override
     public void write(V value) {
-        if (segmenter.supported)
-            segmenter.startSegment();
+        out.startSegment();
 
         valueWriter.write(value);
         concatenatorWriter.write();
 
-        if (segmenter.supported)
-            segmenter.finishSegment();
+        out.finishSegment();
     }
 
     @Override

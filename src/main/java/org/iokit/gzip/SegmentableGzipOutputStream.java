@@ -1,7 +1,5 @@
 package org.iokit.gzip;
 
-import org.iokit.core.write.Segmentable;
-
 import org.iokit.core.IOKitOutputStream;
 import org.iokit.core.Try;
 
@@ -10,7 +8,7 @@ import java.util.zip.GZIPOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class SegmentableGzipOutputStream extends IOKitOutputStream implements Segmentable {
+public class SegmentableGzipOutputStream extends IOKitOutputStream {
 
     public static final int DEFAULT_SIZE = 512; // same as GZIPOutputStream's hard-coded default
 

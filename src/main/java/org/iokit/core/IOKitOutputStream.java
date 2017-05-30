@@ -40,8 +40,15 @@ public class IOKitOutputStream extends OutputStream {
         Try.toRun(() -> write(terminator.bytes));
     }
 
+    public void startSegment() {
+    }
+
+    public void finishSegment() {
+    }
+
     @Override
     public void close() {
         Try.toRun(out::close);
     }
+
 }
