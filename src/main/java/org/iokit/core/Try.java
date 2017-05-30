@@ -32,6 +32,7 @@ public final class Try {
             new IOKitException(ex);
     }
 
+
     @FunctionalInterface
     public interface CheckedRunnable {
 
