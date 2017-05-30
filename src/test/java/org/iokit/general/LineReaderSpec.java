@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 
+import java.util.EnumSet;
+
 import static org.assertj.core.api.Assertions.*;
 
 public class LineReaderSpec {
@@ -15,7 +17,7 @@ public class LineReaderSpec {
         return
             new LineReader(
                 new IOKitInputStream(
-                    new ByteArrayInputStream(input.getBytes()), LineTerminator.CR_LF));
+                    new ByteArrayInputStream(input.getBytes()), EnumSet.of(LineTerminator.CR_LF)));
     }
 
     @Test

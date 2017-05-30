@@ -1,7 +1,5 @@
 package org.iokit.warc;
 
-import org.iokit.core.IOKitInputStream;
-
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -16,11 +14,6 @@ import java.io.RandomAccessFile;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
-
-
-
-
-import com.google.common.io.ByteStreams;
 
 public class RandomAccessExperiments {
 
@@ -108,7 +101,7 @@ public class RandomAccessExperiments {
         //
         in.skip(1_549_727_457); // works for both!
 
-        for (int i=0; i<11; i++) {
+        for (int i = 0; i < 11; i++) {
             byte[] line = new byte[1024];
             int length = in.readLine(line);
             System.out.println(new String(line, 0, length, UTF_8));
@@ -116,14 +109,12 @@ public class RandomAccessExperiments {
     }
 
     @Test
-    @Ignore
     public void test5() throws IOException {
         Warc.Reader reader = new Warc.Reader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00003-ip-10-233-31-227.ec2.internal.warc.wat");
 
-        reader.in.seek(1_523_285);
+        reader.in.seek(1_541_333_866);
 
         WarcRecord record = reader.read();
-        System.out.println(reader.in);
 
         new WarcRecord.Writer(System.out).write(record);
 
@@ -135,7 +126,7 @@ public class RandomAccessExperiments {
     public void test6() throws IOException {
         Warc.Reader reader = new Warc.Reader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00003-ip-10-233-31-227.ec2.internal.warc.wat.gz");
 
-        ByteStreams.skipFully(IOKitInputStream.Adapter.ADAPTED_STREAM.get(), 0x145c1f7b);
+        reader.in.skipRaw(341_581_691);
 
         WarcRecord record = reader.read();
 
@@ -143,5 +134,19 @@ public class RandomAccessExperiments {
 
         assertThat(record.getHeader().getRecordId()).isEqualTo("<urn:uuid:9e7ade15-65c9-472e-93ad-84ec16030cf0>");
         assertThat(record.getHeader().getContentLength()).isEqualTo(30686);
+    }
+
+    @Test
+    public void test7() throws IOException {
+        Warc.Reader reader = new Warc.Reader("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.gz");
+
+        reader.in.skipRaw(997_959_983); // per 'offset' at http://index.commoncrawl.org/CC-MAIN-2017-13-index?url=https://zona.mobi/tvseries/zaklyuchennyi-2009
+
+        WarcRecord record = reader.read();
+
+        new WarcRecord.Writer(System.out).write(record);
+
+        assertThat(record.getHeader().getRecordId()).isEqualTo("<urn:uuid:d571bc65-8d3a-4311-98b2-e9b4bd768ddc>");
+        assertThat(record.getHeader().getContentLength()).isEqualTo(25943);
     }
 }

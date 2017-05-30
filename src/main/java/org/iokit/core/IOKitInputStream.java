@@ -2,6 +2,8 @@ package org.iokit.core;
 
 import it.unimi.dsi.fastutil.io.FastBufferedInputStream;
 
+import com.google.common.io.ByteStreams;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
@@ -10,25 +12,34 @@ import java.util.EnumSet;
 import java.util.LinkedHashSet;
 import java.util.ServiceLoader;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
 
 public class IOKitInputStream extends InputStream {
 
+    private final InputStream raw;
     private final FastBufferedInputStream in;
     private final EnumSet<FastBufferedInputStream.LineTerminator> terminators;
 
     public IOKitInputStream(InputStream in) {
-        this(in, LineTerminator.values());
+        this(in, EnumSet.allOf(LineTerminator.class));
     }
 
-    public IOKitInputStream(InputStream in, LineTerminator... terminators) {
+    public IOKitInputStream(InputStream in, EnumSet<LineTerminator> terminators) {
+        this(in, in, terminators);
+    }
+
+    public IOKitInputStream(InputStream in, InputStream raw) {
+        this(in, raw, EnumSet.allOf(LineTerminator.class));
+    }
+
+    public IOKitInputStream(InputStream in, InputStream raw, EnumSet<LineTerminator> terminators) {
         this.in = requireNonNull(new FastBufferedInputStream(in));
+        this.raw = requireNonNull(raw);
 
         this.terminators = EnumSet.copyOf(
-            Stream.of(terminators)
+            terminators.stream()
                 .map(terminator -> FastBufferedInputStream.LineTerminator.valueOf(terminator.name()))
                 .collect(toSet()));
     }
@@ -44,6 +55,10 @@ public class IOKitInputStream extends InputStream {
 
     public boolean isAtEOF() {
         return peek() == -1;
+    }
+
+    public void skipRaw(long offset) {
+        Try.toRun(() -> ByteStreams.skipFully(raw, offset));
     }
 
     public void seek(long offset) {
@@ -71,8 +86,6 @@ public class IOKitInputStream extends InputStream {
 
         private static final Set<Adapter> ADAPTERS = new LinkedHashSet<>();
 
-        public static final ThreadLocal<InputStream> ADAPTED_STREAM = new ThreadLocal<>();
-
         static {
             ServiceLoader.load(Adapter.class).forEach(ADAPTERS::add); /* TODO: ~100ms performance hit is negligible
                                                                          for large files (eg warc), but noticable
@@ -85,26 +98,24 @@ public class IOKitInputStream extends InputStream {
         public abstract IOKitInputStream adapt(InputStream in);
 
 
-        public static IOKitInputStream adaptFrom(InputStream in) {
-            return adaptFrom(in, DEFAULT_MAGIC_SIZE);
+        public static IOKitInputStream adaptFrom(InputStream in, EnumSet<LineTerminator> terminators) {
+            return adaptFrom(in, terminators, DEFAULT_MAGIC_SIZE);
         }
 
-        public static IOKitInputStream adaptFrom(InputStream in, int size) {
+        public static IOKitInputStream adaptFrom(InputStream in, EnumSet<LineTerminator> terminators, int size) {
             byte[] magic = new byte[size];
             PushbackInputStream pbin = new PushbackInputStream(in, size);
 
-            ADAPTED_STREAM.set(pbin);
-
             int len = Try.toCall(() -> pbin.read(magic));
             if (len == -1)
-                return new IOKitInputStream(pbin);
+                return new IOKitInputStream(pbin, terminators);
             Try.toRun(() -> pbin.unread(magic, 0, len));
 
             return ADAPTERS.stream()
                 .filter(mapper -> mapper.canAdapt(magic))
                 .map(mapper -> mapper.adapt(pbin))
                 .findFirst()
-                .orElse(new IOKitInputStream(pbin));
+                .orElse(new IOKitInputStream(pbin, terminators));
         }
     }
 }

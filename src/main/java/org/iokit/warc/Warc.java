@@ -14,6 +14,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import java.util.EnumSet;
+
 public class Warc {
 
     public static final String MIME_TYPE = "application/warc";
@@ -32,7 +34,7 @@ public class Warc {
         }
 
         public Reader(InputStream in) {
-            this(new IOKitInputStream(IOKitInputStream.Adapter.adaptFrom(in), WarcRecord.DEFAULT_LINE_TERMINATOR));
+            this(IOKitInputStream.Adapter.adaptFrom(in, EnumSet.of(WarcRecord.DEFAULT_LINE_TERMINATOR)));
         }
 
         public Reader(IOKitInputStream in) {

@@ -14,6 +14,7 @@ import org.iokit.core.LineTerminator;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import java.util.EnumSet;
 import java.util.function.BiFunction;
 
 /**
@@ -32,7 +33,7 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generat
     public static class Reader extends Message.Reader<WarcHeader, WarcBody, WarcRecord> {
 
         public Reader(InputStream in) {
-            this(new IOKitInputStream(in, DEFAULT_LINE_TERMINATOR));
+            this(new IOKitInputStream(in, EnumSet.of(DEFAULT_LINE_TERMINATOR)));
         }
 
         public Reader(IOKitInputStream in) {

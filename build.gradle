@@ -10,6 +10,7 @@ repositories {
 dependencies {
     compile("it.unimi.dsi:fastutil:7.2.0")
     compile("org.anarres:parallelgzip:1.0.1")
+    compile("com.google.guava:guava:21.0")
 
     testCompile("junit:junit:4.12")
     testCompile("org.assertj:assertj-core:3.7.0")
