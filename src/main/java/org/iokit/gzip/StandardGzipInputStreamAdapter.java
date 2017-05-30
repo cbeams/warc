@@ -15,7 +15,10 @@ public class StandardGzipInputStreamAdapter extends IOKitInputStream.Adapter {
     }
 
     @Override
-    public InputStream adapt(InputStream in) {
-        return in instanceof GZIPInputStream ? in : Try.toCall(() -> new GZIPInputStream(in, 1024*1024));
+    public IOKitInputStream adapt(InputStream in) {
+        return new IOKitInputStream(
+            in instanceof GZIPInputStream ?
+                in :
+                Try.toCall(() -> new GZIPInputStream(in, 1024*1024)));
     }
 }

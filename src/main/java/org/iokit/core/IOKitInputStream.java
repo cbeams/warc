@@ -82,14 +82,14 @@ public class IOKitInputStream extends InputStream {
 
         public abstract boolean canAdapt(byte[] magic);
 
-        public abstract InputStream adapt(InputStream in);
+        public abstract IOKitInputStream adapt(InputStream in);
 
 
-        public static InputStream adaptFrom(InputStream in) {
+        public static IOKitInputStream adaptFrom(InputStream in) {
             return adaptFrom(in, DEFAULT_MAGIC_SIZE);
         }
 
-        public static InputStream adaptFrom(InputStream in, int size) {
+        public static IOKitInputStream adaptFrom(InputStream in, int size) {
             byte[] magic = new byte[size];
             PushbackInputStream pbin = new PushbackInputStream(in, size);
 
@@ -97,14 +97,14 @@ public class IOKitInputStream extends InputStream {
 
             int len = Try.toCall(() -> pbin.read(magic));
             if (len == -1)
-                return pbin;
+                return new IOKitInputStream(pbin);
             Try.toRun(() -> pbin.unread(magic, 0, len));
 
             return ADAPTERS.stream()
                 .filter(mapper -> mapper.canAdapt(magic))
                 .map(mapper -> mapper.adapt(pbin))
                 .findFirst()
-                .orElse(pbin);
+                .orElse(new IOKitInputStream(pbin));
         }
     }
 }
