@@ -7,7 +7,7 @@ import java.util.zip.GZIPInputStream;
 
 import java.io.InputStream;
 
-public class GzipInputStreamAdapter extends IOKitInputStream.Adapter {
+public class StandardGzipInputStreamAdapter extends IOKitInputStream.Adapter {
 
     @Override
     public boolean canAdapt(byte[] magic) {

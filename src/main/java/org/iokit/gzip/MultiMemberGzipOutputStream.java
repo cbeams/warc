@@ -8,40 +8,40 @@ import java.util.zip.GZIPOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class SegmentableGzipOutputStream extends IOKitOutputStream {
+public class MultiMemberGzipOutputStream extends IOKitOutputStream {
 
     public static final int DEFAULT_SIZE = 512; // same as GZIPOutputStream's hard-coded default
 
     private final int size;
 
-    private GZIPOutputStream segment;
+    private GZIPOutputStream member;
 
-    public SegmentableGzipOutputStream(OutputStream out) throws IOException {
+    public MultiMemberGzipOutputStream(OutputStream out) throws IOException {
         this(out, DEFAULT_SIZE);
     }
 
-    public SegmentableGzipOutputStream(OutputStream out, int size) throws IOException {
+    public MultiMemberGzipOutputStream(OutputStream out, int size) throws IOException {
         super(out);
         this.size = size;
     }
 
     @Override
     public void write(int b) throws IOException {
-        segment.write(b);
+        member.write(b);
     }
 
     @Override
     public void write(byte[] b, int off, int len) throws IOException {
-        segment.write(b, off, len);
+        member.write(b, off, len);
     }
 
     @Override
     public void startSegment() {
-        this.segment = Try.toCall(() -> new GZIPOutputStream(out, size));
+        this.member = Try.toCall(() -> new GZIPOutputStream(out, size));
     }
 
     @Override
     public void finishSegment() {
-        Try.toRun(() -> segment.finish());
+        Try.toRun(() -> member.finish());
     }
 }

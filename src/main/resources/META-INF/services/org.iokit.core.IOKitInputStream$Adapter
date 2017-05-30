@@ -1,1 +1,1 @@
-org.iokit.gzip.GzipInputStreamAdapter
+org.iokit.gzip.StandardGzipInputStreamAdapter

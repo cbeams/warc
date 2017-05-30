@@ -1,1 +1,1 @@
-org.iokit.gzip.GzipOutputStreamAdapter
+org.iokit.gzip.MultiMemberGzipOutputStreamAdapter
