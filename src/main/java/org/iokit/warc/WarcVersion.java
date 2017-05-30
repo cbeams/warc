@@ -102,8 +102,19 @@ public class WarcVersion {
 
         @Override
         public void validate(String input) {
-            if (!WARC_1_0.equals(input) && !WARC_1_1.equals(input))
-                throw new IOKitException("[%s] is an unsupported or otherwise malformed WARC record version", input);
+            if (!WARC_1_0.equals(input) && !WARC_1_1.equals(input)) {
+                throw new IOKitException("[%s] is an unsupported or otherwise malformed WARC record version",
+                    truncateIfNecessary(input));
+            }
+        }
+
+        private String truncateIfNecessary(String input) {
+            int len = input.length();
+            int max = 8;
+
+            return len <= max ?
+                input :
+                input.substring(0, max) + String.format("(+%d more characters)", len - max);
         }
     }
 }
