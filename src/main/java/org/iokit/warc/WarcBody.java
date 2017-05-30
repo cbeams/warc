@@ -3,8 +3,7 @@ package org.iokit.warc;
 import org.iokit.message.BinaryBody;
 
 import org.iokit.core.IOKitInputStream;
-
-import java.io.OutputStream;
+import org.iokit.core.IOKitOutputStream;
 
 public class WarcBody extends BinaryBody {
 
@@ -28,7 +27,7 @@ public class WarcBody extends BinaryBody {
 
     public static class Writer extends BinaryBody.Writer<WarcBody> {
 
-        public Writer(OutputStream out) {
+        public Writer(IOKitOutputStream out) {
             super(out);
         }
     }

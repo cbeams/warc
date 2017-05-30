@@ -3,9 +3,8 @@ package org.iokit.message;
 import org.iokit.core.read.BinaryReader;
 
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.IOKitOutputStream;
 import org.iokit.core.Try;
-
-import java.io.OutputStream;
 
 public class BinaryBody implements Body<byte[]> {
 
@@ -34,7 +33,7 @@ public class BinaryBody implements Body<byte[]> {
 
     public static class Writer<B extends BinaryBody> extends Body.Writer<B> {
 
-        public Writer(OutputStream out) {
+        public Writer(IOKitOutputStream out) {
             super(out);
         }
 

@@ -12,6 +12,7 @@ import org.iokit.core.write.ConcatenationWriter;
 import org.iokit.core.read.ConcatenationReader;
 
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.IOKitOutputStream;
 import org.iokit.core.Try;
 
 import java.io.File;
@@ -72,7 +73,7 @@ public class Warc {
             this(OutputStreamMapper.mapFrom(out, toType));
         }
 
-        public Writer(OutputStream out) {
+        public Writer(IOKitOutputStream out) {
             this(new LineWriter(out, WarcRecord.DEFAULT_LINE_TERMINATOR));
         }
 

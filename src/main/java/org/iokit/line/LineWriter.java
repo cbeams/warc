@@ -1,20 +1,19 @@
 package org.iokit.line;
 
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.IOKitOutputStream;
 import org.iokit.core.IOKitWriter;
 import org.iokit.core.Try;
-
-import java.io.OutputStream;
 
 public class LineWriter extends IOKitWriter<String> {
 
     private final IOKitInputStream.LineTerminator terminator;
 
-    public LineWriter(OutputStream out) {
+    public LineWriter(IOKitOutputStream out) {
         this(out, IOKitInputStream.LineTerminator.systemValue());
     }
 
-    public LineWriter(OutputStream out, IOKitInputStream.LineTerminator terminator) {
+    public LineWriter(IOKitOutputStream out, IOKitInputStream.LineTerminator terminator) {
         super(out);
         this.terminator = terminator;
     }

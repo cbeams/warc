@@ -7,6 +7,7 @@ import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.IOKitOutputStream;
 
 import org.junit.Test;
 
@@ -149,7 +150,7 @@ public class WarcFieldSetValidatorSpec {
 
     InputStream inputOf(List<String> lines) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        LineWriter lineWriter = new LineWriter(out);
+        LineWriter lineWriter = new LineWriter(new IOKitOutputStream(out));
         for (String line : lines)
             lineWriter.write(line);
         return new ByteArrayInputStream(out.toByteArray());

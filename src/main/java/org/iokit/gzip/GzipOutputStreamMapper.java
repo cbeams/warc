@@ -4,10 +4,6 @@ import org.iokit.magic.OutputStreamMapper;
 
 import org.iokit.core.Try;
 
-import org.anarres.parallelgzip.ParallelGZIPOutputStream;
-
-import java.util.zip.GZIPOutputStream;
-
 import java.io.File;
 import java.io.OutputStream;
 
@@ -22,15 +18,13 @@ public class GzipOutputStreamMapper extends OutputStreamMapper {
 
     @Override
     public boolean canMap(Class<? extends OutputStream> type) {
-        return GZIPOutputStream.class.isAssignableFrom(type)
-            || ParallelGZIPOutputStream.class.isAssignableFrom(type)
-            || SegmentableGzipOutputStream.class.isAssignableFrom(type);
+        return SegmentableGzipOutputStream.class.isAssignableFrom(type);
     }
 
     @Override
-    public OutputStream map(OutputStream out) {
-        return out instanceof GZIPOutputStream
-            || out instanceof ParallelGZIPOutputStream
-            || out instanceof SegmentableGzipOutputStream ? out : Try.toCall(() -> new SegmentableGzipOutputStream(out, 1024 * 1024));
+    public SegmentableGzipOutputStream map(OutputStream out) {
+        return out instanceof SegmentableGzipOutputStream ?
+            (SegmentableGzipOutputStream) out :
+            Try.toCall(() -> new SegmentableGzipOutputStream(out, 1024 * 1024));
     }
 }

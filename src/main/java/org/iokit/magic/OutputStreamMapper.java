@@ -1,5 +1,7 @@
 package org.iokit.magic;
 
+import org.iokit.core.IOKitOutputStream;
+
 import java.io.File;
 import java.io.OutputStream;
 
@@ -19,23 +21,23 @@ public abstract class OutputStreamMapper {
 
     public abstract boolean canMap(Class<? extends OutputStream> type);
 
-    public abstract OutputStream map(OutputStream out);
+    public abstract IOKitOutputStream map(OutputStream out);
 
-    public static OutputStream mapFrom(MappableFileOutputStream out) {
+    public static IOKitOutputStream mapFrom(MappableFileOutputStream out) {
         ServiceLoader.load(OutputStreamMapper.class).forEach(OutputStreamMapper.MAPPERS::add);
         return MAPPERS.stream()
             .filter(mapper -> mapper.canMap(out.getFile()))
             .map(mapper -> mapper.map(out))
             .findFirst()
-            .orElse(out);
+            .orElse(new IOKitOutputStream(out));
     }
 
-    public static OutputStream mapFrom(OutputStream out, Class<? extends OutputStream> toType) {
+    public static IOKitOutputStream mapFrom(OutputStream out, Class<? extends OutputStream> toType) {
         ServiceLoader.load(OutputStreamMapper.class).forEach(OutputStreamMapper.MAPPERS::add);
         return OutputStreamMapper.MAPPERS.stream()
             .filter(mapper -> mapper.canMap(toType))
             .map(mapper -> mapper.map(out))
             .findFirst()
-            .orElse(out);
+            .orElse(new IOKitOutputStream(out));
     }
 }

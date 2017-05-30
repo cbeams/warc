@@ -8,6 +8,7 @@ import org.iokit.line.LineReader;
 import org.iokit.line.LineWriter;
 
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.IOKitOutputStream;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -57,6 +58,10 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generat
     public static class Writer extends Message.Writer<WarcHeader, WarcBody, WarcRecord> {
 
         public Writer(OutputStream out) {
+            this(new IOKitOutputStream(out));
+        }
+
+        public Writer(IOKitOutputStream out) {
             this(new LineWriter(out, DEFAULT_LINE_TERMINATOR));
         }
 
