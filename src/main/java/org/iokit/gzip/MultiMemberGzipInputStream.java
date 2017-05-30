@@ -16,6 +16,12 @@ public class MultiMemberGzipInputStream extends IOKitInputStream {
 
     public static class Adapter implements IOKitInputStream.Adapter {
 
+        private final int size;
+
+        public Adapter(int size) {
+            this.size = size;
+        }
+
         @Override
         public boolean canAdapt(byte[] magic) {
             return magic.length >= 2 && magic[0] == (byte) 0x1f && magic[1] == (byte) 0x8b;
@@ -26,7 +32,7 @@ public class MultiMemberGzipInputStream extends IOKitInputStream {
             GZIPInputStream in =
                 (raw instanceof GZIPInputStream) ?
                     (GZIPInputStream) raw :
-                    Try.toCall(() -> new GZIPInputStream(raw, 1024 * 1024));
+                    Try.toCall(() -> new GZIPInputStream(raw, size));
 
             return new MultiMemberGzipInputStream(in, raw);
         }

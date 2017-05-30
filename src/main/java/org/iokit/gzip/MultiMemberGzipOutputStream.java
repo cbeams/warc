@@ -47,6 +47,12 @@ public class MultiMemberGzipOutputStream extends IOKitOutputStream {
 
         public static final String GZIP_FILE_SUFFIX = ".gz";
 
+        private final int size;
+
+        public Adapter(int size) {
+            this.size = size;
+        }
+
         @Override
         public boolean canAdapt(File file) {
             return file.getName().endsWith(GZIP_FILE_SUFFIX);
@@ -54,7 +60,7 @@ public class MultiMemberGzipOutputStream extends IOKitOutputStream {
 
         @Override
         public MultiMemberGzipOutputStream adapt(File file, LineTerminator terminator) {
-            return Try.toCall(() -> new MultiMemberGzipOutputStream(new FileOutputStream(file), terminator, 1024 * 1024));
+            return Try.toCall(() -> new MultiMemberGzipOutputStream(new FileOutputStream(file), terminator, size));
         }
     }
 }
