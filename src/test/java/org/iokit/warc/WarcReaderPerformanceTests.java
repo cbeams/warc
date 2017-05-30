@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.line.LineReader;
+import org.iokit.general.LineReader;
 
 import org.iokit.core.IOKitInputStream;
 import org.iokit.core.LineTerminator;

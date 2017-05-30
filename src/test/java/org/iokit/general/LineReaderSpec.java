@@ -1,6 +1,4 @@
-package org.iokit.core.read;
-
-import org.iokit.line.LineReader;
+package org.iokit.general;
 
 import org.iokit.core.IOKitInputStream;
 import org.iokit.core.LineTerminator;

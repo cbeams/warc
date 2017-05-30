@@ -1,6 +1,6 @@
 package org.iokit.message;
 
-import org.iokit.core.read.BinaryReader;
+import org.iokit.general.BinaryReader;
 
 import org.iokit.core.IOKitInputStream;
 import org.iokit.core.IOKitOutputStream;

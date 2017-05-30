@@ -1,6 +1,6 @@
 package org.iokit.message;
 
-import org.iokit.core.parse.ValidatingParser;
+import org.iokit.general.ValidatingParser;
 
 import org.iokit.core.IOKitValidator;
 

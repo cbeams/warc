@@ -4,8 +4,8 @@ import org.iokit.message.Body;
 import org.iokit.message.Header;
 import org.iokit.message.Message;
 
-import org.iokit.line.LineReader;
-import org.iokit.line.LineWriter;
+import org.iokit.general.LineReader;
+import org.iokit.general.LineWriter;
 
 import org.iokit.core.IOKitInputStream;
 import org.iokit.core.IOKitOutputStream;

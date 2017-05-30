@@ -1,6 +1,6 @@
 package org.iokit.message;
 
-import org.iokit.core.read.ParameterizedReader;
+import org.iokit.general.ParameterizedReader;
 
 import org.iokit.core.IOKitInputStream;
 import org.iokit.core.IOKitOutputStream;

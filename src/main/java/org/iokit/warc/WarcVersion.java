@@ -1,9 +1,8 @@
 package org.iokit.warc;
 
-import org.iokit.line.LineReader;
-import org.iokit.line.LineWriter;
-
-import org.iokit.core.parse.ValidatingParser;
+import org.iokit.general.LineReader;
+import org.iokit.general.LineWriter;
+import org.iokit.general.ValidatingParser;
 
 import org.iokit.core.IOKitException;
 import org.iokit.core.IOKitReader;

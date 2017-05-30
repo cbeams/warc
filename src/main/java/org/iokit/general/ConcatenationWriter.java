@@ -1,4 +1,4 @@
-package org.iokit.core.write;
+package org.iokit.general;
 
 import org.iokit.core.IOKitWriter;
 import org.iokit.core.Try;

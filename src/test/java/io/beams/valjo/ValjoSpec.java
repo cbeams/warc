@@ -1,7 +1,7 @@
 package io.beams.valjo;
 
-import org.iokit.core.validate.InvalidCharacterException;
-import org.iokit.core.validate.InvalidLengthException;
+import org.iokit.general.InvalidCharacterException;
+import org.iokit.general.InvalidLengthException;
 
 import org.junit.Ignore;
 import org.junit.Test;

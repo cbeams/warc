@@ -1,4 +1,4 @@
-package org.iokit.core.parse;
+package org.iokit.general;
 
 import org.iokit.core.IOKitParser;
 import org.iokit.core.IOKitValidator;

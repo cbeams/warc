@@ -1,4 +1,4 @@
-package org.iokit.core.input;
+package org.iokit.general;
 
 import org.iokit.core.IOKitInputStream;
 

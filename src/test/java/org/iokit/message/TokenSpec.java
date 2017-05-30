@@ -1,6 +1,6 @@
 package org.iokit.message;
 
-import org.iokit.core.validate.InvalidCharacterException;
+import org.iokit.general.InvalidCharacterException;
 
 import io.beams.valjo.ValjoSpec;
 

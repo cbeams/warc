@@ -1,6 +1,6 @@
 package org.iokit.warc;
 
-import org.iokit.core.read.EndOfInputException;
+import org.iokit.general.EndOfInputException;
 
 import org.iokit.core.IOKitException;
 

@@ -1,4 +1,4 @@
-package org.iokit.core.read;
+package org.iokit.general;
 
 import org.iokit.core.IOKitInputStream;
 import org.iokit.core.IOKitReader;

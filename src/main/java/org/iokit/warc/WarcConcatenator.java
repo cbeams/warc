@@ -1,10 +1,9 @@
 package org.iokit.warc;
 
-import org.iokit.line.LineReader;
-import org.iokit.line.LineWriter;
-import org.iokit.line.NewlineReader;
-
-import org.iokit.core.write.ParameterlessWriter;
+import org.iokit.general.LineReader;
+import org.iokit.general.LineWriter;
+import org.iokit.general.NewlineReader;
+import org.iokit.general.ParameterlessWriter;
 
 import org.iokit.core.IOKitReader;
 

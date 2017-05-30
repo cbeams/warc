@@ -6,8 +6,8 @@ import org.iokit.message.FieldNotPermittedException;
 import org.iokit.message.FieldSet;
 import org.iokit.message.FoldedLine;
 
-import org.iokit.line.LineReader;
-import org.iokit.line.LineWriter;
+import org.iokit.general.LineReader;
+import org.iokit.general.LineWriter;
 
 import java.util.Optional;
 import java.util.function.Supplier;

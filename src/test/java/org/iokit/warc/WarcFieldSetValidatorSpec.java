@@ -3,8 +3,8 @@ package org.iokit.warc;
 import org.iokit.message.FieldNotFoundException;
 import org.iokit.message.FieldNotPermittedException;
 
-import org.iokit.line.LineReader;
-import org.iokit.line.LineWriter;
+import org.iokit.general.LineReader;
+import org.iokit.general.LineWriter;
 
 import org.iokit.core.IOKitInputStream;
 import org.iokit.core.IOKitOutputStream;

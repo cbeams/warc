@@ -2,7 +2,7 @@ package org.iokit.warc;
 
 import org.iokit.message.TokenSpec;
 
-import org.iokit.core.validate.InvalidCharacterException;
+import org.iokit.general.InvalidCharacterException;
 
 import org.junit.Test;
 

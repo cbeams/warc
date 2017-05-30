@@ -13,15 +13,7 @@
             <emptyLine />
             <package name="org.iokit.magic" withSubpackages="true" static="false" />
             <emptyLine />
-            <package name="org.iokit.line" withSubpackages="true" static="false" />
-            <emptyLine />
-            <package name="org.iokit.core.write" withSubpackages="true" static="false" />
-            <emptyLine />
-            <package name="org.iokit.core.read" withSubpackages="true" static="false" />
-            <emptyLine />
-            <package name="org.iokit.core.validate" withSubpackages="true" static="false" />
-            <emptyLine />
-            <package name="org.iokit.core.parse" withSubpackages="true" static="false" />
+            <package name="org.iokit.general" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.core" withSubpackages="true" static="false" />
             <emptyLine />

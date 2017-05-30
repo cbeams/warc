@@ -1,9 +1,8 @@
 package org.iokit.message;
 
-import org.iokit.line.LineReader;
-import org.iokit.line.NewlineReader;
-
-import org.iokit.core.validate.InvalidCharacterException;
+import org.iokit.general.InvalidCharacterException;
+import org.iokit.general.LineReader;
+import org.iokit.general.NewlineReader;
 
 import org.iokit.core.IOKitInputStream;
 import org.iokit.core.IOKitValidator;

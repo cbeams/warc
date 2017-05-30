@@ -1,4 +1,4 @@
-package org.iokit.line;
+package org.iokit.general;
 
 import org.iokit.core.IOKitOutputStream;
 import org.iokit.core.IOKitWriter;
