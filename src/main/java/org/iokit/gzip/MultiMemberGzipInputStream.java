@@ -1,16 +1,19 @@
 package org.iokit.gzip;
 
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.LineTerminator;
 import org.iokit.core.Try;
 
 import java.util.zip.GZIPInputStream;
 
 import java.io.InputStream;
 
+import java.util.EnumSet;
+
 public class MultiMemberGzipInputStream extends IOKitInputStream {
 
-    public MultiMemberGzipInputStream(GZIPInputStream in, InputStream raw) {
-        super(in, raw);
+    public MultiMemberGzipInputStream(GZIPInputStream in, InputStream raw, EnumSet<LineTerminator> terminators) {
+        super(in, raw, terminators);
     }
 
 
@@ -28,13 +31,13 @@ public class MultiMemberGzipInputStream extends IOKitInputStream {
         }
 
         @Override
-        public MultiMemberGzipInputStream adapt(InputStream raw) {
+        public MultiMemberGzipInputStream adapt(InputStream raw, EnumSet<LineTerminator> terminators) {
             GZIPInputStream in =
                 (raw instanceof GZIPInputStream) ?
                     (GZIPInputStream) raw :
                     Try.toCall(() -> new GZIPInputStream(raw, size));
 
-            return new MultiMemberGzipInputStream(in, raw);
+            return new MultiMemberGzipInputStream(in, raw, terminators);
         }
     }
 }

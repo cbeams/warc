@@ -84,7 +84,7 @@ public class IOKitInputStream extends InputStream {
 
         boolean canAdapt(byte[] magic);
 
-        IOKitInputStream adapt(InputStream in);
+        IOKitInputStream adapt(InputStream in, EnumSet<LineTerminator> terminators);
     }
 
 
@@ -96,18 +96,21 @@ public class IOKitInputStream extends InputStream {
         return adapt(in, Adapter.DEFAULT_MAGIC_SIZE, terminators, adapters);
     }
 
-    static IOKitInputStream adapt(InputStream in, int size, EnumSet<LineTerminator> terminators, Adapter... adapters) {
+    public static IOKitInputStream adapt(InputStream in, int size, EnumSet<LineTerminator> terminators,
+                                         Adapter... adapters) {
         byte[] magic = new byte[size];
         PushbackInputStream pbin = new PushbackInputStream(in, size);
 
         int len = Try.toCall(() -> pbin.read(magic));
+
         if (len == -1)
             return new IOKitInputStream(pbin, terminators);
+
         Try.toRun(() -> pbin.unread(magic, 0, len));
 
         return Arrays.stream(adapters)
             .filter(adapter -> adapter.canAdapt(magic))
-            .map(adapter -> adapter.adapt(pbin))
+            .map(adapter -> adapter.adapt(pbin, terminators))
             .findFirst()
             .orElse(new IOKitInputStream(pbin, terminators));
     }
