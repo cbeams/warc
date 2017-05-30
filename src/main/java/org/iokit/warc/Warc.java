@@ -63,10 +63,6 @@ public class Warc {
             this(IOKitOutputStream.Adapter.adaptFrom(out));
         }
 
-        public Writer(OutputStream out, Class<? extends OutputStream> toType) { // TODO: test this ctor
-            this(IOKitOutputStream.Adapter.adaptFrom(out, toType));
-        }
-
         public Writer(OutputStream out) {
             this(new IOKitOutputStream(out, WarcRecord.DEFAULT_LINE_TERMINATOR));
         }

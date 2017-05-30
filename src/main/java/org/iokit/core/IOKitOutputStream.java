@@ -69,23 +69,12 @@ public class IOKitOutputStream extends OutputStream {
 
         public abstract boolean canAdapt(File file);
 
-        public abstract boolean canAdapt(Class<? extends OutputStream> type);
-
         public abstract IOKitOutputStream adapt(OutputStream out);
 
         public static IOKitOutputStream adaptFrom(AdaptableFileOutputStream out) {
             ServiceLoader.load(Adapter.class).forEach(Adapter.ADAPTERS::add);
             return ADAPTERS.stream()
                 .filter(mapper -> mapper.canAdapt(out.getFile()))
-                .map(mapper -> mapper.adapt(out))
-                .findFirst()
-                .orElse(new IOKitOutputStream(out));
-        }
-
-        public static IOKitOutputStream adaptFrom(OutputStream out, Class<? extends OutputStream> toType) {
-            ServiceLoader.load(Adapter.class).forEach(Adapter.ADAPTERS::add);
-            return Adapter.ADAPTERS.stream()
-                .filter(mapper -> mapper.canAdapt(toType))
                 .map(mapper -> mapper.adapt(out))
                 .findFirst()
                 .orElse(new IOKitOutputStream(out));

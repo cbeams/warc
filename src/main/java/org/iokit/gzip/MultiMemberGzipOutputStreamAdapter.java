@@ -16,11 +16,6 @@ public class MultiMemberGzipOutputStreamAdapter extends IOKitOutputStream.Adapte
     }
 
     @Override
-    public boolean canAdapt(Class<? extends OutputStream> type) {
-        return MultiMemberGzipOutputStream.class.isAssignableFrom(type);
-    }
-
-    @Override
     public MultiMemberGzipOutputStream adapt(OutputStream out) {
         return out instanceof MultiMemberGzipOutputStream ?
             (MultiMemberGzipOutputStream) out :
