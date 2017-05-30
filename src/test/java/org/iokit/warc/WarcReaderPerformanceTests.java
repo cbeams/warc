@@ -734,10 +734,7 @@ public class WarcReaderPerformanceTests {
     public void k() throws FileNotFoundException {
         Warc.Reader reader = new Warc.Reader(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/wat/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc.wat"));
 
-
-        int count = 0;
-        while (reader.read() != null)
-            count++;
+        long count = reader.stream().count();
 
         // read 138866 records in 11021 ms
         //                     in 11430 ms
@@ -752,10 +749,7 @@ public class WarcReaderPerformanceTests {
     public void k_for_normal_warc() throws FileNotFoundException {
         Warc.Reader reader = new Warc.Reader(new FileInputStream("/Users/cbeams/Work/webgraph/data/commoncrawl/crawl-data/CC-MAIN-2017-13/segments/1490218186353.38/warc/CC-MAIN-20170322212946-00000-ip-10-233-31-227.ec2.internal.warc"));
 
-
-        int count = 0;
-        while (reader.read() != null)
-            count++;
+        long count = reader.stream().count();
 
         // read 138865 records in 24040 (about 3s slower than l_for_normal_warc below)
         //
@@ -780,9 +774,7 @@ public class WarcReaderPerformanceTests {
 
         Warc.Reader reader = new Warc.Reader(new IOKitInputStream(input, EnumSet.of(LINE_TERMINATOR)));
 
-        int count = 0;
-        while (reader.read() != null)
-            count++;
+        long count = reader.stream().count();
 
         // read 138865 records in 33125 ms ----> 18+ seconds faster than webarchive-commons in l_for_normal_gz_warc below!!
         //                     in 34281 ms
