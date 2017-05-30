@@ -73,8 +73,12 @@ public class Warc {
             this(OutputStreamMapper.mapFrom(out, toType));
         }
 
+        public Writer(OutputStream out) {
+            this(new IOKitOutputStream(out, WarcRecord.DEFAULT_LINE_TERMINATOR));
+        }
+
         public Writer(IOKitOutputStream out) {
-            this(new LineWriter(out, WarcRecord.DEFAULT_LINE_TERMINATOR));
+            this(new LineWriter(out));
         }
 
         public Writer(LineWriter lineWriter) {

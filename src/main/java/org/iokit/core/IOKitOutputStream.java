@@ -6,9 +6,15 @@ import java.io.OutputStream;
 public class IOKitOutputStream extends OutputStream {
 
     protected final OutputStream out;
+    public final LineTerminator terminator;
 
     public IOKitOutputStream(OutputStream out) {
+        this(out, LineTerminator.systemValue());
+    }
+
+    public IOKitOutputStream(OutputStream out, LineTerminator terminator) {
         this.out = out;
+        this.terminator = terminator;
     }
 
     @Override

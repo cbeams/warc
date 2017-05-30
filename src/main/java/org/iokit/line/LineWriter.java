@@ -2,20 +2,12 @@ package org.iokit.line;
 
 import org.iokit.core.IOKitOutputStream;
 import org.iokit.core.IOKitWriter;
-import org.iokit.core.LineTerminator;
 import org.iokit.core.Try;
 
 public class LineWriter extends IOKitWriter<String> {
 
-    private final LineTerminator terminator;
-
     public LineWriter(IOKitOutputStream out) {
-        this(out, LineTerminator.systemValue());
-    }
-
-    public LineWriter(IOKitOutputStream out, LineTerminator terminator) {
         super(out);
-        this.terminator = terminator;
     }
 
     @Override
@@ -25,6 +17,6 @@ public class LineWriter extends IOKitWriter<String> {
     }
 
     public void write() {
-        Try.toRun(() -> out.write(terminator.bytes));
+        Try.toRun(() -> out.write(out.terminator.bytes));
     }
 }

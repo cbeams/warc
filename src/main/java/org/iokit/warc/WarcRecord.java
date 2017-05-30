@@ -59,11 +59,11 @@ public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generat
     public static class Writer extends Message.Writer<WarcHeader, WarcBody, WarcRecord> {
 
         public Writer(OutputStream out) {
-            this(new IOKitOutputStream(out));
+            this(new IOKitOutputStream(out, DEFAULT_LINE_TERMINATOR));
         }
 
         public Writer(IOKitOutputStream out) {
-            this(new LineWriter(out, DEFAULT_LINE_TERMINATOR));
+            this(new LineWriter(out));
         }
 
         public Writer(LineWriter lineWriter) {
