@@ -1,7 +1,5 @@
 package org.iokit.core;
 
-import org.iokit.util.Ascii;
-
 import it.unimi.dsi.fastutil.io.FastBufferedInputStream;
 
 import java.io.IOException;
@@ -60,43 +58,5 @@ public class IOKitInputStream extends InputStream {
     @Override
     public void close() throws IOException {
         in.close();
-    }
-
-
-    public enum LineTerminator {
-
-        // Note that names below (CR, LF, CR_LF) must be exactly
-        // the same as the names in fastutil's LineTerminator enum
-
-        CR((byte) Ascii.CR),
-        LF((byte) Ascii.LF),
-        CR_LF((byte) Ascii.CR, (byte) Ascii.LF);
-
-        public static final String SYSTEM_LINE_TERMINATOR_KEY = "line.separator";
-
-        public final byte[] bytes;
-        private final String value;
-
-        LineTerminator(byte... bytes) {
-            this.bytes = bytes;
-            this.value = new String(bytes);
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-
-        public static LineTerminator systemValue() {
-            return parseValue(System.getProperty(SYSTEM_LINE_TERMINATOR_KEY));
-        }
-
-        public static LineTerminator parseValue(String value) {
-            for (LineTerminator terminator : LineTerminator.values())
-                if (terminator.value.equals(value))
-                    return terminator;
-
-            throw new IllegalArgumentException("No LineTerminator found matching [" + value + "]");
-        }
     }
 }

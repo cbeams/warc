@@ -9,6 +9,7 @@ import org.iokit.line.LineWriter;
 
 import org.iokit.core.IOKitInputStream;
 import org.iokit.core.IOKitOutputStream;
+import org.iokit.core.LineTerminator;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -21,7 +22,7 @@ import java.util.function.BiFunction;
  */
 public class WarcRecord extends Message<WarcHeader, WarcBody> { // TODO: generate delegate methods for WarcHeader. Everything should be super-convenient and directly accessible from WarcRecord
 
-    public static final IOKitInputStream.LineTerminator DEFAULT_LINE_TERMINATOR = IOKitInputStream.LineTerminator.CR_LF;
+    public static final LineTerminator DEFAULT_LINE_TERMINATOR = LineTerminator.CR_LF;
 
     public WarcRecord(WarcHeader header, WarcBody body) {
         super(header, body);

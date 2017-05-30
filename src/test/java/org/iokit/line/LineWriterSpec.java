@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.iokit.core.IOKitInputStream.LineTerminator.*;
+import static org.iokit.core.LineTerminator.*;
 
 public class LineWriterSpec {
 

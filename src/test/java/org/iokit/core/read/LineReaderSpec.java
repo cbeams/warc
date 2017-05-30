@@ -3,6 +3,7 @@ package org.iokit.core.read;
 import org.iokit.line.LineReader;
 
 import org.iokit.core.IOKitInputStream;
+import org.iokit.core.LineTerminator;
 
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class LineReaderSpec {
         return
             new LineReader(
                 new IOKitInputStream(
-                    new ByteArrayInputStream(input.getBytes()), IOKitInputStream.LineTerminator.CR_LF));
+                    new ByteArrayInputStream(input.getBytes()), LineTerminator.CR_LF));
     }
 
     @Test

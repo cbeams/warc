@@ -1,12 +1,12 @@
 package org.iokit.line;
 
-import org.iokit.core.IOKitInputStream;
+import org.iokit.core.LineTerminator;
 
 import org.junit.After;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.iokit.core.IOKitInputStream.LineTerminator.*;
+import static org.iokit.core.LineTerminator.*;
 
 public class LineTerminatorSpec {
 
@@ -14,21 +14,21 @@ public class LineTerminatorSpec {
 
     @Test
     public void parse() {
-        assertThat(IOKitInputStream.LineTerminator.parseValue("\r")).isEqualTo(CR);
-        assertThat(IOKitInputStream.LineTerminator.parseValue("\n")).isEqualTo(LF);
-        assertThat(IOKitInputStream.LineTerminator.parseValue("\r\n")).isEqualTo(CR_LF);
+        assertThat(LineTerminator.parseValue("\r")).isEqualTo(CR);
+        assertThat(LineTerminator.parseValue("\n")).isEqualTo(LF);
+        assertThat(LineTerminator.parseValue("\r\n")).isEqualTo(CR_LF);
         assertThatThrownBy(() ->
-            IOKitInputStream.LineTerminator.parseValue("\t")
+            LineTerminator.parseValue("\t")
         ).hasMessage("No LineTerminator found matching [\t]");
     }
 
     @Test
     public void system() {
         setSystemLineTerminator("\r");
-        assertThat(IOKitInputStream.LineTerminator.systemValue()).isEqualTo(CR);
+        assertThat(LineTerminator.systemValue()).isEqualTo(CR);
 
         setSystemLineTerminator("\r\n");
-        assertThat(IOKitInputStream.LineTerminator.systemValue()).isEqualTo(CR_LF);
+        assertThat(LineTerminator.systemValue()).isEqualTo(CR_LF);
     }
 
     private void setSystemLineTerminator(String terminator) {
