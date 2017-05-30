@@ -11,7 +11,7 @@ public class LineWriter extends IOKitWriter<String> {
 
     @Override
     public void write(String value) {
-        out.writeLine(value);
+        out.writeLine(value.getBytes());
     }
 
     public void write() {

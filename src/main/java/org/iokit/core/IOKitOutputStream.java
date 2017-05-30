@@ -27,12 +27,12 @@ public class IOKitOutputStream extends OutputStream {
         out.write(b, off, len);
     }
 
-    public void writeLine(String string) {
-        writeLine(string.getBytes());
+    public void writeLine(byte[] b) {
+        writeLine(b, 0, b.length);
     }
 
-    public void writeLine(byte[] bytes) {
-        Try.toRun(() -> write(bytes));
+    public void writeLine(byte[] b, int off, int len) {
+        Try.toRun(() -> write(b, off, len));
         writeLine();
     }
 
