@@ -29,8 +29,6 @@
             <emptyLine />
             <package name="it.unimi.dsi.fastutil" withSubpackages="true" static="false" />
             <emptyLine />
-            <package name="com.google.common.io" withSubpackages="true" static="false" />
-            <emptyLine />
             <package name="java.nio" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="java.io" withSubpackages="true" static="false" />

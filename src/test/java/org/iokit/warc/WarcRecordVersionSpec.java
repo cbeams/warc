@@ -1,7 +1,5 @@
 package org.iokit.warc;
 
-import org.iokit.general.ValueSpec;
-
 import org.iokit.core.IOKitException;
 
 import org.junit.Test;
@@ -10,28 +8,18 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class WarcRecordVersionSpec extends ValueSpec {
+public class WarcRecordVersionSpec {
 
-    public WarcRecordVersionSpec() {
-        super(
-            "WARC/1.0",
-            "WARC/1.1"
-        );
-    }
-
-    @Override
-    protected Object parse(String input) {
+    private Object parse(String input) {
         return new WarcVersion.Parser().parse(input);
     }
 
-    @Override
     @Test
     public void parseEmptyInput() {
         assertThatThrownBy(() -> parse(""))
             .isInstanceOf(IOKitException.class);
     }
 
-    @Override
     @Test
     public void parseBlankInput() {
         Stream.of(" ", "\t")
