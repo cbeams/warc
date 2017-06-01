@@ -1,7 +1,4 @@
-package io.beams.valjo;
-
-import org.iokit.general.InvalidCharacterException;
-import org.iokit.general.InvalidLengthException;
+package org.iokit.general;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -10,13 +7,13 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
 
-public abstract class ValjoSpec {
+public abstract class ValueSpec {
 
     protected final String inputA;
     protected final String inputB;
     protected final Stream<String> validInputs;
 
-    public ValjoSpec(String inputA, String inputB, String... moreInputs) {
+    public ValueSpec(String inputA, String inputB, String... moreInputs) {
         this.inputA = inputA;
         this.inputB = inputB;
 

@@ -19,8 +19,6 @@
             <emptyLine />
             <package name="org.iokit.util" withSubpackages="true" static="false" />
             <emptyLine />
-            <package name="io.beams.valjo" withSubpackages="true" static="false" />
-            <emptyLine />
             <package name="org.junit" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.assertj.core.api" withSubpackages="true" static="false" />

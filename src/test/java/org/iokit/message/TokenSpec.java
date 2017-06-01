@@ -2,7 +2,7 @@ package org.iokit.message;
 
 import org.iokit.general.InvalidCharacterException;
 
-import io.beams.valjo.ValjoSpec;
+import org.iokit.general.ValueSpec;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import org.junit.Test;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class TokenSpec extends ValjoSpec {
+public class TokenSpec extends ValueSpec {
 
     private final Specials specials = () -> new char[]{'@', '?'};
     private final Token.Parser tokenParser = new Token.Parser(specials);

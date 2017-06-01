@@ -1,10 +1,9 @@
 package org.iokit.message;
 
 import org.iokit.general.InvalidCharacterException;
+import org.iokit.general.ValueSpec;
 
 import org.iokit.core.IOKitParser;
-
-import io.beams.valjo.ValjoSpec;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,11 +19,11 @@ import static org.assertj.core.api.Assertions.*;
 @Suite.SuiteClasses({
     FieldSpecs.FieldSpec.class,
     FieldSpecs.NameSpec.class,
-    FieldSpecs.ValueSpec.class
+    FieldSpecs.FieldValueSpec.class
 })
 public class FieldSpecs {
 
-    public static class FieldSpec extends ValjoSpec {
+    public static class FieldSpec extends ValueSpec {
 
         public FieldSpec() {
             this(
@@ -98,9 +97,9 @@ public class FieldSpecs {
     }
 
 
-    public static class ValueSpec extends ValjoSpec {
+    public static class FieldValueSpec extends ValueSpec {
 
-        public ValueSpec() {
+        public FieldValueSpec() {
             super(
                 "valid value A",
                 "valid value B"

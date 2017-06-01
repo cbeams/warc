@@ -1,8 +1,8 @@
 package org.iokit.warc;
 
-import org.iokit.core.IOKitException;
+import org.iokit.general.ValueSpec;
 
-import io.beams.valjo.ValjoSpec;
+import org.iokit.core.IOKitException;
 
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class WarcRecordVersionSpec extends ValjoSpec {
+public class WarcRecordVersionSpec extends ValueSpec {
 
     public WarcRecordVersionSpec() {
         super(
