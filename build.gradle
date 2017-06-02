@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    compile("com.github.cbeams:iokit:7139bfd")
+    compile("org.iokit:iokit:3c70d1c")
     testCompile("junit:junit:4.12")
     testCompile("org.assertj:assertj-core:3.7.0")
 }
