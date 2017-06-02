@@ -9,7 +9,7 @@ import java.io.ByteArrayInputStream;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WarcRecordBodyReaderSpec {
+public class WarcBodyReaderSpec {
 
     @Test
     public void readWellFormedBody() {

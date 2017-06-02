@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class WarcRecordVersionSpec {
+public class WarcVersionSpec {
 
     private Object parse(String input) {
         return new WarcVersion.Parser().parse(input);
