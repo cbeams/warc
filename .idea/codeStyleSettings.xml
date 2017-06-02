@@ -27,8 +27,6 @@
             <emptyLine />
             <package name="java.util.zip" withSubpackages="true" static="false" />
             <emptyLine />
-            <package name="it.unimi.dsi.fastutil" withSubpackages="true" static="false" />
-            <emptyLine />
             <package name="java.nio" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="java.io" withSubpackages="true" static="false" />
