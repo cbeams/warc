@@ -1,4 +1,4 @@
-package org.iokit.warc;
+package io.webgraph.warc;
 
 import org.iokit.general.EndOfInputException;
 
@@ -6,9 +6,9 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 
+import static io.webgraph.warc.WarcType.warcinfo;
+import static io.webgraph.warc.WarcVersion.WARC_1_0;
 import static org.assertj.core.api.Assertions.*;
-import static org.iokit.warc.WarcType.warcinfo;
-import static org.iokit.warc.WarcVersion.WARC_1_0;
 
 public class WarcRecordReaderSpec {
 

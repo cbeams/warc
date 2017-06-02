@@ -1,4 +1,4 @@
-package org.iokit.warc;
+package io.webgraph.warc;
 
 import org.iokit.gzip.MultiMemberGzipInputStream;
 import org.iokit.gzip.MultiMemberGzipOutputStream;

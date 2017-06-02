@@ -1,4 +1,4 @@
-package org.iokit.warc;
+package io.webgraph.warc;
 
 public enum WarcType {
 

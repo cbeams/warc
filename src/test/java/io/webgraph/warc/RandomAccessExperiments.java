@@ -1,4 +1,4 @@
-package org.iokit.warc;
+package io.webgraph.warc;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class RandomAccessExperiments {
 
     @Test
     public void test() throws IOException {
-        RandomAccessFile file = new RandomAccessFile(getClass().getResource("/org/iokit/warc/multi.warc").getFile(), "r");
+        RandomAccessFile file = new RandomAccessFile(getClass().getResource("/io/webgraph/warc/multi.warc").getFile(), "r");
 
         file.seek(0);
     }

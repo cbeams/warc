@@ -1,4 +1,4 @@
-package org.iokit.warc;
+package io.webgraph.warc;
 
 import org.iokit.message.Field;
 import org.iokit.message.FieldNotFoundException;
@@ -12,7 +12,7 @@ import org.iokit.general.LineWriter;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static org.iokit.warc.WarcDefinedField.*;
+import static io.webgraph.warc.WarcDefinedField.*;
 
 public class WarcFieldSet extends FieldSet {
 

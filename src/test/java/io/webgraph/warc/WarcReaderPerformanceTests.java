@@ -1,4 +1,4 @@
-package org.iokit.warc;
+package io.webgraph.warc;
 
 import org.iokit.general.LineReader;
 
@@ -28,9 +28,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
+import static io.webgraph.warc.WarcRecord.LINE_TERMINATOR;
 import static java.lang.System.currentTimeMillis;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.iokit.warc.WarcRecord.LINE_TERMINATOR;
 
 
 

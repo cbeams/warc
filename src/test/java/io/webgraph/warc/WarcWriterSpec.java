@@ -1,4 +1,4 @@
-package org.iokit.warc;
+package io.webgraph.warc;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,7 +15,7 @@ public class WarcWriterSpec {
 
     @Test
     public void writeSingleRecordWarcFile() {
-        File oldFile = new File(getClass().getResource("/org/iokit/warc/single.warc").getFile());
+        File oldFile = new File(getClass().getResource("/io/webgraph/warc/single.warc").getFile());
         File newFile = new File("/tmp/single.warc");
 
         try (Warc.Reader reader = new Warc.Reader(oldFile);
@@ -29,7 +29,7 @@ public class WarcWriterSpec {
 
     @Test
     public void writeMultiRecordWarcFile() {
-        File oldFile = new File(getClass().getResource("/org/iokit/warc/multi.warc").getFile());
+        File oldFile = new File(getClass().getResource("/io/webgraph/warc/multi.warc").getFile());
         File newFile = new File("/tmp/multi.warc");
 
         try (Warc.Reader reader = new Warc.Reader(oldFile);
@@ -43,7 +43,7 @@ public class WarcWriterSpec {
 
     @Test
     public void writeGzippedMultiRecordWarcFile() throws IOException {
-        File oldFile = new File(getClass().getResource("/org/iokit/warc/multi.warc.gz").getFile());
+        File oldFile = new File(getClass().getResource("/io/webgraph/warc/multi.warc.gz").getFile());
         File newFile = new File("/tmp/multi.warc.gz");
 
         try (Warc.Reader reader = new Warc.Reader(oldFile);
@@ -61,7 +61,7 @@ public class WarcWriterSpec {
 
     @Test
     public void writeMultiRecordWarcFileWithFoldingLine() throws IOException {
-        File oldFile = new File(getClass().getResource("/org/iokit/warc/multi-with-folding.warc").getFile());
+        File oldFile = new File(getClass().getResource("/io/webgraph/warc/multi-with-folding.warc").getFile());
         File newFile = new File("/tmp/multi-with-folding.warc");
 
         try (Warc.Reader reader = new Warc.Reader(oldFile);

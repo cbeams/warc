@@ -1,4 +1,4 @@
-package org.iokit.warc;
+package io.webgraph.warc;
 
 import org.iokit.message.DefinedField;
 import org.iokit.message.Field;
@@ -7,7 +7,7 @@ import org.iokit.message.FieldName;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import static org.iokit.warc.WarcType.*;
+import static io.webgraph.warc.WarcType.*;
 
 public enum WarcDefinedField implements DefinedField { // TODO: support field-type specific validation
 

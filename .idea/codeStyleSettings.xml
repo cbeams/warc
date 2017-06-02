@@ -7,7 +7,7 @@
         <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="2" />
         <option name="IMPORT_LAYOUT_TABLE">
           <value>
-            <package name="org.iokit.warc" withSubpackages="true" static="false" />
+            <package name="io.webgraph.warc" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org.iokit.message" withSubpackages="true" static="false" />
             <emptyLine />

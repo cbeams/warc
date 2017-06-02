@@ -1,4 +1,4 @@
-package org.iokit.warc;
+package io.webgraph.warc;
 
 import org.iokit.message.FieldNotFoundException;
 import org.iokit.message.FieldNotPermittedException;
@@ -18,10 +18,10 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static io.webgraph.warc.WarcDefinedField.*;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.iokit.warc.WarcDefinedField.*;
 
 public class WarcFieldSetValidatorSpec {
 
