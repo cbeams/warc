@@ -24,7 +24,7 @@ public class Warc {
 
     public static final LineTerminator LINE_TERMINATOR = WarcRecord.LINE_TERMINATOR;
 
-    private static final int GZIP_BUFFER_SIZE = 1024 * 1024;
+    public static final int DEFAULT_GZIP_BUFFER_SIZE = 1024 * 1024;
 
 
     public static class Reader extends ConcatenationReader<WarcRecord> {
@@ -40,7 +40,7 @@ public class Warc {
         }
 
         public Reader(InputStream in) {
-            this(in, new MultiMemberGzipInputStream.Adapter(GZIP_BUFFER_SIZE));
+            this(in, new MultiMemberGzipInputStream.Adapter(DEFAULT_GZIP_BUFFER_SIZE));
         }
 
         public Reader(InputStream in, IOKitInputStream.Adapter... adapters) {
@@ -68,7 +68,7 @@ public class Warc {
         // TODO: implement getByteCount up the stack
 
         public Writer(File warcFile) {
-            this(warcFile, new MultiMemberGzipOutputStream.Adapter(GZIP_BUFFER_SIZE));
+            this(warcFile, new MultiMemberGzipOutputStream.Adapter(DEFAULT_GZIP_BUFFER_SIZE));
         }
 
         public Writer(File warcFile, IOKitOutputStream.Adapter... adapters) {
