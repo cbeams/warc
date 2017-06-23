@@ -17,8 +17,8 @@ public class WarcWriterSpec {
         File oldFile = new File(getClass().getResource("/io/webgraph/warc/single.warc").getFile());
         File newFile = new File("/tmp/single.warc");
 
-        try (Warc.Reader reader = new Warc.Reader(oldFile);
-             Warc.Writer writer = new Warc.Writer(newFile)) {
+        try (WarcReader reader = new WarcReader(oldFile);
+             WarcWriter writer = new WarcWriter(newFile)) {
 
             writer.write(reader.read());
         }
@@ -31,8 +31,8 @@ public class WarcWriterSpec {
         File oldFile = new File(getClass().getResource("/io/webgraph/warc/multi.warc").getFile());
         File newFile = new File("/tmp/multi.warc");
 
-        try (Warc.Reader reader = new Warc.Reader(oldFile);
-             Warc.Writer writer = new Warc.Writer(newFile)) {
+        try (WarcReader reader = new WarcReader(oldFile);
+             WarcWriter writer = new WarcWriter(newFile)) {
 
             reader.stream().forEach(writer::write);
         }
@@ -45,8 +45,8 @@ public class WarcWriterSpec {
         File oldFile = new File(getClass().getResource("/io/webgraph/warc/multi.warc.gz").getFile());
         File newFile = new File("/tmp/multi.warc.gz");
 
-        try (Warc.Reader reader = new Warc.Reader(oldFile);
-             Warc.Writer writer = new Warc.Writer(newFile)) {
+        try (WarcReader reader = new WarcReader(oldFile);
+             WarcWriter writer = new WarcWriter(newFile)) {
 
             reader.stream().forEach(writer::write);
         }
@@ -63,8 +63,8 @@ public class WarcWriterSpec {
         File oldFile = new File(getClass().getResource("/io/webgraph/warc/multi-with-folding.warc").getFile());
         File newFile = new File("/tmp/multi-with-folding.warc");
 
-        try (Warc.Reader reader = new Warc.Reader(oldFile);
-             Warc.Writer writer = new Warc.Writer(newFile)) {
+        try (WarcReader reader = new WarcReader(oldFile);
+             WarcWriter writer = new WarcWriter(newFile)) {
 
             reader.stream().forEach(writer::write);
         }

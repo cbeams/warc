@@ -21,21 +21,21 @@ public class WarcReaderSpec {
 
     @Test
     public void readEmptyWarcFile() {
-        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/io/webgraph/warc/empty.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/io/webgraph/warc/empty.warc"));
         assertThatThrownBy(reader::read).isInstanceOf(IOKitException.class);
         assertThat(reader.getReadCount()).isZero();
     }
 
     @Test
     public void streamEmptyWarcFile() {
-        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/io/webgraph/warc/empty.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/io/webgraph/warc/empty.warc"));
         assertThatThrownBy(reader.stream()::count).isInstanceOf(IOKitException.class);
         assertThat(reader.getReadCount()).isZero();
     }
 
     @Test
     public void readEmptyWarcFileWithMinimumReadCountSetToZero() {
-        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/io/webgraph/warc/empty.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/io/webgraph/warc/empty.warc"));
         reader.setMinimumReadCount(0);
         assertThat(reader.readOptional()).isNotPresent();
         assertThat(reader.getReadCount()).isEqualTo(0);
@@ -43,7 +43,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readSingleRecordWarcFile() {
-        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/io/webgraph/warc/single.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/io/webgraph/warc/single.warc"));
 
         WarcRecord record = reader.read();
         assertThat(record.getHeader().getVersion()).hasToString(WarcVersion.WARC_1_0);
@@ -57,7 +57,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readMultiRecordWarcFile() {
-        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/io/webgraph/warc/multi.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/io/webgraph/warc/multi.warc"));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
@@ -68,14 +68,14 @@ public class WarcReaderSpec {
 
     @Test
     public void streamMultiRecordWarcFile() {
-        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/io/webgraph/warc/multi.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/io/webgraph/warc/multi.warc"));
         assertThat(reader.stream().count()).isEqualTo(3);
         assertThat(reader.getReadCount()).isEqualTo(3);
     }
 
     @Test
     public void readMultiRecordWarcFileWithMalformedRecord() {
-        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/io/webgraph/warc/multi-with-malformed-record.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/io/webgraph/warc/multi-with-malformed-record.warc"));
 
         // the first record is well-formed
         reader.read();
@@ -92,7 +92,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readMultiRecordWarcFileWithoutTrailingConcatenator() {
-        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/io/webgraph/warc/multi-without-trailing-concatenator.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/io/webgraph/warc/multi-without-trailing-concatenator.warc"));
 
         // the first record is well-formed
         reader.read();
@@ -111,7 +111,7 @@ public class WarcReaderSpec {
 
     @Test
     public void read_MultiRecordWarcFile_WithoutTrailingConcatenator_And_SetExpectTrailingConcatenator_SetToFalse() {
-        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/io/webgraph/warc/multi-without-trailing-concatenator.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/io/webgraph/warc/multi-without-trailing-concatenator.warc"));
         reader.setExpectTrailingConcatenator(false);
 
         // the first record is well-formed
@@ -129,7 +129,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readMultiRecordWarcFileWithGarbageOnLastLine() {
-        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/io/webgraph/warc/multi-with-garbage-on-last-line.warc"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/io/webgraph/warc/multi-with-garbage-on-last-line.warc"));
 
         // the first record is well-formed
         reader.read();
@@ -154,7 +154,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readGzippedWarcFile() {
-        Warc.Reader reader = new Warc.Reader(getClass().getResourceAsStream("/io/webgraph/warc/multi.warc.gz"));
+        WarcReader reader = new WarcReader(getClass().getResourceAsStream("/io/webgraph/warc/multi.warc.gz"));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
@@ -165,7 +165,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readGzippedWarcFileWithUserProvidedGZipInputStream() throws IOException {
-        Warc.Reader reader = new Warc.Reader(
+        WarcReader reader = new WarcReader(
             new GZIPInputStream(getClass().getResourceAsStream("/io/webgraph/warc/multi.warc.gz")));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
@@ -177,7 +177,7 @@ public class WarcReaderSpec {
 
     @Test
     public void readGzippedWarcFileAsFile() {
-        Warc.Reader reader = new Warc.Reader(new File(getClass().getResource("/io/webgraph/warc/multi.warc.gz").getFile()));
+        WarcReader reader = new WarcReader(new File(getClass().getResource("/io/webgraph/warc/multi.warc.gz").getFile()));
         WarcRecord record1 = reader.read();
         WarcRecord record2 = reader.read();
         WarcRecord record3 = reader.read();
@@ -192,7 +192,7 @@ public class WarcReaderSpec {
             new FileInputStream(
                 new File(getClass().getResource("/io/webgraph/warc/multi.warc.gz").getFile()));
 
-        try (Warc.Reader reader = new Warc.Reader(input)) {
+        try (WarcReader reader = new WarcReader(input)) {
             reader.read();
         }
 
