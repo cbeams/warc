@@ -44,4 +44,8 @@ public class WarcReader extends ConcatenationReader<WarcRecord> {
         super(recordReader, concatenatorReader);
         setMinimumReadCount(DEFAULT_MINIMUM_READ_COUNT);
     }
+
+    public void seek(long offset) {
+        in.skipRaw(offset);
+    }
 }
